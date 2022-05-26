@@ -1,0 +1,146 @@
+
+    digraph textX {
+    fontname = "Bitstream Vera Sans"
+    fontsize = 8
+    node[
+        shape=record,
+        style=filled,
+        fillcolor=aliceblue
+    ]
+    nodesep = 0.3
+    edge[dir=black,arrowtail=empty]
+
+
+23766880[ label="{FloorPlan|name: ID\l}"]
+
+23771824[ label="{Space|name: ID\lorder: INT\l}"]
+
+23734240[ label="{WallRef|index: INT\l}"]
+
+23676576[ label="{SpaceLocation|}"]
+
+23770880[ label="{FloorLocation|}"]
+
+23761632[ label="{WallLocation|}"]
+
+23726640[ label="{WallOpening|}"]
+
+23790176[ label="{FloorFeature|}"]
+
+23807376[ label="{Intersection|}"]
+
+23812912[ label="{Difference|}"]
+
+23818448[ label="{Union|}"]
+
+23823984[ label="{*WallRemoval|}"]
+
+23731296[ label="{*Polytope|}"]
+
+23736240[ label="{Rectangle|}"]
+
+23741184[ label="{Circle|r: FLOAT\l}"]
+
+23523936[ label="{*CartesianUnit|}"]
+
+23468144[ label="{Meter|value: FLOAT\l}"]
+
+23678576[ label="{PointXY|}"]
+
+23684112[ label="{PointXYZ|}"]
+
+23689648[ label="{*Point|}"]
+
+23696304[ label="{PositionXY|}"]
+
+23701248[ label="{PositionXYZ|}"]
+
+23706784[ label="{*Position|}"]
+
+23712320[ label="{*PolarUnit|}"]
+
+23717856[ label="{AngleInDegrees|value: FLOAT\l}"]
+
+23687648[ label="{AngleInRadians|value: FLOAT\l}"]
+
+23490496[ label="{*Orientation|}"]
+
+23715856[ label="{PoseDescription|}"]
+
+
+
+23766880 -> 23771824[arrowtail=diamond, dir=both, headlabel="spaces 1..*"]
+23766880 -> 23726640[arrowtail=diamond, dir=both, headlabel="wall_openings 0..*"]
+23766880 -> 23823984[arrowtail=diamond, dir=both, headlabel="wall_removal 0..*"]
+23771824 -> 23731296[arrowtail=diamond, dir=both, headlabel="shape "]
+23771824 -> 23676576[arrowtail=diamond, dir=both, headlabel="location "]
+23771824 -> 23790176[arrowtail=diamond, dir=both, headlabel="floor_features 0..*"]
+23734240 -> 23771824[headlabel="ref "]
+23676576 -> 23734240[arrowtail=diamond, dir=both, headlabel="from "]
+23676576 -> 23734240[arrowtail=diamond, dir=both, headlabel="to "]
+23676576 -> 23715856[arrowtail=diamond, dir=both, headlabel="pose "]
+23770880 -> 23734240[arrowtail=diamond, dir=both, headlabel="to "]
+23770880 -> 23715856[arrowtail=diamond, dir=both, headlabel="pose "]
+23761632 -> 23734240[arrowtail=diamond, dir=both, headlabel="wall "]
+23761632 -> 23715856[arrowtail=diamond, dir=both, headlabel="pose "]
+23726640 -> 23771824[headlabel="space_a "]
+23726640 -> 23771824[headlabel="space_b "]
+23726640 -> 23731296[arrowtail=diamond, dir=both, headlabel="shape "]
+23726640 -> 23761632[arrowtail=diamond, dir=both, headlabel="loc "]
+23790176 -> 23731296[arrowtail=diamond, dir=both, headlabel="shape "]
+23790176 -> 23770880[arrowtail=diamond, dir=both, headlabel="loc "]
+23807376 -> 23771824[headlabel="space_a "]
+23807376 -> 23771824[headlabel="space_b "]
+23812912 -> 23771824[headlabel="min "]
+23812912 -> 23771824[headlabel="sub "]
+23818448 -> 23771824[headlabel="spaces 1..*"]
+23823984 -> 23734240 [dir=back]
+23731296 -> 23736240 [dir=back]
+23731296 -> 23741184 [dir=back]
+23736240 -> 23523936[arrowtail=diamond, dir=both, headlabel="w "]
+23736240 -> 23523936[arrowtail=diamond, dir=both, headlabel="l "]
+23523936 -> 23468144 [dir=back]
+23678576 -> 23523936[arrowtail=diamond, dir=both, headlabel="x "]
+23678576 -> 23523936[arrowtail=diamond, dir=both, headlabel="y "]
+23684112 -> 23523936[arrowtail=diamond, dir=both, headlabel="x "]
+23684112 -> 23523936[arrowtail=diamond, dir=both, headlabel="y "]
+23684112 -> 23523936[arrowtail=diamond, dir=both, headlabel="z "]
+23689648 -> 23678576 [dir=back]
+23689648 -> 23684112 [dir=back]
+23696304 -> 23523936[arrowtail=diamond, dir=both, headlabel="x "]
+23696304 -> 23523936[arrowtail=diamond, dir=both, headlabel="y "]
+23701248 -> 23523936[arrowtail=diamond, dir=both, headlabel="x "]
+23701248 -> 23523936[arrowtail=diamond, dir=both, headlabel="y 1..*"]
+23706784 -> 23696304 [dir=back]
+23706784 -> 23701248 [dir=back]
+23712320 -> 23717856 [dir=back]
+23712320 -> 23687648 [dir=back]
+23490496 -> 23712320 [dir=back]
+23715856 -> 23706784[arrowtail=diamond, dir=both, headlabel="pos "]
+23715856 -> 23490496[arrowtail=diamond, dir=both, headlabel="rot "]
+match_rules [ shape=plaintext, label=< <table>
+	<tr>
+		<td><b>Column</b></td><td>column:</td>
+	</tr>
+	<tr>
+		<td><b>Comment</b></td><td>\/\/.*$</td>
+	</tr>
+	<tr>
+		<td><b>DividerWall</b></td><td>divider:</td>
+	</tr>
+	<tr>
+		<td><b>Entryway</b></td><td>entryway:</td>
+	</tr>
+	<tr>
+		<td><b>Window</b></td><td>window:</td>
+	</tr>
+	<tr>
+		<td><b>Polygon</b></td><td>polygon</td>
+	</tr>
+	<tr>
+		<td><b>RegularPolygon</b></td><td>polygon</td>
+	</tr>
+</table> >]
+
+
+}

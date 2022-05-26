@@ -1,0 +1,187 @@
+@startuml
+set namespaceSeparator .
+
+
+class exsce_floorplan.FloorPlan  {
+  name : ID
+}
+
+
+class exsce_floorplan.Space  {
+  name : ID
+  order : INT
+}
+
+
+class exsce_floorplan.WallRef  {
+  index : INT
+}
+
+
+class exsce_floorplan.SpaceLocation  {
+}
+
+
+class exsce_floorplan.FloorLocation  {
+}
+
+
+class exsce_floorplan.WallLocation  {
+}
+
+
+class exsce_floorplan.WallOpening  {
+}
+
+
+class exsce_floorplan.FloorFeature  {
+}
+
+
+class exsce_floorplan.Intersection  {
+}
+
+
+class exsce_floorplan.Difference  {
+}
+
+
+class exsce_floorplan.Union  {
+}
+
+
+class exsce_floorplan.WallRemoval  {
+}
+
+
+class exsce_polytope.Polytope <<abstract>> {
+}
+
+
+class exsce_polytope.Rectangle  {
+}
+
+
+class exsce_polytope.Circle  {
+}
+
+
+class exsce_common.CartesianUnit <<abstract>> {
+}
+
+
+class exsce_common.Meter  {
+  value : FLOAT
+}
+
+
+class exsce_common.PointXY  {
+}
+
+
+class exsce_common.PointXYZ  {
+}
+
+
+class exsce_common.Point <<abstract>> {
+}
+
+
+class exsce_common.PositionXY  {
+}
+
+
+class exsce_common.PositionXYZ  {
+}
+
+
+class exsce_common.Position <<abstract>> {
+}
+
+
+class exsce_common.PolarUnit <<abstract>> {
+}
+
+
+class exsce_common.AngleInDegrees  {
+  value : FLOAT
+}
+
+
+class exsce_common.AngleInRadians  {
+  value : FLOAT
+}
+
+
+class exsce_common.Orientation <<abstract>> {
+}
+
+
+class exsce_common.PoseDescription  {
+}
+
+
+exsce_floorplan.FloorPlan *-- "1..*" exsce_floorplan.Space
+exsce_floorplan.FloorPlan *-- "0..*" exsce_floorplan.WallOpening
+exsce_floorplan.FloorPlan *-- "0..*" exsce_floorplan.WallRemoval
+exsce_floorplan.Space *-- exsce_polytope.Polytope
+exsce_floorplan.Space *-- exsce_floorplan.SpaceLocation
+exsce_floorplan.Space *-- "0..*" exsce_floorplan.FloorFeature
+exsce_floorplan.WallRef o-- exsce_floorplan.Space
+exsce_floorplan.SpaceLocation *-- exsce_floorplan.WallRef
+exsce_floorplan.SpaceLocation *-- exsce_floorplan.WallRef
+exsce_floorplan.SpaceLocation *-- exsce_common.PoseDescription
+exsce_floorplan.FloorLocation *-- exsce_floorplan.WallRef
+exsce_floorplan.FloorLocation *-- exsce_common.PoseDescription
+exsce_floorplan.WallLocation *-- exsce_floorplan.WallRef
+exsce_floorplan.WallLocation *-- exsce_common.PoseDescription
+exsce_floorplan.WallOpening o-- exsce_floorplan.Space
+exsce_floorplan.WallOpening o-- exsce_floorplan.Space
+exsce_floorplan.WallOpening *-- exsce_polytope.Polytope
+exsce_floorplan.WallOpening *-- exsce_floorplan.WallLocation
+exsce_floorplan.FloorFeature *-- exsce_polytope.Polytope
+exsce_floorplan.FloorFeature *-- exsce_floorplan.FloorLocation
+exsce_floorplan.Intersection o-- exsce_floorplan.Space
+exsce_floorplan.Intersection o-- exsce_floorplan.Space
+exsce_floorplan.Difference o-- exsce_floorplan.Space
+exsce_floorplan.Difference o-- exsce_floorplan.Space
+exsce_floorplan.Union o-- "1..*" exsce_floorplan.Space
+exsce_floorplan.WallRemoval *-- exsce_floorplan.WallRef
+exsce_polytope.Polytope <|-- exsce_polytope.Rectangle
+exsce_polytope.Polytope <|-- exsce_polytope.Circle
+exsce_polytope.Rectangle *-- exsce_common.CartesianUnit
+exsce_polytope.Rectangle *-- exsce_common.CartesianUnit
+exsce_polytope.Circle *-- exsce_common.CartesianUnit
+exsce_common.CartesianUnit <|-- exsce_common.Meter
+exsce_common.PointXY *-- exsce_common.CartesianUnit
+exsce_common.PointXY *-- exsce_common.CartesianUnit
+exsce_common.PointXYZ *-- exsce_common.CartesianUnit
+exsce_common.PointXYZ *-- exsce_common.CartesianUnit
+exsce_common.PointXYZ *-- exsce_common.CartesianUnit
+exsce_common.Point <|-- exsce_common.PointXY
+exsce_common.Point <|-- exsce_common.PointXYZ
+exsce_common.PositionXY *-- exsce_common.CartesianUnit
+exsce_common.PositionXY *-- exsce_common.CartesianUnit
+exsce_common.PositionXYZ *-- exsce_common.CartesianUnit
+exsce_common.PositionXYZ *-- "1..*" exsce_common.CartesianUnit
+exsce_common.Position <|-- exsce_common.PositionXY
+exsce_common.Position <|-- exsce_common.PositionXYZ
+exsce_common.PolarUnit <|-- exsce_common.AngleInDegrees
+exsce_common.PolarUnit <|-- exsce_common.AngleInRadians
+exsce_common.Orientation <|-- exsce_common.PolarUnit
+exsce_common.PoseDescription *-- exsce_common.Position
+exsce_common.PoseDescription *-- exsce_common.Orientation
+
+legend
+  Match rules:
+  |= Name  |= Rule details |
+  | Window | window: |
+  | Column | column: |
+  | DividerWall | divider: |
+  | Comment | \\/\\/.*$ |
+  | Entryway | entryway: |
+  | Polygon | polygon |
+  | RegularPolygon | polygon |
+end legend
+
+@enduml
