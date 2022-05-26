@@ -1,0 +1,17 @@
+import floorplan_geometry
+
+Polytope:
+    Rectangle | Circle | Polygon
+;
+
+Rectangle:
+    'Rectangle' 'width' '=' w=CartesianUnit ',' 'length' '=' l=CartesianUnit
+;
+
+Circle:
+    'Circle' 'radius' '=' r=CartesianUnit
+;
+
+Polygon:
+    'Polygon' 'points' '=' '[' points+=PointXY[','] ']' 
+;

@@ -1,0 +1,130 @@
+import floorplan_polytope
+import floorplan_geometry
+
+/*
+    Floorplan language for modeling the floorplan of indoor environments.
+*/
+
+/*
+TODO:
+- Wall thickness specification
+- Doorway width
+*/
+
+FloorPlan:
+    'Floor plan' ':' name=ID
+        spaces += Space 
+        boolean_operations*=BooleanOperation?
+        wall_openings*=WallOpening?
+        wall_removal*=WallRemoval?
+;
+
+Space:
+    'Space' name=ID ':'
+        'shape' ':' shape=Polytope
+        'location' ':' 
+            location=SpaceLocation
+        ('wall thickness' wall_thickness=WallThickness)?
+        ('features' ':' 
+            floor_features*=FloorFeature
+        )?
+        ('order:' order=INT)?
+;
+
+/* ------------------------------------------ */
+// Wall 
+WallRef:
+    ('this' | ref=[Space]) '.walls[' index=INT ']' | 'world'
+;
+
+WallThickness:
+    value=CartesianUnit | '[' value+=CartesianUnit[','] ']'
+;
+
+/* ------------------------------------------ */
+// Location
+
+SpaceLocation:
+    'from:' from=WallRef
+    'to:' to=WallRef
+    pose=PoseDescription
+;
+
+FloorLocation:
+    'from:' to=WallRef
+    pose=PoseDescription
+;
+
+WallLocation:
+    'wall:' wall=WallRef
+    pose=PoseDescription
+;
+
+/* ------------------------------------------ */
+// WallOpening
+
+WallOpening:
+    Entryway|Window
+;
+
+Entryway:
+    'entryway:'
+    'in:' space_a=[Space] ('and' space_b=[Space])?
+    'shape:' shape=Polytope 
+    'location:' loc=WallLocation
+;
+
+Window:
+    'window:' 
+    'in:' space_a=[Space] ('and' space_b=[Space])?
+    'shape:' shape=Polytope 
+    'location:' loc=WallLocation
+;
+
+/* ------------------------------------------ */
+// FloorFeature
+
+FloorFeature:
+    DividerWall | Column
+;
+
+DividerWall:
+    'divider:'
+    'shape:' shape=Polytope
+    'location:' loc=FloorLocation
+;
+
+Column:
+    'column:'
+    'shape:' shape=Polytope
+    'location:' loc=FloorLocation
+;
+
+/* ------------------------------------------ */
+// Boolean operations and others
+
+BooleanOperation:
+    Intersection | Difference | Union
+;
+
+Intersection:
+    'intersection:' space_a=[Space] ',' space_b=[Space]
+;
+
+Difference:
+    'difference:' min=[Space] '-' sub=[Space]
+;
+
+Union:
+    'union:' spaces+=[Space]['+']
+;
+
+WallRemoval:
+    "remove wall:" wall=WallRef
+;
+
+/* ------------------------------------------ */
+// special rule for comments.
+Comment:
+    /\/\/.*$/
+;

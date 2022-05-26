@@ -1,0 +1,18 @@
+Floor plan: sacred_heart_hospital
+
+    Space reception:
+        shape: Rectangle width=10m, length=10m 
+        location:
+            from: world.origin
+            to: this.center
+            translation: (x:0, y:0)
+            rotation: 0deg
+        
+    Space hallway:
+        shape: Rectangle width=4m, length=20m
+        location:
+            from: reception.walls[0]
+            to: this.walls[2]
+            translation: (x:2m, y:0)
+            rotation: 0deg
+
