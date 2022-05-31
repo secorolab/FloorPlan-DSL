@@ -58,9 +58,9 @@ class Frame():
         None
         '''
 
-        self.__t = array([.0, .0, .0])          # translation
-        self.__R = np.identity(3)               # rotation
-        self.__ref = ref_frame                  # reference frame
+        self.t = array([0.0, 0.0, 0.0])          # translation
+        self.R = np.identity(3)               # rotation
+        self.ref = ref_frame                  # reference frame
 
     def set_translation(self, t):
         '''
@@ -76,7 +76,7 @@ class Frame():
         None
         '''
 
-        self.__t = t 
+        self.t = t 
 
     def set_orientation(self, gamma, beta, alpha):
         '''
@@ -114,7 +114,7 @@ class Frame():
             [            0,              0,     1]
         ])
 
-        self.__R = Rz.dot(Ry.dot(Rx))
+        self.R = Rz.dot(Ry.dot(Rx))
 
     def get_transformation(self):
         '''
@@ -133,7 +133,10 @@ class Frame():
             The rotation matrix (3x3)
         '''
 
-        return self.__t, self.__R
+        return self.t, self.R
+
+    def set_rotation_matrix(self, R):
+        self.R = R
 
     def get_reference_frame(self):
         '''
@@ -149,7 +152,10 @@ class Frame():
             the reference frame 
         '''
 
-        return self.__ref
+        return self.ref
+
+    def change_reference_frame(self, new_frame):
+        self.ref = new_frame
 
     def get_point_transformation_wrt(self, points, wrt=None):
         '''
