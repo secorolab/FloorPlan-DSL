@@ -11,7 +11,8 @@ from exsce_floorplan.Classes.Polytope import *
 from exsce_floorplan.Classes.Floorplan import *
 
 def draw_wall(plt, wall_points):
-    p = Pol(wall_points, closed=True, edgecolor='k', fill=False)
+    # cmap=plt.cm.get_cmap(plt.cm.viridis, 143)
+    p = Pol(wall_points, closed=True, color=np.random.random(3))
     plt.add_patch(p)
 
 def square_uniform_offset():
@@ -155,14 +156,11 @@ def two_spaces_with_location_and_offset():
     space_b.create_walls()
     space_b.offset_shape(0.4)
 
-   
-    t_a, R_a = a.get_transformation()
-    T_a = np.hstack((np.vstack((R_a, np.zeros(3))), np.vstack((t_a.reshape((3,1)), [1]))))
-
     b = Frame(world)
     b.set_translation(np.array([3, 0.7, 0]))
-    t_b, R_b = b.get_transformation()
-    T_b = np.hstack((np.vstack((R_b, np.zeros(3))), np.vstack((t_b.reshape((3,1)), [1]))))
+
+    T_a = a.get_transformation_matrix()
+    T_b = b.get_transformation_matrix()
 
     space_a.locate_space(world, space_a.shape.frame, T_a)
     space_b.locate_space(space_a.walls[1].frame, space_b.walls[2].frame, T_b, True)
@@ -219,16 +217,12 @@ def more_complex_shapes():
     space_b.create_walls()
     space_b.offset_shape(0.4)
 
-    t_a, R_a = a.get_transformation()
-    T_a = np.hstack((np.vstack((R_a, np.zeros(3))), np.vstack((t_a.reshape((3,1)), [1]))))
-
     b = Frame(world)
     b.set_translation(np.array([0, 0.9, 0]))
-    t_b, R_b = b.get_transformation()
-    T_b = np.hstack((np.vstack((R_b, np.zeros(3))), np.vstack((t_b.reshape((3,1)), [1]))))
 
-    t_c, R_c = c.get_transformation()
-    T_c = np.hstack((np.vstack((R_c, np.zeros(3))), np.vstack((t_c.reshape((3,1)), [1]))))
+    T_a = a.get_transformation_matrix()
+    T_b = b.get_transformation_matrix()
+    T_c = c.get_transformation_matrix()
 
     space.locate_space(world, space.shape.frame, T_c)
     space_a.locate_space(space.walls[3].frame, space_a.walls[2].frame, T_a, True)
@@ -269,6 +263,26 @@ def no_show_wall():
         draw_wall(ax, point[:,0:2])
     plt.show()
 
+def circle_wall_test():
+    world = Frame()
+    a = Frame(world)
+    a.set_translation(np.array([4, 3, 0]))
+    a.set_orientation(0, 0, np.deg2rad(0))
+    shape = Circle("a", a, 10)
+    space = Space("parent", "room", shape, None, None)
+    space.create_walls()
+    space.offset_shape(0.3)
+    points = space.get_walls_wrt_world()
+
+    plt.axis('equal') 
+    ax = plt.gca()
+    ax.set_xlim(-10, 10)
+    ax.set_ylim(-10, 10)
+
+    for point in points:
+        draw_wall(ax, point[:,0:2])
+    plt.show()
+
 
 if __name__=='__main__':
     square_uniform_offset()
@@ -278,3 +292,4 @@ if __name__=='__main__':
     two_spaces_with_location_and_offset()
     more_complex_shapes()
     no_show_wall()
+    circle_wall_test()

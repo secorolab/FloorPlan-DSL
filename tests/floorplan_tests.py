@@ -312,6 +312,31 @@ def locate_space_wrt_another_space_four():
 
     plt.show()
 
+def circle_space_creation():
+
+    world = Frame()
+    a = Frame(world)
+    a.set_translation(np.array([4, 3, 0]))
+    a.set_orientation(0, 0, np.deg2rad(0))
+    shape = Circle("a", a, 10)
+    space = Space("parent", "room", shape, None, None)
+    space.create_walls()
+
+    points = space.get_shape().get_points()
+
+    plt.axis('equal') 
+    ax = plt.gca()
+    draw_shape(ax, points[:,0:2])
+
+    for i, wall in enumerate(space.walls):
+        frame = wall.get_frame()
+        draw_coordinate_frame_2D(ax, frame, i)
+
+    draw_coordinate_frame_2D(ax, shape.get_frame())
+    draw_coordinate_frame_2D(ax, world)
+
+    plt.show()
+
 if __name__ == '__main__':
     square_space_creation_test()
     polygon_space_creation_test()
@@ -319,3 +344,4 @@ if __name__ == '__main__':
     locate_space_wrt_another_space_two()
     locate_space_wrt_another_space_three()
     locate_space_wrt_another_space_four()
+    circle_space_creation()
