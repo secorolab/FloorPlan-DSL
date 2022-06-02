@@ -31,9 +31,15 @@ class Frame():
     set_orientation(gamma, beta, alpha)
         sets the orientation of the frame wrt to the refernece frame.
     get_transformation()
-        returns the translation and rotation matrix for the frame
+        returns the translation and rotation matrix for the frame.
+    get_transformation_matrix()
+        returns the 4x4 transformation matrix
+    set_rotation_matrix(R)
+        sets the rotation matrix directly
     get_reference_frame()
         returns the reference frame
+    change_reference_frame(new_frame)
+        set the new reference frame
     get_point_transformation_wrt(points, wrt=None)
         transforms a group of points defined wrt the frame to a specified frame, 
         the default is the world frame.
@@ -135,7 +141,36 @@ class Frame():
 
         return self.t, self.R
 
+    def get_transformation_matrix(self):
+        '''
+        returns the 4x4 transformation matrix 
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        T : numpy array
+            The 4x4 transformation matrix
+        '''
+        R = np.vstack((self.R, np.zeros(3)))
+        t = np.vstack((self.t.reshape(3,1), array([1])))
+        return np.hstack((R, t))
+
     def set_rotation_matrix(self, R):
+        '''
+        sets the rotation matrix directly
+
+        Parameters
+        ----------
+        R : numpy array
+            The 3x3 rotation matrix
+
+        Returns
+        -------
+        None
+        '''
         self.R = R
 
     def get_reference_frame(self):
@@ -155,6 +190,18 @@ class Frame():
         return self.ref
 
     def change_reference_frame(self, new_frame):
+        '''
+        Changes the reference frame for the frame
+
+        Parameters
+        ----------
+        new_frame : Frame
+            the new reference frame
+
+        Returns
+        -------
+        None
+        '''
         self.ref = new_frame
 
     def get_point_transformation_wrt(self, points, wrt=None):
@@ -182,13 +229,10 @@ class Frame():
             if (frame.get_reference_frame() is None) or (frame is wrt):
                 break
 
-            # build transformation matrix
-            t, R = frame.get_transformation()
-            R = np.vstack((R, np.zeros(3)))
-            t = np.vstack((t.reshape(3,1), array([1])))
+            T = frame.get_transformation_matrix()
 
             # calculate transformation up to current frame
-            points = np.einsum('ij,kj->ki', np.hstack((R, t)), points)
+            points = np.einsum('ij,kj->ki', T, points)
 
             # get the next frame
             frame = frame.get_reference_frame()
