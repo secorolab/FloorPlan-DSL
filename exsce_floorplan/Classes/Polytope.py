@@ -2,6 +2,8 @@ from .Geometry import Frame
 import copy
 import numpy as np
 
+from .Geometry import Frame
+
 class Polytope(object):
     '''
     An abstract class to represent a polytope.
@@ -37,7 +39,7 @@ class Polytope(object):
         returns the polytope frame
     '''
 
-    def __init__(self, parent, frame):
+    def __init__(self, parent):
         '''
         constructor of the polytope class
 
@@ -54,7 +56,7 @@ class Polytope(object):
         '''
 
         self.parent = parent
-        self.frame = frame
+        self.frame = Frame()
         self.points = np.array([])
 
     def set_points(self, points=np.array([])):
@@ -207,7 +209,7 @@ class Rectangle(Polytope):
         lenght of rectangle
     '''
 
-    def __init__(self, parent, frame, w, l):
+    def __init__(self, parent, w, l):
         '''
         constructor of the rectangle class
 
@@ -227,9 +229,9 @@ class Rectangle(Polytope):
         None
         '''
 
-        super().__init__(parent, frame)
-        self.w = w
-        self.l = l
+        super().__init__(parent)
+        self.w = w.value
+        self.l = l.value
         
         w = self.w /2
         l = self.l/2
@@ -258,7 +260,7 @@ class Polygon(Polytope):
         frame
     '''
     
-    def __init__(self, parent, frame, points):
+    def __init__(self, parent, points):
         '''
         constructor of the Polygon class
 
@@ -277,8 +279,9 @@ class Polygon(Polytope):
         None
         '''
 
-        super().__init__(parent, frame)
-        self.set_points(np.hstack((points, np.zeros((len(points), 1)))))
+        super().__init__(parent)     
+        points = [[point.x.value, point.y.value, 0] for point in points]
+        self.set_points(points)
 
 class Circle(Polytope):
     '''
@@ -299,7 +302,7 @@ class Circle(Polytope):
         Radius of the circle
     '''
     
-    def __init__(self, parent, frame, radius):
+    def __init__(self, parent, radius):
         '''
         constructor of the Circle class
 
@@ -317,8 +320,8 @@ class Circle(Polytope):
         None
         '''
 
-        super().__init__(parent, frame)
-        self.r = radius
+        super().__init__(parent)
+        self.r = radius.value
         arc_definition = 40
         arc_interval = 360.0/arc_definition
         points = [
@@ -330,7 +333,7 @@ class Circle(Polytope):
 # Experimental - Not part of the final tooling
 class RegularPolygon(Polytope):
 
-    def __init__(self, parent, frame, radius, vertices):
+    def __init__(self, parent, radius, vertices):
         '''
         description
 
@@ -341,7 +344,7 @@ class RegularPolygon(Polytope):
         -------
         '''
 
-        super().__init__(parent, frame)
+        super().__init__(parent)
         self.r = radius
         self.vertices = vertices
         arc_interval = 360.0/self.vertices

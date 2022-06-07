@@ -1,37 +1,17 @@
-CartesianUnit:
-    Meter
-;
-
 Meter:
     value=FLOAT 'm'
 ;
 
-PointXY:
-    '(' x=CartesianUnit ',' y=CartesianUnit ')'
-;
-
-PointXYZ:
-    '(' x=CartesianUnit ',' y=CartesianUnit ',' z=CartesianUnit ')'
+CartesianUnit:
+    Meter
 ;
 
 Point:
-    PointXY | PointXYZ
-;
-
-PositionXY:
-    'x:' x=CartesianUnit ',' 'y:' y=CartesianUnit
-;
-
-PositionXYZ:
-    'x:' x=CartesianUnit ',' 'y:' y=CartesianUnit ',' 'z:' y=CartesianUnit
+    '(' x=CartesianUnit ',' y=CartesianUnit ')'
 ;
 
 Position:
-    PositionXY | PositionXYZ
-;
-
-PolarUnit:
-    AngleInDegrees | AngleInRadians
+    'x:' x=CartesianUnit ',' 'y:' y=CartesianUnit (',' 'z:' z=CartesianUnit)?
 ;
 
 AngleInDegrees:
@@ -43,10 +23,10 @@ AngleInRadians:
 ;
 
 Orientation:
-    PolarUnit
+    AngleInDegrees | AngleInRadians
 ;
 
 PoseDescription:
     'translation:' pos=Position
-    'rotation:' rot=Orientation
+    'rotation:' rot=AngleInDegrees
 ;

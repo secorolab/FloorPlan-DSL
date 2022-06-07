@@ -13,5 +13,7 @@ Circle:
 ;
 
 Polygon:
-    'Polygon' 'points' '=' '[' points+=PointXY[','] ']' 
+    'Polygon' 'points:['
+        points*=Point[',']
+    ']'
 ;

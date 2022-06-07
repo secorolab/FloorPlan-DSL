@@ -24,7 +24,7 @@ Space:
         'shape' ':' shape=Polytope
         'location' ':' 
             location=SpaceLocation
-        ('wall thickness' wall_thickness=WallThickness)?
+        ('wall thickness' ':' wall_thickness=CartesianUnit)?
         ('features' ':' 
             floor_features*=FloorFeature
         )?
@@ -33,25 +33,42 @@ Space:
 
 /* ------------------------------------------ */
 // Wall 
+
+//FromWall 
+Wall:
+    INT | "null"
+;
+
+FromFrameRef:
+    world?="world" | ref=[Space]('.walls[' index=Wall ']')?
+;
+
+//ToWall
+ToFrameRef:
+    "this" ('.walls[' index=Wall ']')?
+;
+
 WallRef:
-    ('this' | ref=[Space]) '.walls[' index=INT ']' | 'world'
+    ref=[Space] '.walls[' index=Wall ']'
 ;
 
 WallThickness:
-    value=CartesianUnit | '[' value+=CartesianUnit[','] ']'
+    "wall"
 ;
 
 /* ------------------------------------------ */
 // Location
 
 SpaceLocation:
-    'from:' from=WallRef
-    'to:' to=WallRef
+    'from:' _from=FromFrameRef
+    'to:' to=ToFrameRef
     pose=PoseDescription
+    //flags
+    (aligned?="not aligned" spaced?="spaced")#
 ;
 
 FloorLocation:
-    'from:' to=WallRef
+    'from:' _from=FromFrameRef
     pose=PoseDescription
 ;
 

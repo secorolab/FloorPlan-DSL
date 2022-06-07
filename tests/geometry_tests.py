@@ -72,9 +72,9 @@ def frame_location_test_two():
 
 def square_room_location_test():
     world = Frame()
-    rect_a = Rectangle("a", world,10, 10)
-    rect_b = Rectangle("a", world, 2, 7)
-    rect_c = Rectangle("a", world, 4, 10)
+    rect_a = Rectangle("a", Frame(world),10, 10)
+    rect_b = Rectangle("a", Frame(world), 2, 7)
+    rect_c = Rectangle("a", Frame(world), 4, 10)
 
     rect_a.translation(4, 4)
     rect_b.translation(-2, -6)
@@ -122,8 +122,8 @@ def custom_shape_room():
         [  2.15479351 , 9.2178577 ]
     ]
     world = Frame()
-    pol1 = Polygon("a", world, np.array(points))
-    pol2 = Polygon("a", world, np.array(points))
+    pol1 = Polygon("a", Frame(world), np.array(points))
+    pol2 = Polygon("a", Frame(world), np.array(points))
 
     pol1.translation(2, 5)
     pol2.translation(0, -15)
@@ -149,8 +149,8 @@ def custom_shape_room():
 
 def circle_shape_room():
     world = Frame()
-    c1 = Circle("a", world, 5)
-    c2 = Circle("a", world, 10)
+    c1 = Circle("a", Frame(world), 5)
+    c2 = Circle("a", Frame(world), 10)
 
     c1.translation(3, 0)
     c2.translation(-4, -10)
@@ -176,8 +176,8 @@ def circle_shape_room():
 
 def regular_polygon_room():
     world = Frame()
-    c1 = RegularPolygon("a", world, 5, 5)
-    c2 = RegularPolygon("a", world, 10, 6)
+    c1 = RegularPolygon("a", Frame(world), 5, 5)
+    c2 = RegularPolygon("a", Frame(world), 10, 6)
 
     c1.translation(3, 0)
     c2.translation(-4, -10)

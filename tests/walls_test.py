@@ -145,15 +145,15 @@ def two_spaces_with_location_and_offset():
     a.set_translation(np.array([4, 3, 0]))
     a.set_orientation(0, 0, np.deg2rad(35))
 
-    shape_a = Rectangle("a", Frame(world), 5, 15)
-    space_a = Space("parent", "room", shape_a, None, None)
+    shape_a = Rectangle("a", 5, 15)
+    space_a = Space("parent", "room", shape_a, None, None, 3, 3)
 
-    space_a.create_walls()
+    #space_a.create_walls()
     space_a.offset_shape(0.3)
 
-    shape_b = Rectangle("a", Frame(world), 5, 8)
-    space_b = Space("parent", "room", shape_b, None, None)
-    space_b.create_walls()
+    shape_b = Rectangle("a", 5, 8)
+    space_b = Space("parent", "room", shape_b, None, None, 3, 3)
+    #space_b.create_walls()
     space_b.offset_shape(0.4)
 
     b = Frame(world)
@@ -266,9 +266,9 @@ def no_show_wall():
 def circle_wall_test():
     world = Frame()
     a = Frame(world)
-    a.set_translation(np.array([4, 3, 0]))
+    a.set_translation(np.array([0, 0, 0]))
     a.set_orientation(0, 0, np.deg2rad(0))
-    shape = Circle("a", a, 10)
+    shape = Circle("a", a, 5.5)
     space = Space("parent", "room", shape, None, None)
     space.create_walls()
     space.offset_shape(0.3)
@@ -283,13 +283,12 @@ def circle_wall_test():
         draw_wall(ax, point[:,0:2])
     plt.show()
 
-
 if __name__=='__main__':
-    square_uniform_offset()
-    square_non_uniform_offset()
-    custom_uniform_offset()
-    custom_non_uniform_offset()
+    # square_uniform_offset()
+    # square_non_uniform_offset()
+    # custom_uniform_offset()
+    # custom_non_uniform_offset()
     two_spaces_with_location_and_offset()
-    more_complex_shapes()
-    no_show_wall()
-    circle_wall_test()
+    # more_complex_shapes()
+    # no_show_wall()
+    # circle_wall_test()
