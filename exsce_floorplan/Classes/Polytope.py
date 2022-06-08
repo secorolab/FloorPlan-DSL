@@ -231,7 +231,7 @@ class Rectangle(Polytope):
 
         super().__init__(parent)
         self.w = w.value
-        self.l = l.value
+        self.l = l.value 
         
         w = self.w /2
         l = self.l/2
@@ -353,3 +353,59 @@ class RegularPolygon(Polytope):
             self.r * np.cos(np.deg2rad(a)), 
             0] for a in np.arange(0, 360, arc_interval)]
         self.set_points(np.array(points))
+
+class VerticalRectangle(Polytope):
+
+    def __init__(self, parent, w, h):
+        super().__init__(parent)
+        self.w = w.value
+        self.h = h.value 
+        
+        w = self.w /2
+
+        self.set_points(np.array([
+            [-w, 0, self.h], 
+            [w, 0, self.h], 
+            [w, 0, 0], 
+            [-w, 0, 0]
+        ]))   
+
+class VerticalPolygon(Polytope):
+    '''
+    Class to represent a custom polygon.
+
+    ... 
+
+    Attributes
+    ----------
+    parent : object
+        TextX requirement
+    frame : Frame
+        Refernce frame for the polytope
+    points : Numpy array
+        Group of points that bound the polytope, specified wrt the polytope 
+        frame
+    '''
+    
+    def __init__(self, parent, points):
+        '''
+        constructor of the Polygon class
+
+        Parameters
+        ----------
+        parent : Textx object
+            Textx requirement, parent class for this object
+        frame : Frame
+            Frame of reference for the polytope points that define its boundary
+        points : numpy array
+            Points that define the boundary of the space wrt to the polytope
+            frame
+
+        Returns
+        -------
+        None
+        '''
+
+        super().__init__(parent)     
+        points = [[point.x.value, 0, point.y.value] for point in points]
+        self.set_points(points)

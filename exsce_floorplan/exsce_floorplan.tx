@@ -7,16 +7,16 @@ import floorplan_geometry
 
 /*
 TODO:
-- Wall thickness specification
-- Doorway width
+- Polar coordinates for Circle spaces
 */
 
 FloorPlan:
-    'Floor plan' ':' name=ID
+    'Floor plan' ':' name = ID
         spaces += Space 
-        boolean_operations*=BooleanOperation?
-        wall_openings*=WallOpening?
-        wall_removal*=WallRemoval?
+        boolean_operations *= BooleanOperation?
+        wall_openings *= WallOpening?
+        wall_removal *= WallRemoval?
+        default = DefaultValues
 ;
 
 Space:
@@ -25,10 +25,17 @@ Space:
         'location' ':' 
             location=SpaceLocation
         ('wall thickness' ':' wall_thickness=CartesianUnit)?
+        ('wall height' ':' wall_height=CartesianUnit)?
         ('features' ':' 
             floor_features*=FloorFeature
         )?
         ('order:' order=INT)?
+;
+
+DefaultValues:
+    'Default values' ':'
+        'Wall thickness' ':' wall_thickness = CartesianUnit
+        'Wall height' ':' wall_height = CartesianUnit
 ;
 
 /* ------------------------------------------ */
@@ -62,7 +69,8 @@ WallThickness:
 SpaceLocation:
     'from:' _from=FromFrameRef
     'to:' to=ToFrameRef
-    pose=PoseDescription
+    'pose:'
+        pose=PoseDescription
     //flags
     (aligned?="not aligned" spaced?="spaced")#
 ;
@@ -72,30 +80,15 @@ FloorLocation:
     pose=PoseDescription
 ;
 
-WallLocation:
-    'wall:' wall=WallRef
-    pose=PoseDescription
-;
-
 /* ------------------------------------------ */
 // WallOpening
 
 WallOpening:
-    Entryway|Window
-;
-
-Entryway:
-    'entryway:'
-    'in:' space_a=[Space] ('and' space_b=[Space])?
-    'shape:' shape=Polytope 
-    'location:' loc=WallLocation
-;
-
-Window:
-    'window:' 
-    'in:' space_a=[Space] ('and' space_b=[Space])?
-    'shape:' shape=Polytope 
-    'location:' loc=WallLocation
+    (entryway?='Entryway' | window?='Window') name=ID ':'
+    'in:' wall_a=WallRef ('and' wall_b=WallRef)?
+        'shape:' shape=VerticalPolytope
+        'pose:' 
+            loc=PoseDescription
 ;
 
 /* ------------------------------------------ */

@@ -17,3 +17,17 @@ Polygon:
         points*=Point[',']
     ']'
 ;
+
+VerticalPolytope:
+    VerticalRectangle | VerticalPolygon
+;
+
+VerticalPolygon:
+    'Polygon' 'points:['
+        points*=Point[',']
+    ']'
+;
+
+VerticalRectangle:
+    'Rectangle' 'width' '=' w=CartesianUnit ',' 'height' '=' h=CartesianUnit
+;
