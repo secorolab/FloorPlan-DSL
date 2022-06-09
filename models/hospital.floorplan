@@ -27,6 +27,8 @@ Floor plan: sacred_heart_hospital
                 translation: x:2.0 m, y:0.0 m
                 rotation: 0.0 deg
             spaced
+        wall thickness: 0.40 m 
+        wall height: 2.5 m
 
     Space room_A:
         shape: Rectangle width=3.5 m, length=4.2 m
@@ -59,14 +61,28 @@ Floor plan: sacred_heart_hospital
         in: room_A.walls[1] and hallway.walls[3]
         shape: Rectangle width=1.2 m, height=2.0 m
         pose:
-            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: 1.0 m, y: 0.0 m, z: 0.0 m
             rotation: 0.0 deg
 
     Entryway hallway_roomB: 
         in: room_B.walls[0] and hallway.walls[3]
-        shape: Rectangle width=1.2 m, height=2.0 m
+        shape: Rectangle width=1.0 m, height=1.8 m
         pose:
-            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: -1.0 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+    
+    Window hallway_window_1:
+        in: hallway.walls[1]
+        shape: Rectangle width=3.0 m, height=1.5 m
+        pose:
+            translation: x: 3.0 m, y: 0.0 m, z: 0.8 m
+            rotation: 0.0 deg
+    
+    Window hallway_window_2:
+        in: hallway.walls[1]
+        shape: Rectangle width=3.0 m, height=1.5 m
+        pose:
+            translation: x: -1.0 m, y: 0.0 m, z: 0.8 m
             rotation: 0.0 deg
         
     Default values:

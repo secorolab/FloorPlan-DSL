@@ -15,6 +15,8 @@ from matplotlib.patches import Polygon as Pol
 from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
 
+np.set_printoptions(suppress=True)
+
 from Classes.Space import Space
 from Classes.Polytope import (
                         Circle, 
@@ -24,6 +26,13 @@ from Classes.Polytope import (
                         VerticalRectangle
                         ) 
 from Classes.WallOpening import WallOpening
+
+from Blender.blender import (
+    clear_scene,
+    create_mesh,
+    create_collection,
+    boolean_operation_difference
+)
 
 '''
 TODO
@@ -70,44 +79,32 @@ class FloorPlan(object):
 
     def model_to_3d_transformation(self):
 
-        building = bpy.data.collections.new(self.model.name)
-        bpy.context.scene.collection.children.link(building)
-
+        building = create_collection(self.model.name)
         # clear the blender scene
-        for obj in bpy.context.scene.objects:
-            obj.select_set(True)
-            bpy.ops.object.delete()
+        clear_scene()
 
         # create wall spaces
         for space in self.spaces:
             for i, wall in enumerate(space.walls):
                 vertices, faces = wall.generate_3d_structure()
-
-                space_name = "{space}.wall{index}".format(space=space.name, 
-                                                            index=i
-                                                        )
-
-                me = bpy.data.meshes.new(space_name)
-                me.from_pydata(vertices, [], faces)
-                me.update()
-
-                bm = bmesh.new()
-                bm.from_mesh(me, face_normals=True) 
-
-                bm.to_mesh(me)
-                bm.free()
-                me.update()
-
-                obj = bpy.data.objects.new(space_name, me)
-                building.objects.link(obj)
+                create_mesh(building, wall.name, vertices, faces)
 
         # create wall openings
         for wall_opening in self.wall_openings:
+
             vertices, faces = wall_opening.generate_3d_structure()
-
-
-
-
+            create_mesh(building, wall_opening.name, vertices, faces)
+            
+            # boolean operation for walls and opening
+            boolean_operation_difference(wall_opening.wall_a.name, 
+                                        wall_opening.name)
+            if not wall_opening.wall_b is None:
+                boolean_operation_difference(wall_opening.wall_b.name, 
+                                        wall_opening.name)
+            
+            bpy.data.objects[wall_opening.name].select_set(True)
+            bpy.ops.object.delete()
+        
     def interpret(self):
         # perform all boolean operations and merge spaces accordingly
 

@@ -130,11 +130,15 @@ class Space(object):
         from_frame = Frame()
         to_frame = self.get_frame()
 
+        from_wall = None
+        to_wall = None
+
         if not self.location._from.index is None:
-            from_frame = self.location._from.ref.get_wall_frame(
-                                        self.location._from.index)
+            from_wall = self.location._from.ref.get_wall(self.location._from.index)
+            from_frame = from_wall.get_frame()
         if not self.location.to.index is None:
-            to_frame = self.get_wall_frame(self.location.to.index)
+            to_wall = self.get_wall(self.location.to.index)
+            to_frame = to_wall.get_frame()
 
         # Extract from the model the translation and rotation
         pose = self.location.pose.pos
@@ -151,11 +155,7 @@ class Space(object):
         # if spaced flag is on and two walls are used, then add to the y value
         # the wall thickness of the two walls
         if (wall_to_wall and self.location.spaced):
-            wall_thickness = (self.location._from.ref.get_wall_thickness(
-                            self.location._from.index) + 
-                            self.get_wall_thickness(
-                            self.location.to.index)
-                            )
+            wall_thickness = from_wall.thickness + to_wall.thickness
             y += wall_thickness
 
         # Build the transformation matrix with an auxiliary frame
@@ -229,8 +229,14 @@ class Space(object):
         '''
         points = self.shape.get_points(self.shape.frame)
         points = np.vstack((points, points[0]))
-        self.walls = [Wall(p1, p2, self.shape.frame, self.wall_thickness, 
-                self.wall_height) for p1, p2 in zip(points[:-1], points[1:])]
+        self.walls = [ Wall(
+                        p1, 
+                        p2, 
+                        self.shape.frame, 
+                        self.wall_thickness, 
+                        self.wall_height, 
+                        "{space}.wall{index}".format(space=self.name, index=i)
+                ) for i, (p1, p2) in enumerate(zip(points[:-1], points[1:]))]
 
     def get_wall_frame(self, index):
         '''
@@ -266,6 +272,9 @@ class Space(object):
         '''
 
         return self.wall_thickness
+
+    def get_wall(self, index):
+        return self.walls[index]
 
     def offset_shape(self, widths=0.3):
         '''
