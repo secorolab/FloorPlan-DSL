@@ -12,6 +12,10 @@ blender --background --python exsce_floorplan/exsce_floorplan.py --python-use-sy
 
 Optionally, you can remove the `--background` flag to see directly the result in Blender.
 
+Please install the requirements specified in [requirements.txt](requirements.txt). 
+
+***Note:** This tool has been tested on an ubuntu machine with Blender v2.82a* 
+
 # Example
 
 ![3D asset generated from the environment description](images/example.png)
