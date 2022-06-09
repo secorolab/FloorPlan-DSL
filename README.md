@@ -22,6 +22,10 @@ Please install the requirements specified in [requirements.txt](requirements.txt
 
 An example model for a building is available in [here](models/hospital.floorplan)
 
+```
+blender --python exsce_floorplan/exsce_floorplan.py --python-use-system-env -- models/hospital.floorplan
+```
+
 The output of the tooling is available in the [output folder](output).
 
 
