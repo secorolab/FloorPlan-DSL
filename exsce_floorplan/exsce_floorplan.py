@@ -28,16 +28,15 @@ from Classes.Polytope import (
 from Classes.WallOpening import WallOpening
 
 from Blender.blender import (
+    boolean_operation_difference,
     clear_scene,
     create_mesh,
     create_collection,
-    boolean_operation_difference
+    export
 )
 
 '''
 TODO
-interprate model
-code doorways and windows
 code columns and dividers
 code constraints
 '''
@@ -104,7 +103,9 @@ class FloorPlan(object):
             
             bpy.data.objects[wall_opening.name].select_set(True)
             bpy.ops.object.delete()
-        
+
+        export()
+
     def interpret(self):
         # perform all boolean operations and merge spaces accordingly
 
@@ -120,7 +121,7 @@ class FloorPlan(object):
 
 if __name__ == '__main__':
 
-    my_metamodel = metamodel_from_file('exsce_floorplan.tx', 
+    my_metamodel = metamodel_from_file('exsce_floorplan/exsce_floorplan.tx', 
         classes=[Space, 
                 Rectangle, 
                 Polygon, 
@@ -128,7 +129,6 @@ if __name__ == '__main__':
                 VerticalRectangle,
                 WallOpening])    
     argv = sys.argv[sys.argv.index("--") + 1:]
-    print(argv)
     my_model = my_metamodel.model_from_file(argv[0])
     floor_plan = FloorPlan(my_model)
     floor_plan.interpret()
