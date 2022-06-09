@@ -17,7 +17,31 @@ Floor plan: hospital
                 rotation: 45.0 deg
         wall thickness: 0.40 m 
         wall height: 3.0 m
-        
+        features:
+            Column central_left:
+                shape: Rectangle width=0.5 m, length=0.5 m
+                height: 3.0 m
+                from: this
+                pose:
+                    translation: x:-2.5 m, y:0.0 m
+                    rotation: -35.0 deg
+            
+            Column central_right:
+                shape: Rectangle width=0.5 m, length=0.5 m
+                height: 3.0 m
+                from: this
+                pose:
+                    translation: x:2.5 m, y:0.0 m
+                    rotation: 35.0 deg
+
+            Divider divider_central:
+                shape: Rectangle width=6.0 m, length=0.2 m
+                height: 1.0 m
+                from: this
+                pose:
+                    translation: x:-4.0 m, y:4.0 m
+                    rotation: 0.0 deg
+    
     Space hallway:
         shape: Rectangle width=5.0 m, length=14.0 m
         location:
@@ -27,8 +51,30 @@ Floor plan: hospital
                 translation: x:2.0 m, y:0.0 m
                 rotation: 0.0 deg
             spaced
-        wall thickness: 0.40 m 
+        wall thickness: 0.20 m 
         wall height: 2.5 m
+        features:
+            Column wall_column_1:
+                shape: Rectangle width=0.5 m, length=0.3 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:-2.5 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column wall_column_2:
+                shape: Rectangle width=0.5 m, length=0.3 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:1.0 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column wall_column_3:
+                shape: Rectangle width=0.5 m, length=0.3 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:5.0 m, y:0.0 m
+                    rotation: 0.0 deg
 
     Space room_A:
         shape: Rectangle width=3.5 m, length=4.2 m
@@ -49,6 +95,13 @@ Floor plan: hospital
                 translation: x: 2.0 m, y:0.0 m
                 rotation: 0.0 deg 
             spaced
+
+    Entryway reception_main: 
+        in: reception.walls[3]
+        shape: Rectangle width=2.5 m, height=2.0 m
+        pose:
+            translation: x:0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
 
     Entryway reception_hallway: 
         in: reception.walls[0] and hallway.walls[2]
@@ -87,4 +140,4 @@ Floor plan: hospital
         
     Default values:
         Wall thickness: 0.23 m
-        Wall height: 2.6 m 
+        Wall height: 2.5 m 

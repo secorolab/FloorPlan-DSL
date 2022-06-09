@@ -1,4 +1,5 @@
 import sys
+import traceback
 import os
 from textx import metamodel_from_file
 
@@ -26,6 +27,7 @@ from Classes.Polytope import (
                         VerticalRectangle
                         ) 
 from Classes.WallOpening import WallOpening
+from Classes.FloorFeature import FloorFeature
 
 from Blender.blender import (
     boolean_operation_difference,
@@ -88,6 +90,11 @@ class FloorPlan(object):
                 vertices, faces = wall.generate_3d_structure()
                 create_mesh(building, wall.name, vertices, faces)
 
+            for feature in space.floor_features:
+                feature.locate()
+                vertices, faces = feature.generate_3d_structure()
+                create_mesh(building, feature.name, vertices, faces)
+
         # create wall openings
         for wall_opening in self.wall_openings:
 
@@ -121,14 +128,19 @@ class FloorPlan(object):
 
 if __name__ == '__main__':
 
-    my_metamodel = metamodel_from_file('exsce_floorplan/exsce_floorplan.tx', 
-        classes=[Space, 
-                Rectangle, 
-                Polygon, 
-                Circle,
-                VerticalRectangle,
-                WallOpening])    
-    argv = sys.argv[sys.argv.index("--") + 1:]
-    my_model = my_metamodel.model_from_file(argv[0])
-    floor_plan = FloorPlan(my_model)
-    floor_plan.interpret()
+    try:
+        my_metamodel = metamodel_from_file('exsce_floorplan/exsce_floorplan.tx', 
+            classes=[Space, 
+                    Rectangle, 
+                    Polygon, 
+                    Circle,
+                    VerticalRectangle,
+                    WallOpening,
+                    FloorFeature])    
+        argv = sys.argv[sys.argv.index("--") + 1:]
+        my_model = my_metamodel.model_from_file(argv[0])
+        floor_plan = FloorPlan(my_model)
+        floor_plan.interpret()
+    except Exception:
+        print(traceback.format_exc())
+        sys.exit(1)
