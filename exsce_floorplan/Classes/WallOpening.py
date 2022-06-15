@@ -67,3 +67,58 @@ class WallOpening(object):
         faces.append([i+l for i,v in enumerate(vertices[0:l])])
 
         return vertices, faces
+
+    def generate_2d_structure(self, height):
+        
+        shape = self.shape.get_points(self.shape.frame)
+
+        shapeXY = np.zeros((shape.shape[0], 2))
+        shapeXY[:,0] = shape[:,0]
+        shapeXY[:,1] = shape[:,2]
+        shapeXY[:,1] += self.loc.pos.z.value
+
+        line = np.array([
+            [1, height],
+            [-1, height]
+        ])
+
+        intersection = []
+        for i, b2 in enumerate(shapeXY):
+            b1 = shapeXY[i-1]
+            
+            a1, a2 = line
+
+            # method source: https://stackoverflow.com/a/42727584
+            s = np.vstack([a1,a2,b1,b2])        # s for stacked
+            h = np.hstack((s, np.ones((4, 1)))) # h for homogeneous
+            l1 = np.cross(h[0], h[1])           # get first line
+            l2 = np.cross(h[2], h[3])           # get second line
+            x, y, z = np.cross(l1, l2)          # point of intersection
+            if z == 0:                          # lines are parallel
+                continue
+            point = (x/z, y/z)
+            intersection.append(point)
+
+        # check to see if intersections are within the shape
+        intersection = np.array(intersection)
+        intersection = intersection[np.logical_and(
+                    intersection[:,0] >= np.amin(shapeXY[:,0]),     # left
+                    intersection[:,0] <= np.amax(shapeXY[:,0])      # right
+                    )]
+        intersection = intersection[np.logical_and(
+                    intersection[:,1] >= np.amin(shapeXY[:,1]),     # up
+                    intersection[:,1] <= np.amax(shapeXY[:,1])      # down
+                    )]
+
+        if len(intersection) < 2:
+            return None
+
+        offset = 0.2
+        shape = np.array([
+            [intersection[0, 0], -offset, 0, 1],
+            [intersection[1, 0], -offset, 0, 1],
+            [intersection[1, 0], self.thickness + offset, 0, 1],
+            [intersection[0, 0], self.thickness + offset, 0, 1],
+        ])
+
+        return self.shape.frame.get_point_transformation_wrt(shape)

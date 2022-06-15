@@ -1,4 +1,4 @@
-Floor plan: hospital
+Floor plan: hospital_2
 
     Space reception:
         shape: Polygon points:[
@@ -62,7 +62,7 @@ Floor plan: hospital
         shape: Rectangle width=5.0 m, length=14.0 m
         location:
             from: reception.walls[0]
-            to: this.walls[2]
+            to: this.walls[1]
             pose: 
                 translation: x:2.0 m, y:0.0 m
                 rotation: 0.0 deg
@@ -90,13 +90,6 @@ Floor plan: hospital
                 from: this.walls[3]
                 pose:
                     translation: x:5.0 m, y:0.0 m
-                    rotation: 0.0 deg
-            Column wall_column_4:
-                shape: Rectangle width=0.5 m, length=0.3 m
-                height: 2.5 m
-                from: this.walls[3]
-                pose:
-                    translation: x:7.0 m, y:0.0 m
                     rotation: 0.0 deg
 
     Space room_A:
@@ -127,7 +120,7 @@ Floor plan: hospital
             rotation: 0.0 deg
 
     Entryway reception_hallway: 
-        in: reception.walls[0] and hallway.walls[2]
+        in: reception.walls[0] and hallway.walls[1]
         shape: Rectangle width=4.0 m, height=2.0 m
         pose:
             translation: x: 2.0 m, y: 0.0 m, z: 0.0 m
@@ -148,17 +141,24 @@ Floor plan: hospital
             rotation: 0.0 deg
     
     Window hallway_window_1:
-        in: hallway.walls[1]
+        in: hallway.walls[0]
         shape: Rectangle width=3.0 m, height=1.5 m
         pose:
-            translation: x: 3.0 m, y: 0.0 m, z: 0.8 m
+            translation: x: 0.0 m, y: 0.0 m, z: 0.8 m
             rotation: 0.0 deg
     
     Window hallway_window_2:
-        in: hallway.walls[1]
+        in: hallway.walls[2]
         shape: Rectangle width=3.0 m, height=1.5 m
         pose:
-            translation: x: -1.0 m, y: 0.0 m, z: 0.8 m
+            translation: x: 0.0 m, y: 0.0 m, z: 0.8 m
+            rotation: 0.0 deg
+
+    Window hallway_reception:
+        in: hallway.walls[1] and reception.walls[0]
+        shape: Rectangle width=3.0 m, height=1.5 m
+        pose:
+            translation: x: 4.0 m, y: 0.0 m, z: 0.8 m
             rotation: 0.0 deg
         
     Default values:

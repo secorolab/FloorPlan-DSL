@@ -1,6 +1,9 @@
 import sys
 import traceback
 import os
+import io
+import yaml
+from PIL import Image, ImageDraw, ImageOps
 from textx import metamodel_from_file
 
 # Blender
@@ -53,6 +56,10 @@ class FloorPlan(object):
         self.model = model
         self.spaces = model.spaces
         self.wall_openings = model.wall_openings
+
+        with open("config.yaml", 'r') as stream:
+            self.config = yaml.safe_load(stream)
+            print(self.config)
 
     def debug_mpl_show_floorplan(self):
 
@@ -111,20 +118,119 @@ class FloorPlan(object):
             bpy.data.objects[wall_opening.name].select_set(True)
             bpy.ops.object.delete()
 
-        export()
+        export(self.model.name)
 
+    def model_to_occupancy_grid_transformation(self):
+        
+        pgm = self.config["pgm"]
+
+        unknown = pgm["unknown"]
+        occupied = pgm["occupied"]
+        free = pgm["free"]
+        res = pgm["resolution"]
+        border = 100
+        laser_height = pgm["laser_height"]
+
+        points = []
+        directions = []
+
+        for space in self.spaces:
+            
+            shape = space.get_shape()
+            shape_points = shape.get_points()
+            points.append(shape_points)
+
+            directions.append([
+                np.amax(shape_points[:, 1]),            # north
+                np.amin(shape_points[:, 1]),            # south 
+                np.amax(shape_points[:, 0]),            # east
+                np.amin(shape_points[:, 0])             # west
+                ])
+
+        directions = np.array(directions)
+        north = np.amax(directions[:,0])
+        south = np.amin(directions[:,1])
+        east = np.amax(directions[:,2])
+        west = np.amin(directions[:,3])
+
+        # Create canvas
+        floor = (
+            int(abs(east-west)/res)+border, 
+            int(abs(north-south)/res)+border)
+        
+        im = Image.new('L', floor, unknown)
+        draw = ImageDraw.Draw(im)
+
+        for shape in points:
+            shape[:, 0] = (shape[:, 0] + abs(west))/res
+            shape[:, 1] = (shape[:, 1] + abs(south))/res
+            shape += border/2
+            shape = shape.astype(int)
+
+            draw.polygon(shape[:, 0:2].flatten().tolist(), fill=free)
+            
+        for space in self.spaces:
+            for wall in space.walls:
+                points, _ = wall.generate_3d_structure()
+
+                shape = points[0:int(len(points)/2), 0:2]
+                shape[:, 0] = (shape[:, 0] + abs(west))/res
+                shape[:, 1] = (shape[:, 1] + abs(south))/res
+                shape += border/2
+                shape = shape.astype(int)
+
+                draw.polygon(shape[:, 0:2].flatten().tolist(), fill=occupied)
+
+            for feature in space.floor_features:
+                points, _ = feature.generate_3d_structure()
+
+                if points[int(len(points)/2):,2][0] < laser_height:
+                    continue
+
+                shape = points[0:int(len(points)/2), 0:2]
+                shape[:, 0] = (shape[:, 0] + abs(west))/res
+                shape[:, 1] = (shape[:, 1] + abs(south))/res
+                shape += border/2
+                shape = shape.astype(int)
+
+                draw.polygon(shape[:, 0:2].flatten().tolist(), fill=occupied)
+
+        # with io.open(pgm["map_configuration"], 'w', encoding='utf8') as outfile:
+        #     yaml.dump(pgm, outfile, default_flow_style=False, allow_unicode=True)
+        
+        for wall_opening in self.wall_openings:
+
+            shape = wall_opening.generate_2d_structure(laser_height)
+            
+            if shape is None:
+                continue
+
+            shape[:, 0] = (shape[:, 0] + abs(west))/res
+            shape[:, 1] = (shape[:, 1] + abs(south))/res
+            shape += border/2
+            shape = shape.astype(int)
+
+            draw.polygon(shape[:, 0:2].flatten().tolist(), fill=free)
+
+        im = ImageOps.flip(im)
+        im.show()
+        im.save('output/{name}'.format(name=pgm["image"]), quality=95)
+            
+                
+            
     def interpret(self):
-        # perform all boolean operations and merge spaces accordingly
+    # perform all boolean operations and merge spaces accordingly
 
-        # consider the order integer of each room
+    # consider the order integer of each room
 
-        # determine the points for each area: i.e room, walls, doorways, windows
+    # determine the points for each area: i.e room, walls, doorways, windows
 
-        # generate JSON-LD file with all this information 
+    # generate JSON-LD file with all this information 
 
-        # draw walls
-        #self.debug_mpl_show_floorplan()
+    # draw walls
+    #self.debug_mpl_show_floorplan()
         self.model_to_3d_transformation()
+        self.model_to_occupancy_grid_transformation()
 
 if __name__ == '__main__':
 

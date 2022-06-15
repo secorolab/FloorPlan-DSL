@@ -37,5 +37,5 @@ def boolean_operation_difference(obj_name, cutter_name):
     bpy.context.view_layer.objects.active = obj
     bpy.ops.object.modifier_apply(apply_as='DATA', modifier="boolean")
 
-def export():
-    bpy.ops.export_mesh.stl(filepath="output/enviornment.stl")
+def export(name):
+    bpy.ops.export_mesh.stl(filepath="output/{name}_enviornment.stl".format(name=name))
