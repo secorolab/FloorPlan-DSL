@@ -59,7 +59,6 @@ class FloorPlan(object):
 
         with open("config.yaml", 'r') as stream:
             self.config = yaml.safe_load(stream)
-            print(self.config)
 
     def debug_mpl_show_floorplan(self):
 
@@ -68,16 +67,33 @@ class FloorPlan(object):
         ax.set_xlim(-20, 20)
         ax.set_ylim(-20, 20)
 
-        for space in self.spaces:
+        def draw_vector(name, origin, vectors, d):
+            ax.quiver(origin[0], origin[1], vectors[0,0], vectors[0,1], color="red", zorder=10)
+            ax.quiver(origin[0], origin[1], vectors[1,0], vectors[1,1], color="green", zorder=10)
+            props = dict(boxstyle='round', facecolor='white', alpha=0.5)
+            ax.text(origin[0], origin[1] - (1*d), name, size=6, color='k', zorder=11, bbox=props)
+
+        for j, space in enumerate(self.spaces):
             points = space.get_walls_wrt_world()
             for point in points:
                 p = Pol(point[:, 0:2], closed=True, color=np.random.random(3))
                 ax.add_patch(p)
 
-        for wall_opening in self.wall_openings:
-            points = wall_opening.get_points()
+            d = (-1)**(j+1)
+            # for i, wall in enumerate(space.walls):
+            #     origin, directions = wall.get_frame().get_direction_vectors()
+            #     draw_vector("{name}.walls[{i}]".format(name=space.name, i=str(i)), origin, directions, d)
+
+            origin, directions = space.get_frame().ref.get_direction_vectors()
+            draw_vector("world", origin, directions, d)
+
+            origin, directions = space.get_frame().get_direction_vectors()
+            draw_vector(space.name, origin, directions, d)
             
-            ax.plot(points[:,0], points[:,1], c='k',linewidth=2.0)
+        # for wall_opening in self.wall_openings:
+        #     points = wall_opening.get_points()
+            
+        #     ax.plot(points[:,0], points[:,1], c='k',linewidth=2.0)
             
 
         plt.show()
@@ -228,7 +244,7 @@ class FloorPlan(object):
     # generate JSON-LD file with all this information 
 
     # draw walls
-    #self.debug_mpl_show_floorplan()
+        #self.debug_mpl_show_floorplan()
         self.model_to_3d_transformation()
         self.model_to_occupancy_grid_transformation()
 

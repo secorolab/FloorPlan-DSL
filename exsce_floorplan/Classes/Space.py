@@ -169,7 +169,7 @@ class Space(object):
 
         # If two walls were selected, rotate 180 to align the walls of the 
         # spaces
-        if wall_to_wall:
+        if wall_to_wall and not self.location.aligned:
             frame = Frame()
             frame.set_orientation(0, 0, np.deg2rad(180))
             t, R = frame.get_transformation()
