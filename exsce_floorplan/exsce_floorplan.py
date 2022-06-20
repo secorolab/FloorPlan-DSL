@@ -2,6 +2,10 @@ import sys
 import traceback
 import os
 import io
+
+dir_path = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(dir_path)
+
 import yaml
 from PIL import Image, ImageDraw, ImageOps
 from textx import metamodel_from_file
@@ -9,9 +13,6 @@ from textx import metamodel_from_file
 # Blender
 import bpy
 import bmesh
-
-dir_path = os.path.dirname(os.path.realpath(__file__))
-sys.path.append(dir_path)
 
 # Debug graphic
 import matplotlib.pyplot as plt
@@ -42,7 +43,6 @@ from Blender.blender import (
 
 '''
 TODO
-code columns and dividers
 code constraints
 '''
 
@@ -68,10 +68,13 @@ class FloorPlan(object):
         ax.set_ylim(-20, 20)
 
         def draw_vector(name, origin, vectors, d):
-            ax.quiver(origin[0], origin[1], vectors[0,0], vectors[0,1], color="red", zorder=10)
-            ax.quiver(origin[0], origin[1], vectors[1,0], vectors[1,1], color="green", zorder=10)
+            ax.quiver(origin[0], origin[1], vectors[0,0], vectors[0,1], 
+                        color="red", zorder=10)
+            ax.quiver(origin[0], origin[1], vectors[1,0], vectors[1,1], 
+                        color="green", zorder=10)
             props = dict(boxstyle='round', facecolor='white', alpha=0.5)
-            ax.text(origin[0], origin[1] - (1*d), name, size=6, color='k', zorder=11, bbox=props)
+            ax.text(origin[0], origin[1] - (1*d), name, size=6,
+                        color='k', zorder=11, bbox=props)
 
         for j, space in enumerate(self.spaces):
             points = space.get_walls_wrt_world()
@@ -82,7 +85,8 @@ class FloorPlan(object):
             d = (-1)**(j+1)
             # for i, wall in enumerate(space.walls):
             #     origin, directions = wall.get_frame().get_direction_vectors()
-            #     draw_vector("{name}.walls[{i}]".format(name=space.name, i=str(i)), origin, directions, d)
+            #     draw_vector("{name}.walls[{i}]".format(name=space.name, 
+            #                            i=str(i)), origin, directions, d)
 
             origin, directions = space.get_frame().ref.get_direction_vectors()
             draw_vector("world", origin, directions, d)
@@ -210,9 +214,25 @@ class FloorPlan(object):
                 shape = shape.astype(int)
 
                 draw.polygon(shape[:, 0:2].flatten().tolist(), fill=occupied)
+        
+        name = self.model.name
+        image = "{model}_{name}".format(model=name, name=pgm['image'])
+        yaml_file = "{name}_{map}".format(name=self.model.name, 
+                                            map=pgm["map_configuration"])
 
-        # with io.open(pgm["map_configuration"], 'w', encoding='utf8') as outfile:
-        #     yaml.dump(pgm, outfile, default_flow_style=False, allow_unicode=True)
+        with io.open('output/{file}'.format(file=yaml_file), 'w', 
+                                            encoding='utf8') as outfile:
+            
+            pgm_config = {
+                'resolution':res,
+                'origin': pgm['origin'],
+                'occupied_thresh': pgm['occupied_thresh'],
+                'free_thresh':pgm['free_thresh'],
+                'negate':pgm['negate'],
+                'image':image
+            }
+            yaml.dump(pgm_config, outfile, 
+                      default_flow_style=False, allow_unicode=True)
         
         for wall_opening in self.wall_openings:
 
@@ -230,9 +250,7 @@ class FloorPlan(object):
 
         im = ImageOps.flip(im)
         im.show()
-        im.save('output/{name}'.format(name=pgm["image"]), quality=95)
-            
-                
+        im.save('output/{file}'.format(file=image), quality=95)
             
     def interpret(self):
     # perform all boolean operations and merge spaces accordingly
