@@ -107,6 +107,100 @@ Column wall_column:
         translation: x:7.0 m, y:0.0 m
         rotation: 0.0 deg
 ```
+### Modeling 
+
+Now that we have reviewed all of the important concepts, we can put them together in a model. The finished model for this tutorial is available [here](models/hospital.floorplan), here we will go over the model section by section with some explanations when needed. 
+
+```
+Floor plan: hospital
+
+    Space reception:
+        shape: Polygon points:[
+            (-7.0 m, 6.0 m),
+            (7.0 m, 6.0 m),
+            (7.0 m, -3.0 m),
+            (4.0 m, -6.0 m),
+            (-4.0 m, -6.0 m),
+            (-7.0 m, -3.0 m)
+        ]
+        location:
+            from: world
+            to: this
+            pose:
+                translation: x:0.0 m, y:-5.0 m
+                rotation: 45.0 deg
+```
+
+Each floor plan has a name, which gets used for all the artifacts that get generated. The `reception` space has a custom polygon as shape, so we specify all the points to bound it. Every pair of points is a wall, with the last point and the first point being the final wall to close the polygon (i.e. no need to repeat the first point at the very end). From the world frame, this space is translated -5 meters in the y axis and rotated 45 degress w.r.t. the z axis. 
+
+```
+        ...
+        wall thickness: 0.40 m 
+        wall height: 3.0 m
+        features:
+            Column central_left:
+                shape: Rectangle width=0.5 m, length=0.5 m
+                height: 3.0 m
+                from: this
+                pose:
+                    translation: x:-2.5 m, y:0.0 m
+                    rotation: -35.0 deg
+        ...
+```
+The `reception` space will have a wall thickness of 0.4 meters and a wall height of 3 meters. These values don't have to be specified for every space, as default values will be set later for all spaces. Nested in the feature concept, columns and dividers can be specified. The reference frame for these is always part of the space (either the main frame or a wall frame of the `reception` space)
+
+```
+    Space hallway:
+        shape: Rectangle width=5.0 m, length=14.0 m
+        location:
+            from: reception.walls[0]
+            to: this.walls[2]
+            pose: 
+                translation: x:2.0 m, y:0.0 m
+                rotation: 0.0 deg
+            spaced
+        ...
+
+    Space room_A:
+        ...
+    
+    Space room_B:
+        ...
+```
+The hallway is located using two wall frames, and the flag `spaced` is present so that the interpreter calculates spacing necesary to avoid overlapping in between the spaces. Two other spaces also get defined in a similar way.
+
+```
+    Entryway reception_main: 
+        in: reception.walls[3]
+        shape: Rectangle width=2.5 m, height=2.0 m
+        pose:
+            translation: x:0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+
+    Entryway reception_hallway: 
+        in: reception.walls[0] and hallway.walls[2]
+        shape: Rectangle width=4.0 m, height=2.0 m
+        pose:
+            translation: x: 2.0 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+    
+    ...
+    Window hallway_window_1:
+        in: hallway.walls[1]
+        shape: Rectangle width=3.0 m, height=1.5 m
+        pose:
+            translation: x: 3.0 m, y: 0.0 m, z: 0.8 m
+            rotation: 0.0 deg
+```
+
+Two entryways and one window are modeled, each with a unique name. In the case of the second entryway, since it connects two spaces we must specify the two walls where the entryway is located. Notice that for windows we have to specify a translation in the z axis. 
+
+```
+    Default values:
+        Wall thickness: 0.23 m
+        Wall height: 2.5 m 
+```
+At the very end of the model the default values for all the spaces must be specified. 
 
 ## How to generate 3D files and occupancy grid maps
 
