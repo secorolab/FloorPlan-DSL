@@ -7,9 +7,9 @@ Floor Plan DSL is a model-driven approach to describe indoor environments. The m
 # Installation
 
 Install all the requirements:
-* (Python 3)[https://www.python.org/downloads/]
-* (Blender)[https://www.blender.org/download/] (tested on v2.82a)
-* (TextX)[http://textx.github.io/textX/3.0/] 
+* [Python 3](https://www.python.org/downloads/)
+* [Blender](https://www.blender.org/download/) (tested on v2.82a)
+* [TextX](http://textx.github.io/textX/3.0/) 
 
 Alternatively, you can install all requirements (except for blender) with `pip3 install -r requirements.txt`
 
