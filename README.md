@@ -25,6 +25,8 @@ blender --background --python exsce_floorplan/exsce_floorplan.py --python-use-sy
 
 Optionally, you can remove the `--background` flag to see directly the result opened in Blender.
 
+***Note**: The `--` before `<model_path>` is intentional and important.*
+
 ***Note:** This tool has been tested on an ubuntu machine with Blender v2.82a* 
 
 ## Example
@@ -41,7 +43,7 @@ The output of the tooling is available in the [output folder](output).
 
 ## Tutorial
 
-Modeling an environment can be straight-forward with some background information on how the concepts are specified and related to each other. [This tutorial](Tutorial.md) will explain the concepts of the languange and how to position them in the environment. 
+Modeling an environment can be straight-forward with some background information on how the concepts are specified and related to each other. [This tutorial](docs/Tutorial.md) will explain the concepts of the languange and how to position them in the environment. An overview of the concepts and their attributes is available [here](docs/concepts.md)
 
 # Credits
 
