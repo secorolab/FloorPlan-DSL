@@ -43,7 +43,7 @@ The output of the tooling is available in the [output folder](output).
 
 ## Tutorial
 
-Modeling an environment can be straight-forward with some background information on how the concepts are specified and related to each other. [This tutorial](docs/Tutorial.md) will explain the concepts of the languange and how to position them in the environment. An overview of the concepts and their attributes is available [here](docs/concepts.md)
+Modelling an environment can be straight-forward with some background information on how the concepts are specified and related to each other. [This tutorial](docs/Tutorial.md) will explain the concepts of the language and how to position them in the environment. An overview of the concepts and their attributes is available [here](docs/concepts.md)
 
 # Acknowledgement
 
