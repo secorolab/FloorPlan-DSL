@@ -45,8 +45,13 @@ The output of the tooling is available in the [output folder](output).
 
 Modeling an environment can be straight-forward with some background information on how the concepts are specified and related to each other. [This tutorial](docs/Tutorial.md) will explain the concepts of the languange and how to position them in the environment. An overview of the concepts and their attributes is available [here](docs/concepts.md)
 
-# Credits
+# Acknowledgement
 
 This tool is part of the Executable Scenarios workbench, part of the Horizon 2020 SESAME project. 
 
-![sesame](images/SESAME.jpg)
+<p align="center">
+    <br>
+    <img src="images/H2020.png" alt="drawing" height="100"/>
+    <object hspace="20">
+    <img src="images/SESAME.png" alt="drawing" height="100"/>
+</p>
