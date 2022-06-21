@@ -47,11 +47,9 @@ Modeling an environment can be straight-forward with some background information
 
 # Acknowledgement
 
-This tool is part of the Executable Scenarios workbench, part of the Horizon 2020 SESAME project. 
+This work is part of a project that has received funding from the European Union's Horizon 2020 research and innovation programme SESAME under grant agreement No 101017258.
 
 <p align="center">
-    <br>
-    <img src="images/H2020.png" alt="drawing" height="100"/>
-    <object hspace="20">
-    <img src="images/SESAME.png" alt="drawing" height="100"/>
+    <img src="images/EU.jpg" alt="drawing" height="100"/>
+    <img src="images/SESAME.jpg" alt="drawing" height="100"/>
 </p>
