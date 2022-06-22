@@ -41,9 +41,13 @@ from Blender.blender import (
     export
 )
 
+from processors import opening_obj_processors
+
 '''
 TODO
-code constraints
+Change transformation from model->json-ld->mesh
+Create language and tooling for variations
+Polish
 '''
 
 class FloorPlan(object):
@@ -104,6 +108,7 @@ class FloorPlan(object):
 
     def model_to_jsonld_transformation(self, model):
         pass
+
 
     def model_to_3d_transformation(self):
 
@@ -268,6 +273,10 @@ class FloorPlan(object):
 
 if __name__ == '__main__':
 
+    obj_processors = {
+        'WallOpening': opening_obj_processors,
+    }
+
     try:
         my_metamodel = metamodel_from_file('exsce_floorplan/exsce_floorplan.tx', 
             classes=[Space, 
@@ -276,7 +285,8 @@ if __name__ == '__main__':
                     Circle,
                     VerticalRectangle,
                     WallOpening,
-                    FloorFeature])    
+                    FloorFeature])   
+        my_metamodel.register_obj_processors(obj_processors) 
         argv = sys.argv[sys.argv.index("--") + 1:]
         my_model = my_metamodel.model_from_file(argv[0])
         floor_plan = FloorPlan(my_model)

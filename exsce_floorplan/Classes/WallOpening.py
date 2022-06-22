@@ -68,7 +68,7 @@ class WallOpening(object):
 
         return vertices, faces
 
-    def generate_2d_structure(self, height):
+    def generate_2d_structure(self, height, offset=0.2, wrt=None):
         
         shape = self.shape.get_points(self.shape.frame)
 
@@ -113,7 +113,6 @@ class WallOpening(object):
         if len(intersection) < 2:
             return None
 
-        offset = 0.2
         shape = np.array([
             [intersection[0, 0], -offset, 0, 1],
             [intersection[1, 0], -offset, 0, 1],
@@ -121,4 +120,4 @@ class WallOpening(object):
             [intersection[0, 0], self.thickness + offset, 0, 1],
         ])
 
-        return self.shape.frame.get_point_transformation_wrt(shape)
+        return self.shape.frame.get_point_transformation_wrt(shape, wrt)

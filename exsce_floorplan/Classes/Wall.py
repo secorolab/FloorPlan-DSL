@@ -133,7 +133,7 @@ class Wall():
         None     
         '''
 
-        self.polygon = points
+        self.polygon = np.array(points)
 
     def generate_3d_structure(self):
         '''
