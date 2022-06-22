@@ -3,7 +3,7 @@ import numpy as np
 from shapely.geometry import Polygon
 from shapely.ops import unary_union
 
-def opening_fitting_processor(opening):
+def opening_obj_processors(opening):
     wall_a = opening.wall_a
 
     opening_shape = opening.generate_2d_structure(opening.loc.pos.z.value, offset=0)
@@ -21,5 +21,14 @@ def opening_fitting_processor(opening):
             ), 
             **get_location(opening))
 
-def opening_obj_processors(opening):
-    opening_fitting_processor(opening)
+def feature_obj_processor(feature):
+
+    space_polygon = Polygon(feature.parent.shape.get_points()[:, 0:2])
+    feature_polygon = Polygon(feature.shape.get_points()[:, 0:2])
+
+    if not space_polygon.intersects(feature_polygon): 
+        raise TextXSemanticError(
+            '{feature} is located outside {space}'.format(
+                feature=feature.name,
+                space=feature.parent.name),
+            **get_location(feature))

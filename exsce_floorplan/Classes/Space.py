@@ -113,6 +113,9 @@ class Space(object):
         self.offset_shape(self.wall_thickness)
         self.locate_space()
 
+        for feature in self.floor_features:
+            feature.locate()
+
     def locate_space(self):
         '''
         Calculates the transformation needed to locate the space according to 

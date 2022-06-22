@@ -41,7 +41,10 @@ from Blender.blender import (
     export
 )
 
-from processors import opening_obj_processors
+from processors import (
+    opening_obj_processors,
+    feature_obj_processor
+)
 
 '''
 TODO
@@ -123,7 +126,6 @@ class FloorPlan(object):
                 create_mesh(building, wall.name, vertices, faces)
 
             for feature in space.floor_features:
-                feature.locate()
                 vertices, faces = feature.generate_3d_structure()
                 create_mesh(building, feature.name, vertices, faces)
 
@@ -275,6 +277,7 @@ if __name__ == '__main__':
 
     obj_processors = {
         'WallOpening': opening_obj_processors,
+        'FloorFeature': feature_obj_processor
     }
 
     try:
