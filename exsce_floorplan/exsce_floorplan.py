@@ -256,7 +256,7 @@ class FloorPlan(object):
             draw.polygon(shape[:, 0:2].flatten().tolist(), fill=free)
 
         im = ImageOps.flip(im)
-        im.show()
+        #im.show()
         im.save('output/{file}'.format(file=image), quality=95)
             
     def interpret(self):
