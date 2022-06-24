@@ -8,9 +8,13 @@ The goal of this tutorial is to create the environment above. We will go over co
 
 ## Concepts available
 Let's do a review of the most important concepts when modelling an indoor environment:
+
 * Spaces: these are the central concepts when modelling. This concept allows you to model any space in a floor plan: a room, a hallway, an intersection, a reception, and any other space that is surrounded by walls.
+
 * Walls: walls surround the spaces. however, these are not modelled directly. When modelling a space, you select the shape of the space, and the walls are created automatically when interpreting the model.
+
 * Entryways and Windows: These are openings in the walls that allow you to connect two spaces.
+
 * Column and Dividers: These are features of the environments that are usually located freely in space or next to walls. Both cases can be modelled using the language.
 
 ## Modelling
