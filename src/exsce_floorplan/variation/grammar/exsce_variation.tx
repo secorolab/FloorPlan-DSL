@@ -1,0 +1,36 @@
+import floorplan_geometry
+import exsce_floorplan
+
+Model:
+    import=Import
+    variations+=Variation
+;
+
+Variation:
+    fqn=FQN ':' distribution=Distribution
+;
+
+Distribution:
+    UniformDistribution | DiscreteDistribution | NormalDistribution
+;
+
+UniformDistribution:
+    'uniform' ':' '[' values+=Meter ']'
+;
+
+DiscreteDistribution:
+    'discrete' ':' '['
+        values += DiscreteValue
+    ']'
+;
+
+NormalDistribution:
+    'normal' ':' 'mean' '=' mean=Meter ',' 'std' '=' std=Meter
+;
+
+DiscreteValue:
+    '(' prob=FLOAT ',' value=Meter ')'
+;
+
+Import: 'import' importURI=STRING;
+FQN: ID+['.'];

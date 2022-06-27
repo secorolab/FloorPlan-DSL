@@ -1,6 +1,6 @@
 import numpy as np
 
-from .Geometry import Frame
+from .geometry import Frame
 
 class Wall():
     '''

@@ -8,7 +8,7 @@ sys.path.append(dir_path)
 
 import yaml
 from PIL import Image, ImageDraw, ImageOps
-from textx import metamodel_from_file
+from textx import metamodel_for_language
 
 # Blender
 import bpy
@@ -22,28 +22,12 @@ import numpy as np
 
 np.set_printoptions(suppress=True)
 
-from Classes.Space import Space
-from Classes.Polytope import (
-                        Circle, 
-                        Polygon, 
-                        Rectangle, 
-                        VerticalPolygon,
-                        VerticalRectangle
-                        ) 
-from Classes.WallOpening import WallOpening
-from Classes.FloorFeature import FloorFeature
-
-from Blender.blender import (
+from blender.blender import (
     boolean_operation_difference,
     clear_scene,
     create_mesh,
     create_collection,
     export
-)
-
-from processors import (
-    opening_obj_processors,
-    feature_obj_processor
 )
 
 '''
@@ -111,7 +95,6 @@ class FloorPlan(object):
 
     def model_to_jsonld_transformation(self, model):
         pass
-
 
     def model_to_3d_transformation(self):
 
@@ -256,44 +239,23 @@ class FloorPlan(object):
             draw.polygon(shape[:, 0:2].flatten().tolist(), fill=free)
 
         im = ImageOps.flip(im)
-        #im.show()
         im.save('output/{file}'.format(file=image), quality=95)
             
     def interpret(self):
-    # perform all boolean operations and merge spaces accordingly
-
-    # consider the order integer of each room
-
-    # determine the points for each area: i.e room, walls, doorways, windows
-
-    # generate JSON-LD file with all this information 
-
-    # draw walls
-        #self.debug_mpl_show_floorplan()
         self.model_to_3d_transformation()
         self.model_to_occupancy_grid_transformation()
 
 if __name__ == '__main__':
 
-    obj_processors = {
-        'WallOpening': opening_obj_processors,
-        'FloorFeature': feature_obj_processor
-    }
-
     try:
-        my_metamodel = metamodel_from_file('exsce_floorplan/exsce_floorplan.tx', 
-            classes=[Space, 
-                    Rectangle, 
-                    Polygon, 
-                    Circle,
-                    VerticalRectangle,
-                    WallOpening,
-                    FloorFeature])   
-        my_metamodel.register_obj_processors(obj_processors) 
+        
+        my_metamodel = metamodel_for_language('exsce-floorplan-dsl')
         argv = sys.argv[sys.argv.index("--") + 1:]
         my_model = my_metamodel.model_from_file(argv[0])
+
         floor_plan = FloorPlan(my_model)
         floor_plan.interpret()
+        
     except Exception:
         print(traceback.format_exc())
         sys.exit(1)

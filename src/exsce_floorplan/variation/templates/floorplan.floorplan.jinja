@@ -1,0 +1,20 @@
+Floor plan: {{name}}
+
+    Space {{space.name}}:
+        shape: {{shape}}
+        location:
+            from: {{from_frame}}
+            to: {{to_frame}}
+            pose:
+                translation: x:{{x_translation}} m, y:{{y_translation}} m
+                rotation: {{rotation}} deg
+        {wall thickness: {{thickness}} m}
+        {wall height: {{height}} m}
+        {features:
+            {{Column}} {{name}}:
+                shape:{{shape}}
+                height: {{height}} m
+                from: {{from_frame}}
+                pose:
+                    translation: x:{{x_translation}} m, y:{{y_translation}} m
+                    rotation: {{rotation}} deg}

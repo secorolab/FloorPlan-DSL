@@ -1,6 +1,6 @@
-from .Polytope import *
-from .Geometry import Frame
-from .Wall import Wall
+from .polytope import *
+from .geometry import Frame
+from .wall import Wall
 '''
 TODO
 * Do not return a wall polygon if the width is 0

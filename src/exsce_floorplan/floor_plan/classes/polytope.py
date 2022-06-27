@@ -1,8 +1,8 @@
-from .Geometry import Frame
+from .geometry import Frame
 import copy
 import numpy as np
 
-from .Geometry import Frame
+from .geometry import Frame
 
 class Polytope(object):
     '''
