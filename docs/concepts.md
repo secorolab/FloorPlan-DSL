@@ -16,7 +16,7 @@ Space concepts are the main concepts in a floor plan. They can be used to descri
 
     * to: The frame of the space that you are locating. All walls and features of the space will keep their pose with regards to this frame. The value can be `this` to refer to the space frame of this space (i.e. the space you are modelling), or `this.walls[<index>]` to refer to one of the walls
 
-    * pose: A pose description. it contains a translation in the `x` and `y` axis, and a rotation w.r.t. the `z` axis.
+    * pose: A pose description. It contains a translation in the `x` and `y` axis, and a rotation w.r.t. the `z` axis.
 
     * spaced (optional, recommended): A flag to tell the interpreter that it must calculate the correct space between the two spaces to ensure no overlap.
 
@@ -107,7 +107,7 @@ The entryway concept is used to model the space for doorways and other openings 
 
 * shape: Shape for the entryway. 
 
-* pose: A pose description. it contains a translation in the `x` and `z` axis, and a rotation w.r.t. the `y` axis. Translations in the y axis should be avoided for appropriate results.
+* pose: A pose description. It contains a translation in the `x` and `z` axis, and a rotation w.r.t. the `y` axis. Translations in the y axis should be avoided for appropriate results.
 
 ```
 Entryway <name>: 
@@ -128,7 +128,7 @@ Entryway <name>:
 
 * shape: Shape for the window. 
 
-* pose: A pose description. it contains a translation in the `x` and `z` axis, and a rotation w.r.t. the `y` axis. Translations in the y axis should be avoided for appropriate results.
+* pose: A pose description. It contains a translation in the `x` and `z` axis, and a rotation w.r.t. the `y` axis. Translations in the y axis should be avoided for appropriate results.
 
 ```
 Window <name>: 
@@ -155,7 +155,7 @@ Features are common in the floor of a floor plan.
 
 * from: Frame of reference, it can be: space frame of the space (`this`) or wall reference (`this.walls[<index>]`)
 
-* pose: A pose description. it contains a translation in the `x` and `y` axis, and a rotation w.r.t. the `z` axis.
+* pose: A pose description. It contains a translation in the `x` and `y` axis, and a rotation w.r.t. the `z` axis.
 
 ```
 Column <name>:
@@ -178,7 +178,7 @@ Column <name>:
 
 * from: Frame of reference, it can be: space frame of the space (`this`) or wall reference (`this.walls[<index>]`)
 
-* pose: A pose description. it contains a translation in the `x` and `y` axis, and a rotation w.r.t. the `z` axis.
+* pose: A pose description. It contains a translation in the `x` and `y` axis, and a rotation w.r.t. the `z` axis.
 
 ```
 Divider <name>:

@@ -30,7 +30,7 @@ A space requires two frames in order to specify a location: A reference frame wh
 
 ### Using the world frame
 
-You can select the world frame as your frame of reference by using the keyword `world` (result in Figure [@fig:world_frame]). You may only use this frame for locating spaces. Any other feature or entryway must be specified by either the space frame or one of the walls.
+You can select the world frame as your frame of reference by using the keyword `world` (result in  [@fig:world_frame]). You may only use this frame for locating spaces. Any other feature or entryway must be specified by either the space frame or one of the walls.
 
 ```
 location:
@@ -46,7 +46,7 @@ Should be noted that you can use the `this` keyword to reference a frame when yo
 
 ### Using another wall
 
-You can use two wall frames to define locations. When you model a location using two wall frames, the default behaviour is to do an extra 180 degree rotation of the space you are locating so that the two spaces are not overlapping, as illustrated in the two next examples (Figures [@fig:walls_with_frames] and [@fig:walls_with_frames_two]):
+You can use two wall frames to define locations. When you model a location using two wall frames, the default behaviour is to do an extra 180 degree rotation of the space you are locating so that the two spaces are not overlapping, as illustrated in the two next examples ([@fig:walls_with_frames;@fig:walls_with_frames_two]):
 
 ```
 location:
@@ -71,11 +71,11 @@ location:
 ```
 ![Pose of two spaces when another wall is used as a reference frame](../images/walls_with_frames_02.png){#fig:walls_with_frames_two}
 
-The flag `spaced` is used to tell the interpreter to calculate the combined thickness of the two walls, and space the two rooms accordingly. When not present, the two rooms are not spaced correctly, as seen in Figure (Figure [@fig:not_spaced]).
+The flag `spaced` is used to tell the interpreter to calculate the combined thickness of the two walls, and space the two rooms accordingly. When not present, the two rooms are not spaced correctly, as seen in [@fig:not_spaced].
 
 ![Two spaces not spaced correctly, as the `spaced` flag was not included](../images/walls_not_spaced.png){#fig:not_spaced}
 
-Similarly, the default alignment behaviour can be disabled by using the `not aligned` flag, so that the two rooms overlap (Figure [@fig:not_aligned]).
+Similarly, the default alignment behaviour can be disabled by using the `not aligned` flag, so that the two rooms overlap ([@fig:not_aligned]).
 
 ```
 location:
