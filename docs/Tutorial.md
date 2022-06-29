@@ -30,7 +30,7 @@ A space requires two frames in order to specify a location: A reference frame wh
 
 ### Using the world frame
 
-You can select the world frame as your frame of reference by using the keyword `world`. You may only use this frame for locating spaces. Any other feature or entryway must be specified by either the space frame or one of the walls.
+You can select the world frame as your frame of reference by using the keyword `world` (result in Figure [@fig:world_frame]). You may only use this frame for locating spaces. Any other feature or entryway must be specified by either the space frame or one of the walls.
 
 ```
 location:
@@ -40,13 +40,13 @@ location:
         translation: x:3.0 m, y:4.0 m
         rotation: 45.0 deg
 ```
-![Pose of a space with regards to the world frame](../images/wall_location.png)
+![Pose of a space with regards to the world frame](../images/wall_location.png){#fig:world_frame}
 
 Should be noted that you can use the `this` keyword to reference a frame when you are inside the scope of a space. i.e. that the frame belongs to the space you are editing.
 
 ### Using another wall
 
-You can use two wall frames to define locations. When you model a location using two wall frames, the default behaviour is to do an extra 180 degree rotation of the space you are locating so that the two spaces are not overlapping, as illustrated in the two next examples:
+You can use two wall frames to define locations. When you model a location using two wall frames, the default behaviour is to do an extra 180 degree rotation of the space you are locating so that the two spaces are not overlapping, as illustrated in the two next examples (Figures [@fig:walls_with_frames] and [@fig:walls_with_frames_two]):
 
 ```
 location:
@@ -58,7 +58,7 @@ location:
     spaced
 ```
 
-![Pose of two spaces when walls are used as reference frames](../images/walls_with_frames_01.png)
+![Pose of two spaces when walls are used as reference frames](../images/walls_with_frames_01.png){#fig:walls_with_frames}
 
 ```
 location:
@@ -69,13 +69,13 @@ location:
         rotation: 0.0 deg
     spaced
 ```
-![Pose of two spaces when walls are used as reference frames](../images/walls_with_frames_02.png)
+![Pose of two spaces when another wall is used as a reference frame](../images/walls_with_frames_02.png){#fig:walls_with_frames_two}
 
-The flag `spaced` is used to tell the interpreter to calculate the combined thickness of the two walls, and space the two rooms accordingly. When not present, the two rooms are not spaced correctly:
+The flag `spaced` is used to tell the interpreter to calculate the combined thickness of the two walls, and space the two rooms accordingly. When not present, the two rooms are not spaced correctly, as seen in Figure (Figure [@fig:not_spaced]).
 
-![Two spaces not spaced correctly, as the `space` flag was not included](../images/walls_not_spaced.png)
+![Two spaces not spaced correctly, as the `spaced` flag was not included](../images/walls_not_spaced.png){#fig:not_spaced}
 
-Similarly, the default alignment behaviour can be disabled by using the `not aligned` flag, so that the two rooms overlap.
+Similarly, the default alignment behaviour can be disabled by using the `not aligned` flag, so that the two rooms overlap (Figure [@fig:not_aligned]).
 
 ```
 location:
@@ -86,7 +86,7 @@ location:
         rotation: 0.0 deg
     not aligned
 ```
-![To spaces not aligned as the `not aligned` flag was used](../images/walls_not_aligned.png)
+![Two spaces not aligned as the `not aligned` flag was used](../images/walls_not_aligned.png){#fig:not_aligned}
 
 ### Features
 
@@ -114,7 +114,7 @@ Column wall_column:
 ```
 ### Modelling
 
-Now that we have reviewed all of the important concepts, we can put them together in a model. The finished model for this tutorial is available [here](../models/hospital.floorplan), here we will go over the model section by section with some explanations when needed.
+Now that we have reviewed all of the important concepts, we can put them together in a model. The finished model for this tutorial is available on [github](../models/hospital.floorplan). In this section we will go over the model section by section with some explanations when needed.
 
 ```
 Floor plan: hospital
@@ -208,6 +208,7 @@ At the very end of the model the default values for all the spaces must be speci
 
 ## How to generate 3D files and occupancy grid maps
 
+Once all requirements are installed, as specified [here](https://github.com/sesame-project/FloorPlan-DSL).
 To interpret the model and get artefacts, you only need to run one command:
 
 ```
@@ -215,4 +216,4 @@ blender --python exsce_floorplan/exsce_floorplan.py --background
 --python-use-system-env -- <path to model>
 ```
 
-The `--` after the variable paths are important to distinguish the blender parameters and the parameters for the tooling
+The `--` after the variable paths are important to distinguish the blender parameters and the parameters for the tooling.
