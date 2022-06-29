@@ -27,6 +27,6 @@ Orientation:
 ;
 
 PoseDescription:
-    'translation:' pos=Position
-    'rotation:' rot=AngleInDegrees
+    'translation:' translation=Position
+    'rotation:' rotation=AngleInDegrees
 ;

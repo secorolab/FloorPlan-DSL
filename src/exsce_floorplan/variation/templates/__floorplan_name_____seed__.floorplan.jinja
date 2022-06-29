@@ -1,0 +1,61 @@
+{%- macro shape_macro(shape) -%}
+    {%- if shape.__class__.__name__ == 'Polygon' -%}
+        Polygon points:[
+            {%for point in shape.points%}
+                ({{point[0]}} m, {{point[1]}} m) {%-if not loop.index % loop.length == 0-%},
+                {%endif%}
+            {%endfor%}
+
+        ]
+    {%- elif shape.__class__.__name__ == 'Rectangle' -%}
+        Rectangle width={{shape.w}} m, length={{shape.l}} m
+    {%- else -%}
+        wrong
+    {%- endif -%}
+{%- endmacro -%}
+
+{# Macros for frames #}
+{%- macro from_frame(world, ref, index) -%}
+    {%- if world -%}
+        world 
+    {%- else -%}
+        {%- if index == None -%}
+            {{ref.name}}
+        {%- else -%}
+            {{ref.name}}.walls[{{index}}]
+        {%- endif -%}
+    {%- endif -%}
+{%- endmacro -%}
+{%- macro to_frame(index) -%}
+    {%- if index == None -%}
+        this
+    {%- else -%}
+        this.walls[{{index}}]
+    {%- endif -%}
+{%- endmacro -%}
+// Generated variation of the {{name}} floor plan. 
+// Seed: {{seed}}
+Floor plan: {{name}}
+
+    {% for space in spaces%}
+    Space {{space.name}}:
+        shape: {{shape_macro(space.shape)}}
+        location:
+            from: {{from_frame(space.location.from.world, space.location.from.ref, space.location.from.index)}}
+            to: {{to_frame(space.location.to.index)}}
+            pose:
+                translation: x:{{space.location.pose.translation.x}} m, y:{{space.location.pose.translation.y}} m
+                rotation: {{space.location.pose.rotation}} deg
+            {%+if space.location.spaced-%}spaced{%-endif+%} 
+        wall thickness: {{space.wall_thickness}} m
+        wall height: {{space.wall_height}} m
+        {# features:
+            {{Column}} {{name}}:
+                shape:{{shape}}
+                height: {{height}} m
+                from: {{from_frame}}
+                pose:
+                    translation: x:{{x_translation}} m, y:{{y_translation}} m
+                    rotation: {{rotation}} deg #}
+
+    {%endfor%}

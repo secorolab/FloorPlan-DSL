@@ -136,24 +136,24 @@ class Space(object):
         from_wall = None
         to_wall = None
 
-        if not self.location._from.index is None:
-            from_wall = self.location._from.ref.get_wall(self.location._from.index)
+        if not self.location.from_frame.index is None:
+            from_wall = self.location.from_frame.ref.get_wall(self.location.from_frame.index)
             from_frame = from_wall.get_frame()
-        if not self.location.to.index is None:
-            to_wall = self.get_wall(self.location.to.index)
+        if not self.location.to_frame.index is None:
+            to_wall = self.get_wall(self.location.to_frame.index)
             to_frame = to_wall.get_frame()
 
         # Extract from the model the translation and rotation
-        pose = self.location.pose.pos
+        pose = self.location.pose.translation
         x = pose.x.value
         y = pose.y.value
         z = pose.z.value if not pose.z is None else 0
 
-        rot = self.location.pose.rot.value
+        rotation = self.location.pose.rotation.value
 
         # Determine if two walls are selected as frames
-        wall_to_wall = ((not (self.location.to.index is None)) 
-                        and (not (self.location._from.index is None)))
+        wall_to_wall = ((not (self.location.to_frame.index is None)) 
+                        and (not (self.location.from_frame.index is None)))
 
         # if spaced flag is on and two walls are used, then add to the y value
         # the wall thickness of the two walls
@@ -164,7 +164,7 @@ class Space(object):
         # Build the transformation matrix with an auxiliary frame
         aux_frame = Frame()
         aux_frame.set_translation(np.array([x, y, z]))
-        aux_frame.set_orientation(0, 0, np.deg2rad(rot))
+        aux_frame.set_orientation(0, 0, np.deg2rad(rotation))
         T = aux_frame.get_transformation_matrix()
 
         # For the shape to transform, change the frame of reference

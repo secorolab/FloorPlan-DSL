@@ -1,0 +1,11 @@
+import "hospital.floorplan"
+
+hallway: {
+    location.pose.translation.x : normal(mean=5.0, std=2.0)
+    wall_thickness : normal(mean=0.5, std=0.2)
+} 
+reception: {
+    location.pose.translation.x : normal(mean=-5.0, std=2.0)
+    location.pose.translation.y : normal(mean=3.0, std=1.5)
+    location.pose.rotation : normal(mean=45, std=30)
+}

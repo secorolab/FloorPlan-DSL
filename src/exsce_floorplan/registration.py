@@ -2,33 +2,41 @@
 Registration of languages with TextX registration API
 '''
 # dependencies
-from os.path import abspath, dirname, join
-from textx import LanguageDesc, metamodel_from_file
+import sys
+from os.path import abspath, dirname, join, realpath
+from textx import LanguageDesc, GeneratorDesc, metamodel_from_file
 import textx.scoping.providers as scoping_providers
+import textx.scoping as scoping
+
+dir_path = dirname(realpath(__file__))
+sys.path.append(dir_path)
 
 # Classes for FloorPlan DSL and Variation DSL
-from .floor_plan.classes.space import Space
-from .floor_plan.classes.polytope import (
+from floor_plan.classes.space import Space
+from floor_plan.classes.polytope import (
                         Circle, 
                         Polygon, 
                         Rectangle, 
                         VerticalPolygon,
                         VerticalRectangle
                         ) 
-from .floor_plan.classes.wall_opening import WallOpening
-from .floor_plan.classes.floor_feature import FloorFeature
+from floor_plan.classes.wall_opening import WallOpening
+from floor_plan.classes.floor_feature import FloorFeature
 
-from .variation.classes.distribution import (
+from variation.classes.distribution import (
     UniformDistribution,
     DiscreteDistribution,
     NormalDistribution
 )
 
 # object processors for FloorPlan DSL
-from .floor_plan.processors.processors import (
+from floor_plan.processors.processors import (
     opening_obj_processors,
-    feature_obj_processor
+    feature_obj_processor,
+    cartesian_unit_processor
 )
+
+from variation.exsce_variations import variation_floorplan_generator 
 
 def exsce_floorplan_metamodel():
     "exsce_floorplan language"
@@ -44,7 +52,7 @@ def exsce_floorplan_metamodel():
                                                         FloorFeature])
     mm_floorplan.register_obj_processors({
         'WallOpening': opening_obj_processors,
-        'FloorFeature': feature_obj_processor
+        'FloorFeature': feature_obj_processor,
     }) 
     mm_floorplan.register_scope_providers({
         "*.*": scoping_providers.FQNImportURI()
@@ -77,4 +85,11 @@ variation_lang = LanguageDesc(
     pattern="*.variation",
     description='A language to variate models from ExSce',
     metamodel=exsce_variation_metamodel
+)
+
+variation_floorplan_gen = GeneratorDesc(
+    language='exsce-variation-dsl',
+    target='exsce-floorplan-dsl',
+    description='Generate variations of indoor environments from .floorplan models',
+    generator=variation_floorplan_generator
 )

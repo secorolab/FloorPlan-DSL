@@ -2,11 +2,11 @@ import numpy as np
 
 class WallOpening(object):
 
-    def __init__(self, parent, wall_a, wall_b, shape, loc, entryway, window, name):
+    def __init__(self, parent, wall_a, wall_b, shape, pose, entryway, window, name):
         self.parent = parent
         self.wall_a = wall_a.ref.get_wall(wall_a.index)
         self.shape = shape
-        self.loc = loc
+        self.pose = pose
         self.name = name
 
         if not wall_b is None:
@@ -29,11 +29,15 @@ class WallOpening(object):
         frame = self.wall_a.get_frame()
         self.shape.change_reference_frame(frame)
         
-        t = np.array([self.loc.pos.x.value, self.loc.pos.y.value, self.loc.pos.z.value])
-        rot = self.loc.rot.value 
+        t = np.array([
+            self.pose.translation.x.value, 
+            self.pose.translation.y.value, 
+            self.pose.translation.z.value]
+            )
+        rotation = self.pose.rotation.value 
 
         self.shape.frame.set_translation(t)
-        self.shape.frame.set_orientation(0, np.deg2rad(rot), 0)
+        self.shape.frame.set_orientation(0, np.deg2rad(rotation), 0)
 
     def get_points(self):
         return self.shape.get_points()
@@ -75,7 +79,7 @@ class WallOpening(object):
         shapeXY = np.zeros((shape.shape[0], 2))
         shapeXY[:,0] = shape[:,0]
         shapeXY[:,1] = shape[:,2]
-        shapeXY[:,1] += self.loc.pos.z.value
+        shapeXY[:,1] += self.pose.translation.z.value
 
         line = np.array([
             [1, height],

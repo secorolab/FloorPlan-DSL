@@ -1,5 +1,4 @@
-import floorplan_geometry
-import exsce_floorplan
+reference exsce-floorplan-dsl as f
 
 Model:
     import=Import
@@ -7,6 +6,12 @@ Model:
 ;
 
 Variation:
+    ref=[f.FloorPlanReference|FQN] ':' '{'
+        attributes += Attribute
+    '}'
+;
+
+Attribute:
     fqn=FQN ':' distribution=Distribution
 ;
 
@@ -15,7 +20,7 @@ Distribution:
 ;
 
 UniformDistribution:
-    'uniform' ':' '[' values+=Meter ']'
+    'uniform' ':' '[' values+=FLOAT ']'
 ;
 
 DiscreteDistribution:
@@ -24,12 +29,12 @@ DiscreteDistribution:
     ']'
 ;
 
-NormalDistribution:
-    'normal' ':' 'mean' '=' mean=Meter ',' 'std' '=' std=Meter
+NormalDistribution: 
+    'normal' '(' 'mean' '=' mean=FLOAT ',' 'std' '=' std=FLOAT ')'
 ;
 
 DiscreteValue:
-    '(' prob=FLOAT ',' value=Meter ')'
+    '(' prob=FLOAT ',' value=FLOAT ')'
 ;
 
 Import: 'import' importURI=STRING;

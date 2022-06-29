@@ -26,6 +26,7 @@ setup(
     },
     install_requires=[
         'textx',
+        'textX-jinja',
         'numpy',
         'shapely',
         'matplotlib'
@@ -35,6 +36,9 @@ setup(
         'textx_languages': [
             'exsce-floorplan-dsl = exsce_floorplan.registration:floorplan_lang',
             'exsce-variation-dsl = exsce_floorplan.registration:variation_lang'
+        ],
+        'textx_generators' : [
+            'variation-to-floorplan = exsce_floorplan.registration:variation_floorplan_gen',
         ],
     },
 )
