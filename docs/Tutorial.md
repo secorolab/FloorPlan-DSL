@@ -20,9 +20,9 @@ Let's do a review of the most important concepts when modelling an indoor enviro
 ## Modelling
 Modelling an indoor environment consists of modelling Spaces, Entryways, Windows, Columns, and Dividers; and specifying their location in the environment. Modelling these concepts is rather straightforward as we only have to specify its shape and other attributes such as thickness or height. Specifying the location is simple, but requires some background.
 
-The location of any space or feature is specified by a translation and rotation with regards to a frame of reference. There are multiple frames of references that can be chosen for this. Apart from the world frame, each space has N + 1 frames of references, where N is the number of walls. For each wall in the space, there is a frame located in the middle of the wall, with the x axis going along the wall and the y axis perpendicular to the wall. From the perspective of being inside the room looking into one of the walls: Positive values in the x axis are located from the center to the right, and negative values in the opposite direction. Whereas the positive direction from the y axis moves away from you and the negative direction moves closer. The frame is located at floor level, meaning that for the z axis only positive values are above the floor.
+The location of any space or feature is specified by a translation and rotation with regards to a frame of reference. There are multiple frames of references that can be chosen for this. Apart from the world frame, each space has N + 1 frames of references, where N is the number of walls. For each wall in the space, there is a frame located in the middle of the wall, with the x axis going along the wall and the y axis perpendicular to the wall. From the perspective of being inside the room looking into one of the walls: Positive values in the x axis are located from the centre to the right, and negative values in the opposite direction. Whereas the positive direction from the y axis moves away from you and the negative direction moves closer. The frame is located at floor level, meaning that for the z axis only positive values are above the floor.
 
-![Frames available when modeling](../images/walls_with_frames.png)
+![Frames available when modelling](../images/walls_with_frames.png)
 
 The image above illustrates a room with all of its frames. Each wall has an index, so you can select the frame of reference by specifying the index of the desired wall: `<name of space>.walls[<index>]`. You can also select the frame of the space by just referring to the name: `<name of space>`. You may also select the world frame with the `world` keyword.
 
@@ -208,7 +208,7 @@ At the very end of the model the default values for all the spaces must be speci
 
 ## How to generate 3D files and occupancy grid maps
 
-Once all requirements are installed, as specified [here](https://github.com/sesame-project/FloorPlan-DSL).
+Once all requirements are installed, as specified [here](https://github.com/sesame-project/FloorPlan-DSL), you can get artefacts generated.
 To interpret the model and get artefacts, you only need to run one command:
 
 ```
@@ -216,4 +216,4 @@ blender --python exsce_floorplan/exsce_floorplan.py --background
 --python-use-system-env -- <path to model>
 ```
 
-The `--` after the variable paths are important to distinguish the blender parameters and the parameters for the tooling.
+The `--` after the variable paths are important to distinguish the blender parameters and the parameters for the tooling. You will obtain an occupancy grid map and a `.stl` file with the 3D mesh of the environment.
