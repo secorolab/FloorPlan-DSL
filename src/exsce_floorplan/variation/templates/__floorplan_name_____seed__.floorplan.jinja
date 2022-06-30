@@ -33,6 +33,7 @@
         this.walls[{{index}}]
     {%- endif -%}
 {%- endmacro -%}
+
 // Generated variation of the {{name}} floor plan. 
 // Seed: {{seed}}
 Floor plan: {{name}}
@@ -57,5 +58,10 @@ Floor plan: {{name}}
                 pose:
                     translation: x:{{x_translation}} m, y:{{y_translation}} m
                     rotation: {{rotation}} deg #}
+    {%endfor%}
 
+    {%for wall_opening in wall_openings%}
+
+    {%+ if wall_opening.window -%} Window {%- else -%} Entryway {%- endif +%} {{wall_opening.name}}:
+        in: {{wall_opening.in.wall_a.ref.name}}.walls[{{wall_opening.in.wall_a.index}}] {% if not wall_opening.in.wall_b is None-%}{{wall_opening.in.wall_b.ref.name}}.walls[{{wall_opening.in.wall_b.index}}]{%endif%}
     {%endfor%}
