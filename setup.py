@@ -2,36 +2,43 @@
 # -*- coding: utf-8 -*-
 import sys
 import os
-from setuptools import setup
+from setuptools import setup, find_packages
 
-this_dir = os.path.abspath(os.path.dirname(__file__))
+with open("README.md", "r", encoding="utf-8") as fh:
+    long_description = fh.read()
 
-VERSIONFILE = os.path.join(this_dir, "exsce_floorplan", "__init__.py")
-VERSION = None
-for line in open(VERSIONFILE, "r").readlines():
-    if line.startswith('__version__'):
-        VERSION = line.split('"')[1]
+version = "0.0.1"
 
-if not VERSION:
-    raise RuntimeError('No version defined in exsce_floorplan.__init__.py')
+setup(
+    name="exsce-floorplan",
+    version=version,
+    author="Samuel Parra",
+    description="Python realization of metamodels for indoor environment",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
 
-
-if sys.argv[-1].startswith('publish'):
-    if os.system("pip list | grep wheel"):
-        print("wheel not installed.\nUse `pip install wheel`.\nExiting.")
-        sys.exit()
-    if os.system("pip list | grep twine"):
-        print("twine not installed.\nUse `pip install twine`.\nExiting.")
-        sys.exit()
-    os.system("python setup.py sdist bdist_wheel")
-    if sys.argv[-1] == 'publishtest':
-        os.system("twine upload -r test dist/*")
-    else:
-        os.system("twine upload dist/*")
-        print("You probably want to also tag the version now:")
-        print("  git tag -a {0} -m 'version {0}'".format(VERSION))
-        print("  git push --tags")
-    sys.exit()
-
-
-setup(version=VERSION)
+    python_requires=">=3.6",
+    packages=find_packages(where="src"),
+    package_dir={'': 'src'},
+    package_data={
+        # textx grammar files
+        '': ['*.tx']
+    },
+    install_requires=[
+        'textx',
+        'textX-jinja',
+        'numpy',
+        'shapely',
+        'matplotlib'
+    ],
+    entry_points={
+        # textx language registration
+        'textx_languages': [
+            'exsce-floorplan-dsl = exsce_floorplan.registration:floorplan_lang',
+            'exsce-variation-dsl = exsce_floorplan.registration:variation_lang'
+        ],
+        'textx_generators' : [
+            'variation-to-floorplan = exsce_floorplan.registration:variation_floorplan_gen',
+        ],
+    },
+)

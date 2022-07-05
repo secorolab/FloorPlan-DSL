@@ -6,7 +6,7 @@ from shapely.ops import unary_union
 def opening_obj_processors(opening):
     wall_a = opening.wall_a
 
-    opening_shape = opening.generate_2d_structure(opening.loc.pos.z.value, offset=0)
+    opening_shape = opening.generate_2d_structure(opening.pose.translation.z.value, offset=0)
     opening_shape = Polygon(opening_shape[:, 0:2])
     wall_shape = Polygon(wall_a.generate_3d_structure()[0][0:4, 0:2])
     

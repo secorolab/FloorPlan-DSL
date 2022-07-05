@@ -2,31 +2,31 @@ import numpy as np
 
 class FloorFeature(object):
 
-    def __init__(self, parent, name, shape, loc, divider, column, height):
+    def __init__(self, parent, name, shape, location, divider, column, height):
         self.parent = parent
         self.name = name
         self.shape = shape
-        self.loc = loc
+        self.location = location
         self.divider = divider
         self.column = column
         self.height = height
 
     def locate(self):
         frame = self.parent.get_frame()
-        if not self.loc._from.index is None:
-            frame = self.parent.get_wall(self.loc._from.index).get_frame()
+        if not self.location.from_frame.index is None:
+            frame = self.parent.get_wall(self.location.from_frame.index).get_frame()
         self.shape.change_reference_frame(frame)
         
-        pose = self.loc.pos.pos
+        pose = self.location.pose.translation
         x = pose.x.value
         y = pose.y.value
         z = pose.z.value if not pose.z is None else 0
 
         t = np.array([x, y, z])
-        rot = self.loc.pos.rot.value 
+        rotation = self.location.pose.rotation.value 
 
         self.shape.frame.set_translation(t)
-        self.shape.frame.set_orientation(0, 0, np.deg2rad(rot))
+        self.shape.frame.set_orientation(0, 0, np.deg2rad(rotation))
 
     def get_points(self):
         return self.shape.get_points()

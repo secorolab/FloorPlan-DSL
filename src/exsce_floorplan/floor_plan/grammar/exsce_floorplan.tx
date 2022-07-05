@@ -38,6 +38,10 @@ DefaultValues:
         'Wall height' ':' wall_height = CartesianUnit
 ;
 
+FloorPlanReference:
+    Space | FloorFeature | WallOpening
+;
+
 /* ------------------------------------------ */
 // Wall 
 
@@ -67,8 +71,8 @@ WallThickness:
 // Location
 
 SpaceLocation:
-    'from:' _from=FromFrameRef
-    'to:' to=ToFrameRef
+    'from:' from_frame=FromFrameRef
+    'to:' to_frame=ToFrameRef
     'pose:'
         pose=PoseDescription
     //flags
@@ -76,9 +80,9 @@ SpaceLocation:
 ;
 
 FloorLocation:
-    'from:' _from=ToFrameRef
+    'from:' from_frame=ToFrameRef
     'pose' ':' 
-        pos=PoseDescription
+        pose=PoseDescription
 ;
 
 /* ------------------------------------------ */
@@ -89,7 +93,7 @@ WallOpening:
     'in:' wall_a=WallRef ('and' wall_b=WallRef)?
         'shape:' shape=VerticalPolytope
         'pose:' 
-            loc=PoseDescription
+            pose=PoseDescription
 ;
 
 /* ------------------------------------------ */
@@ -99,7 +103,7 @@ FloorFeature:
     ( divider?='Divider' | column?='Column' ) name=ID ':'
         'shape:' shape=Polytope
         'height' ':' height=CartesianUnit
-        loc=FloorLocation
+        location=FloorLocation
 ;
 
 /* ------------------------------------------ */
