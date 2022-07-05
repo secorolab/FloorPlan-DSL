@@ -14,63 +14,15 @@ from textx import metamodel_for_language
 import numpy as np 
 import numpy.random as random
 
-def pose_json(pose):
-
-    return {
-        'translation' : {
-            'x' : pose.translation.x.value,
-            'y' : pose.translation.y.value,
-            'z' : pose.translation.z.value if not pose.translation.z is None else 0 
-        },
-        'rotation' : pose.rotation.value
-    }
-
-def space_json(space):
-    return {
-        'name' : space.name,
-        'location' : {
-            'pose' : pose_json(space.location.pose),
-            'from' : {
-                'world' : space.location.from_frame.world,
-                'ref' : space.location.from_frame.ref,
-                'index' : space.location.from_frame.index
-            },
-            'to' : {
-                'index' : space.location.to_frame.index
-            },
-            'spaced' : space.location.spaced,
-            'not_aligned' : space.location.aligned
-        },
-        'shape' : space.shape,
-        'wall_thickness' : space.wall_thickness,
-        'wall_height' : space.wall_height
-    }
-
-def wall_opening_json(wall_opening):
-    print(vars(wall_opening.wall_a))
-    return {
-        'entryway' : wall_opening.entryway,
-        'window'  : wall_opening.window,
-        'name' : wall_opening.name,
-        'in' : {
-            'wall_a' : wall_opening.wall_a,
-            'wall_b' : wall_opening.wall_b
-        },
-        'shape' : wall_opening.shape,
-        'pose' : pose_json(wall_opening.pose)
-    }
-
-def get_floorplan_as_json(flp_model):
-    
-    # convert the original model into a context dictionary
-    context = {
-        'floorplan_name' : flp_model.name,
-        'name' : flp_model.name,
-        'spaces' : [space_json(space) for space in flp_model.spaces],
-        'wall_openings' : [wall_opening_json(wall_opening) for wall_opening in flp_model.wall_openings]
-    }
-    print(context)
-    return context
+from helpers.helpers import (
+    pose_json, 
+    shape_json, 
+    floor_feature_json, 
+    space_json, 
+    wall_opening_json, 
+    default_json, 
+    get_floorplan_as_json
+)
 
 def sample(context, variations):
 
@@ -91,7 +43,11 @@ def sample(context, variations):
                         aux = context['wall_openings'][i]
                         break
             elif var.ref.__class__.__name__ == 'FloorFeature':
-                pass
+                for i, space in enumerate(context["spaces"]):
+                    for j, feature in enumerate(space["floor_features"]):
+                        if feature["name"] == var.ref.name:
+                            aux = context['spaces'][i]['floor_features'][j]
+                            break
 
             if len(fqn) == 1:
                 aux[fqn[0]] = att.distribution.sample()
@@ -127,27 +83,3 @@ def variation_floorplan_generator(metamodel, var_model, output_path, overwrite, 
         context["seed"] = seed
         sample(context, var_model)
         textx_jinja_generator(path, output, context, True)
-
-    
-
-
-# if __name__ == '__main__':
-
-#     mm_variation = metamodel_for_language('exsce-variation-dsl')
-
-#     model = mm_variation.model_from_file('models/hospital.variation')
-
-#     # Sample
-#     for var in model.variations:
-#         print(getattr(var.ref, 'name'))
-#         print(getattr(var.ref, 'shape'))
-
-#     # Generate
-    
-
-
-# formulate the evaluation wrt to the requirmements/interview
-# system usibilty test sus
-# 
-# questionare?
-# fomulate a research question around the effectiveness

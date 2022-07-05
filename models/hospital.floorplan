@@ -128,10 +128,10 @@ Floor plan: hospital
             rotation: 0.0 deg
 
     Entryway reception_hallway: 
-        in: reception.walls[0] and hallway.walls[2]
+        in: hallway.walls[2] and reception.walls[0]
         shape: Rectangle width=4.0 m, height=2.0 m
         pose:
-            translation: x: 2.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
             rotation: 0.0 deg
 
     Entryway hallway_roomA: 

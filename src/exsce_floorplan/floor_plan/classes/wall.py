@@ -38,7 +38,7 @@ class Wall():
         mesh of the wall
     '''
 
-    def __init__(self, point_a, point_b, ref_frame, thickness, height, name):
+    def __init__(self, point_a, point_b, ref_frame, thickness, height, parent, index):
         '''
         Constructs the wall object
 
@@ -70,7 +70,10 @@ class Wall():
         self.polygon = []
         self.thickness = thickness
         self.height = height
-        self.name = name
+        self.parent = parent
+        self.index = index
+        
+        self.name = "{space}.wall{index}".format(space=self.parent.name, index=self.index)
 
         # determine middle point of wall and calculate x vector
         middle = (point_a + point_b)/2 

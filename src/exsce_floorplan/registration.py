@@ -32,9 +32,10 @@ from variation.classes.distribution import (
 # object processors for FloorPlan DSL
 from floor_plan.processors.processors import (
     opening_obj_processors,
-    feature_obj_processor,
-    cartesian_unit_processor
+    feature_obj_processor
 )
+
+from variation.processors.processors import discrete_distribution_obj_processor
 
 from variation.exsce_variations import variation_floorplan_generator 
 
@@ -67,6 +68,9 @@ def exsce_variation_metamodel():
     mm_variation = metamodel_from_file(path, classes=[UniformDistribution,
                                                         DiscreteDistribution,
                                                         NormalDistribution])
+    mm_variation.register_obj_processors({
+        'DiscreteDistribution' : discrete_distribution_obj_processor
+    })
     mm_variation.register_scope_providers({
         "*.*": scoping_providers.FQNImportURI()
     })

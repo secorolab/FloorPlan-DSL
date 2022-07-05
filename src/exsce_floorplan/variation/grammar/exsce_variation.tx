@@ -20,13 +20,13 @@ Distribution:
 ;
 
 UniformDistribution:
-    'uniform' ':' '[' values+=FLOAT ']'
+    'uniform' '(' '[' values+=FLOAT[','] ']' ')'
 ;
 
 DiscreteDistribution:
-    'discrete' ':' '['
-        values += DiscreteValue
-    ']'
+    'discrete' '(' '['
+        pairs += DiscreteValue[',']
+    ']' ')'
 ;
 
 NormalDistribution: 

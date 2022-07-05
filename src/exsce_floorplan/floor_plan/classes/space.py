@@ -238,7 +238,8 @@ class Space(object):
                         self.shape.frame, 
                         self.wall_thickness, 
                         self.wall_height, 
-                        "{space}.wall{index}".format(space=self.name, index=i)
+                        self, 
+                        i
                 ) for i, (p1, p2) in enumerate(zip(points[:-1], points[1:]))]
 
     def get_wall_frame(self, index):

@@ -32,8 +32,3 @@ def feature_obj_processor(feature):
                 feature=feature.name,
                 space=feature.parent.name),
             **get_location(feature))
-
-def cartesian_unit_processor(unit):
-
-    print(unit)
-    

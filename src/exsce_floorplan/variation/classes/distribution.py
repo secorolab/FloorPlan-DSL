@@ -22,12 +22,13 @@ class UniformDistribution(Distribution):
 
 class DiscreteDistribution(Distribution):
     
-    def __init__(self, parent, values):
+    def __init__(self, parent, pairs):
         super().__init__(parent)
-        self.values = values
+        self.probabilitities = [pair.prob for pair in pairs]
+        self.values = [pair.value for pair in pairs]
 
     def sample(self):
-        pass
+        return np.random.choice(self.values, 1, p=self.probabilitities)[0]
 
 class NormalDistribution(Distribution):
     
