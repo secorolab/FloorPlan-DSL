@@ -7,6 +7,7 @@ hallway: {
         (0.4, 0.35),
         (0.4, 0.51)
     ])
+    shape.length : uniform([14.0, 15.0, 16.0])
 } 
 reception: {
     location.pose.translation.x : normal(mean=-5.0, std=2.0)
@@ -21,6 +22,6 @@ reception.divider_central: {
     height : normal(mean=1.0, std=0.2)
     pose.rotation : discrete([
         (0.8, 0.0),
-        (0.19, 0.20)
+        (0.2, 0.20)
     ])
 }
