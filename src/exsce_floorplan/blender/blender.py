@@ -9,12 +9,15 @@ def create_mesh(collection, name, vertices, faces):
     bm = bmesh.new()
     bm.from_mesh(me, face_normals=True) 
 
+    bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
+
     bm.to_mesh(me)
     bm.free()
     me.update()
 
     obj = bpy.data.objects.new(name, me)
     collection.objects.link(obj)
+
 
 def create_collection(name):
     collection = bpy.data.collections.new(name)

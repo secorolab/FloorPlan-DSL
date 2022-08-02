@@ -1,0 +1,5 @@
+import "hbrs.floorplan"
+
+corridor_1.pillar_1: {
+    pose.translation.y : uniform([-1.1, -0.95, -1.25])
+}
