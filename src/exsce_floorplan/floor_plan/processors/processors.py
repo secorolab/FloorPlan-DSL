@@ -1,7 +1,7 @@
 from textx import TextXSemanticError, get_location
 import numpy as np
-from shapely.geometry import Polygon
-from shapely.ops import unary_union
+# from shapely.geometry import Polygon
+# from shapely.ops import unary_union
 
 def opening_obj_processors(opening):
     # wall_a = opening.wall_a

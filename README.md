@@ -8,16 +8,34 @@ Floor Plan DSL is a model-driven approach to describe indoor environments. The m
 
 Install all the requirements:
 * [Python 3](https://www.python.org/downloads/)
-* [Blender](https://www.blender.org/download/) (tested on v2.82a)
+* [Blender](https://www.blender.org/download/) (v2.82a, preferably installed with apt-get)
 * [TextX](http://textx.github.io/textX/3.0/) 
 
 Alternatively, you can install all requirements (except for blender) with `pip3 install -r requirements.txt`
+
+After installing the requirements, from the root directory of the repo execute: 
+
+```
+python3 setup.py install 
+```
+
+This will install the languages and generators. To confirm that the languages have been install, execute the commands: `textx list-languages` and `textx list-generators`. The name of the languages should appear in the output:
+
+```
+> textx list-languages
+...
+exsce-floorplan-dsl (*.floorplan)exsce-floorplan[0.0.1]                  A language to model indoor environments
+exsce-variation-dsl (*.variation)exsce-floorplan[0.0.1]                  A language to variate models from ExSce
+> textx list-generators
+...
+exsce-variation-dsl -> exsce-floorplan-dslexsce-floorplan[0.0.1]        Generate variations of indoor environments from .floorplan models
+```
 
 # Getting started
 
 ## Usage
 
-This tool is currently in active development. To use the tool you can execute the following command:
+This tool is currently in active development. To use the tool you can execute the following command: 
 
 ```
 blender --background --python exsce_floorplan/exsce_floorplan.py --python-use-system-env -- <model_path>
