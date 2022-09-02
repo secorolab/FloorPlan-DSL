@@ -36,7 +36,7 @@ Optionally, you can remove the `--background` flag to see directly the result op
 An example model for a building is available in [here](models/hospital.floorplan)
 
 ```
-blender --python exsce_floorplan/exsce_floorplan.py --python-use-system-env -- models/hospital.floorplan
+blender --python src/exsce_floorplan/exsce_floorplan.py --python-use-system-env -- models/hospital.floorplan
 ```
 
 The output of the tooling is available in the [output folder](output).
