@@ -1,0 +1,20 @@
+{
+    "name": "variation",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": ">=0.9.0-pre.1"
+    },
+    "publisher": "sesame",
+    "contributes": {
+        "languages": [{
+            "id": "variation",
+            "aliases": ["variation"],
+            "extensions": [".variation"]
+        }],
+        "grammars": [{
+            "language": "variation",
+            "scopeName": "source.variation",
+            "path": "./syntaxes/variation.json"
+        }]
+    }
+}

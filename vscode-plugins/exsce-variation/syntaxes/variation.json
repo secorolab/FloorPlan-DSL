@@ -1,0 +1,71 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "variation",
+	"scopeName": "source.variation",
+	"patterns": [        {
+            "include": "#comment"
+        },        {
+            "include": "#string"
+        },
+        {
+            "include": "#language_keyword"
+        },
+        {
+            "include": "#language_operation"
+        },
+        {
+            "include": "#regular_expression"
+        }
+    ],
+    "repository": {        "comment": {
+            "patterns": [                {
+                    "match": "//.*$",
+                    "name": "comment.line"
+                },                {
+                    "name": "comment.block",
+                    "begin": "/\\*",
+                    "end": "\\*/"
+                }            ]
+        },        "string": {
+            "patterns": [
+                {
+                    "name": "string.quoted.single",
+                    "begin": "'",
+                    "end": "'"
+                },
+                {
+                    "name": "string.quoted.double",
+                    "begin": "\"",
+                    "end": "\""
+                }
+            ]
+        },
+        "language_keyword": {
+            "patterns": [                {
+                    "match": "discrete",
+                    "name": "support.class"
+                },                {
+                    "match": "uniform",
+                    "name": "support.class"
+                },                {
+                    "match": "normal",
+                    "name": "support.class"
+                },                {
+                    "match": "mean",
+                    "name": "constant.language"
+                },                {
+                    "match": "std",
+                    "name": "constant.language"
+                },                {
+                    "match": "import",
+                    "name": "constant.language"
+                }            ]
+        },
+        "language_operation": {
+            "patterns": [            ]
+        },
+        "regular_expression": {
+            "patterns": [            ]
+        }
+    }
+}
