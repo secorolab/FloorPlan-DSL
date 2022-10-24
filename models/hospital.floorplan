@@ -1,7 +1,7 @@
 // This is a comment
 Floor plan: hospital
 
-    Space reception:
+    Space reception:                            
         shape: Polygon points:[
             (-7.0 m, 6.0 m),
             (7.0 m, 6.0 m),
@@ -14,8 +14,8 @@ Floor plan: hospital
             from: world
             to: this
             pose:
-                translation: x:0.0 m, y:-5.0 m
-                rotation: 45.0 deg
+                translation: x:0.0 m, y:0.0 m
+                rotation: 0.0 deg
         wall thickness: 0.40 m 
         wall height: 3.0 m
         features:
