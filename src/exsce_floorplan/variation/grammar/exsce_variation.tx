@@ -6,7 +6,7 @@ Model:
 ;
 
 Variation:
-    ref=[f.FloorPlanReference|FQN] ':' '{'
+    ref=[f.FloorPlanReference | FQN] ':' '{'
         attributes += Attribute
     '}'
 ;
