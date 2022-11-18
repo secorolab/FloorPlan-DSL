@@ -32,7 +32,8 @@ from variation.classes.distribution import (
 # object processors for FloorPlan DSL
 from floor_plan.processors.processors import (
     opening_obj_processors,
-    feature_obj_processor
+    feature_obj_processor,
+    unique_names_processor
 )
 
 from variation.processors.processors import discrete_distribution_obj_processor
@@ -54,6 +55,7 @@ def exsce_floorplan_metamodel():
     mm_floorplan.register_obj_processors({
         'WallOpening': opening_obj_processors,
         'FloorFeature': feature_obj_processor,
+        'FloorPlan' : unique_names_processor
     }) 
     mm_floorplan.register_scope_providers({
         "*.*": scoping_providers.FQNImportURI()
