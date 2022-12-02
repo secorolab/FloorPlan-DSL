@@ -210,12 +210,14 @@ class FloorPlan(object):
         yaml_file = "{name}_{map}".format(name=self.model.name, 
                                             map=pgm["map_configuration"])
 
+        # Where to put the robot????
+        origin = [0, 0, 0]
+
         with io.open('output/{file}'.format(file=yaml_file), 'w', 
                                             encoding='utf8') as outfile:
-            
             pgm_config = {
                 'resolution':res,
-                'origin': pgm['origin'],
+                'origin': origin,
                 'occupied_thresh': pgm['occupied_thresh'],
                 'free_thresh':pgm['free_thresh'],
                 'negate':pgm['negate'],

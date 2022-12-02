@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 import sys
 import os
 from setuptools import setup, find_packages
@@ -16,10 +14,9 @@ setup(
     description="Python realization of metamodels for indoor environment",
     long_description=long_description,
     long_description_content_type="text/markdown",
-
     python_requires=">=3.6",
     packages=find_packages(where="src"),
-    package_dir={'': 'src'},
+    package_dir={'exsce_floorplan': 'src'},
     package_data={
         # textx grammar files
         '': ['*.tx']
