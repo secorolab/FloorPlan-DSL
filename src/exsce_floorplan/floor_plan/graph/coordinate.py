@@ -4,13 +4,14 @@ def build_floorplan_coordinate_graph(model, output_path):
     '''Returns the coordinate graph'''
 
     context = [
-        "https://comp-rob2b.github.io/metamodels/geometry/coordinates.json",
-        "https://comp-rob2b.github.io/metamodels/qudt.json",
         {
-            "rob": "https://comp-rob2b.github.io/modelling-tutorial/robot#",
-            "theta" : "rob:theta",
-            "degress" : "rob:degrees"
-        }
+            "@base": "http://exsce-floorplan.org/",
+            "coord" : "https://comp-rob2b.github.io/metamodels/geometry/coordinates#",
+            "VectorXY" : "coord:VectorXY",
+            "theta" : "coord:theta"
+        },
+        "https://comp-rob2b.github.io/metamodels/geometry/coordinates.json",
+        "https://comp-rob2b.github.io/metamodels/qudt.json"
     ]
 
     graph = []
@@ -20,6 +21,21 @@ def build_floorplan_coordinate_graph(model, output_path):
         # Pose of the spaces as specificied in the model
         of = to_ref_name(space.location.to_frame, space)
         to = from_ref_name(space.location.from_frame)
+
+        theta_space = space.location.pose.rotation.value
+
+        wall_to_wall = ((not (space.location.to_frame.index is None)) 
+                        and (not (space.location.from_frame.index is None)))
+
+        if not space.location.aligned and wall_to_wall:
+            theta_space += 180
+
+        y = space.location.pose.translation.y.value
+        if (wall_to_wall and space.location.spaced):
+            from_wall = space.location.from_frame.ref.get_wall(space.location.from_frame.index)
+            to_wall = space.get_wall(space.location.to_frame.index)
+            wall_thickness = from_wall.thickness + to_wall.thickness
+            y += wall_thickness
         
         pose_space_frame_to_ref_frame = {
             "@id" : "coord-pose-{of}-to-{to}".format(of=of, to=to),
@@ -27,9 +43,9 @@ def build_floorplan_coordinate_graph(model, output_path):
             "of-pose" : "pose-{of}-to-{to}".format(of=of, to=to),
             "as-seen-by" : to,
             "unit": ["M","degrees"],
-            "theta" : space.location.pose.rotation.value,
+            "theta" : theta_space,
             "x": space.location.pose.translation.x.value,
-            "y": space.location.pose.translation.y.value
+            "y": y
         }
 
         graph.append(pose_space_frame_to_ref_frame)

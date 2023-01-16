@@ -190,20 +190,6 @@ class FloorPlan(object):
                 shape = shape.astype(int)
 
                 draw.polygon(shape[:, 0:2].flatten().tolist(), fill=occupied)
-
-            for feature in space.floor_features:
-                points, _ = feature.generate_3d_structure()
-
-                if points[int(len(points)/2):,2][0] < laser_height:
-                    continue
-
-                shape = points[0:int(len(points)/2), 0:2]
-                shape[:, 0] = (shape[:, 0] + abs(west))/res
-                shape[:, 1] = (shape[:, 1] + abs(south))/res
-                shape += border/2
-                shape = shape.astype(int)
-
-                draw.polygon(shape[:, 0:2].flatten().tolist(), fill=occupied)
         
         name = self.model.name
         image = "{model}_{name}".format(model=name, name=pgm['image'])
@@ -239,6 +225,21 @@ class FloorPlan(object):
             shape = shape.astype(int)
 
             draw.polygon(shape[:, 0:2].flatten().tolist(), fill=free)
+
+        for space in self.spaces:
+            for feature in space.floor_features:
+                    points, _ = feature.generate_3d_structure()
+
+                    if points[int(len(points)/2):,2][0] < laser_height:
+                        continue
+
+                    shape = points[0:int(len(points)/2), 0:2]
+                    shape[:, 0] = (shape[:, 0] + abs(west))/res
+                    shape[:, 1] = (shape[:, 1] + abs(south))/res
+                    shape += border/2
+                    shape = shape.astype(int)
+
+                    draw.polygon(shape[:, 0:2].flatten().tolist(), fill=occupied)
 
         im = ImageOps.flip(im)
         im.save('output/{file}'.format(file=image), quality=95)
