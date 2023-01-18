@@ -2,6 +2,7 @@ import sys
 import traceback
 import os
 import io
+import configparser
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(dir_path)
@@ -48,8 +49,23 @@ class FloorPlan(object):
         self.spaces = model.spaces
         self.wall_openings = model.wall_openings
 
-        with open("config.yaml", 'r') as stream:
-            self.config = yaml.safe_load(stream)
+        # config file
+        config = configparser.ConfigParser()
+        config.read('setup.cfg')
+        self.output_3d_file = config["model"]["output_folder"]
+        self.format_3d_file = config["model"]["format"]
+
+        self.map_yaml_resolution = config.getfloat("map_yaml", "resolution")
+        self.map_yaml_occupied_thresh = config.getfloat("map_yaml","occupied_thresh")
+        self.map_yaml_free_thresh = config.getfloat("map_yaml","free_thresh")
+        self.map_yaml_negate = config.getint("map_yaml","negate")
+
+        self.map_unknown = config.getint("map","unknown")
+        self.map_occupied = config.getint("map","occupied")
+        self.map_free = config.getint("map","free")
+        self.map_laser_height = config.getfloat("map","laser_height")
+        self.map_output_folder = config["map"]["output_folder"]
+        self.map_border = config.getint("map","border")
 
     def debug_mpl_show_floorplan(self):
 
@@ -93,9 +109,6 @@ class FloorPlan(object):
 
         plt.show()
 
-    def model_to_jsonld_transformation(self, model):
-        pass
-
     def model_to_3d_transformation(self):
 
         building = create_collection(self.model.name)
@@ -128,18 +141,16 @@ class FloorPlan(object):
             bpy.data.objects[wall_opening.name].select_set(True)
             bpy.ops.object.delete()
 
-        export(self.model.name)
+        export(self.format_3d_file, self.output_3d_file, self.model.name)
 
     def model_to_occupancy_grid_transformation(self):
-        
-        pgm = self.config["pgm"]
 
-        unknown = pgm["unknown"]
-        occupied = pgm["occupied"]
-        free = pgm["free"]
-        res = pgm["resolution"]
-        border = 100
-        laser_height = pgm["laser_height"]
+        unknown = self.map_unknown 
+        occupied = self.map_occupied
+        free = self.map_free
+        res = self.map_yaml_resolution
+        border = self.map_border
+        laser_height = self.map_laser_height
 
         points = []
         directions = []
@@ -191,23 +202,21 @@ class FloorPlan(object):
 
                 draw.polygon(shape[:, 0:2].flatten().tolist(), fill=occupied)
         
-        name = self.model.name
-        image = "{model}_{name}".format(model=name, name=pgm['image'])
-        yaml_file = "{name}_{map}".format(name=self.model.name, 
-                                            map=pgm["map_configuration"])
+        name_yaml = "{}.yaml".format(self.model.name)
+        name_image = "{}.pgm".format(self.model.name)
 
         # Where to put the robot????
         origin = [0, 0, 0]
 
-        with io.open('output/{file}'.format(file=yaml_file), 'w', 
+        with io.open(os.path.join(self.map_output_folder, name_yaml), 'w', 
                                             encoding='utf8') as outfile:
             pgm_config = {
                 'resolution':res,
                 'origin': origin,
-                'occupied_thresh': pgm['occupied_thresh'],
-                'free_thresh':pgm['free_thresh'],
-                'negate':pgm['negate'],
-                'image':image
+                'occupied_thresh': self.map_yaml_occupied_thresh,
+                'free_thresh':self.map_yaml_free_thresh,
+                'negate':self.map_yaml_negate,
+                'image': name_image 
             }
             yaml.dump(pgm_config, outfile, 
                       default_flow_style=False, allow_unicode=True)
@@ -242,7 +251,7 @@ class FloorPlan(object):
                     draw.polygon(shape[:, 0:2].flatten().tolist(), fill=occupied)
 
         im = ImageOps.flip(im)
-        im.save('output/{file}'.format(file=image), quality=95)
+        im.save(os.path.join(self.map_output_folder, name_image), quality=95)
             
     def interpret(self):
         self.model_to_3d_transformation()

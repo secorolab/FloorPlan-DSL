@@ -1,5 +1,6 @@
 import bpy
 import bmesh
+import os
 
 def create_mesh(collection, name, vertices, faces):
     me = bpy.data.meshes.new(name)
@@ -40,5 +41,8 @@ def boolean_operation_difference(obj_name, cutter_name):
     bpy.context.view_layer.objects.active = obj
     bpy.ops.object.modifier_apply(modifier="boolean")
 
-def export(name):
-    bpy.ops.export_mesh.stl(filepath="output/{name}_enviornment.stl".format(name=name))
+def export(_format, path, name):
+
+    if _format == 'stl':
+        name = "{name}.stl".format(name=name)
+        bpy.ops.export_mesh.stl(filepath=os.path.join(path, name))

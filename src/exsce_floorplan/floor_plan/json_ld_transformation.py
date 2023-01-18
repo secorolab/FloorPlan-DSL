@@ -1,5 +1,6 @@
 import json, os
 import traceback, sys
+import configparser
 from textx import metamodel_for_language
 from pathlib import Path
 
@@ -20,7 +21,8 @@ def jsonld_floorplan_generator(metamodel, model, output_path, overwrite=True, de
     floorplan = build_floorplan_graph(model, output_path)
     coordinate = build_floorplan_coordinate_graph(model, output_path)
     
-    directory = "{output}/{name}_json_ld".format(output=output_path, name=model.name)
+    directory = os.path.join(output_path, "{name}_json_ld".format(name=model.name))
+    print(directory)
     if not os.path.exists(directory):
         os.makedirs(directory)
 
@@ -60,8 +62,11 @@ if __name__ == '__main__':
         my_metamodel = metamodel_for_language('exsce-floorplan-dsl')
         argv = sys.argv[sys.argv.index("--") + 1:]
         my_model = my_metamodel.model_from_file(argv[0])
-        output_path = argv[1]
 
+        config = configparser.ConfigParser()
+        config.read('setup.cfg')
+
+        output_path = config["composable_models"]["output_folder"]
         jsonld_floorplan_generator(my_metamodel, my_model, output_path)
 
     except Exception:
