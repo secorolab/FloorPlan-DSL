@@ -3,15 +3,16 @@ def build_shape_graph(model, output_path):
     Shape graph: shape relationships
     '''
     context = [ 
-        "https://raw.githubusercontent.com/opengeospatial/ogc-geosparql/master/1.1/contexts/sf-context.json",
         {
-            "@base" : "http://exsce-floorplan.org/",
-            'points' : {
-                "@id" : "http://exsce-floorplan.org/points",
-                "@container" : "@list",
-                "@type" : "@id"
-                }
+            "@base": "http://exsce-floorplan.org/",
+            "fp" : "http://exsce-floorplan.org/",
+            "Polygon" : "fp:Polygon",
+            "points": {
+                "@id": "fp:points",
+                "@container": "@list",
+                "@type": "@id"
             }
+        }
     ]
 
     graph = []
@@ -38,7 +39,6 @@ def build_shape_graph(model, output_path):
     shape_json_ld = {
         "@context" : context,
         "@graph" : graph,
-        "@id" : "{name}-shape".format(name=model.name)
     }
 
     return shape_json_ld

@@ -98,7 +98,6 @@ def build_floorplan_coordinate_graph(model, output_path):
 
     coordinate_json_ld = {
         "@context" : context,
-        "@id" : "{name}-coordinates".format(name=model.name),
         "@graph" : graph
     }
 

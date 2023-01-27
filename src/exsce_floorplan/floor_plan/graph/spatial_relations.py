@@ -5,8 +5,7 @@ def build_spatial_relations_graph(model, output_path):
 
     context = [
         {
-            "@base":"http://exsce-floorplan.org/", 
-            "skeleton":"http://exsce-floorplan.org/"
+            "@base": "http://exsce-floorplan.org/"
         },
         "https://comp-rob2b.github.io/metamodels/geometry/spatial-relations.json"
     ]
@@ -60,7 +59,6 @@ def build_spatial_relations_graph(model, output_path):
     spatial_relations_json_ld = {
         "@context" : context,
         "@graph" : graph,
-        "@id" : "{name}-spatial_relations".format(name=model.name)
     }
 
     return spatial_relations_json_ld

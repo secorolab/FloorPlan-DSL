@@ -5,8 +5,7 @@ def build_skeleton_graph(model, output_path):
     '''
     context = [
         {
-            "@base":"http://exsce-floorplan.org/", 
-            "skeleton":"http://exsce-floorplan.org/"
+            "@base": "http://exsce-floorplan.org/"
         },
         "https://comp-rob2b.github.io/metamodels/geometry/structural-entities.json"
     ]
@@ -74,7 +73,6 @@ def build_skeleton_graph(model, output_path):
     skeleton_json_ld = {
         "@context" : context,
         "@graph" : skeleton_graph,
-        "@id" : "{name}-skeleton".format(name=model.name)
     }
 
     return skeleton_json_ld

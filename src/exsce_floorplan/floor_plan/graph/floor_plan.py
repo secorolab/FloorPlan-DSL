@@ -2,22 +2,25 @@ def build_floorplan_graph(model, output_path):
     '''Returns the floorplan graph'''
     context = [
         {
-            "@base":"http://exsce-floorplan.org/", 
-            "floorplan":"http://exsce-floorplan.org/",
-            "polytope" : {
-                "@id" : "http://exsce-floorplan.org/polytope",
-                "@type" : "@id"
-            },
-            "spaces" : {
-                "@id" : "http://exsce-floorplan.org/space",
-                "@container" : "@list",
-                "@type" : "@id"
+            "@base": "http://exsce-floorplan.org/",
+            "floorplan": "http://exsce-floorplan.org/",
+            "spaces": {
+                "@id": "floorplan:spaces",
+                "@container": "@list",
+                "@type": "@id"
             },
             "walls": {
-                "@id" : "http://exsce-floorplan.org/wall",
-                "@container" : "@list",
+                "@id": "floorplan:walls",    
+                "@container": "@list",
+                "@type": "@id"
+            },
+            "shape":{
+                "@id": "floorplan:shape",
                 "@type" : "@id"
             },
+            "Wall" : "floorplan:Wall",
+            "Space" : "floorplan:Space",
+            "FloorPlan" : "floorplan:FloorPlan"
         }
     ]
 
@@ -45,14 +48,13 @@ def build_floorplan_graph(model, output_path):
         graph.append(space_json)
 
     graph.append({
-            "@id" : "floorplan_{name}".format(name=model.name),
+            "@id" : "{name}".format(name=model.name),
             "@type" : "FloorPlan",
             "spaces" : ["space-{name}".format(name=space.name) for space in model.spaces]
         })
 
     floorplan_json_ld = {
         "@context" : context,
-        "@id" : "{name}-floorplan".format(name=model.name),
         "@graph" : graph
     }
 
