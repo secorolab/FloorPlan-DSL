@@ -55,6 +55,12 @@ class FloorPlan(object):
         self.output_3d_file = config["model"]["output_folder"]
         self.format_3d_file = config["model"]["format"]
 
+        if "{{model_name}}" in self.output_3d_file:
+            self.output_3d_file = self.output_3d_file.replace("{{model_name}}", model.name)
+            print(self.output_3d_file)
+            if not os.path.exists(self.output_3d_file):
+                os.makedirs(self.output_3d_file)
+
         self.map_yaml_resolution = config.getfloat("map_yaml", "resolution")
         self.map_yaml_occupied_thresh = config.getfloat("map_yaml","occupied_thresh")
         self.map_yaml_free_thresh = config.getfloat("map_yaml","free_thresh")
@@ -66,6 +72,11 @@ class FloorPlan(object):
         self.map_laser_height = config.getfloat("map","laser_height")
         self.map_output_folder = config["map"]["output_folder"]
         self.map_border = config.getint("map","border")
+
+        if "{{model_name}}" in self.map_output_folder:
+            self.map_output_folder = self.map_output_folder.replace("{{model_name}}", model.name)
+            if not os.path.exists(self.map_output_folder):
+                os.makedirs(self.map_output_folder)
 
     def debug_mpl_show_floorplan(self):
 
@@ -182,6 +193,8 @@ class FloorPlan(object):
         im = Image.new('L', floor, unknown)
         draw = ImageDraw.Draw(im)
 
+        center = [-float(abs(west)+border*res/2), -float(abs(south)+border*res/2), 0 ]
+
         for shape in points:
             shape[:, 0] = (shape[:, 0] + abs(west))/res
             shape[:, 1] = (shape[:, 1] + abs(south))/res
@@ -206,13 +219,13 @@ class FloorPlan(object):
         name_image = "{}.pgm".format(self.model.name)
 
         # Where to put the robot????
-        origin = [0, 0, 0]
+        # origin = [0, 0, 0]
 
         with io.open(os.path.join(self.map_output_folder, name_yaml), 'w', 
                                             encoding='utf8') as outfile:
             pgm_config = {
                 'resolution':res,
-                'origin': origin,
+                'origin': center,
                 'occupied_thresh': self.map_yaml_occupied_thresh,
                 'free_thresh':self.map_yaml_free_thresh,
                 'negate':self.map_yaml_negate,

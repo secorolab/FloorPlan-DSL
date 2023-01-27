@@ -14,8 +14,8 @@ Floor plan: hospital
             from: world
             to: this
             pose:
-                translation: x:0.0 m, y:0.0 m
-                rotation: 0.0 deg
+                translation: x:10.0 m, y:5.0 m
+                rotation: 45.0 deg
         wall thickness: 0.40 m 
         wall height: 3.0 m
         features:
