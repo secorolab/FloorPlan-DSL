@@ -1,0 +1,318 @@
+Floor plan: column_basement
+
+    Space beginning:
+        shape: Rectangle width=10.0 m, length=5.0 m
+        location:
+            from: world
+            to: this
+            pose:
+                translation: x:0.0 m, y:0.0 m
+                rotation: 90.0 deg
+
+    Space hallway:
+        shape: Rectangle width=3.4 m, length=120.0 m
+        location:
+            from: beginning.walls[0]
+            to: this.walls[2]
+            pose:
+                translation: x:3.0 m, y:0.0 m
+                rotation: 0.0 deg
+            spaced
+        features:
+            Column column_left_1:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:-54.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            Column column_right_1:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:54.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            Column column_left_2:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:-48.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            Column column_right_2:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:48.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            Column column_left_3:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:-42.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            Column column_right_3:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:42.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            Column column_left_4:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:-36.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            Column column_right_4:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:36.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            Column column_left_5:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:-30.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            Column column_right_5:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:30.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            Column column_left_6:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:-24.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            Column column_right_6:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:24.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            Column column_left_7:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:-18.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            Column column_right_7:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:18.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            Column column_left_8:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:-12.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            Column column_right_8:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:12.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            Column column_left_9:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:-6.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            Column column_right_9:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:6.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            Column column_left_10:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:0.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            Column column_right_10:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:0.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            Column column_right_11:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:-54.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            Column column_left_11:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:54.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            Column column_right_12:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:-48.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            Column column_left_12:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:48.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            Column column_right_13:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:-42.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            Column column_left_13:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:42.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            Column column_right_14:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:-36.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            Column column_left_14:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:36.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            Column column_right_15:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:-30.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            Column column_left_15:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:30.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            Column column_right_16:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:-24.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            Column column_left_16:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:24.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            Column column_right_17:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:-18.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            Column column_left_17:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:18.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            Column column_right_18:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:-12.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            Column column_left_18:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:12.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            Column column_right_19:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:-6.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            Column column_left_19:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:6.0 m, y:0.1 m
+                    rotation: 0.0 deg
+            
+            
+
+    Space end:
+        shape: Rectangle width=10.0 m, length=5.0 m
+        location:
+            from: hallway.walls[0]
+            to: this.walls[0]
+            pose:
+                translation: x:-3.0 m, y:0.0 m
+                rotation: 0.0 deg
+            spaced
+            
+    Entryway hallway_beginning:
+        in: hallway.walls[2] and beginning.walls[0]
+        shape: Rectangle width=3.35 m, height=2.4 m
+        pose:
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+
+    Entryway hallway_end:
+        in: hallway.walls[0] and end.walls[0]
+        shape: Rectangle width=3.35 m, height=2.4 m
+        pose:
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+
+    
+    Default values:
+        Wall thickness: 0.2 m
+        Wall height: 2.5 m 

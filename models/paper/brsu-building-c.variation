@@ -1,0 +1,6 @@
+import "brsu-building-c-with-doors.floorplan"
+
+left_long_corridor: {
+    shape.width : normal(mean=2.25, std=1.0)
+}
+
