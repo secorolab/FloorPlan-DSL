@@ -1,6 +1,7 @@
 import numpy as np
 
 from .geometry import Frame
+from .helpers import get_value
 
 class Wall():
     '''
@@ -159,7 +160,7 @@ class Wall():
         '''
 
         elevated_polygon = np.copy(self.polygon)
-        elevated_polygon[:, 2] = self.height
+        elevated_polygon[:, 2] = get_value(self.height)
         
         vertices = np.concatenate((self.polygon, elevated_polygon), axis=0)
         vertices = np.hstack((vertices, np.ones((len(vertices), 1))))

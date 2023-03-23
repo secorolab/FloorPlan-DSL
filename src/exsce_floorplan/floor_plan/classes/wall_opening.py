@@ -1,5 +1,7 @@
 import numpy as np 
 
+from .helpers import get_value
+
 class WallOpening(object):
 
     def __init__(self, parent, wall_a, wall_b, shape, pose, entryway, window, name):
@@ -18,10 +20,10 @@ class WallOpening(object):
         self.locate()
         
     def determine_thickness(self):
-        thickness = self.wall_a.thickness
+        thickness = get_value(self.wall_a.thickness)
 
         if not self.wall_b is None:
-            thickness += self.wall_b.thickness
+            thickness += get_value(self.wall_b.thickness)
 
         self.thickness = thickness
 
@@ -30,11 +32,11 @@ class WallOpening(object):
         self.shape.change_reference_frame(frame)
         
         t = np.array([
-            self.pose.translation.x.value, 
-            self.pose.translation.y.value, 
-            self.pose.translation.z.value]
+            get_value(self.pose.translation.x), 
+            get_value(self.pose.translation.y), 
+            get_value(self.pose.translation.z)]
             )
-        rotation = self.pose.rotation.value 
+        rotation = get_value(self.pose.rotation)
 
         self.shape.frame.set_translation(t)
         self.shape.frame.set_orientation(0, np.deg2rad(rotation), 0)
@@ -79,7 +81,7 @@ class WallOpening(object):
         shapeXY = np.zeros((shape.shape[0], 2))
         shapeXY[:,0] = shape[:,0]
         shapeXY[:,1] = shape[:,2]
-        shapeXY[:,1] += self.pose.translation.z.value
+        shapeXY[:,1] += get_value(self.pose.translation.z)
 
         line = np.array([
             [1, height],

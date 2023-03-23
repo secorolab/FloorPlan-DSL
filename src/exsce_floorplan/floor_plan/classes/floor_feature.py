@@ -1,4 +1,5 @@
 import numpy as np
+from .helpers import get_value
 
 class FloorFeature(object):
 
@@ -7,6 +8,7 @@ class FloorFeature(object):
         self.name = name
         self.shape = shape
         self.location = location
+        self.pose = location.pose
         self.divider = divider
         self.column = column
         self.height = height
@@ -17,13 +19,13 @@ class FloorFeature(object):
             frame = self.parent.get_wall(self.location.from_frame.index).get_frame()
         self.shape.change_reference_frame(frame)
         
-        pose = self.location.pose.translation
-        x = pose.x.value
-        y = pose.y.value
-        z = pose.z.value if not pose.z is None else 0
+        pose = self.pose.translation
+        x = get_value(pose.x)
+        y = get_value(pose.y)
+        z = get_value(pose.z)
 
         t = np.array([x, y, z])
-        rotation = self.location.pose.rotation.value 
+        rotation = get_value(self.pose.rotation)
 
         self.shape.frame.set_translation(t)
         self.shape.frame.set_orientation(0, 0, np.deg2rad(rotation))
@@ -35,7 +37,7 @@ class FloorFeature(object):
         vertices = self.shape.get_points(self.shape.frame)[:, 0:3]
 
         new_vertices = np.copy(vertices)
-        new_vertices[:, 2] += self.height.value
+        new_vertices[:, 2] += get_value(self.height)
     
         vertices = np.vstack((vertices, new_vertices))
         vertices = np.hstack((vertices, np.ones((len(vertices), 1))))

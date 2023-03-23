@@ -1,5 +1,14 @@
 Floor plan: hbrs
 
+    metres column_height = 1.5 m
+    metres from_the_wall = 0.0 m
+    metres same_pose = 1.0 m
+    metres my_width = 3.5 m 
+    metres my_length = 5.0 m
+    degrees my_rotation = 47.0 deg
+    metres my_door_width = 0.8 m
+    metres my_thickness = 0.5 m
+
     Space corridor_1:
         shape: Rectangle width=3.5 m, length=10.0 m
         location:
@@ -11,41 +20,51 @@ Floor plan: hbrs
         features:
             Column pillar_1:
                 shape: Rectangle width=0.4 m, length=0.4 m
-                height: 3.0 m
+                height: column_height
                 from: this.walls[3]
                 pose:
-                    translation: x: 1.0 m, y:-1.1 m
-                    rotation: 0.0 deg
+                    translation: x: 1.0 m, y: from_the_wall
+                    rotation: my_rotation
+            Column pillar_2:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 1.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x: 1.0 m, y: from_the_wall
+                    rotation: my_rotation
 
     Space room_c022:
-        shape: Rectangle width=6.5 m, length=4.0 m
+        shape: Rectangle width=my_width, length=my_length
         location:
             from: corridor_1.walls[3]
-            to: this.walls[1]
+            to: this.walls[0]
             pose:
-                translation: x: 0.0 m, y:0.2 m
+                translation: x: 0.5 m, y:0.0 m
                 rotation: 0.0 deg
+            spaced
+        wall thickness: 0.5 m
 
     Space room_c025:
-        shape: Rectangle width=6.5 m, length=4.0 m
+        shape: Rectangle width=my_width, length=my_length
         location:
             from: corridor_1.walls[1]
-            to: this.walls[3]
+            to: this.walls[0]
             pose:
-                translation: x: 0.0 m, y:0.2 m
+                translation: x: same_pose, y:0.2 m
                 rotation: 0.0 deg
+        wall thickness: my_thickness
 
     Entryway room_c022_door_1: 
-        in: room_c022.walls[1] and corridor_1.walls[3]
-        shape: Rectangle width=0.9 m, height=2.2 m 
+        in: room_c022.walls[0] and corridor_1.walls[3]
+        shape: Rectangle width=my_door_width, height=2.2 m 
         // width can be a variable point
         pose:
             translation: x: 1.0 m, y: 0.0 m, z: 0.0 m
             rotation: 0.0 deg
 
     Entryway room_c025_door_1:
-        in: room_c025.walls[3] and corridor_1.walls[1]
-        shape: Rectangle width=0.9 m, height=2.2 m 
+        in: room_c025.walls[0] and corridor_1.walls[1]
+        shape: Rectangle width=my_door_width, height=2.2 m 
         // width can be a variable point
         pose:
             translation: x: -1.0 m, y: 0.0 m, z: 0.0 m

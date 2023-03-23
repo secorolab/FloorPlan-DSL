@@ -1,3 +1,23 @@
+Variable: 
+    MeterVariable | AngleVariable
+;
+
+MeterVariable: 
+    'metres' name=ID '=' value=CartesianUnit
+;
+
+Value :
+    (neg?="-"ref=[MeterVariable]| value=CartesianUnit)
+;
+
+AngleVariable:
+    'degrees' name=ID '=' value=Orientation
+;
+
+AngleValue:
+    (neg?="-"ref=[AngleVariable]| value=AngleInDegrees)
+;
+
 Meter:
     value=FLOAT 'm'
 ;
@@ -11,7 +31,7 @@ Point:
 ;
 
 Position:
-    'x:' x=CartesianUnit ',' 'y:' y=CartesianUnit (',' 'z:' z=CartesianUnit)?
+    'x:' x=Value ',' 'y:' y=Value (',' 'z:' z=Value)?
 ;
 
 AngleInDegrees:
@@ -28,5 +48,5 @@ Orientation:
 
 PoseDescription:
     'translation:' translation=Position
-    'rotation:' rotation=AngleInDegrees
+    'rotation:' rotation=AngleValue
 ;

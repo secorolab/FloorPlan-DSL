@@ -5,7 +5,7 @@ Polytope:
 ;
 
 Rectangle:
-    'Rectangle' 'width' '=' w=CartesianUnit ',' 'length' '=' l=CartesianUnit
+    'Rectangle' 'width' '=' w=Value ',' 'length' '=' l=Value
 ;
 
 Circle:
@@ -29,5 +29,5 @@ VerticalPolygon:
 ;
 
 VerticalRectangle:
-    'Rectangle' 'width' '=' w=CartesianUnit ',' 'height' '=' h=CartesianUnit
+    'Rectangle' 'width' '=' w=Value ',' 'height' '=' h=Value
 ;

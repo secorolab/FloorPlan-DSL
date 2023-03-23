@@ -28,3 +28,11 @@ def angle_from_rotation(vectors):
 
     angle = np.degrees(np.math.atan2(np.linalg.det([unit_vector1, unit_vector2]),np.dot(unit_vector1, unit_vector2)))
     return angle
+
+def get_value(variable):
+    if variable is None:
+        return 0
+    elif not variable.ref is None:
+        return variable.ref.value.value if variable.neg is False else (variable.ref.value.value * (-1))
+    else:
+        return variable.value.value

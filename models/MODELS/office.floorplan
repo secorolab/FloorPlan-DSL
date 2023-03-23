@@ -1,0 +1,116 @@
+Floor plan: office
+
+    Space central_room:
+        shape: Rectangle width=7.0 m, length=7.0 m 
+        location:
+            from: world
+            to: this
+            pose:
+                translation: x:0.0 m, y:0.0 m
+                rotation: 0.0 deg 
+            
+    Space corridor_left:
+        shape: Rectangle width=3.0 m, length=20.0 m
+        location:
+            from: central_room.walls[3]
+            to: this.walls[1]
+            pose:
+                translation: x:0.0 m, y:0.0 m
+                rotation: 0.0 deg 
+        spaced
+
+    Space corridor_right:
+        shape: Rectangle width=3.0 m, length=20.0 m
+        location:
+            from: central_room.walls[1]
+            to: this.walls[3]
+            pose:
+                translation: x:0.0 m, y:0.0 m
+                rotation: 0.0 deg 
+        spaced
+
+    Space corner_room_A:
+        shape: Rectangle width=5.0 m, length=5.0 m
+        location:
+            from: corridor_left.walls[3]
+            to: this.walls[1]
+            pose:
+                translation: x:7.5 m, y:0.0 m
+                rotation: 0.0 deg 
+            spaced
+    
+    Space corner_room_B:
+        shape: Rectangle width=5.0 m, length=5.0 m
+        location:
+            from: corridor_left.walls[3]
+            to: this.walls[1]
+            pose:
+                translation: x:-7.5 m, y:0.0 m
+                rotation: 0.0 deg 
+            spaced
+
+    Space corner_room_C:
+        shape: Rectangle width=5.0 m, length=5.0 m
+        location:
+            from: corridor_right.walls[1]
+            to: this.walls[3]
+            pose:
+                translation: x:7.5 m, y:0.0 m
+                rotation: 0.0 deg 
+            spaced
+    
+    Space corner_room_D:
+        shape: Rectangle width=5.0 m, length=5.0 m
+        location:
+            from: corridor_right.walls[1]
+            to: this.walls[3]
+            pose:
+                translation: x:-7.5 m, y:0.0 m
+                rotation: 0.0 deg 
+            spaced
+        
+    Entryway central_room_to_left_corridor:
+        in: central_room.walls[3] and corridor_left.walls[1]
+        shape: Rectangle width=6.5 m, height=2.4 m
+        pose:
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+
+    Entryway central_room_to_right_corridor:
+        in: central_room.walls[1] and corridor_right.walls[3]
+        shape: Rectangle width=6.5 m, height=2.4 m
+        pose:
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+
+    Entryway room_A_to_left_corridor:
+        in: corner_room_A.walls[1] and corridor_left.walls[3]
+        shape: Rectangle width=1.1 m, height=2.4 m
+        pose:
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+
+    Entryway room_B_to_left_corridor:
+        in: corner_room_B.walls[1] and corridor_left.walls[3]
+        shape: Rectangle width=1.1 m, height=2.4 m
+        pose:
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+
+    Entryway room_C_to_right_corridor:
+        in: corner_room_C.walls[3] and corridor_right.walls[1]
+        shape: Rectangle width=1.1 m, height=2.4 m
+        pose:
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+
+    Entryway room_D_to_right_corridor:
+        in: corner_room_D.walls[3] and corridor_right.walls[1]
+        shape: Rectangle width=1.1 m, height=2.4 m
+        pose:
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+
+    Default values:
+        Wall thickness: 0.2 m
+        Wall height: 2.5 m 

@@ -1,4 +1,4 @@
-Floor plan: brsu_building_c
+Floor plan: brsu_building_c_angle
 
     // Center Space with the stairway
     Space stairway_room_center:
@@ -8,7 +8,7 @@ Floor plan: brsu_building_c
             to: this
             pose:
                 translation: x:0.0 m, y:0.0 m
-                rotation: -35.0 deg
+                rotation: -33.0 deg
         features:
             Column column_1:
                 shape: Rectangle width=0.25 m, length=0.25 m

@@ -1,6 +1,9 @@
 from .polytope import *
 from .geometry import Frame
 from .wall import Wall
+
+from .helpers import get_value
+import numpy as np
 '''
 TODO
 * Do not return a wall polygon if the width is 0
@@ -102,15 +105,14 @@ class Space(object):
         self.order = order  
 
         # Get values for height and thickness of wall, default if not specified
-        self.wall_thickness =(wall_thickness.value if not wall_thickness is None 
-                                else self.parent.default.wall_thickness.value)
+        self.wall_thickness =(wall_thickness if not wall_thickness is None 
+                                else self.parent.default.wall_thickness)
 
-        self.wall_height = (wall_height.value if not wall_height is None 
-                                    else self.parent.default.wall_height.value)
-
+        self.wall_height = (wall_height if not wall_height is None 
+                                    else self.parent.default.wall_height)
         # Create the walls, offset the inner boundary, and locate the space
         self.create_walls()
-        self.offset_shape(self.wall_thickness)
+        self.offset_shape(get_value(self.wall_thickness))
         self.locate_space()
 
         for feature in self.floor_features:
@@ -145,11 +147,11 @@ class Space(object):
 
         # Extract from the model the translation and rotation
         pose = self.location.pose.translation
-        x = pose.x.value
-        y = pose.y.value
-        z = pose.z.value if not pose.z is None else 0
+        x = get_value(pose.x)
+        y = get_value(pose.y)
+        z = get_value(pose.z)
 
-        rotation = self.location.pose.rotation.value
+        rotation = get_value(self.location.pose.rotation)
 
         # Determine if two walls are selected as frames
         wall_to_wall = ((not (self.location.to_frame.index is None)) 
@@ -158,7 +160,7 @@ class Space(object):
         # if spaced flag is on and two walls are used, then add to the y value
         # the wall thickness of the two walls
         if (wall_to_wall and self.location.spaced):
-            wall_thickness = from_wall.thickness + to_wall.thickness
+            wall_thickness = get_value(from_wall.thickness) + get_value(to_wall.thickness)
             y += wall_thickness
 
         # Build the transformation matrix with an auxiliary frame
@@ -302,10 +304,10 @@ class Space(object):
             prev_wall = self.walls[i-1]
             
             points_line1 = np.array([
-                [-1, wall.thickness, 0, 1], [1, wall.thickness, 0, 1]]
+                [-1, get_value(wall.thickness), 0, 1], [1, get_value(wall.thickness), 0, 1]]
                 )
             points_line2 = np.array([
-                [-1, prev_wall.thickness, 0, 1], [1, prev_wall.thickness, 0, 1]]
+                [-1, get_value(prev_wall.thickness), 0, 1], [1, get_value(prev_wall.thickness), 0, 1]]
                 )
 
             points_line1 = wall.frame.get_point_transformation_wrt(

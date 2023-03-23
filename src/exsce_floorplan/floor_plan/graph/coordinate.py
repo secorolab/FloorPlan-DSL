@@ -1,4 +1,4 @@
-from .helpers import from_ref_name, to_ref_name, angle_from_rotation
+from .helpers import from_ref_name, to_ref_name, angle_from_rotation, get_value
 
 def build_floorplan_coordinate_graph(model, output_path):
     '''Returns the coordinate graph'''
@@ -22,7 +22,7 @@ def build_floorplan_coordinate_graph(model, output_path):
         of = to_ref_name(space.location.to_frame, space)
         to = from_ref_name(space.location.from_frame)
 
-        theta_space = space.location.pose.rotation.value
+        theta_space = get_value(space.location.pose.rotation)
 
         wall_to_wall = ((not (space.location.to_frame.index is None)) 
                         and (not (space.location.from_frame.index is None)))
@@ -30,11 +30,11 @@ def build_floorplan_coordinate_graph(model, output_path):
         if not space.location.aligned and wall_to_wall:
             theta_space += 180
 
-        y = space.location.pose.translation.y.value
+        y = get_value(space.location.pose.translation.y)
         if (wall_to_wall and space.location.spaced):
             from_wall = space.location.from_frame.ref.get_wall(space.location.from_frame.index)
             to_wall = space.get_wall(space.location.to_frame.index)
-            wall_thickness = from_wall.thickness + to_wall.thickness
+            wall_thickness = get_value(from_wall.thickness) + get_value(to_wall.thickness)
             y += wall_thickness
         
         pose_space_frame_to_ref_frame = {
@@ -44,7 +44,7 @@ def build_floorplan_coordinate_graph(model, output_path):
             "as-seen-by" : to,
             "unit": ["M","degrees"],
             "theta" : theta_space,
-            "x": space.location.pose.translation.x.value,
+            "x": get_value(space.location.pose.translation.x),
             "y": y
         }
 

@@ -1,84 +1,87 @@
-import sys
-import traceback
-import os
-import io
-import json
+import sys, os
+
+from textx import TextXSemanticError, get_location
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(dir_path)
 
-from textxjinja import textx_jinja_generator
+import jinja2
 from textx import metamodel_for_language
 
-import numpy as np 
 import numpy.random as random
 
-from helpers.helpers import (
-    pose_json, 
-    shape_json, 
-    floor_feature_json, 
-    space_json, 
-    wall_opening_json, 
-    default_json, 
-    get_floorplan_as_json
-)
+def get_variable_from_fqn(obj, fqn):
+    '''Recursive function to get to the object of interest when using a FQN'''
+    return (getattr(obj,fqn[0]) if len(fqn) == 1 
+            else get_variable_from_fqn(getattr(obj,fqn[0]), fqn[1:]))
 
-def sample(context, variations):
+def new_sample(fp_model, var_model):
+    '''Perform a sample of each distribution of the variation model'''
 
-    for var in variations.variations:
+    # For each variation set
+    for var in var_model.variations:
 
-        for att in var.attributes:
-            fqn = att.fqn.split('.')
-            
-            aux = {}
-            if var.ref.__class__.__name__ == 'Space':
-                for i, space in enumerate(context["spaces"]):
-                    if space["name"] == var.ref.name:
-                        aux = context['spaces'][i]
-                        break
-            elif var.ref.__class__.__name__ == 'WallOpening':
-                for i, wall_opening in enumerate(context["wall_openings"]):
-                    if wall_opening["name"] == var.ref.name:
-                        aux = context['wall_openings'][i]
-                        break
-            elif var.ref.__class__.__name__ == 'FloorFeature':
-                for i, space in enumerate(context["spaces"]):
-                    for j, feature in enumerate(space["floor_features"]):
-                        if feature["name"] == var.ref.name:
-                            aux = context['spaces'][i]['floor_features'][j]
-                            break
+        # If a variable is the target of a distribution, then create a new list of 
+        # attributes with only the variable. Otherwise select the list of attributes
+        attributes = var.attributes if hasattr(var, "attributes") else [var]
 
-            if len(fqn) == 1:
-                aux[fqn[0]] = att.distribution.sample()
-            else:
-                while True:
-                    name = fqn.pop(0)
-                    aux = aux[name]
-                    if len(fqn) == 1:
-                        name = fqn.pop(0)
-                        aux[name] = att.distribution.sample()
-                        break
+        # For each attribute, select the value to set and sample the distribution
+        for att in attributes:
+            name = var.ref.name
+            class_name = var.ref.__class__.__name__
+            obj = fp_model["{class_name}.{name}".format(class_name=class_name, name=name)]
 
-    return context
+            if hasattr(att, "fqn"):
+                fqn = att.fqn.split('.')
+                obj = get_variable_from_fqn(obj, fqn)
+
+            if not hasattr(obj.value, "value"):
+                raise TextXSemanticError('Semantic Error: This attribute is originally set by a variable.', 
+                                **get_location(att))
+            elif obj is fp_model["Default.WallThickness"] or obj is fp_model["Default.WallHeight"]:
+                raise TextXSemanticError('Semantic Error: This attribute must set in the original model.', 
+                                **get_location(att))
+
+            obj.value.value = att.distribution.sample()
 
 def variation_floorplan_generator(metamodel, var_model, output_path, overwrite, debug, **custom_args):
-    # get parent node
-    flp_model = var_model.variations[0].ref
-    while True:
-        flp_model = flp_model.parent
-        if flp_model.__class__.__name__ == "FloorPlan":
-            break
 
+    model_folder_path = os.path.dirname(var_model._tx_parser.file_name)
+    fp_model_path = var_model.import_uri.importURI
+
+    fp_mm = metamodel_for_language('exsce-floorplan-dsl')
+    fp_model = fp_mm.model_from_file(os.path.join(model_folder_path, fp_model_path))
+    
     full_path = os.path.realpath(__file__)
     _path, filename = os.path.split(full_path)
+    
     path = os.path.join(_path, 'templates')
-    context = get_floorplan_as_json(flp_model)
+    jinja_env = jinja2.Environment(
+        loader=jinja2.FileSystemLoader(path),
+        trim_blocks=True,
+        lstrip_blocks=True)
+    template = jinja_env.get_template('__floorplan_name_____seed__.floorplan.jinja')
+
     variations = custom_args["variations"]
     output = custom_args["output"]
+
+    fp_model_hashtable = {}
+    for space in fp_model.spaces:
+        fp_model_hashtable["Space.{}".format(space.name)] = space
+        for feature in space.floor_features:
+            fp_model_hashtable["FloorFeature.{}".format(feature.name)] = feature
+    for variable in fp_model.variables:
+        fp_model_hashtable["{type}.{name}".format(type=variable.__class__.__name__, name=variable.name)] = variable
+    for wall_opening in fp_model.wall_openings:
+        fp_model_hashtable["WallOpening.{}".format(wall_opening.name)] = wall_opening
+    fp_model_hashtable["Default.WallThickness"] = fp_model.default.wall_thickness
+    fp_model_hashtable["Default.WallHeight"] = fp_model.default.wall_height
 
     for i in range(int(variations)):
         seed = random.randint(1000, 9999)
         random.seed(seed)
-        context["seed"] = seed
-        sample(context, var_model)
-        textx_jinja_generator(path, output, context, True)
+        fp_model.seed = seed
+        new_sample(fp_model_hashtable, var_model)
+        with open(os.path.join(output, 
+                "{name}_{seed}.floorplan".format(name=fp_model.name, seed=seed)), 'w') as f:
+            f.write(template.render(fp=fp_model))

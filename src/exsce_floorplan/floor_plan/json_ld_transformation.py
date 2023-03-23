@@ -41,21 +41,6 @@ def jsonld_floorplan_generator(metamodel, model, output_path, overwrite=True, de
     with open("{}/coordinate.json".format(directory), "w") as file:
         json.dump(coordinate, file, indent=4)
 
-        
-    # g = rdflib.ConjunctiveGraph()
-
-    # TUTORIAL = directory
-    # g.parse(TUTORIAL + "/skeleton.json", format="json-ld")
-    # g.parse(TUTORIAL + "/spatial_relations.json", format="json-ld")
-    # g.parse(TUTORIAL + "/coordinate.json", format="json-ld")
-    # g.parse(TUTORIAL + "/floorplan.json", format="json-ld")
-    # g.parse(TUTORIAL + "/shape.json", format="json-ld")
-
-    # j = json.loads(g.serialize(format="json-ld"))
-
-    # with open("{}/all.json".format(directory), "w") as file:
-    #     json.dump(j, file)
-
 
 if __name__ == '__main__':
     try:
@@ -67,6 +52,12 @@ if __name__ == '__main__':
         config.read('setup.cfg')
 
         output_path = config["composable_models"]["output_folder"]
+
+        if "{{model_name}}" in output_path:
+            output_path = output_path.replace("{{model_name}}", my_model.name)
+            if not os.path.exists(output_path):
+                os.makedirs(output_path)
+
         jsonld_floorplan_generator(my_metamodel, my_model, output_path)
 
     except Exception:

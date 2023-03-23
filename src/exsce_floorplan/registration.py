@@ -22,6 +22,10 @@ from floor_plan.classes.polytope import (
                         ) 
 from floor_plan.classes.wall_opening import WallOpening
 from floor_plan.classes.floor_feature import FloorFeature
+from floor_plan.classes.position import (
+    Position, 
+    PoseDescription
+)
 
 from variation.classes.distribution import (
     UniformDistribution,
@@ -51,7 +55,9 @@ def exsce_floorplan_metamodel():
                                                         Circle,
                                                         VerticalRectangle,
                                                         WallOpening,
-                                                        FloorFeature])
+                                                        FloorFeature,
+                                                        Position,
+                                                        PoseDescription])
     mm_floorplan.register_obj_processors({
         'WallOpening': opening_obj_processors,
         'FloorFeature': feature_obj_processor,

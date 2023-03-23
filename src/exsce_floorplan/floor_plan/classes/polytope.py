@@ -4,6 +4,8 @@ import numpy as np
 
 from .geometry import Frame
 
+from .helpers import get_value
+
 class Polytope(object):
     '''
     An abstract class to represent a polytope.
@@ -230,11 +232,11 @@ class Rectangle(Polytope):
         '''
 
         super().__init__(parent)
-        self.w = w.value
-        self.l = l.value 
+        self.w = w
+        self.l = l
         
-        w = self.w /2
-        l = self.l/2
+        w = get_value(self.w)/2
+        l = get_value(self.l)/2
 
         self.set_points(np.array([
             [-w, l, 0], 
@@ -358,14 +360,15 @@ class VerticalRectangle(Polytope):
 
     def __init__(self, parent, w, h):
         super().__init__(parent)
-        self.w = w.value
-        self.h = h.value 
+        self.w = w
+        self.h = h
         
-        w = self.w /2
+        w = get_value(self.w)/2
+        h = get_value(self.h)
 
         self.set_points(np.array([
-            [-w, 0, self.h], 
-            [w, 0, self.h], 
+            [-w, 0, h], 
+            [w, 0, h], 
             [w, 0, 0], 
             [-w, 0, 0]
         ]))   

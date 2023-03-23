@@ -12,6 +12,7 @@ TODO:
 
 FloorPlan:
     'Floor plan' ':' name = ID
+        variables *= Variable?
         spaces += Space 
         boolean_operations *= BooleanOperation?
         wall_openings *= WallOpening?
@@ -24,8 +25,8 @@ Space:
         'shape' ':' shape=Polytope
         'location' ':' 
             location=SpaceLocation
-        ('wall thickness' ':' wall_thickness=CartesianUnit)?
-        ('wall height' ':' wall_height=CartesianUnit)?
+        ('wall thickness' ':' wall_thickness=Value)?
+        ('wall height' ':' wall_height=Value)?
         ('features' ':' 
             floor_features*=FloorFeature
         )?
@@ -34,12 +35,20 @@ Space:
 
 DefaultValues:
     'Default values' ':'
-        'Wall thickness' ':' wall_thickness = CartesianUnit
-        'Wall height' ':' wall_height = CartesianUnit
+        'Wall thickness' ':' wall_thickness = Value
+        'Wall height' ':' wall_height = Value
 ;
 
 FloorPlanReference:
-    Space | FloorFeature | WallOpening
+    Space | FloorFeature | WallOpening | Variable
+;
+
+/* ------------------------------------------ */
+// New features
+Repetition:
+    'repeat' ':'
+        'quantity' ':' quantity = INT
+        'interval' ':' interval = Position
 ;
 
 /* ------------------------------------------ */
@@ -102,7 +111,7 @@ WallOpening:
 FloorFeature:
     ( divider?='Divider' | column?='Column' ) name=ID ':'
         'shape:' shape=Polytope
-        'height' ':' height=CartesianUnit
+        'height' ':' height=Value
         location=FloorLocation
 ;
 

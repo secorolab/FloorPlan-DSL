@@ -1,8 +1,12 @@
 reference exsce-floorplan-dsl as f
 
 Model:
-    import=Import
-    variations+=Variation
+    import_uri=Import
+    variations+=Vars
+;
+
+Vars:
+    (Variation|VariableRef)
 ;
 
 Variation:
@@ -13,6 +17,10 @@ Variation:
 
 Attribute:
     fqn=FQN ':' distribution=Distribution
+;
+
+VariableRef:
+    ref=[f.Variable] ':' distribution=Distribution
 ;
 
 Distribution:
@@ -39,3 +47,9 @@ DiscreteValue:
 
 Import: 'import' importURI=STRING;
 FQN: ID+['.'];
+
+/* ------------------------------------------ */
+// special rule for comments.
+Comment:
+    /\/\/.*$/
+;
