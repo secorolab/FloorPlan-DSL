@@ -8,9 +8,9 @@
 
         ]
     {%- elif shape.__class__.__name__== 'Rectangle' -%}
-        Rectangle width={{value_macro(shape.w)}}, length={{value_macro(shape.l)}}
+        Rectangle width={{value_macro(shape.width)}}, length={{value_macro(shape.length)}}
     {%- elif shape.__class__.__name__ == 'VerticalRectangle' -%}
-        Rectangle width={{value_macro(shape.w)}}, height={{value_macro(shape.h)}}
+        Rectangle width={{value_macro(shape.width)}}, height={{value_macro(shape.height)}}
     {%- else -%}
         wrong
     {%- endif -%}

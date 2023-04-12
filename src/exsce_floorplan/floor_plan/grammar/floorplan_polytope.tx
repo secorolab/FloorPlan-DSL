@@ -5,7 +5,7 @@ Polytope:
 ;
 
 Rectangle:
-    'Rectangle' 'width' '=' w=Value ',' 'length' '=' l=Value
+    'Rectangle' 'width' '=' width=Value ',' 'length' '=' length=Value
 ;
 
 Circle:
@@ -29,5 +29,5 @@ VerticalPolygon:
 ;
 
 VerticalRectangle:
-    'Rectangle' 'width' '=' w=Value ',' 'height' '=' h=Value
+    'Rectangle' 'width' '=' width=Value ',' 'height' '=' height=Value
 ;
