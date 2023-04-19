@@ -14,9 +14,7 @@ FloorPlan:
     'Floor plan' ':' name = ID
         variables *= Variable?
         spaces += Space 
-        boolean_operations *= BooleanOperation?
         wall_openings *= WallOpening?
-        wall_removal *= WallRemoval?
         default = DefaultValues
 ;
 
@@ -30,7 +28,6 @@ Space:
         ('features' ':' 
             floor_features*=FloorFeature
         )?
-        ('order:' order=INT)?
 ;
 
 DefaultValues:
@@ -80,16 +77,16 @@ WallThickness:
 // Location
 
 SpaceLocation:
-    'from:' from_frame=FromFrameRef
-    'to:' to_frame=ToFrameRef
-    'pose:'
+    'from' ':' from_frame=FromFrameRef
+    'to' ':' to_frame=ToFrameRef
+    'pose' ':'
         pose=PoseDescription
     //flags
     (aligned?="not aligned" spaced?="spaced")#
 ;
 
 FloorLocation:
-    'from:' from_frame=ToFrameRef
+    'from' ':' from_frame=ToFrameRef
     'pose' ':' 
         pose=PoseDescription
 ;
@@ -100,8 +97,8 @@ FloorLocation:
 WallOpening:
     (entryway?='Entryway' | window?='Window') name=ID ':'
     'in:' wall_a=WallRef ('and' wall_b=WallRef)?
-        'shape:' shape=VerticalPolytope
-        'pose:' 
+        'shape' ':' shape=VerticalPolytope
+        'pose' ':' 
             pose=PoseDescription
 ;
 
@@ -110,7 +107,7 @@ WallOpening:
 
 FloorFeature:
     ( divider?='Divider' | column?='Column' ) name=ID ':'
-        'shape:' shape=Polytope
+        'shape' ':' shape=Polytope
         'height' ':' height=Value
         location=FloorLocation
 ;
@@ -118,24 +115,8 @@ FloorFeature:
 /* ------------------------------------------ */
 // Boolean operations and others
 
-BooleanOperation:
-    Intersection | Difference | Union
-;
-
-Intersection:
-    'intersection:' space_a=[Space] ',' space_b=[Space]
-;
-
-Difference:
-    'difference:' min=[Space] '-' sub=[Space]
-;
-
-Union:
-    'union:' spaces+=[Space]['+']
-;
-
 WallRemoval:
-    "remove wall:" wall=WallRef
+    'remove wall' ':' wall=WallRef
 ;
 
 /* ------------------------------------------ */

@@ -31,7 +31,7 @@ Point:
 ;
 
 Position:
-    'x:' x=Value ',' 'y:' y=Value (',' 'z:' z=Value)?
+    'x'':' x=Value ',' 'y'':' y=Value (',' 'z'':' z=Value)?
 ;
 
 AngleInDegrees:
@@ -47,6 +47,6 @@ Orientation:
 ;
 
 PoseDescription:
-    'translation:' translation=Position
-    'rotation:' rotation=AngleValue
+    'translation' ':' translation=Position
+    'rotation' ':' rotation=AngleValue
 ;

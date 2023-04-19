@@ -13,7 +13,7 @@ Circle:
 ;
 
 Polygon:
-    'Polygon' 'points:['
+    'Polygon' 'points'':''['
         points*=Point[',']
     ']'
 ;
@@ -23,7 +23,7 @@ VerticalPolytope:
 ;
 
 VerticalPolygon:
-    'Polygon' 'points:['
+    'Polygon' 'points'':''['
         points*=Point[',']
     ']'
 ;

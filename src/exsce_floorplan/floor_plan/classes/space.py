@@ -66,7 +66,7 @@ class Space(object):
     '''
 
     def __init__(self, parent, name, shape, location, floor_features, 
-                wall_thickness, wall_height, order):
+                wall_thickness, wall_height):
         '''
         Constructs the wall object
 
@@ -102,7 +102,6 @@ class Space(object):
         self.shape = shape
         self.location = location
         self.floor_features = floor_features
-        self.order = order  
 
         # Get values for height and thickness of wall, default if not specified
         self.wall_thickness =(wall_thickness if not wall_thickness is None 
