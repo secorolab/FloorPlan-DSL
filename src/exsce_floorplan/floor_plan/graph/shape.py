@@ -36,6 +36,22 @@ def build_shape_graph(model, output_path):
 
             graph.append(wall_polygon)
 
+    #     for feature in space.floor_features:
+    #         feature_polygon = {
+    #             "@id" : "polygon-{space}-{name}".format(space=space.name, name=feature.name),
+    #             "@type" : "Polygon",
+    #             "points" : ["point-feature-shape-{name}-{i}".format(name=feature.name, i=i) for i, _ in enumerate(feature.get_points())]
+    #         }
+    #         graph.append(feature_polygon)
+
+    # for opening in model.wall_openings:
+    #     opening_polygon =  {
+    #         "@id" : "polygon-opening-{name}".format(name=opening.name),
+    #         "@type" : "Polygon",
+    #         "points" : ["point-opening-shape-{name}-{i}".format(name=opening.name, i=i) for i, _ in enumerate(opening.get_points())]
+    #     }
+    #     graph.append(opening_polygon)
+
     shape_json_ld = {
         "@context" : context,
         "@graph" : graph,

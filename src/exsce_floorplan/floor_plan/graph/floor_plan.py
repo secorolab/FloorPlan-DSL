@@ -38,10 +38,19 @@ def build_floorplan_graph(model, output_path):
 
             graph.append(wall_json)
         
+        for i, feature in enumerate(space.floor_features):
+            feature_json = {
+                "@id" : "feature-{space}-{name}".format(space=space.name, name=feature.name),
+                "@type" : "Feature",
+                "shape" : "polygon-{space}-{name}".format(space=space.name, name=feature.name)
+            }
+            graph.append(feature_json)
+
         space_json = {
             "@id" : "space-{name}".format(name=space.name),
             "@type" : "Space",
             "walls" : ["space-{name}-wall-{i}".format(name=space.name, i=i) for i in range(len(space.walls))],
+            "feature" : ["feature-{space}-{name}".format(space=space.name, name=feature.name) for feature in space.floor_features],
             "shape" : "polygon-{name}".format(name=space.name)
         }
 

@@ -1,4 +1,4 @@
-Floor plan: brsu_building_c_with_doors
+Floor plan: brsu_building_c_with_doorways
 
     // variables
     metres left_corridor_x_pose = 0.69 m
@@ -87,20 +87,6 @@ Floor plan: brsu_building_c_with_doors
                 pose:
                     translation: x:3.42 m, y:0.0 m
                     rotation: 0.0 deg
-            Divider door_doorway_01:
-                shape: Rectangle width=0.1 m, length=doorway_width
-                height: 2.0 m
-                from: this.walls[3]
-                pose:
-                    translation: x: 6.32 m, y:0.25 m
-                    rotation: 90.0 deg
-            Divider door_doorway_02:
-                shape: Rectangle width=0.1 m, length=doorway_width
-                height: 2.0 m
-                from: this.walls[3]
-                pose:
-                    translation: x: -5.81 m, y:0.25 m
-                    rotation: 90.0 deg
 
     Space study_nook_left:
         shape: Rectangle width=2.0 m, length=7.0 m
@@ -262,83 +248,6 @@ Floor plan: brsu_building_c_with_doors
                 pose:
                     translation: x:-30.1 m, y:0.0 m
                     rotation: 0.0 deg
-            Divider door_doorway_01:
-                shape: Rectangle width=0.1 m, length=doorway_width
-                height: 2.0 m
-                from: this.walls[3]
-                pose:
-                    translation: x:-21.0 m, y:0.25 m
-                    rotation: 90.0 deg
-            Divider door_doorway_02:
-                shape: Rectangle width=0.1 m, length=doorway_width
-                height: 2.0 m
-                from: this.walls[3]
-                pose:
-                    translation: x:-15.0 m, y:0.25 m
-                    rotation: 90.0 deg
-            Divider door_doorway_03:
-                shape: Rectangle width=0.1 m, length=doorway_width
-                height: 2.0 m
-                from: this.walls[3]
-                pose:
-                    translation: x:-9.0 m, y:0.25 m
-                    rotation: 90.0 deg
-            Divider door_doorway_04:
-                shape: Rectangle width=0.1 m, length=doorway_width
-                height: 2.0 m
-                from: this.walls[3]
-                pose:
-                    translation: x:-3.0 m, y:0.25 m
-                    rotation: 90.0 deg
-            Divider door_doorway_05:
-                shape: Rectangle width=0.1 m, length=doorway_width
-                height: 2.0 m
-                from: this.walls[3]
-                pose:
-                    translation: x:3.0 m, y:0.25 m
-                    rotation: 90.0 deg
-            Divider door_doorway_11:
-                shape: Rectangle width=0.1 m, length=doorway_width
-                height: 2.0 m
-                from: this.walls[1]
-                pose:
-                    translation: x:21.0 m, y:0.25 m
-                    rotation: 90.0 deg
-            Divider door_doorway_12:
-                shape: Rectangle width=0.1 m, length=doorway_width
-                height: 2.0 m
-                from: this.walls[1]
-                pose:
-                    translation: x:15.0 m, y:0.25 m
-                    rotation: 90.0 deg
-            Divider door_doorway_14:
-                shape: Rectangle width=0.1 m, length=doorway_width
-                height: 2.0 m
-                from: this.walls[1]
-                pose:
-                    translation: x:4.0 m, y:0.25 m
-                    rotation: 90.0 deg
-            Divider door_doorway_15:
-                shape: Rectangle width=0.1 m, length=doorway_width
-                height: 2.0 m
-                from: this.walls[1]
-                pose:
-                    translation: x:-3.0 m, y:0.25 m
-                    rotation: 90.0 deg 
-            Divider door_doorway_16:
-                shape: Rectangle width=0.1 m, length=doorway_width
-                height: 2.0 m
-                from: this.walls[1]
-                pose:
-                    translation: x:-21.2 m, y:0.25 m
-                    rotation: 90.0 deg
-            Divider door_doorway_17:
-                shape: Rectangle width=0.1 m, length=doorway_width
-                height: 2.0 m
-                from: this.walls[1]
-                pose:
-                    translation: x:-27.2 m, y:0.25 m
-                    rotation: 90.0 deg
             Column trashcan_1:
                 shape: Rectangle width=0.9 m, length=0.3 m
                 height: 0.8 m
@@ -379,41 +288,6 @@ Floor plan: brsu_building_c_with_doors
                 pose:
                     translation: x:6.56 m, y:0.0 m
                     rotation: 0.0 deg
-            Divider door_doorway_01:
-                shape: Rectangle width=0.1 m, length=doorway_width
-                height: 2.0 m
-                from: this.walls[3]
-                pose:
-                    translation: x:-4.65 m, y:0.25 m
-                    rotation: 90.0 deg
-            Divider door_doorway_02:
-                shape: Rectangle width=0.1 m, length=doorway_width
-                height: 2.0 m
-                from: this.walls[3]
-                pose:
-                    translation: x:0.21 m, y:0.25 m
-                    rotation: 90.0 deg
-            Divider door_doorway_03:
-                shape: Rectangle width=0.1 m, length=doorway_width
-                height: 2.0 m
-                from: this.walls[3]
-                pose:
-                    translation: x:5.08 m, y:0.25 m
-                    rotation: 90.0 deg
-            Divider door_doorway_04:
-                shape: Rectangle width=0.1 m, length=doorway_width
-                height: 2.0 m
-                from: this.walls[1]
-                pose:
-                    translation: x:-1.76 m, y:0.25 m
-                    rotation: 90.0 deg
-            Divider door_doorway_05:
-                shape: Rectangle width=0.1 m, length=doorway_width
-                height: 2.0 m
-                from: this.walls[1]
-                pose:
-                    translation: x:-7.47 m, y:0.25 m
-                    rotation: 90.0 deg
 
     Space right_long_corridor:
         shape: Rectangle width=2.25 m, length=60 m
@@ -551,76 +425,6 @@ Floor plan: brsu_building_c_with_doors
                 pose:
                     translation: x:-30.1 m, y:0.0 m
                     rotation: 0.0 deg
-            Divider door_doorway_01:
-                shape: Rectangle width=0.1 m, length=doorway_width
-                height: 2.0 m
-                from: this.walls[3]
-                pose:
-                    translation: x:-21.0 m, y:0.25 m
-                    rotation: 90.0 deg
-            Divider door_doorway_02:
-                shape: Rectangle width=0.1 m, length=doorway_width
-                height: 2.0 m
-                from: this.walls[3]
-                pose:
-                    translation: x:-15.0 m, y:0.25 m
-                    rotation: 90.0 deg
-            Divider door_doorway_03:
-                shape: Rectangle width=0.1 m, length=doorway_width
-                height: 2.0 m
-                from: this.walls[3]
-                pose:
-                    translation: x:-8.0 m, y:0.25 m
-                    rotation: 90.0 deg
-            Divider door_doorway_04:
-                shape: Rectangle width=0.1 m, length=doorway_width
-                height: 2.0 m
-                from: this.walls[3]
-                pose:
-                    translation: x:3.5 m, y:0.25 m
-                    rotation: 90.0 deg
-            Divider door_doorway_05:
-                shape: Rectangle width=0.1 m, length=doorway_width
-                height: 2.0 m
-                from: this.walls[3]
-                pose:
-                    translation: x:9.6 m, y:0.25 m
-                    rotation: 90.0 deg
-            Divider door_doorway_06:
-                shape: Rectangle width=0.1 m, length=doorway_width
-                height: 2.0 m
-                from: this.walls[3]
-                pose:
-                    translation: x:15.7 m, y:0.25 m
-                    rotation: 90.0 deg
-            Divider door_doorway_07:
-                shape: Rectangle width=0.1 m, length=doorway_width
-                height: 2.0 m
-                from: this.walls[1]
-                pose:
-                    translation: x:22.2 m, y:0.25 m
-                    rotation: 90.0 deg
-            Divider door_doorway_08:
-                shape: Rectangle width=0.1 m, length=doorway_width
-                height: 2.0 m
-                from: this.walls[1]
-                pose:
-                    translation: x:15.0 m, y:0.25 m
-                    rotation: 90.0 deg
-            Divider door_doorway_09:
-                shape: Rectangle width=0.1 m, length=doorway_width
-                height: 2.0 m
-                from: this.walls[1]
-                pose:
-                    translation: x:8.7 m, y:0.25 m
-                    rotation: 90.0 deg
-            Divider door_doorway_10:
-                shape: Rectangle width=0.1 m, length=doorway_width
-                height: 2.0 m
-                from: this.walls[1]
-                pose:
-                    translation: x:2.65 m, y:0.25 m
-                    rotation: 90.0 deg
             Column trashcan_1:
                 shape: Rectangle width=0.9 m, length=0.3 m
                 height: 0.8 m

@@ -95,6 +95,34 @@ def build_floorplan_coordinate_graph(model, output_path):
                 }
                 graph.append(position_shape_point_to_wall_frame)
 
+        # for feature in space.floor_features:
+        #     to = to_ref_name(feature.location.from_frame, space)
+        #     pose_feature_frame_to_ref_frame = {
+        #         "@id" : "coord-pose-frame-center-{name}-to-{to}".format(name=feature.name, to=to),
+        #         "@type" : ["PoseReference", "PoseCoordinate","VectorXY"],
+        #         "of-pose" : "pose-frame-center-{name}-to-{to}".format(name=feature.name, to=to),
+        #         "as-seen-by" : to,
+        #         "unit": ["M","degrees"],
+        #         "theta" : get_value(feature.location.pose.rotation),
+        #         "x": get_value(feature.location.pose.translation.x),
+        #         "y": get_value(feature.location.pose.translation.y),
+        #         "z": get_value(feature.location.pose.translation.z)
+        #     }
+        #     graph.append(pose_feature_frame_to_ref_frame)
+
+        #     for i, point in enumerate(feature.get_points()):
+        #         position_shape_point_to_feature_frame = {
+        #             "@id" : "coord-position-point-feature-shape-{name}-{i}".format(name=feature.name, i=i),
+        #             "@type" : ["PositionReference", "PositionCoordinate","VectorXY"],
+        #             "of-position" : "position-point-feature-shape-{name}-{i}".format(name=feature.name, i=i),
+        #             "with-respect-to":  "point-center-{name}".format(name=feature.name),
+        #             "as-seen-by" : "frame-center-{name}".format(name=feature.name),
+        #             "unit": "M",
+        #             "x": point[0],
+        #             "y": point[1]
+        #         }
+        #         graph.append(position_shape_point_to_feature_frame)
+
 
     coordinate_json_ld = {
         "@context" : context,

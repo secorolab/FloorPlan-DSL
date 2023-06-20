@@ -4,16 +4,26 @@ import configparser
 from textx import metamodel_for_language
 from pathlib import Path
 
-from graph.skeleton import build_skeleton_graph
-from graph.shape import build_shape_graph
-from graph.spatial_relations import build_spatial_relations_graph
-from graph.floor_plan import build_floorplan_graph
-from graph.coordinate import build_floorplan_coordinate_graph
+from .graph.skeleton import build_skeleton_graph
+from .graph.shape import build_shape_graph
+from .graph.spatial_relations import build_spatial_relations_graph
+from .graph.floor_plan import build_floorplan_graph
+from .graph.coordinate import build_floorplan_coordinate_graph
 
-import rdflib
-from rdflib.tools.rdf2dot import rdf2dot
+    # import rdflib
+    # from rdflib.tools.rdf2dot import rdf2dot
 
 def jsonld_floorplan_generator(metamodel, model, output_path, overwrite=True, debug=False, **custom_args):
+
+    config = configparser.ConfigParser()
+    config.read('setup.cfg')
+
+    output_path = config["composable_models"]["output_folder"]
+
+    if "{{model_name}}" in output_path:
+        output_path = output_path.replace("{{model_name}}", model.name)
+        if not os.path.exists(output_path):
+            os.makedirs(output_path)
     
     skeleton = build_skeleton_graph(model, output_path)
     shape = build_shape_graph(model, output_path)

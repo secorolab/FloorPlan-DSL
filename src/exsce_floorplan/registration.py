@@ -44,6 +44,8 @@ from variation.processors.processors import discrete_distribution_obj_processor
 
 from variation.exsce_variations import variation_floorplan_generator 
 
+from floor_plan.json_ld_transformation import jsonld_floorplan_generator
+
 def exsce_floorplan_metamodel():
     "exsce_floorplan language"
 
@@ -104,4 +106,11 @@ variation_floorplan_gen = GeneratorDesc(
     target='exsce-floorplan-dsl',
     description='Generate variations of indoor environments from .floorplan models',
     generator=variation_floorplan_generator
+)
+
+json_ld_floorplan_gen = GeneratorDesc(
+    language='exsce-floorplan-dsl',
+    target='json-ld',
+    description='Generate composable models in json-ld',
+    generator=jsonld_floorplan_generator
 )

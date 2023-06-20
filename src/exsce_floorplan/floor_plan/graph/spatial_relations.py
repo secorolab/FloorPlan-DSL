@@ -56,6 +56,27 @@ def build_spatial_relations_graph(model, output_path):
                 }
                 graph.append(point)
 
+        # for i, feature in enumerate(space.floor_features):
+
+        #     for i, p in enumerate(feature.get_points()):
+        #         point = {
+        #             "@id" : "position-point-feature-shape-{name}-{i}".format(name=feature.name, i=i),
+        #             "@type" : "Position",
+        #             "of" : "point-feature-shape-{name}-{i}".format(name=feature.name, i=i),
+        #             "with-respect-to" : "frame-center-{name}".format(name=feature.name),
+        #         }
+        #         graph.append(point)
+            
+        #     to = to_ref_name(feature.location.from_frame, space)
+
+        #     pose_feature_frame_to_ref_frame = {
+        #         "@id" : "pose-frame-center-{name}-to-{to}".format(name=feature.name, to=to),
+        #         "@type" : "Pose",
+        #         "of" : "frame-center-{name}".format(name=feature.name),
+        #         "with-respect-to" : to
+        #     }
+        #     graph.append(pose_feature_frame_to_ref_frame)
+
     spatial_relations_json_ld = {
         "@context" : context,
         "@graph" : graph,

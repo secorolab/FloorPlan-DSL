@@ -3,6 +3,8 @@ import bmesh
 import os
 
 def create_mesh(collection, name, vertices, faces):
+    """Creates a mesh"""
+
     me = bpy.data.meshes.new(name)
     me.from_pydata(vertices, [], faces)
     me.update()
@@ -21,16 +23,22 @@ def create_mesh(collection, name, vertices, faces):
 
 
 def create_collection(name):
+    """Creates an object collection"""
+
     collection = bpy.data.collections.new(name)
     bpy.context.scene.collection.children.link(collection)
     return collection
 
 def clear_scene():
+    """Clears the scene from all objects (often the default objects: a cube mesh, a light source, and a camera)"""
+
     for obj in bpy.context.scene.objects:
         obj.select_set(True)
         bpy.ops.object.delete()
 
 def boolean_operation_difference(obj_name, cutter_name):
+    """Performs a the difference boolean operation"""
+
     # select the object
     obj = bpy.data.objects[obj_name]
     # configure modifier
@@ -42,7 +50,11 @@ def boolean_operation_difference(obj_name, cutter_name):
     bpy.ops.object.modifier_apply(modifier="boolean")
 
 def export(_format, path, name):
+    """Exports scene into a mesh with the specified format, path, and name"""
 
     if _format == 'stl':
         name = "{name}.stl".format(name=name)
         bpy.ops.export_mesh.stl(filepath=os.path.join(path, name))
+    elif _format == 'dae':
+        name = "{name}.dae".format(name=name)
+        bpy.ops.wm.collada_export(filepath=os.path.join(path, name))

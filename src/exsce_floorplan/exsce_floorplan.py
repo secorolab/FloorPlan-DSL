@@ -216,7 +216,7 @@ class FloorPlan(object):
                 draw.polygon(shape[:, 0:2].flatten().tolist(), fill=occupied)
         
         name_yaml = "{}.yaml".format(self.model.name)
-        name_image = "{}.pgm".format(self.model.name)
+        name_image = "{}.png".format(self.model.name)
 
         # Where to put the robot????
         # origin = [0, 0, 0]
@@ -277,7 +277,6 @@ if __name__ == '__main__':
         my_metamodel = metamodel_for_language('exsce-floorplan-dsl')
         argv = sys.argv[sys.argv.index("--") + 1:]
         my_model = my_metamodel.model_from_file(argv[0])
-        print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
         floor_plan = FloorPlan(my_model)
         floor_plan.interpret()
         
