@@ -12,10 +12,9 @@ TODO:
 
 FloorPlan:
     'Floor plan' ':' name = ID
+        variables *= Variable?
         spaces += Space 
-        boolean_operations *= BooleanOperation?
         wall_openings *= WallOpening?
-        wall_removal *= WallRemoval?
         default = DefaultValues
 ;
 
@@ -24,22 +23,29 @@ Space:
         'shape' ':' shape=Polytope
         'location' ':' 
             location=SpaceLocation
-        ('wall thickness' ':' wall_thickness=CartesianUnit)?
-        ('wall height' ':' wall_height=CartesianUnit)?
+        ('wall thickness' ':' wall_thickness=Value)?
+        ('wall height' ':' wall_height=Value)?
         ('features' ':' 
             floor_features*=FloorFeature
         )?
-        ('order:' order=INT)?
 ;
 
 DefaultValues:
     'Default values' ':'
-        'Wall thickness' ':' wall_thickness = CartesianUnit
-        'Wall height' ':' wall_height = CartesianUnit
+        'Wall thickness' ':' wall_thickness = Value
+        'Wall height' ':' wall_height = Value
 ;
 
 FloorPlanReference:
-    Space | FloorFeature | WallOpening
+    Space | FloorFeature | WallOpening | Variable
+;
+
+/* ------------------------------------------ */
+// New features
+Repetition:
+    'repeat' ':'
+        'quantity' ':' quantity = INT
+        'interval' ':' interval = Position
 ;
 
 /* ------------------------------------------ */
@@ -71,16 +77,16 @@ WallThickness:
 // Location
 
 SpaceLocation:
-    'from:' from_frame=FromFrameRef
-    'to:' to_frame=ToFrameRef
-    'pose:'
+    'from' ':' from_frame=FromFrameRef
+    'to' ':' to_frame=ToFrameRef
+    'pose' ':'
         pose=PoseDescription
     //flags
     (aligned?="not aligned" spaced?="spaced")#
 ;
 
 FloorLocation:
-    'from:' from_frame=ToFrameRef
+    'from' ':' from_frame=ToFrameRef
     'pose' ':' 
         pose=PoseDescription
 ;
@@ -91,8 +97,8 @@ FloorLocation:
 WallOpening:
     (entryway?='Entryway' | window?='Window') name=ID ':'
     'in:' wall_a=WallRef ('and' wall_b=WallRef)?
-        'shape:' shape=VerticalPolytope
-        'pose:' 
+        'shape' ':' shape=VerticalPolytope
+        'pose' ':' 
             pose=PoseDescription
 ;
 
@@ -101,32 +107,16 @@ WallOpening:
 
 FloorFeature:
     ( divider?='Divider' | column?='Column' ) name=ID ':'
-        'shape:' shape=Polytope
-        'height' ':' height=CartesianUnit
+        'shape' ':' shape=Polytope
+        'height' ':' height=Value
         location=FloorLocation
 ;
 
 /* ------------------------------------------ */
 // Boolean operations and others
 
-BooleanOperation:
-    Intersection | Difference | Union
-;
-
-Intersection:
-    'intersection:' space_a=[Space] ',' space_b=[Space]
-;
-
-Difference:
-    'difference:' min=[Space] '-' sub=[Space]
-;
-
-Union:
-    'union:' spaces+=[Space]['+']
-;
-
 WallRemoval:
-    "remove wall:" wall=WallRef
+    'remove wall' ':' wall=WallRef
 ;
 
 /* ------------------------------------------ */

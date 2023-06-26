@@ -1,0 +1,233 @@
+Floor plan: office
+
+    Space central_room:
+        shape: Polygon points:[
+            (5.0 m, -5.0 m),
+            (-5.0 m, -5.0 m),
+            (-5.0 m, 5.0 m),
+            (2.0 m, 5.0 m)
+        ]
+        location:
+            from: world
+            to: this
+            pose:
+                translation: x:0.0 m, y:0.0 m
+                rotation: 0.0 deg 
+        features:
+            Column central_left:
+                shape: Rectangle width=0.2 m, length=0.2 m
+                height: 3.0 m
+                from: this
+                pose:
+                    translation: x:-2.5 m, y:-2.0 m
+                    rotation: -35.0 deg
+            
+            Column central_right:
+                shape: Rectangle width=0.2 m, length=0.2 m
+                height: 3.0 m
+                from: this
+                pose:
+                    translation: x:2.5 m, y:-2.0 m
+                    rotation: 35.0 deg
+
+            Divider divider_central:
+                shape: Rectangle width=5.0 m, length=0.1 m
+                height: 1.0 m
+                from: this
+                pose:
+                    translation: x:0.0 m, y:-2.0 m
+                    rotation: 0.0 deg
+
+            Divider divider_left:
+                shape: Rectangle width=2.0 m, length=0.1 m
+                height: 1.0 m
+                from: this
+                pose:
+                    translation: x:-2.5 m, y:-1.0 m
+                    rotation: 90.0 deg
+
+            Divider divider_right:
+                shape: Rectangle width=2.0 m, length=0.1 m
+                height: 1.0 m
+                from: this
+                pose:
+                    translation: x:2.5 m, y:-1.0 m
+                    rotation: 90.0 deg
+            
+    Space corridor_left:
+        shape: Rectangle width=3.0 m, length=20.0 m
+        location:
+            from: central_room.walls[3]
+            to: this.walls[1]
+            pose:
+                translation: x:-6.0 m, y:0.0 m
+                rotation: 0.0 deg 
+        spaced
+        features:
+            Column wall_column_1:
+                shape: Rectangle width=0.5 m, length=0.3 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:-5.5 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column wall_column_2:
+                shape: Rectangle width=0.5 m, length=0.3 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:-2.5 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column wall_column_3:
+                shape: Rectangle width=0.5 m, length=0.3 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:1.5 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column wall_column_4:
+                shape: Rectangle width=0.5 m, length=0.3 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:4.5 m, y:0.0 m
+                    rotation: 0.0 deg
+
+    Space corridor_right:
+        shape: Rectangle width=3.0 m, length=20.0 m
+        location:
+            from: central_room.walls[1]
+            to: this.walls[3]
+            pose:
+                translation: x:6.0 m, y:0.0 m
+                rotation: 0.0 deg 
+        spaced
+        features:
+            Column wall_column_1:
+                shape: Rectangle width=0.5 m, length=0.3 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:-5.5 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column wall_column_2:
+                shape: Rectangle width=0.5 m, length=0.3 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:-2.5 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column wall_column_3:
+                shape: Rectangle width=0.5 m, length=0.3 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:1.5 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column wall_column_4:
+                shape: Rectangle width=0.5 m, length=0.3 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:4.5 m, y:0.0 m
+                    rotation: 0.0 deg
+
+    Space corner_room_A:
+        shape: Rectangle width=5.0 m, length=5.0 m
+        location:
+            from: corridor_left.walls[3]
+            to: this.walls[1]
+            pose:
+                translation: x:7.5 m, y:0.0 m
+                rotation: 0.0 deg 
+            spaced
+    
+    Space corner_room_B:
+        shape: Rectangle width=5.0 m, length=5.0 m
+        location:
+            from: corridor_left.walls[3]
+            to: this.walls[1]
+            pose:
+                translation: x:-7.5 m, y:0.0 m
+                rotation: 0.0 deg 
+            spaced
+
+    Space corner_room_C:
+        shape: Rectangle width=5.0 m, length=5.0 m
+        location:
+            from: corridor_right.walls[1]
+            to: this.walls[3]
+            pose:
+                translation: x:7.5 m, y:0.0 m
+                rotation: 0.0 deg 
+            spaced
+    
+    Space corner_room_D:
+        shape: Rectangle width=5.0 m, length=5.0 m
+        location:
+            from: corridor_right.walls[1]
+            to: this.walls[3]
+            pose:
+                translation: x:-7.5 m, y:0.0 m
+                rotation: 0.0 deg 
+            spaced
+        
+    Entryway central_room_to_left_corridor:
+        in: central_room.walls[3] and corridor_left.walls[1]
+        shape: Rectangle width=6.5 m, height=2.4 m
+        pose:
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+
+    Entryway central_room_main_entrance:
+        in: central_room.walls[0] 
+        shape: Rectangle width=2.5 m, height=2.0 m
+        pose:
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+
+    Window central_room_main_window:
+        in: central_room.walls[2] 
+        shape: Rectangle width=3.5 m, height=1.0 m
+        pose:
+            translation: x: 0.0 m, y: 0.0 m, z: 1.0 m
+            rotation: 0.0 deg
+
+    Entryway central_room_to_right_corridor:
+        in: central_room.walls[1] and corridor_right.walls[3]
+        shape: Rectangle width=6.5 m, height=2.4 m
+        pose:
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+
+    Entryway room_A_to_left_corridor:
+        in: corner_room_A.walls[1] and corridor_left.walls[3]
+        shape: Rectangle width=1.1 m, height=2.4 m
+        pose:
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+
+    Entryway room_B_to_left_corridor:
+        in: corner_room_B.walls[1] and corridor_left.walls[3]
+        shape: Rectangle width=1.1 m, height=2.4 m
+        pose:
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+
+    Entryway room_C_to_right_corridor:
+        in: corner_room_C.walls[3] and corridor_right.walls[1]
+        shape: Rectangle width=1.1 m, height=2.4 m
+        pose:
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+
+    Entryway room_D_to_right_corridor:
+        in: corner_room_D.walls[3] and corridor_right.walls[1]
+        shape: Rectangle width=1.1 m, height=2.4 m
+        pose:
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+
+    Default values:
+        Wall thickness: 0.2 m
+        Wall height: 2.5 m 

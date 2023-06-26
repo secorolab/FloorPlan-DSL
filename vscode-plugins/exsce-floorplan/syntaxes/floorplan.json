@@ -1,0 +1,200 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "floorplan",
+	"scopeName": "source.floorplan",
+	"patterns": [        {
+            "include": "#comment"
+        },        {
+            "include": "#string"
+        },
+        {
+            "include": "#language_keyword"
+        },
+        {
+            "include": "#language_operation"
+        },
+        {
+            "include": "#regular_expression"
+        }
+    ],
+    "repository": {        "comment": {
+            "patterns": [                {
+                    "match": "//.*$",
+                    "name": "comment.line"
+                },                {
+                    "name": "comment.block",
+                    "begin": "/\\*",
+                    "end": "\\*/"
+                }            ]
+        },        "string": {
+            "patterns": [
+                {
+                    "name": "string.quoted.single",
+                    "begin": "'",
+                    "end": "'"
+                },
+                {
+                    "name": "string.quoted.double",
+                    "begin": "\"",
+                    "end": "\""
+                }
+            ]
+        },
+        "language_keyword": {
+            "patterns": [                {
+                    "match": "Floor\\ plan",
+                    "name": "constant.language"
+                },                {
+                    "match": "\\:",
+                    "name": "constant.language"
+                },                {
+                    "match": "Space",
+                    "name": "support.class"
+                },                {
+                    "match": "shape",
+                    "name": "support.class"
+                },                {
+                    "match": "location",
+                    "name": "support.class"
+                },                {
+                    "match": "wall\\ thickness",
+                    "name": "constant.language"
+                },                {
+                    "match": "wall\\ height",
+                    "name": "constant.language"
+                },                {
+                    "match": "features",
+                    "name": "support.class"
+                },                {
+                    "match": "order\\:",
+                    "name": "constant.language"
+                },                {
+                    "match": "Default\\ values",
+                    "name": "constant.language"
+                },                {
+                    "match": "Wall\\ thickness",
+                    "name": "constant.language"
+                },                {
+                    "match": "Wall\\ height",
+                    "name": "constant.language"
+                },                {
+                    "match": "null",
+                    "name": "support.class"
+                },                {
+                    "match": "world",
+                    "name": "support.class"
+                },                {
+                    "match": "\\.walls\\[",
+                    "name": "constant.language"
+                },                {
+                    "match": "\\]",
+                    "name": "constant.language"
+                },                {
+                    "match": "this",
+                    "name": "support.class"
+                },                {
+                    "match": "from\\:",
+                    "name": "constant.language"
+                },                {
+                    "match": "to\\:",
+                    "name": "constant.language"
+                },                {
+                    "match": "pose\\:",
+                    "name": "constant.language"
+                },                {
+                    "match": "not\\ aligned",
+                    "name": "constant.language"
+                },                {
+                    "match": "spaced",
+                    "name": "support.class"
+                },                {
+                    "match": "pose",
+                    "name": "support.class"
+                },                {
+                    "match": "Entryway",
+                    "name": "support.class"
+                },                {
+                    "match": "Window",
+                    "name": "support.class"
+                },                {
+                    "match": " in:",
+                    "name": "constant.language"
+                },                {
+                    "match": "and",
+                    "name": "support.class"
+                },                {
+                    "match": "shape\\:",
+                    "name": "constant.language"
+                },                {
+                    "match": "Divider",
+                    "name": "support.class"
+                },                {
+                    "match": "Column",
+                    "name": "support.class"
+                },                {
+                    "match": "height",
+                    "name": "support.class"
+                },                {
+                    "match": "intersection\\:",
+                    "name": "constant.language"
+                },                {
+                    "match": "\\,",
+                    "name": "constant.language"
+                },                {
+                    "match": "difference\\:",
+                    "name": "constant.language"
+                },                {
+                    "match": "\\-",
+                    "name": "constant.language"
+                },                {
+                    "match": "union\\:",
+                    "name": "constant.language"
+                },                {
+                    "match": "\\+",
+                    "name": "constant.language"
+                },                {
+                    "match": "remove\\ wall\\:",
+                    "name": "constant.language"
+                },                {
+                    "match": "Rectangle",
+                    "name": "support.class"
+                },                {
+                    "match": "width",
+                    "name": "support.class"
+                },                {
+                    "match": "length",
+                    "name": "support.class"
+                },                {
+                    "match": "Circle",
+                    "name": "support.class"
+                },                {
+                    "match": "radius",
+                    "name": "support.class"
+                },                {
+                    "match": "Polygon",
+                    "name": "support.class"
+                },                {
+                    "match": "points\\:\\[",
+                    "name": "constant.language"
+                },                {
+                    "match": "\\(",
+                    "name": "constant.language"
+                },                {
+                    "match": "\\)",
+                    "name": "constant.language"
+                },                {
+                    "match": "translation\\:",
+                    "name": "constant.language"
+                },                {
+                    "match": "rotation\\:",
+                    "name": "constant.language"
+                }            ]
+        },
+        "language_operation": {
+            "patterns": [            ]
+        },
+        "regular_expression": {
+            "patterns": [            ]
+        }
+    }
+}

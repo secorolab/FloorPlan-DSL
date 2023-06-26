@@ -22,6 +22,10 @@ from floor_plan.classes.polytope import (
                         ) 
 from floor_plan.classes.wall_opening import WallOpening
 from floor_plan.classes.floor_feature import FloorFeature
+from floor_plan.classes.position import (
+    Position, 
+    PoseDescription
+)
 
 from variation.classes.distribution import (
     UniformDistribution,
@@ -32,12 +36,15 @@ from variation.classes.distribution import (
 # object processors for FloorPlan DSL
 from floor_plan.processors.processors import (
     opening_obj_processors,
-    feature_obj_processor
+    feature_obj_processor,
+    unique_names_processor
 )
 
 from variation.processors.processors import discrete_distribution_obj_processor
 
 from variation.exsce_variations import variation_floorplan_generator 
+
+from floor_plan.json_ld_transformation import jsonld_floorplan_generator
 
 def exsce_floorplan_metamodel():
     "exsce_floorplan language"
@@ -50,10 +57,13 @@ def exsce_floorplan_metamodel():
                                                         Circle,
                                                         VerticalRectangle,
                                                         WallOpening,
-                                                        FloorFeature])
+                                                        FloorFeature,
+                                                        Position,
+                                                        PoseDescription])
     mm_floorplan.register_obj_processors({
         'WallOpening': opening_obj_processors,
         'FloorFeature': feature_obj_processor,
+        'FloorPlan' : unique_names_processor
     }) 
     mm_floorplan.register_scope_providers({
         "*.*": scoping_providers.FQNImportURI()
@@ -96,4 +106,11 @@ variation_floorplan_gen = GeneratorDesc(
     target='exsce-floorplan-dsl',
     description='Generate variations of indoor environments from .floorplan models',
     generator=variation_floorplan_generator
+)
+
+json_ld_floorplan_gen = GeneratorDesc(
+    language='exsce-floorplan-dsl',
+    target='json-ld',
+    description='Generate composable models in json-ld',
+    generator=jsonld_floorplan_generator
 )

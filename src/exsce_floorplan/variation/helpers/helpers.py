@@ -1,3 +1,6 @@
+def get_proper_value(variable):
+    return variable.value.value if variable.ref is None else variable.ref.name
+
 def pose_json(pose):
     return {
         'translation' : {
@@ -31,7 +34,7 @@ def floor_feature_json(feature):
         'shape' : shape_json(feature.shape),
         'divider' : feature.divider,
         'column' : feature.column,
-        'height' : feature.height.value,
+        'height' : get_proper_value(feature.height),
         'from' : feature.location.from_frame,
         'pose' : pose_json(feature.location.pose)
     }
@@ -78,12 +81,20 @@ def default_json(default):
         'wall_height' : default.wall_height
     }
 
+def variable_json(variable):
+    return {
+        'type':variable.__class__.__name__,
+        'name' : variable.name,
+        'value' : variable.value.value
+    }
+
 def get_floorplan_as_json(flp_model):
     
     # convert the original model into a context dictionary
     context = {
         'floorplan_name' : flp_model.name,
         'name' : flp_model.name,
+        'variables' : [variable_json(variable) for variable in flp_model.variables],
         'spaces' : [space_json(space) for space in flp_model.spaces],
         'wall_openings' : [wall_opening_json(wall_opening) for wall_opening in flp_model.wall_openings],
         'default' : default_json(flp_model.default)

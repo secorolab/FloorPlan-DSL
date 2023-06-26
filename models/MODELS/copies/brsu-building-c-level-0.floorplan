@@ -1,0 +1,35 @@
+Floor plan: brsu_building_c_level_0
+    Space left_long_corridor:
+        shape: Rectangle width=2.25 m, length=60 m
+        location:
+            from: left_short_connector.walls[1]
+            to: this.walls[2]
+            pose:
+                translation: x:0.69 m, y:0.0 m
+                rotation: 0.0 deg
+            spaced 
+    Space left_corridor_extra_end:
+        shape: Rectangle width=1.12 m, length=15.0 m
+        location:
+            from: left_long_corridor.walls[3]
+            to: this.walls[1]
+            pose:
+                translation: x: 22.5 m, y:0.0 m
+                rotation: 0.0 deg
+            spaced
+        wall thickness: 0.15 m
+    Entryway left_long_corridor_opening:
+        in: left_long_corridor.walls[2] and left_short_connector.walls[1]
+        shape: Rectangle width=2.2 m, height=2.4 m
+        pose:
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+    Entryway left_corridor_extra_space_wall_removal:
+        in: left_corridor_extra_end.walls[1] and left_long_corridor.walls[3]
+        shape: Rectangle width=15.0 m, height=2.4 m
+        pose:
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+    Default values:
+        Wall thickness: 0.2 m
+        Wall height: 2.5 m 

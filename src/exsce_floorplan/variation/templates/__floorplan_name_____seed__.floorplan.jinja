@@ -1,5 +1,5 @@
 {%- macro shape_macro(shape) -%}
-    {%- if shape.type == 'Polygon' -%}
+    {%- if shape.__class__.__name__ == 'Polygon' -%}
         Polygon points:[
             {%for point in shape.points%}
                 ({{point[0]}} m, {{point[1]}} m) {%-if not loop.index % loop.length == 0-%},
@@ -7,10 +7,10 @@
             {%endfor%}
 
         ]
-    {%- elif shape.type == 'Rectangle' -%}
-        Rectangle width={{shape.width}} m, length={{shape.length}} m
-    {%- elif shape.type == 'VerticalRectangle' -%}
-        Rectangle width={{shape.width}} m, height={{shape.height}} m
+    {%- elif shape.__class__.__name__== 'Rectangle' -%}
+        Rectangle width={{value_macro(shape.width)}}, length={{value_macro(shape.length)}}
+    {%- elif shape.__class__.__name__ == 'VerticalRectangle' -%}
+        Rectangle width={{value_macro(shape.width)}}, height={{value_macro(shape.height)}}
     {%- else -%}
         wrong
     {%- endif -%}
@@ -36,48 +36,73 @@
     {%- endif -%}
 {%- endmacro -%}
 
-// Generated variation of the {{name}} floor plan. 
-// Seed: {{seed}}
-Floor plan: {{name}}
+{%- macro variable_macro(type, name, value)-%}
+    {%- if type == "MeterVariable"-%}
+        metres {{name}}={{value}} m
+    {%- else -%}
+        degrees {{name}}={{value}} deg
+    {%- endif -%}
+{%- endmacro -%}
 
-    {% for space in spaces%}
+{%- macro value_macro(variable)-%}
+    {%- if variable.ref == None -%}
+        {%- if variable.value.__class__.__name__ == "Meter" -%}
+            {{variable.value.value}} m
+        {%- else -%}
+            {{variable.value.value}} deg
+        {%- endif -%}
+    {%- else -%}
+        {{variable.ref.name}}
+    {%- endif -%}
+{%- endmacro -%}
+
+{%- macro wall_macro(text, value, default)-%}
+    {%- if value != default -%}
+        {{text}}: {{value_macro(value)}}
+    {%- endif -%}
+{%- endmacro -%}
+
+// Generated variation of the {{fp.name}} floor plan. 
+// Seed: {{fp.seed}}
+Floor plan: {{fp.name}}_{{fp.seed}}
+    {% for variable in fp.variables %}
+        {{variable_macro(variable.__class__.__name__, variable.name, variable.value.value)}}
+    {% endfor %}
+
+    {% for space in fp.spaces%}
     Space {{space.name}}:
         shape: {{shape_macro(space.shape)}}
         location:
-            from: {{from_frame(space.location.from.world, space.location.from.ref, space.location.from.index)}}
-            to: {{to_frame(space.location.to.index)}}
+            from: {{from_frame(space.location.from_frame.world, space.location.from_frame.ref, space.location.from_frame.index)}}
+            to: {{to_frame(space.location.to_frame.index)}}
             pose:
-                translation: x:{{space.location.pose.translation.x}} m, y:{{space.location.pose.translation.y}} m
-                rotation: {{space.location.pose.rotation}} deg
+                translation: x:{{value_macro(space.location.pose.translation.x)}}, y:{{value_macro(space.location.pose.translation.y)}}
+                rotation: {{value_macro(space.location.pose.rotation)}}
             {%+if space.location.spaced-%}spaced{%-endif+%} 
-        wall thickness: {{space.wall_thickness}} m
-        wall height: {{space.wall_height}} m
+        {{wall_macro("wall thickness", space.wall_thickness, fp.default.wall_thickness)}}
+        {{wall_macro("wall height", space.wall_height, fp.default.wall_height)}}
         {% if space.floor_features|length > 0 %}
         features:
             {%+ for feature in space.floor_features -%}
             {%+ if feature.column +%}Column{% else %}Divider{% endif +%} {{feature.name}}:
                 shape: {{shape_macro(feature.shape)}}
-                height: {{feature.height}} m
-                from: this{%+ if not feature.from.index == None +%}.walls[{{feature.from.index}}]{%+ endif +%}
+                height: {{value_macro(feature.height)}}
+                from: this{%+ if not feature.location.from_frame.index == None +%}.walls[{{feature.location.from_frame.index}}]{%+ endif +%}
                 pose: 
-                    translation: x: {{feature.pose.translation.x}} m, y: {{feature.pose.translation.y}} m
-                    rotation: {{feature.pose.rotation}} deg
-                
+                    translation: x: {{value_macro(feature.location.pose.translation.x)}}, y: {{value_macro(feature.location.pose.translation.y)}}
+                    rotation: {{value_macro(feature.location.pose.rotation)}}
             {%+ endfor -%}
         {%+ endif +%}
-
-    {%endfor%}
-
-    {%for wall_opening in wall_openings%}
+    {%endfor-%}
+    {%-for wall_opening in fp.wall_openings%}
     {%+ if wall_opening.window -%} Window {%- else -%} Entryway {%- endif +%} {{wall_opening.name}}:
-        in: {{wall_opening.in.wall_a.parent.name}}.walls[{{wall_opening.in.wall_a.index}}] {%- if not wall_opening.in.wall_b == None %} and {{wall_opening.in.wall_b.parent.name}}.walls[{{wall_opening.in.wall_b.index}}]{%endif+%}
+        in: {{wall_opening.wall_a.parent.name}}.walls[{{wall_opening.wall_a.index}}] {%- if not wall_opening.wall_b == None %} and {{wall_opening.wall_b.parent.name}}.walls[{{wall_opening.wall_b.index}}]{%endif+%}
         shape: {{shape_macro(wall_opening.shape)}}
         pose:
-            translation: x:{{wall_opening.pose.translation.x}} m, y:{{wall_opening.pose.translation.y}} m, z:{{wall_opening.pose.translation.z}} m
-            rotation: {{wall_opening.pose.rotation}} deg
+            translation: x:{{value_macro(wall_opening.pose.translation.x)}}, y:{{value_macro(wall_opening.pose.translation.y)}}, z:{{value_macro(wall_opening.pose.translation.z)}}
+            rotation: {{value_macro(wall_opening.pose.rotation)}}
 
     {%endfor%}
-
     Default values:
-        Wall thickness: {{default.wall_thickness.value}} m
-        Wall height: {{default.wall_height.value}} m 
+        Wall thickness: {{value_macro(fp.default.wall_thickness)}}
+        Wall height: {{value_macro(fp.default.wall_height)}}

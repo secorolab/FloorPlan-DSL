@@ -1,6 +1,6 @@
 # How to specify an indoor environment
 
-The ExSce-FloorPlan DSL is a domain-specific language and tooling for specifying and generating an indoor environment. In this tutorial we are going to go over the most important concepts to model a concrete indoor environment.
+The ExSce-FloorPlan DSL is a domain-specific language and tooling for specifying and generating indoor environments. In this tutorial we are going to go over the most important concepts to model a concrete floor plan.
 
 ![Environment generated with the tooling with concepts annotated](../images/floorplan_concepts.png)
 
@@ -11,26 +11,28 @@ Let's do a review of the most important concepts when modelling an indoor enviro
 
 * Spaces: these are the central concepts when modelling. This concept allows you to model any space in a floor plan: a room, a hallway, an intersection, a reception, and any other space that is surrounded by walls.
 
-* Walls: walls surround the spaces. however, these are not modelled directly. When modelling a space, you select the shape of the space, and the walls are created automatically when interpreting the model.
+* Walls: walls surround the spaces, and these are not modelled directly. When modelling a space, you select the shape of the space, and the walls are created automatically when interpreting the model.
 
 * Entryways and Windows: These are openings in the walls that allow you to connect two spaces.
 
 * Column and Dividers: These are features of the environments that are usually located freely in space or next to walls. Both cases can be modelled using the language.
 
 ## Modelling
-Modelling an indoor environment consists of modelling Spaces, Entryways, Windows, Columns, and Dividers; and specifying their location in the environment. Modelling these concepts is rather straightforward as we only have to specify its shape and other attributes such as thickness or height. Specifying the location is simple, but requires some background.
+Modelling an indoor environment consists of declaring the Spaces, Entryways, Windows, Columns, and Dividers; and specifying their location in the environment. Each of these concepts is modelled by specifying its shape and other attributes such as thickness or height. Specifying the location is simple, but requires some background.
 
-The location of any space or feature is specified by a translation and rotation with regards to a frame of reference. There are multiple frames of references that can be chosen for this. Apart from the world frame, each space has N + 1 frames of references, where N is the number of walls. For each wall in the space, there is a frame located in the middle of the wall, with the x axis going along the wall and the y axis perpendicular to the wall. From the perspective of being inside the room looking into one of the walls: Positive values in the x axis are located from the centre to the right, and negative values in the opposite direction. Whereas the positive direction from the y axis moves away from you and the negative direction moves closer. The frame is located at floor level, meaning that for the z axis only positive values are above the floor.
+The location of any space or feature is specified by a translation and rotation with regards to a frame of reference. There are multiple frames of references that can be chosen for this. Apart from the world frame, each space has N + 1 frames of references that can be selected, where N is the number of walls. 
+
+For each wall in the space, there is a frame located in the middle of the wall, with the x axis going along the wall and the y axis perpendicular to the wall. From the perspective of being inside the room looking into one of the walls: Positive values in the x axis are located from the centre to the right, and negative values in the opposite direction. Whereas the positive direction from the y axis moves away from you and the negative direction moves closer. The frame is located at floor level, meaning that for the z axis only positive values are above the floor.
 
 ![Frames available when modelling](../images/walls_with_frames.png)
 
-The image above illustrates a room with all of its frames. Each wall has an index, so you can select the frame of reference by specifying the index of the desired wall: `<name of space>.walls[<index>]`. You can also select the frame of the space by just referring to the name: `<name of space>`. You may also select the world frame with the `world` keyword.
+The image above illustrates a room with all of its frames. Each wall has an index, so you can select the frame of reference by specifying the index of the desired wall: `<name of space>.walls[<index>]`. You can also select the center frame of the space by just referring to the name: `<name of space>`. You may also select the world frame with the `world` keyword.
 
 A space requires two frames in order to specify a location: A reference frame where the translation and rotation are specified from, and the frame that will get translated and rotated.
 
 ### Using the world frame
 
-You can select the world frame as your frame of reference by using the keyword `world` (result in  [@fig:world_frame]). You may only use this frame for locating spaces. Any other feature or entryway must be specified by either the space frame or one of the walls.
+You can select the world frame as your frame of reference by using the keyword `world` (result in  [@fig:world_frame]). You may only use this frame for locating spaces. Any other feature or entryway must be specified by either the center frame or one of the walls. Should be noted that you can use the `this` keyword to reference a frame when you are inside the scope of the space that frame belongs to. 
 
 ```
 location:
@@ -40,13 +42,11 @@ location:
         translation: x:3.0 m, y:4.0 m
         rotation: 45.0 deg
 ```
-![Pose of a space with regards to the world frame](../images/wall_location.png){#fig:world_frame}
+![Pose of a space with regards to the world frame](../images/wall_location.png)
 
-Should be noted that you can use the `this` keyword to reference a frame when you are inside the scope of a space. i.e. that the frame belongs to the space you are editing.
+### Using two wall frames
 
-### Using another wall
-
-You can use two wall frames to define locations. When you model a location using two wall frames, the default behaviour is to do an extra 180 degree rotation of the space you are locating so that the two spaces are not overlapping, as illustrated in the two next examples ([@fig:walls_with_frames;@fig:walls_with_frames_two]):
+You can also use two wall frames to define locations. When you model a location using two wall frames, the default behaviour is to do an extra 180 degree rotation of the space you are locating so that the two spaces are not overlapping. Depending on the two walls that are chosen, the results can be different, as illustrated in the two next examples 
 
 ```
 location:
@@ -58,7 +58,8 @@ location:
     spaced
 ```
 
-![Pose of two spaces when walls are used as reference frames](../images/walls_with_frames_01.png){#fig:walls_with_frames}
+![Pose of two spaces when walls are used as reference frames](../images/walls_with_frames_01.png)
+
 
 ```
 location:
@@ -69,13 +70,14 @@ location:
         rotation: 0.0 deg
     spaced
 ```
-![Pose of two spaces when another wall is used as a reference frame](../images/walls_with_frames_02.png){#fig:walls_with_frames_two}
 
-The flag `spaced` is used to tell the interpreter to calculate the combined thickness of the two walls, and space the two rooms accordingly. When not present, the two rooms are not spaced correctly, as seen in [@fig:not_spaced].
+![Pose of two spaces when another wall is used as a reference frame](../images/walls_with_frames_02.png)
 
-![Two spaces not spaced correctly, as the `spaced` flag was not included](../images/walls_not_spaced.png){#fig:not_spaced}
+The flag `spaced` is used to tell the interpreter to calculate the combined thickness of the two walls, and space the two rooms accordingly. When not present, the two rooms are not spaced correctly, as seen in the next figure.
 
-Similarly, the default alignment behaviour can be disabled by using the `not aligned` flag, so that the two rooms overlap ([@fig:not_aligned]).
+![Two spaces not spaced correctly, as the `spaced` flag was not included](../images/walls_not_spaced.png)
+
+Similarly, the default alignment behaviour can be disabled by using the `not aligned` flag, so that the two rooms overlap.
 
 ```
 location:
@@ -86,11 +88,23 @@ location:
         rotation: 0.0 deg
     not aligned
 ```
-![Two spaces not aligned as the `not aligned` flag was used](../images/walls_not_aligned.png){#fig:not_aligned}
+![Two spaces not aligned as the `not aligned` flag was used](../images/walls_not_aligned.png)
 
-### Features
+## Features
 
-Other features of the environment only need one reference frame. For entryways and windows, the frame must be a wall frame.
+The language enables the modelling of doorways, windows, columns, and dividers. Features such as columns or dividers are always defined within a space scope, so you can use the "this" keyword to refer to the walls inside the space.
+
+```
+Column wall_column:
+    shape: Rectangle width=0.5 m, length=0.3 m
+    height: 2.5 m
+    from: this.walls[3]
+    pose:
+        translation: x:7.0 m, y:0.0 m, z: 0.0 m
+        rotation: 0.0 deg
+```
+
+Entryways and windows are specified outside of the scope of the space, after all the spaces in the floorplan have been specified. These features create the openings in the walls required to connect two spaces or one space with the "outside". 
 
 ```
 Entryway doorway:
@@ -100,21 +114,11 @@ Entryway doorway:
         translation: x: -1.0 m, y: 0.0 m, z: 0.0 m
         rotation: 0.0 deg
 ```
-Whenever an entryway or window is located in a wall shared by two spaces, you must specify the two walls that will contain the entryway or window. The location is specified with regards to the first frame specified, in the example above it would be `my_room.walls[0]`.
+Whenever an entryway or window is located in a wall shared by two spaces, you must specify the two walls that will be opened by the entryway or window (`my_room.walls[0] and second_room.walls[1]`). However, The location is specified with regards to the first frame specified, in the example above it would be `my_room.walls[0]`.
 
-Features such as columns or dividers are always defined within a space scope, so you can use the "this" keyword to refer to the walls inside the space.
-```
-Column wall_column:
-    shape: Rectangle width=0.5 m, length=0.3 m
-    height: 2.5 m
-    from: this.walls[3]
-    pose:
-        translation: x:7.0 m, y:0.0 m
-        rotation: 0.0 deg
-```
-### Modelling
+# Modelling the example
 
-Now that we have reviewed all of the important concepts, we can put them together in a model. The finished model for this tutorial is available on [github](../models/hospital.floorplan). In this section we will go over the model section by section with some explanations when needed.
+Now that we have reviewed all of the important concepts, we can put them together in a model. The finished model for this tutorial is available [here](../models/hospital.floorplan). In this section we will go over the model section by section with some explanations when needed.
 
 ```
 Floor plan: hospital
@@ -136,7 +140,7 @@ Floor plan: hospital
                 rotation: 45.0 deg
 ```
 
-Each floor plan has a name, which gets used for all the artefacts that get generated. The `reception` space has a custom polygon as shape, so we specify all the points to bound it. Every pair of points is a wall, with the last point and the first point being the final wall to close the polygon (i.e. no need to repeat the first point at the very end). From the world frame, this space is translated -5 metres in the y axis and rotated 45 degrees w.r.t. the z axis.
+Each floor plan has a name, which gets used to identify all the artefacts that get generated. The `reception` space has a custom polygon as shape, so we specify all the points to bound it. Every pair of points is a wall, with the last point and the first point being the final wall to close the polygon (i.e. no need to repeat the first point at the very end). From the world frame, this space is translated -5 metres in the y axis and rotated 45 degrees w.r.t. the z axis.
 
 ```
         ...

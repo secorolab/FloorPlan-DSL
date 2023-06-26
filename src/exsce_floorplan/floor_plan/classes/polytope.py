@@ -4,6 +4,8 @@ import numpy as np
 
 from .geometry import Frame
 
+from .helpers import get_value
+
 class Polytope(object):
     '''
     An abstract class to represent a polytope.
@@ -203,13 +205,13 @@ class Rectangle(Polytope):
     points : Numpy array
         Group of points that bound the polytope, specified wrt the polytope 
         frame
-    w : float
+    width : float
         width of rectangle 
-    l : float
+    length : float
         lenght of rectangle
     '''
 
-    def __init__(self, parent, w, l):
+    def __init__(self, parent, width, length):
         '''
         constructor of the rectangle class
 
@@ -219,9 +221,9 @@ class Rectangle(Polytope):
             Textx requirement, parent class for this object
         frame : Frame
             Frame of reference for the polytope points that define its boundary
-        w : float
+        width : float
             width of rectangle 
-        l : float
+        length : float
             lenght of rectangle
 
         Returns
@@ -230,17 +232,17 @@ class Rectangle(Polytope):
         '''
 
         super().__init__(parent)
-        self.w = w.value
-        self.l = l.value 
+        self.width = width
+        self.length = length
         
-        w = self.w /2
-        l = self.l/2
+        width = get_value(self.width)/2
+        length = get_value(self.length)/2
 
         self.set_points(np.array([
-            [-w, l, 0], 
-            [w, l, 0], 
-            [w, -l, 0], 
-            [-w, -l, 0]
+            [-width, length, 0], 
+            [width, length, 0], 
+            [width, -length, 0], 
+            [-width, -length, 0]
         ]))    
 
 class Polygon(Polytope):
@@ -356,18 +358,19 @@ class RegularPolygon(Polytope):
 
 class VerticalRectangle(Polytope):
 
-    def __init__(self, parent, w, h):
+    def __init__(self, parent, width, height):
         super().__init__(parent)
-        self.w = w.value
-        self.h = h.value 
+        self.width = width
+        self.height = height
         
-        w = self.w /2
+        width = get_value(self.width)/2
+        height = get_value(self.height)
 
         self.set_points(np.array([
-            [-w, 0, self.h], 
-            [w, 0, self.h], 
-            [w, 0, 0], 
-            [-w, 0, 0]
+            [-width, 0, height], 
+            [width, 0, height], 
+            [width, 0, 0], 
+            [-width, 0, 0]
         ]))   
 
 class VerticalPolygon(Polytope):

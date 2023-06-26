@@ -1,0 +1,24 @@
+import "hospital.floorplan"
+
+hallway: {
+    location.pose.translation.x : normal(mean=0.0, std=5.0)
+    wall_thickness : discrete([
+        (0.2, 0.14),
+        (0.4, 0.35),
+        (0.4, 0.51)
+    ])
+} 
+reception_hallway : {
+    shape.width : uniform([2.0, 3.0, 4.0])
+}   
+reception.divider_central: {
+    height : normal(mean=1.0, std=0.2)
+    location.pose.rotation : discrete([
+        (0.8, 0.0),
+        (0.2, 0.20)
+    ])
+}  
+room_B: {
+    location.pose.translation.x : uniform([2.0, 3.0, 4.0, 5.0])
+    shape.length : uniform([4.2, 5.0, 6.0, 3.0]) 
+}

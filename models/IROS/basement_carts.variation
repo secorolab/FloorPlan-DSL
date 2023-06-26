@@ -1,0 +1,209 @@
+import "basement_carts.floorplan"
+
+hallway.cart_1: {
+    pose.translation.y: uniform([-0.5, -0.6, 2.0])
+    pose.rotation : discrete([
+        (0.1, 0.5),
+        (0.1, -0.5),
+        (0.8, 0.0)
+    ])
+    pose.translation.x: normal(mean=0.0, std=30.0)
+}
+hallway.cart_2: {
+    pose.translation.y: uniform([-0.5, -0.6, 2.0])
+    pose.rotation : discrete([
+        (0.1, 0.5),
+        (0.1, -0.5),
+        (0.8, 0.0)
+    ])
+    pose.translation.x: normal(mean=0.0, std=30.0)
+}
+hallway.cart_3: {
+    pose.translation.y: uniform([-0.5, -0.6, 2.0])
+    pose.rotation : discrete([
+        (0.1, 0.5),
+        (0.1, -0.5),
+        (0.8, 0.0)
+    ])
+    pose.translation.x: normal(mean=0.0, std=30.0)
+}
+hallway.cart_4: {
+    pose.translation.y: uniform([-0.5, -0.6, 2.0])
+    pose.rotation : discrete([
+        (0.1, 0.5),
+        (0.1, -0.5),
+        (0.8, 0.0)
+    ])
+    pose.translation.x: normal(mean=0.0, std=30.0)
+}
+hallway.cart_5: {
+    pose.translation.y: uniform([-0.5, -0.6, 2.0])
+    pose.rotation : discrete([
+        (0.1, 0.5),
+        (0.1, -0.5),
+        (0.8, 0.0)
+    ])
+    pose.translation.x: normal(mean=0.0, std=30.0)
+}
+hallway.cart_6: {
+    pose.translation.y: uniform([-0.5, -0.6, 2.0])
+    pose.rotation : discrete([
+        (0.1, 0.5),
+        (0.1, -0.5),
+        (0.8, 0.0)
+    ])
+    pose.translation.x: normal(mean=0.0, std=30.0)
+}
+hallway.cart_7: {
+    pose.translation.y: uniform([-0.5, -0.6, 2.0])
+    pose.rotation : discrete([
+        (0.1, 0.5),
+        (0.1, -0.5),
+        (0.8, 0.0)
+    ])
+    pose.translation.x: normal(mean=0.0, std=30.0)
+}
+hallway.cart_8: {
+    pose.translation.y: uniform([-0.5, -0.6, 2.0])
+    pose.rotation : discrete([
+        (0.1, 0.5),
+        (0.1, -0.5),
+        (0.8, 0.0)
+    ])
+    pose.translation.x: normal(mean=0.0, std=30.0)
+}
+hallway.cart_9: {
+    pose.translation.y: uniform([-0.5, -0.6, 2.0])
+    pose.rotation : discrete([
+        (0.1, 0.5),
+        (0.1, -0.5),
+        (0.8, 0.0)
+    ])
+    pose.translation.x: normal(mean=0.0, std=30.0)
+}
+hallway.cart_10: {
+    pose.translation.y: uniform([-0.5, -0.6, 2.0])
+    pose.rotation : discrete([
+        (0.1, 0.5),
+        (0.1, -0.5),
+        (0.8, 0.0)
+    ])
+    pose.translation.x: normal(mean=0.0, std=30.0)
+}
+hallway.cart_11: {
+    pose.translation.y: uniform([-0.5, -0.6, 2.0])
+    pose.rotation : discrete([
+        (0.1, 0.5),
+        (0.1, -0.5),
+        (0.8, 0.0)
+    ])
+    pose.translation.x: normal(mean=0.0, std=30.0)
+}
+hallway.cart_12: {
+    pose.translation.y: uniform([-0.5, -0.6, 2.0])
+    pose.rotation : discrete([
+        (0.1, 0.5),
+        (0.1, -0.5),
+        (0.8, 0.0)
+    ])
+    pose.translation.x: normal(mean=0.0, std=30.0)
+}
+hallway.cart_13: {
+    pose.translation.y: uniform([-0.5, -0.6, 2.0])
+    pose.rotation : discrete([
+        (0.1, 0.5),
+        (0.1, -0.5),
+        (0.8, 0.0)
+    ])
+    pose.translation.x: normal(mean=0.0, std=30.0)
+}
+hallway.cart_14: {
+    pose.translation.y: uniform([-0.5, -0.6, 2.0])
+    pose.rotation : discrete([
+        (0.1, 0.5),
+        (0.1, -0.5),
+        (0.8, 0.0)
+    ])
+    pose.translation.x: normal(mean=0.0, std=30.0)
+}
+hallway.cart_15: {
+    pose.translation.y: uniform([-0.5, -0.6, 2.0])
+    pose.rotation : discrete([
+        (0.1, 0.5),
+        (0.1, -0.5),
+        (0.8, 0.0)
+    ])
+    pose.translation.x: normal(mean=0.0, std=30.0)
+}
+hallway.cart_16: {
+    pose.translation.y: uniform([-0.5, -0.6, 2.0])
+    pose.rotation : discrete([
+        (0.1, 0.5),
+        (0.1, -0.5),
+        (0.8, 0.0)
+    ])
+    pose.translation.x: normal(mean=0.0, std=30.0)
+}
+hallway.cart_17: {
+    pose.translation.y: uniform([-0.5, -0.6, 2.0])
+    pose.rotation : discrete([
+        (0.1, 0.5),
+        (0.1, -0.5),
+        (0.8, 0.0)
+    ])
+    pose.translation.x: normal(mean=0.0, std=30.0)
+}
+hallway.cart_18: {
+    pose.translation.y: uniform([-0.5, -0.6, 2.0])
+    pose.rotation : discrete([
+        (0.1, 0.5),
+        (0.1, -0.5),
+        (0.8, 0.0)
+    ])
+    pose.translation.x: normal(mean=0.0, std=30.0)
+}
+hallway.cart_19: {
+    pose.translation.y: uniform([-0.5, -0.6, 2.0])
+    pose.rotation : discrete([
+        (0.1, 0.5),
+        (0.1, -0.5),
+        (0.8, 0.0)
+    ])
+    pose.translation.x: normal(mean=0.0, std=30.0)
+}
+hallway.cart_20: {
+    pose.translation.y: uniform([-0.5, -0.6, 2.0])
+    pose.rotation : discrete([
+        (0.1, 0.5),
+        (0.1, -0.5),
+        (0.8, 0.0)
+    ])
+    pose.translation.x: normal(mean=0.0, std=30.0)
+}
+hallway.cart_21: {
+    pose.translation.y: uniform([-0.5, -0.6, 2.0])
+    pose.rotation : discrete([
+        (0.1, 0.5),
+        (0.1, -0.5),
+        (0.8, 0.0)
+    ])
+    pose.translation.x: normal(mean=0.0, std=30.0)
+}
+hallway.cart_22: {
+    pose.translation.y: uniform([-0.5, -0.6, 2.0])
+    pose.rotation : discrete([
+        (0.1, 0.5),
+        (0.1, -0.5),
+        (0.8, 0.0)
+    ])
+    pose.translation.x: normal(mean=0.0, std=30.0)
+}
+hallway.cart_23: {
+    pose.translation.y: uniform([-0.5, -0.6, 2.0])
+    pose.rotation : discrete([
+        (0.1, 0.5),
+        (0.1, -0.5),
+        (0.8, 0.0)
+    ])
+    pose.translation.x: normal(mean=0.0, std=30.0)
+}

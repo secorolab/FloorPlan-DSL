@@ -1,0 +1,705 @@
+Floor plan: brsu_building_c_level_3
+
+    // Center Space with the stairway
+    Space stairway_room_center:
+        shape: Rectangle width=17.70 m, length=10.70 m
+        location:
+            from: world
+            to: this
+            pose:
+                translation: x:0.0 m, y:0.0 m
+                rotation: -35.0 deg
+        features:
+            Column column_1:
+                shape: Rectangle width=0.25 m, length=0.25 m
+                height: 2.5 m
+                from: this
+                pose:
+                    translation: x:3.09 m, y:2.03 m
+                    rotation: 0.0 deg
+            Column column_2:
+                shape: Rectangle width=0.25 m, length=0.25 m
+                height: 2.5 m
+                from: this
+                pose:
+                    translation: x:3.09 m, y:-3.23 m
+                    rotation: 0.0 deg
+            Column column_3:
+                shape: Rectangle width=0.25 m, length=0.25 m
+                height: 2.5 m
+                from: this
+                pose:
+                    translation: x:-3.09 m, y:2.03 m
+                    rotation: 0.0 deg
+            Column column_4:
+                shape: Rectangle width=0.25 m, length=0.25 m
+                height: 2.5 m
+                from: this
+                pose:
+                    translation: x:-3.09 m, y:-3.23 m
+                    rotation: 0.0 deg
+            
+    Space stairway_room_left:
+        shape: Rectangle width=10.0 m, length=4.3 m
+        location:
+            from: stairway_room_center.walls[2]
+            to: this.walls[0]
+            pose:
+                translation: x:0.0 m, y:0.0 m
+                rotation: 0.0 deg
+            spaced
+            
+    Space stairway_room_exit:
+        shape: Rectangle width=3.3 m, length=4.3 m
+        location:
+            from: stairway_room_center.walls[2]
+            to: this.walls[0]
+            pose:
+                translation: x:-7.0 m, y:0.0 m
+                rotation: 0.0 deg
+            spaced
+    
+    Space left_short_connector:
+        shape: Rectangle width=4.76 m, length=17.38 m
+        location: 
+            from: stairway_room_center.walls[3]
+            to: this.walls[2]
+            pose:
+                translation: x: -0.65 m, y:0.0 m
+                rotation: 0.0 deg 
+            spaced
+
+    Space study_nook_left:
+        shape: Rectangle width=2.0 m, length=7.0 m
+        location: 
+            from: left_short_connector.walls[3]
+            to: this.walls[0]
+            pose:
+                translation: x:-0.69 m, y:0.0 m
+                rotation: 0.0 deg
+            spaced
+
+    Space left_long_corridor:
+        shape: Rectangle width=2.25 m, length=60 m
+        location:
+            from: left_short_connector.walls[1]
+            to: this.walls[2]
+            pose:
+                translation: x:0.69 m, y:0.0 m
+                rotation: 0.0 deg
+            spaced 
+        features:
+            Column column_1:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:-23.9 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column column_2:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:-17.9 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column column_3:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:-11.9 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column column_4:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:-5.9 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column column_5:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:0.1 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column column_6:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:6.1 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column column_7:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:23.9 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column column_8:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:17.9 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column column_9:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:11.9 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column column_10:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:5.9 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column column_11:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:-0.1 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column column_12:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:-6.1 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column column_13:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:12.1 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column column_14:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:-12.1 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column column_15:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:18.1 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column column_16:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:-18.1 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column column_17:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:24.1 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column column_18:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:-24.1 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column column_19:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:30.1 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column column_20:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:-30.1 m, y:0.0 m
+                    rotation: 0.0 deg
+
+    Space right_short_connector:
+        shape: Rectangle width=4.76 m, length=17.38 m
+        location: 
+            from: stairway_room_center.walls[1]
+            to: this.walls[0]
+            pose:
+                translation: x: 0.65 m, y:0.0 m
+                rotation: 0.0 deg 
+            spaced
+
+    Space right_long_corridor:
+        shape: Rectangle width=2.25 m, length=60 m
+        location:
+            from: right_short_connector.walls[1]
+            to: this.walls[2]
+            pose:
+                translation: x:0.69 m, y:0.0 m
+                rotation: 0.0 deg
+            spaced 
+        features:
+            Column column_1:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:-23.9 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column column_2:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:-17.9 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column column_3:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:-11.9 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column column_4:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:-5.9 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column column_5:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:0.1 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column column_6:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:6.1 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column column_7:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:23.9 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column column_8:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:17.9 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column column_9:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:11.9 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column column_10:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:5.9 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column column_11:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:-0.1 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column column_12:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:-6.1 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column column_13:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:12.1 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column column_14:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:-12.1 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column column_17:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:24.1 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column column_18:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:-24.1 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column column_19:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[3]
+                pose:
+                    translation: x:30.1 m, y:0.0 m
+                    rotation: 0.0 deg
+            Column column_20:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 2.5 m
+                from: this.walls[1]
+                pose:
+                    translation: x:-30.1 m, y:0.0 m
+                    rotation: 0.0 deg
+
+    Space diagonal_corridor_left:
+        shape: Polygon points:[
+            (0.0 m, 0.0 m),
+            (0.0 m, 2.6 m),
+            (8.4 m, 2.6 m),
+            (7.8 m, 0.0 m)
+        ]
+        location:
+            from: left_long_corridor.walls[3]
+            to: this.walls[2]
+            pose:
+                translation: x:9.0 m, y:0.0 m
+                rotation: 0.0 deg
+            spaced 
+
+    Space diagonal_corridor_center_right:
+        shape: Polygon points:[
+            (0.0 m, 0.0 m),
+            (0.6 m, 2.6 m),
+            (7.4 m, 2.6 m),
+            (7.4 m, 0.0 m)
+        ]
+        location:
+            from: left_long_corridor.walls[1]
+            to: this.walls[0]
+            pose:
+                translation: x:-9.8 m, y:0.0 m
+                rotation: 0.0 deg
+            spaced 
+
+    Space diagonal_corridor_center:
+        shape: Rectangle width=2.4 m, length=17.8 m
+        location: 
+            from: diagonal_corridor_center_right.walls[2]
+            to: this.walls[0]
+            pose:
+                translation: x:0.0 m, y:0.0 m
+                rotation: 0.0 deg
+            spaced
+
+    Space diagonal_corridor_center_left:
+        shape: Polygon points:[
+            (0.0 m, 0.0 m),
+            (0.0 m, 2.6 m),
+            (8.4 m, 2.6 m),
+            (7.8 m, 0.0 m)
+        ]
+        location: 
+            from: right_long_corridor.walls[3]
+            to: this.walls[2]
+            pose:
+                translation: x:17.4 m, y:0.0 m
+                rotation: 0.0 deg
+            spaced
+
+    Space diagonal_corridor_right:
+        shape: Polygon points:[
+            (0.0 m, 0.0 m),
+            (0.6 m, 2.6 m),
+            (7.4 m, 2.6 m),
+            (7.4 m, 0.0 m)
+        ]
+        location:
+            from: right_long_corridor.walls[1]
+            to: this.walls[0]
+            pose:
+                translation: x:-18.1 m, y:0.0 m
+                rotation: 0.0 deg
+            spaced 
+
+    // Extra spaces
+    Space study_nook_c069:
+        shape: Polygon points:[
+            (0.0 m, 0.0 m),
+            (3.6 m, 0.0 m),
+            (3.6 m, -4.0 m),
+            (0.0 m, -4.9 m)
+        ]
+        location:
+            from: left_long_corridor.walls[3]
+            to: this.walls[1]
+            pose:
+                translation: x:12.7 m, y:0.0 m
+                rotation: 0.0 deg
+            spaced
+        wall thickness: 0.15 m
+
+    Space left_corridor_extra_end:
+        shape: Rectangle width=1.12 m, length=15.0 m
+        location:
+            from: left_long_corridor.walls[3]
+            to: this.walls[1]
+            pose:
+                translation: x: 22.5 m, y:0.0 m
+                rotation: 0.0 deg
+            spaced
+        wall thickness: 0.15 m
+
+    Space right_corridor_extra_space:
+        shape: Polygon points:[
+            (0.0 m, 0.0 m),
+            (1.15 m, 0.0 m),
+            (1.15 m, -10.0 m),
+            (0.0 m, -10.3 m)            
+        ]
+        location:
+            from: right_long_corridor.walls[1]
+            to: this.walls[3]
+            pose:
+                translation: x: -24.8 m, y:0.0 m
+                rotation: 0.0 deg
+            spaced
+        wall thickness: 0.15 m
+
+    // Classrooms
+    Space classroom_c022:
+        shape: Rectangle width=7.0 m, length=7.0 m
+        location:
+            from: right_long_corridor.walls[3]
+            to: this.walls[0]
+            pose:
+                translation: x: 26.5 m, y:0.0 m
+                rotation: 0.0 deg
+            spaced
+    
+    Space classroom_c025:
+        shape: Rectangle width=7.0 m, length=7.0 m
+        location:
+            from: right_corridor_extra_space.walls[1]
+            to: this.walls[0]
+            pose:
+                translation: x: -1.5 m, y:0.0 m
+                rotation: 0.0 deg
+            spaced
+
+    Space classroom_c069:
+        shape: Rectangle width=7.0 m, length=15.0 m
+        location:
+            from: left_corridor_extra_end.walls[3]
+            to: this.walls[1]
+            pose:
+                translation: x: 0.0 m, y:0.0 m
+                rotation: 0.0 deg
+            spaced
+
+    Space classroom_c018:
+        shape: Polygon points:[
+            (0.0 m, 0.0 m),
+            (13.0 m, 0.0 m),
+            (14.8 m, -7.8 m),
+            (0.0 m, -7.8 m)
+        ]
+        location:
+            from: right_long_corridor.walls[1]
+            to: this.walls[0]
+            pose:
+                translation: x: -9.85 m, y:0.0 m
+                rotation: 0.0 deg
+            spaced
+
+    // Openings
+    Entryway stairway_center_left_opening: 
+        in: stairway_room_left.walls[0] and stairway_room_center.walls[2]
+        shape: Rectangle width=9.9 m, height=2.4 m
+        pose:
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+
+    Entryway stairway_room_exit_opening: 
+        in: stairway_room_exit.walls[0] and stairway_room_center.walls[2]
+        shape: Rectangle width=3.2 m, height=2.4 m
+        pose:
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+
+    Entryway left_short_connector_doorway:
+        in: left_short_connector.walls[2] and stairway_room_center.walls[3]
+        shape: Rectangle width=3.73 m, height=2.0 m
+        pose:
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+
+    Entryway study_nook_left_opening:
+        in: study_nook_left.walls[0] and left_short_connector.walls[3]
+        shape: Rectangle width=1.9 m, height=2.4 m
+        pose:
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+
+    Entryway left_long_corridor_opening:
+        in: left_long_corridor.walls[2] and left_short_connector.walls[1]
+        shape: Rectangle width=2.2 m, height=2.4 m
+        pose:
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+
+    Entryway right_short_connector_doorway:
+        in: right_short_connector.walls[0] and stairway_room_center.walls[1]
+        shape: Rectangle width=3.73 m, height=2.0 m
+        pose:
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+
+    Entryway right_long_corridor_opening:
+        in: right_long_corridor.walls[2] and right_short_connector.walls[1]
+        shape: Rectangle width=2.2 m, height=2.4 m
+        pose:
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+
+    Entryway diagonal_corridor_wing_left_opening:
+        in: diagonal_corridor_left.walls[2] and left_long_corridor.walls[3]
+        shape: Rectangle width=2.6 m, height=2.4 m
+        pose:
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+
+    Entryway diagonal_corridor_center_left_opening:
+        in: diagonal_corridor_center_right.walls[0] and left_long_corridor.walls[1]
+        shape: Rectangle width=2.6 m, height=2.4 m
+        pose:
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+
+    Entryway diagonal_corridor_wing_right_opening:
+        in: diagonal_corridor_right.walls[0] and right_long_corridor.walls[1]
+        shape: Rectangle width=3.0 m, height=2.4 m
+        pose:
+            translation: x: 0.4 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+
+    Entryway diagonal_corridor_center_right_opening:
+        in: diagonal_corridor_center_left.walls[2] and right_long_corridor.walls[3]
+        shape: Rectangle width=2.6 m, height=2.4 m
+        pose:
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+
+    Entryway diagonal_corridor_left_opening:
+        in: diagonal_corridor_center.walls[0] and diagonal_corridor_center_right.walls[2]
+        shape: Rectangle width=2.0 m, height=2.4 m
+        pose:
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+        
+    Entryway diagonal_corridor_right_opening:
+        in: diagonal_corridor_center.walls[2] and diagonal_corridor_center_left.walls[0]
+        shape: Rectangle width=2.0 m, height=2.4 m
+        pose:
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+
+    Entryway left_corridor_extra_space_wall_removal:
+        in: left_corridor_extra_end.walls[1] and left_long_corridor.walls[3]
+        shape: Rectangle width=15.0 m, height=2.4 m
+        pose:
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+
+    Entryway right_corridor_extra_space_wall_removal:
+        in: right_corridor_extra_space.walls[3] and right_long_corridor.walls[1]
+        shape: Rectangle width=10.0 m, height=2.4 m
+        pose:
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+
+    Entryway right_corridor_extra_space_wall_removal_2:
+        in: right_corridor_extra_space.walls[3] 
+        shape: Rectangle width=5.0 m, height=2.4 m
+        pose:
+            translation: x: -5.0 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+
+    Entryway right_corridor_extra_space_wall_removal_3:
+        in: right_corridor_extra_space.walls[2] and diagonal_corridor_right.walls[1]
+        shape: Rectangle width=1.6 m, height=2.4 m
+        pose:
+            translation: x: 0.4 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+
+    Entryway classroom_c022_door_1:
+        in: classroom_c022.walls[0] and right_long_corridor.walls[3]
+        shape: Rectangle width=0.8 m, height=2.0 m
+        pose:
+            translation: x: 0.57 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+
+    Entryway classroom_c022_door_2:
+        in: classroom_c022.walls[0] and right_long_corridor.walls[3]
+        shape: Rectangle width=0.8 m, height=2.0 m
+        pose:
+            translation: x: -0.57 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+
+    Entryway classroom_c025_door_1:
+        in: classroom_c025.walls[0] and right_corridor_extra_space.walls[1]
+        shape: Rectangle width=0.8 m, height=2.0 m
+        pose:
+            translation: x: -0.57 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+
+    Entryway classroom_c025_door_2:
+        in: classroom_c025.walls[0] and right_corridor_extra_space.walls[1]
+        shape: Rectangle width=0.8 m, height=2.0 m
+        pose:
+            translation: x: 0.57 m, y: 0.0 m, z: 0.0 m
+            rotation: 0.0 deg
+
+//    Entryway classroom_c069_door_1:
+//        in: classroom_c069.walls[1] and left_corridor_extra_end.walls[3]
+//        shape: Rectangle width=0.8 m, height=2.0 m
+//        pose:
+//            translation: x: -4.82 m, y: 0.0 m, z: 0.0 m
+//            rotation: 0.0 deg
+//
+//    Entryway classroom_c069_door_2:
+//        in: classroom_c069.walls[1] and left_corridor_extra_end.walls[3]
+//        shape: Rectangle width=0.8 m, height=2.0 m
+//        pose:
+//            translation: x: 5.9 m, y: 0.0 m, z: 0.0 m
+//            rotation: 0.0 deg
+
+    // default values
+    Default values:
+        Wall thickness: 0.2 m
+        Wall height: 2.5 m 
