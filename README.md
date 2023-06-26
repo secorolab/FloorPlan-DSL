@@ -1,10 +1,17 @@
 # FloorPlan DSL
 
-The FloorPlan DSL is a model-driven approach to describe indoor environments. This language enables developers to model the environment by its components such as spaces, entryways, and other features such as windows and columns; allowing the re-creation of real world environments, or the creation of new ones. The models get transformed into 3D meshes and occupancy grid maps, which can be used to simulate robot navigation tasks in most robot simulators. 
+The FloorPlan DSL is a model-driven approach to specify indoor environments. The language enables developers to model indoor environments by its components such as spaces, entryways, and other features such as windows and columns; allowing the re-creation of real world environments, or the creation of new ones. The models can get transformed into 3D meshes and occupancy grid maps, which can be used to simulate robot navigation tasks in most robot simulators. 
 
-![image](images/orthographic_projection.png)
+![image](images/office_no_background.png)
 
-# Installation
+## Features
+
+* **Create simulation environments**: The tooling supports the transformation of floor plan descriptions into 3D models in STL and Collada formats, which are stadard formats supported by numerous simulators.   
+* **Direct simulation of navigation tasks**: The tooling also generates corresponding occupancy grid maps and configuration files for the direct simulation and execution of navigation related tasks. 
+* **Create variation**: Through the Variation DSL, a companion language, variation points for all spatial relations can be specified with probability distributions. The tools generate new concrete floor plans by sampling the distributions.
+* **Easy to extend**: The tool can also transform the floor plan description into composable models in json-ld format. These composable models enables the extension of the descriptions and the tooling. 
+
+## Installation
 
 Install all the requirements:
 * [Python 3](https://www.python.org/downloads/)
@@ -49,12 +56,12 @@ Optionally, you can remove the `--background` flag to see directly the result op
 
 ## Example
 
-![3D asset generated from the environment description](images/example.png)
+![3D asset generated from the environment description](images/hospital_no_brackground.png)
 
 An example model for a building is available in [here](models/hospital.floorplan)
 
 ```
-blender --python src/exsce_floorplan/exsce_floorplan.py --python-use-system-env -- models/hospital.floorplan
+blender --python src/exsce_floorplan/exsce_floorplan.py --python-use-system-env -- models/examples/hospital.floorplan
 ```
 
 The output of the tooling is available in the [output folder](output).
