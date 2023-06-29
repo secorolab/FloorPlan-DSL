@@ -216,10 +216,7 @@ class FloorPlan(object):
                 draw.polygon(shape[:, 0:2].flatten().tolist(), fill=occupied)
         
         name_yaml = "{}.yaml".format(self.model.name)
-        name_image = "{}.png".format(self.model.name)
-
-        # Where to put the robot????
-        # origin = [0, 0, 0]
+        name_image = "{}.pgm".format(self.model.name)
 
         with io.open(os.path.join(self.map_output_folder, name_yaml), 'w', 
                                             encoding='utf8') as outfile:

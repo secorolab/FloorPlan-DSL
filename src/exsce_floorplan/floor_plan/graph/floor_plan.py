@@ -2,26 +2,9 @@ def build_floorplan_graph(model, output_path):
     '''Returns the floorplan graph'''
     context = [
         {
-            "@base": "http://exsce-floorplan.org/",
-            "floorplan": "http://exsce-floorplan.org/",
-            "spaces": {
-                "@id": "floorplan:spaces",
-                "@container": "@list",
-                "@type": "@id"
-            },
-            "walls": {
-                "@id": "floorplan:walls",    
-                "@container": "@list",
-                "@type": "@id"
-            },
-            "shape":{
-                "@id": "floorplan:shape",
-                "@type" : "@id"
-            },
-            "Wall" : "floorplan:Wall",
-            "Space" : "floorplan:Space",
-            "FloorPlan" : "floorplan:FloorPlan"
-        }
+            "floorplan": "https://hbrs-sesame.github.io/metamodels/floorplan#"
+        },
+        "https://hbrs-sesame.github.io/metamodels/floor-plan/floor-plan.json"
     ]
 
     graph = []
@@ -31,35 +14,35 @@ def build_floorplan_graph(model, output_path):
         for i, wall in enumerate(space.walls):
 
             wall_json = {
-                "@id" : "space-{name}-wall-{i}".format(name=space.name, i=i),
+                "@id" : "floorplan:space-{name}-wall-{i}".format(name=space.name, i=i),
                 "@type" : "Wall",
-                "shape" : "polygon-{name}-wall-{i}".format(name=space.name, i=i)
+                "shape" : "polytope:polygon-{name}-wall-{i}".format(name=space.name, i=i)
             }
 
             graph.append(wall_json)
         
         for i, feature in enumerate(space.floor_features):
             feature_json = {
-                "@id" : "feature-{space}-{name}".format(space=space.name, name=feature.name),
+                "@id" : "floorplan:feature-{space}-{name}".format(space=space.name, name=feature.name),
                 "@type" : "Feature",
-                "shape" : "polygon-{space}-{name}".format(space=space.name, name=feature.name)
+                "shape" : "polytope:polygon-{space}-feature-{name}".format(space=space.name, name=feature.name)
             }
             graph.append(feature_json)
 
         space_json = {
-            "@id" : "space-{name}".format(name=space.name),
+            "@id" : "floorplan:space-{name}".format(name=space.name),
             "@type" : "Space",
-            "walls" : ["space-{name}-wall-{i}".format(name=space.name, i=i) for i in range(len(space.walls))],
-            "feature" : ["feature-{space}-{name}".format(space=space.name, name=feature.name) for feature in space.floor_features],
-            "shape" : "polygon-{name}".format(name=space.name)
+            "walls" : ["floorplan:space-{name}-wall-{i}".format(name=space.name, i=i) for i in range(len(space.walls))],
+            "feature" : ["floorplan:feature-{space}-{name}".format(space=space.name, name=feature.name) for feature in space.floor_features],
+            "shape" : "polytope:polygon-{name}".format(name=space.name)
         }
 
         graph.append(space_json)
 
     graph.append({
-            "@id" : "{name}".format(name=model.name),
+            "@id" : "floorplan:{name}".format(name=model.name),
             "@type" : "FloorPlan",
-            "spaces" : ["space-{name}".format(name=space.name) for space in model.spaces]
+            "spaces" : ["floorplan:space-{name}".format(name=space.name) for space in model.spaces]
         })
 
     floorplan_json_ld = {
