@@ -2,7 +2,8 @@ def build_floorplan_graph(model, output_path):
     '''Returns the floorplan graph'''
     context = [
         {
-            "floorplan": "https://hbrs-sesame.github.io/metamodels/floorplan#"
+            "floorplan": "https://hbrs-sesame.github.io/metamodels/floorplan#",
+            "polytope": "https://hbrs-sesame.github.io/metamodels/polytope#"
         },
         "https://hbrs-sesame.github.io/metamodels/floor-plan/floor-plan.json"
     ]
