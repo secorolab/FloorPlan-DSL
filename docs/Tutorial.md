@@ -32,7 +32,7 @@ A space requires two frames in order to specify a location: A reference frame wh
 
 ### Using the world frame
 
-You can select the world frame as your frame of reference by using the keyword `world` (result in  [@fig:world_frame]). You may only use this frame for locating spaces. Any other feature or entryway must be specified by either the center frame or one of the walls. Should be noted that you can use the `this` keyword to reference a frame when you are inside the scope of the space that frame belongs to. 
+You can select the world frame as your frame of reference by using the keyword `world`. You may only use this frame for locating spaces. Any other feature or entryway must be specified by either the center frame or one of the walls. Should be noted that you can use the `this` keyword to reference a frame when you are inside the scope of the space that frame belongs to. 
 
 ```
 location:
