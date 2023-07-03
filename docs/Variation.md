@@ -2,7 +2,7 @@
 
 The objective of this tutorial is to demonstrate how to specify variations of FloorPlan DSL models and generate new concrete environments. 
 
-The variations of an environment are specified with the Variation DSL in a separate model. We create a new file and give it a name with the appropiate format: `<file_name>.variation`. The first line of the model imports the concrete environment where we will introduce the variations. 
+The variations of an environment are specified with the Variation DSL in a separate model. We create a new file and give it a name with the appropiate format: `<file_name>.variation`. The first line of the model imports the concrete environment where we will introduce the variations. The variation model is available [here](../models/examples/hbrs.variation).
 
 ```
 import "hospital.floorplan"
