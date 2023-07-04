@@ -4,13 +4,13 @@ The objective of this tutorial is to demonstrate how to specify variations of Fl
 
 The variations of an environment are specified with the Variation DSL in a separate model. We create a new file and give it a name with the appropiate format: `<file_name>.variation`. The first line of the model imports the concrete environment where we will introduce the variations. The variation model is available [here](../models/examples/hbrs.variation).
 
-```
+```floorplan
 import "hospital.floorplan"
 ```
 
 We can then declare the spacial attributes we wish to associate to one of the three probability distributions: normal, discrete, and uniform:
 
-```
+```floorplan
 <attribute>: normal(mean=<mean value, in meters>, std=<standard deviation, in meters>)
 <attribute>: discrete([
         (<weight 1>, <value, in meters>),
@@ -25,7 +25,7 @@ We can then declare the spacial attributes we wish to associate to one of the th
 
 We can refer to attributes through refences to the corresponding spaces or features. We need to provide the FQN of the attribute inside of the scope of the refence. 
 
-```
+```floorplan
 hallway: {
     location.pose.translation.x : normal(mean=0.0, std=5.0)
     wall_thickness : discrete([
@@ -37,7 +37,7 @@ hallway: {
 ```
 For features such as columns and dividers, we need to provide the FQN that include the space they belong to:
 
-```
+```floorplan
 reception.divider_central: {
     height : normal(mean=1.0, std=0.2)
     location.pose.rotation : discrete([
@@ -49,7 +49,7 @@ reception.divider_central: {
 
 After we have specified all the probability distributions, we can generate as many variations as we desired:
 
-```
+```sh
 textx generate <input model> --target exsce-floorplan-dsl --variations <number of variations> --output <output folder>
 ```
 
