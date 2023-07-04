@@ -28,7 +28,7 @@ Space concepts are the main concepts in a floor plan. They can be used to descri
 
 * features: A set of features.
 
-```
+```floorplan
 Space <name>:
         shape: <shape>
         location:
@@ -56,7 +56,7 @@ Space <name>:
 
 * length: Float, in metres
 
-```
+```floorplan
 Rectangle width=0.0 m, length=0.0 m
 ```
 
@@ -68,7 +68,7 @@ Rectangle width=0.0 m, length=0.0 m
 
 * height: Float, in metres
 
-```
+```floorplan
 Rectangle width=0.0 m, height=0.0 m
 ```
 
@@ -78,7 +78,7 @@ Rectangle width=0.0 m, height=0.0 m
 
 * points: Set of Points, the points are specified w.r.t to the space frame of the polygon, which is aligned with the world frame (no rotation on any axis).  
 
-```
+```floorplan
 Polygon points:[
             <points>,
         ]
@@ -91,7 +91,7 @@ Polygon points:[
 * x: Float, in metres
 
 * y: Float, in metres
-```
+```floorplan
 (0.0 m, 0.0 m)
 ```
 
@@ -109,7 +109,7 @@ The entryway concept is used to model the space for doorways and other openings 
 
 * pose: A pose description. It contains a translation in the `x` and `z` axis, and a rotation w.r.t. the `y` axis. Translations in the y axis should be avoided for appropriate results.
 
-```
+```floorplan
 Entryway <name>: 
     in: <wall reference 1> {and <wall reference 2>}
     shape: <shape>
@@ -130,7 +130,7 @@ Entryway <name>:
 
 * pose: A pose description. It contains a translation in the `x` and `z` axis, and a rotation w.r.t. the `y` axis. Translations in the y axis should be avoided for appropriate results.
 
-```
+```floorplan
 Window <name>: 
     in: <wall reference 1> {and <wall reference 2>}
     shape: <shape>
@@ -157,7 +157,7 @@ Features are common in the floor of a floor plan.
 
 * pose: A pose description. It contains a translation in the `x` and `y` axis, and a rotation w.r.t. the `z` axis.
 
-```
+```floorplan
 Column <name>:
     shape: <shape>
     height: 0.0 m
@@ -180,7 +180,7 @@ Column <name>:
 
 * pose: A pose description. It contains a translation in the `x` and `y` axis, and a rotation w.r.t. the `z` axis.
 
-```
+```floorplan
 Divider <name>:
     shape: <shape>
     height: 0.0 m

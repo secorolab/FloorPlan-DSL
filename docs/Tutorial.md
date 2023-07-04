@@ -34,7 +34,7 @@ A space requires two frames in order to specify a location: A reference frame wh
 
 You can select the world frame as your frame of reference by using the keyword `world`. You may only use this frame for locating spaces. Any other feature or entryway must be specified by either the center frame or one of the walls. Should be noted that you can use the `this` keyword to reference a frame when you are inside the scope of the space that frame belongs to. 
 
-```
+```floorplan
 location:
     from: world
     to: this
@@ -48,7 +48,7 @@ location:
 
 You can also use two wall frames to define locations. When you model a location using two wall frames, the default behaviour is to do an extra 180 degree rotation of the space you are locating so that the two spaces are not overlapping. Depending on the two walls that are chosen, the results can be different, as illustrated in the two next examples 
 
-```
+```floorplan
 location:
     from: my_room.walls[1]
     to: second_room.walls[0]
@@ -61,7 +61,7 @@ location:
 ![Pose of two spaces when walls are used as reference frames](../images/walls_with_frames_01.png)
 
 
-```
+```floorplan
 location:
     from: my_room.walls[1]
     to: second_room.walls[1]
@@ -79,7 +79,7 @@ The flag `spaced` is used to tell the interpreter to calculate the combined thic
 
 Similarly, the default alignment behaviour can be disabled by using the `not aligned` flag, so that the two rooms overlap.
 
-```
+```floorplan
 location:
     from: my_room.walls[1]
     to: second_room.walls[1]
@@ -94,7 +94,7 @@ location:
 
 The language enables the modelling of doorways, windows, columns, and dividers. Features such as columns or dividers are always defined within a space scope, so you can use the "this" keyword to refer to the walls inside the space.
 
-```
+```floorplan
 Column wall_column:
     shape: Rectangle width=0.5 m, length=0.3 m
     height: 2.5 m
@@ -106,7 +106,7 @@ Column wall_column:
 
 Entryways and windows are specified outside of the scope of the space, after all the spaces in the floorplan have been specified. These features create the openings in the walls required to connect two spaces or one space with the "outside". 
 
-```
+```floorplan
 Entryway doorway:
     in: my_room.walls[0] and second_room.walls[1]
     shape: Rectangle width=1.0 m, height=1.8 m
@@ -120,7 +120,7 @@ Whenever an entryway or window is located in a wall shared by two spaces, you mu
 
 Now that we have reviewed all of the important concepts, we can put them together in a model. The finished model for this tutorial is available [here](../models/examples/hospital.floorplan). In this section we will go over the model section by section with some explanations when needed.
 
-```
+```floorplan
 Floor plan: hospital
 
     Space reception:
@@ -142,7 +142,7 @@ Floor plan: hospital
 
 Each floor plan has a name, which gets used to identify all the artefacts that get generated. The `reception` space has a custom polygon as shape, so we specify all the points to bound it. Every pair of points is a wall, with the last point and the first point being the final wall to close the polygon (i.e. no need to repeat the first point at the very end). From the world frame, this space is translated -5 metres in the y axis and rotated 45 degrees w.r.t. the z axis.
 
-```
+```floorplan
         ...
         wall thickness: 0.40 m 
         wall height: 3.0 m
@@ -158,7 +158,7 @@ Each floor plan has a name, which gets used to identify all the artefacts that g
 ```
 The `reception` space will have a wall thickness of 0.4 metres and a wall height of 3 metres. These values don't have to be specified for every space, as default values will be set later for all spaces. Nested in the feature concept, columns and dividers can be specified. The reference frame for these is always part of the space (either the space frame or a wall frame of the `reception` space)
 
-```
+```floorplan
     Space hallway:
         shape: Rectangle width=5.0 m, length=14.0 m
         location:
@@ -177,7 +177,8 @@ The `reception` space will have a wall thickness of 0.4 metres and a wall height
         ...
 ```
 The hallway is located using two wall frames, and the flag `spaced` is present so that the interpreter calculates spacing necessary to avoid overlapping in between the spaces. Two other spaces also get defined in a similar way.
-```
+
+```floorplan
     Entryway reception_main: 
         in: reception.walls[3]
         shape: Rectangle width=2.5 m, height=2.0 m
@@ -203,7 +204,7 @@ The hallway is located using two wall frames, and the flag `spaced` is present s
 
 Two entryways and one window are modelled, each with a unique name. In the case of the second entryway, since it connects two spaces we must specify the two walls where the entryway is located. Notice that for windows we have to specify a translation in the z axis.
 
-```
+```floorplan
     Default values:
         Wall thickness: 0.23 m
         Wall height: 2.5 m 
@@ -215,7 +216,7 @@ At the very end of the model the default values for all the spaces must be speci
 Once all requirements are installed, as specified [here](https://github.com/sesame-project/FloorPlan-DSL), you can get artefacts generated.
 To interpret the model and get artefacts, you only need to run one command:
 
-```
+```sh
 blender --python src/exsce_floorplan/exsce_floorplan.py --background 
 --python-use-system-env -- <path to model>
 ```
