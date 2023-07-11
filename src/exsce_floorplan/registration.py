@@ -12,39 +12,39 @@ dir_path = dirname(realpath(__file__))
 sys.path.append(dir_path)
 
 # Classes for FloorPlan DSL and Variation DSL
-from floor_plan.classes.space import Space
-from floor_plan.classes.polytope import (
+from .floor_plan.classes.space import Space
+from .floor_plan.classes.polytope import (
                         Circle, 
                         Polygon, 
                         Rectangle, 
                         VerticalPolygon,
                         VerticalRectangle
                         ) 
-from floor_plan.classes.wall_opening import WallOpening
-from floor_plan.classes.floor_feature import FloorFeature
-from floor_plan.classes.position import (
+from .floor_plan.classes.wall_opening import WallOpening
+from .floor_plan.classes.floor_feature import FloorFeature
+from .floor_plan.classes.position import (
     Position, 
     PoseDescription
 )
 
-from variation.classes.distribution import (
+from .variation.classes.distribution import (
     UniformDistribution,
     DiscreteDistribution,
     NormalDistribution
 )
 
 # object processors for FloorPlan DSL
-from floor_plan.processors.processors import (
+from .floor_plan.processors.processors import (
     opening_obj_processors,
     feature_obj_processor,
     unique_names_processor
 )
 
-from variation.processors.processors import discrete_distribution_obj_processor
+from .variation.processors.processors import discrete_distribution_obj_processor
 
-from variation.exsce_variations import variation_floorplan_generator 
+from .variation.exsce_variations import variation_floorplan_generator 
 
-from floor_plan.json_ld_transformation import jsonld_floorplan_generator
+from .floor_plan.json_ld_transformation import jsonld_floorplan_generator
 
 def exsce_floorplan_metamodel():
     "exsce_floorplan language"
