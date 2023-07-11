@@ -24,7 +24,7 @@ The location of any space or feature is specified by a translation and rotation 
 
 For each wall in the space, there is a frame located in the middle of the wall, with the x axis going along the wall and the y axis perpendicular to the wall. From the perspective of being inside the room looking into one of the walls: Positive values in the x axis are located from the centre to the right, and negative values in the opposite direction. Whereas the positive direction from the y axis moves away from you and the negative direction moves closer. The frame is located at floor level, meaning that for the z axis only positive values are above the floor.
 
-![Frames available when modelling](../images/walls_with_frames.png)
+![Frames available when modelling](../images/updated_walls_with_frames.png)
 
 The image above illustrates a room with all of its frames. Each wall has an index, so you can select the frame of reference by specifying the index of the desired wall: `<name of space>.walls[<index>]`. You can also select the center frame of the space by just referring to the name: `<name of space>`. You may also select the world frame with the `world` keyword.
 
@@ -42,7 +42,7 @@ location:
         translation: x:3.0 m, y:4.0 m
         rotation: 45.0 deg
 ```
-![Pose of a space with regards to the world frame](../images/wall_location.png)
+![Pose of a space with regards to the world frame](../images/updated_wall_location.png)
 
 ### Using two wall frames
 
@@ -53,13 +53,12 @@ location:
     from: my_room.walls[1]
     to: second_room.walls[0]
     pose:
-        translation: x:0.0 m, y:0.0 m
+        translation: x:-1.0 m, y:0.0 m
         rotation: 0.0 deg
     spaced
 ```
 
-![Pose of two spaces when walls are used as reference frames](../images/walls_with_frames_01.png)
-
+![Pose of two spaces when walls are used as reference frames](../images/updated_walls_with_frames_01.png)
 
 ```floorplan
 location:
