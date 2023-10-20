@@ -16,7 +16,11 @@ from .graph.coordinate import build_floorplan_coordinate_graph
 def jsonld_floorplan_generator(metamodel, model, output_path, overwrite=True, debug=False, **custom_args):
 
     config = configparser.ConfigParser()
-    config.read('setup.cfg')
+    path_to_file = Path(os.path.dirname(os.path.abspath(__file__))).parent.parent.parent
+
+    config.read(os.path.join(path_to_file, 'setup.cfg'))
+
+    print("config", config) 
 
     output_path = config["composable_models"]["output_folder"]
 

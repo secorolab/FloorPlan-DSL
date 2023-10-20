@@ -3,6 +3,7 @@ import traceback
 import os
 import io
 import configparser
+from pathlib import Path
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(dir_path)
@@ -34,7 +35,6 @@ from blender.blender import (
 '''
 TODO
 Change transformation from model->json-ld->mesh
-Create language and tooling for variations
 Polish
 '''
 
@@ -51,7 +51,10 @@ class FloorPlan(object):
 
         # config file
         config = configparser.ConfigParser()
-        config.read('setup.cfg')
+        path_to_file = Path(os.path.dirname(os.path.abspath(__file__))).parent.parent
+
+        config.read(os.path.join(path_to_file, 'setup.cfg'))
+        #config.read('setup.cfg')
         self.output_3d_file = config["model"]["output_folder"]
         self.format_3d_file = config["model"]["format"]
 
