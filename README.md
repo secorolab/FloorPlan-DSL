@@ -13,7 +13,7 @@ The FloorPlan DSL is a model-driven approach to specify indoor environments. The
 
 ## Installation
 
-It is strongly recommended to use Docker for install and use the FloorPlan DSL and other tools. 
+It is strongly recommended to use Docker to install and use the FloorPlan DSL and other tools. 
 
 ### Installation through Docker
 
