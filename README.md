@@ -13,9 +13,33 @@ The FloorPlan DSL is a model-driven approach to specify indoor environments. The
 
 ## Installation
 
+It is strongly recommended to use Docker for install and use the FloorPlan DSL and other tools. 
+
+### Installation through Docker
+
+If not installed already, install docker as documented [here](https://docs.docker.com/engine/). From the root directory of this repository, build the docker image:
+
+```
+docker build . --tag floorplan:latest
+```
+
+This will build the container and assign the string `floorplan:latest` as a tag to run the correct container. To run the container execute the following command after replacing the correct paths inside the angle brackets: 
+
+```
+docker run -v $<local output folder>:/usr/src/app/output -v $<local input folder>:/usr/src/app/models -it floorplan:latest bash
+```
+
+Important *required* options of the command:
++ `-v $<local output folder>:/usr/src/app/output`: This will map a local folder of the computer with the output folder of the container, this allows the FloorPlan DSL tooling to write the artefacts directly in the local computer.
++  `-v $<local input folder>:/usr/src/app/models`: This will map a local folder of the computer with the input folder of the container, any models in the local input folder can be accessed by the FloorPlan DSL tooling.
++ `-it`: required to make the container interactive.
++ `bash`: required to make the container interactive. 
+
+### Native installation
+
 Install all the requirements:
 * [Python 3](https://www.python.org/downloads/)
-* [Blender](https://www.blender.org/download/) (v2.82a, preferably installed with apt-get)
+* [Blender](https://www.blender.org/download/) (v2.82a specifically, preferably installed with apt-get)
 * [TextX](http://textx.github.io/textX/3.0/) 
 
 Alternatively, you can install all requirements (except for blender) with `pip3 install -r requirements.txt`
