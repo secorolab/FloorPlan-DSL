@@ -11,18 +11,17 @@ ARG BLENDER_VERSION=3.0
 
 RUN apt-get update
 RUN apt-get install blender python3-pip -y
-# RUN apt install python3-pip -y
 RUN pip3 install textX[cli] pyyaml matplotlib shapely
-
-# RUN mkdir src 
 
 COPY . .
 
 # Set python path for project src
-ENV PYTHONPATH ./src
+ENV PYTHONPATH /usr/src/app/src
 
 # Install languages
 RUN pip3 install .
+
+WORKDIR /usr/src/app/src
 
 # Check for install
 RUN textx list-languages
