@@ -1,3 +1,5 @@
 matplotlib>=3.1.2
 numpy>=1.17.4
-textX==3.0.0
+textX[cli]>=4.0.0
+pyyaml
+shapely
