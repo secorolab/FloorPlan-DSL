@@ -54,8 +54,7 @@ class FloorPlan(object):
         config = configparser.ConfigParser()
         path_to_file = Path(os.path.dirname(os.path.abspath(__file__))).parent.parent
 
-        config.read(os.path.join(path_to_file, "setup.cfg"))
-        # config.read('setup.cfg')
+        config.read(os.path.join(path_to_file, "config", "setup.cfg"))
         self.output_3d_file = config["model"]["output_folder"]
         self.format_3d_file = config["model"]["format"]
 
