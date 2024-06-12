@@ -38,25 +38,32 @@ Important *required* options of the command:
 ### Native installation
 
 Install all the requirements:
-* [Python 3](https://www.python.org/downloads/)
-* [Blender](https://www.blender.org/download/) (v2.82a specifically, preferably installed with apt-get)
-* [TextX](http://textx.github.io/textX/3.0/) 
 
-Alternatively, you can install all requirements (except for blender) with `pip3 install -r requirements.txt`
-
-After installing all the requirements, you can install the languages. Execute from the root directory of the repo: 
-
+```shell
+sudo apt-get install blender python3-pip python3-venv -y
 ```
-python3 setup.py install 
+
+First, create a virtual environment and activate it: 
+
+```shell
+python -m venv .venv
+source .venv/bin/activate
+```
+
+From the root directory of the repo, install the python packages by running: 
+
+```shell
+pip install -e .
 ```
 
 This will install the languages and generators. To confirm that the languages have been installed, execute the commands: `textx list-languages` and `textx list-generators`. The names of the languages should appear in the output:
 
-```
+```shell
 > textx list-languages
 ...
 exsce-floorplan-dsl (*.floorplan)exsce-floorplan[0.0.1]                  A language to model indoor environments
 exsce-variation-dsl (*.variation)exsce-floorplan[0.0.1]                  A language to variate models from ExSce
+
 > textx list-generators
 ...
 exsce-variation-dsl -> exsce-floorplan-dslexsce-floorplan[0.0.1]        Generate variations of indoor environments from .floorplan models
@@ -75,8 +82,6 @@ blender --background --python exsce_floorplan/exsce_floorplan.py --python-use-sy
 Optionally, you can remove the `--background` flag to see directly the result opened in Blender.
 
 ***Note**: The `--` before `<model_path>` is intentional and important.*
-
-***Note:** This tool has been tested on an Ubuntu machine with Blender v2.82a* 
 
 ### Example
 
