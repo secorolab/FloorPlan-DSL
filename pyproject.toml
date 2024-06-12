@@ -1,0 +1,71 @@
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "exsce-floorplan"
+description = "Python realization of metamodels for indoor environment"
+# dynamic = ["version"]
+version = "1.1.0"
+license = {file="LICENSE"}
+dependencies = [
+    "matplotlib>=3.7.2",
+    "numpy>=1.24.4",
+    "textX[cli]>=4.0.0",
+    "textX-jinja",
+    "pyyaml",
+    "shapely",
+]
+requires-python = ">= 3.6"
+readme = "README.md"
+maintainers = [
+  {name = "SECORO Group", email = "secoro@groups.uni-bremen.de"}
+]
+
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: Science/Research",
+    "Topic :: Software Development :: Interpreters",
+    "Topic :: Software Development :: Compilers",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Operating System :: OS Independent",
+
+]
+
+[project.optional-dependencies]
+dev =["wheel", "twine"]
+test =[
+    "flake8",
+    "tox",
+    "coverage",
+    "coveralls",
+    "pytest",
+]
+
+[project.entry-points.textx_languages]
+exsce-floorplan-dsl = "exsce_floorplan.registration:floorplan_lang"
+exsce-variation-dsl = "exsce_floorplan.registration:variation_lang"
+
+[project.entry-points.textx_generators]
+variation-to-floorplan = "exsce_floorplan.registration:variation_floorplan_gen"
+floorplan-to-jsonld = "exsce_floorplan.registration:json_ld_floorplan_gen"
+
+[tool.setuptools.packages.find]
+where = ["src"]  # list of folders that contain the packages (["."] by default)
+# include = ["my_package*"]  # package names should match these glob patterns (["*"] by default)
+# exclude = ["my_package.tests*"]  # exclude packages matching these glob patterns (empty by default)
+# namespaces = false  # to disable scanning PEP 420 namespaces (true by default)
+
+[tool.setuptools.package-data]
+exsce_floorplan = ["*.tx"]
