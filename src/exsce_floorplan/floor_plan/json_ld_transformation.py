@@ -21,7 +21,7 @@ def jsonld_floorplan_generator(
     config = configparser.ConfigParser()
     path_to_file = Path(os.path.dirname(os.path.abspath(__file__))).parent.parent.parent
 
-    config.read(os.path.join(path_to_file, "setup.cfg"))
+    config.read(os.path.join(path_to_file, "config", "setup.cfg"))
 
     print("config", config)
 
