@@ -7,13 +7,13 @@ def build_floorplan_coordinate_graph(model, output_path):
     context = [
         {
             "coord": "https://comp-rob2b.github.io/metamodels/geometry/coordinates#",
-            "coordinate": "https://hbrs-sesame.github.io/metamodels/coordinates#",
+            "coordinate": "https://secorolab.github.io/metamodels/coordinates#",
             "geor": "https://comp-rob2b.github.io/metamodels/geometry/spatial-relations#",
             "geom": "https://comp-rob2b.github.io/metamodels/geometry/structural-entities#",
         },
         "https://comp-rob2b.github.io/metamodels/qudt.json",
         "https://comp-rob2b.github.io/metamodels/geometry/coordinates.json",
-        "https://hbrs-sesame.github.io/metamodels/geometry/coordinate-extension.json",
+        "https://secorolab.github.io/metamodels/geometry/coordinate-extension.json",
     ]
 
     graph = []

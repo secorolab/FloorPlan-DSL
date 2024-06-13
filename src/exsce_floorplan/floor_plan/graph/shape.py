@@ -4,10 +4,10 @@ def build_shape_graph(model, output_path):
     """
     context = [
         {
-            "polytope": "https://hbrs-sesame.github.io/metamodels/polytope#",
+            "polytope": "https://secorolab.github.io/metamodels/polytope#",
             "geom": "https://comp-rob2b.github.io/metamodels/geometry/structural-entities#",
         },
-        "https://hbrs-sesame.github.io/metamodels/geometry/polytope.json",
+        "https://secorolab.github.io/metamodels/geometry/polytope.json",
     ]
 
     graph = []
