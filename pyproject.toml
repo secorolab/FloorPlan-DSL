@@ -68,4 +68,4 @@ where = ["src"]  # list of folders that contain the packages (["."] by default)
 # namespaces = false  # to disable scanning PEP 420 namespaces (true by default)
 
 [tool.setuptools.package-data]
-exsce_floorplan = ["*.tx"]
+"*" = ["*.tx"]
