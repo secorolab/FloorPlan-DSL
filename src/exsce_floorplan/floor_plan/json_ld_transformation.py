@@ -1,8 +1,6 @@
-import json, os
-import traceback, sys
-import configparser
-from textx import metamodel_for_language
-from pathlib import Path
+import os
+import json
+
 
 from .graph.skeleton import build_skeleton_graph
 from .graph.shape import build_shape_graph
@@ -10,22 +8,10 @@ from .graph.spatial_relations import build_spatial_relations_graph
 from .graph.floor_plan import build_floorplan_graph
 from .graph.coordinate import build_floorplan_coordinate_graph
 
-# import rdflib
-# from rdflib.tools.rdf2dot import rdf2dot
-
 
 def jsonld_floorplan_generator(
     metamodel, model, output_path, overwrite=True, debug=False, **custom_args
 ):
-
-    config = configparser.ConfigParser()
-    path_to_file = Path(os.path.dirname(os.path.abspath(__file__))).parent.parent.parent
-
-    config.read(os.path.join(path_to_file, "config", "setup.cfg"))
-
-    print("config", config)
-
-    output_path = config["composable_models"]["output_folder"]
 
     if "{{model_name}}" in output_path:
         output_path = output_path.replace("{{model_name}}", model.name)
@@ -60,6 +46,11 @@ def jsonld_floorplan_generator(
 
 
 if __name__ == "__main__":
+    import sys
+    import configparser
+    from textx import metamodel_for_language
+    import traceback
+
     try:
         my_metamodel = metamodel_for_language("exsce-floorplan-dsl")
         argv = sys.argv[sys.argv.index("--") + 1 :]
