@@ -70,50 +70,6 @@ def build_skeleton_graph(model, output_path):
                 }
                 skeleton_graph.append(point)
 
-    #     for feature in space.floor_features:
-    #         # For every feature, there is one frame
-    #         feature_point = {
-    #         "@id" : "point-center-{name}".format(name=feature.name),
-    #         "@type" : "Point"
-    #         }
-    #         feature_frame = {
-    #             "@id" : "frame-center-{name}".format(name=feature.name),
-    #             "@type" : "Frame",
-    #             "origin" : feature_point["@id"]
-    #         }
-
-    #         skeleton_graph.append(feature_point)
-    #         skeleton_graph.append(feature_frame)
-
-    #         for i, _ in enumerate(feature.get_points()):
-    #             shape_feature_point = {
-    #                 "@id" : "point-feature-shape-{name}-{i}".format(name=feature.name, i=i),
-    #                 "@type" : "Point"
-    #             }
-    #             skeleton_graph.append(shape_feature_point)
-
-    # for opening in model.wall_openings:
-
-    #     opening_frame_point = {
-    #             "@id" : "point-frame-{name}-opening".format(name=opening.name),
-    #             "@type" : "Point"
-    #     }
-    #     opening_frame = {
-    #         "@id" : "frame-{name}-opening".format(name=opening.name),
-    #         "@type" : "Frame",
-    #         "origin" : opening_frame_point["@id"]
-    #     }
-
-    #     skeleton_graph.append(opening_frame_point)
-    #     skeleton_graph.append(opening_frame)
-
-    #     for i, point in enumerate(opening.get_points()):
-    #         shape_opening_point = {
-    #                 "@id" : "point-opening-shape-{name}-{i}".format(name=opening.name, i=i),
-    #                 "@type" : "Point"
-    #             }
-    #         skeleton_graph.append(shape_opening_point)
-
     # Form the skeleton json and dump it
     skeleton_json_ld = {
         "@context": context,
