@@ -10,7 +10,7 @@ version = "1.1.0"
 license = {file="LICENSE"}
 dependencies = [
     "matplotlib>=3.7.2",
-    "numpy>=1.24.4",
+    "numpy>=1.24.4,<2.0.0",
     "textX[cli]>=4.0.0",
     "textX-jinja",
     "pyyaml",
