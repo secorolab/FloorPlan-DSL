@@ -22,7 +22,7 @@ def unique_names_processor(floorplan):
             else:
                 raise TextXSemanticError(
                     "Spaces and features must have unique names",
-                    **get_location(feature)
+                    **get_location(feature),
                 )
 
     for opening in floorplan.wall_openings:
