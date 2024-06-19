@@ -35,28 +35,40 @@ Important *required* options of the command:
 + `-it`: required to make the container interactive.
 + `bash`: required to make the container interactive. 
 
-### Native installation
+### Native installation (Ubuntu 24.04)
 
 Install all the requirements:
-* [Python 3](https://www.python.org/downloads/)
-* [Blender](https://www.blender.org/download/) (v2.82a specifically, preferably installed with apt-get)
-* [TextX](http://textx.github.io/textX/3.0/) 
 
-Alternatively, you can install all requirements (except for blender) with `pip3 install -r requirements.txt`
-
-After installing all the requirements, you can install the languages. Execute from the root directory of the repo: 
-
+```shell
+sudo apt-get install blender python3-pip python3-venv -y
 ```
-python3 setup.py install 
+
+First, create a virtual environment and activate it: 
+
+```shell
+python -m venv .venv
+source .venv/bin/activate
+```
+For Blender to regonize the virtual environment, add it to your `PYTHONPATH`:
+
+```shell
+export PYTHONPATH=<Path to .venv directory>/lib/python3.11/site-packages   
+```
+
+From the root directory of the repo, install the python packages by running: 
+
+```shell
+pip install -e .
 ```
 
 This will install the languages and generators. To confirm that the languages have been installed, execute the commands: `textx list-languages` and `textx list-generators`. The names of the languages should appear in the output:
 
-```
+```shell
 > textx list-languages
 ...
 exsce-floorplan-dsl (*.floorplan)exsce-floorplan[0.0.1]                  A language to model indoor environments
 exsce-variation-dsl (*.variation)exsce-floorplan[0.0.1]                  A language to variate models from ExSce
+
 > textx list-generators
 ...
 exsce-variation-dsl -> exsce-floorplan-dslexsce-floorplan[0.0.1]        Generate variations of indoor environments from .floorplan models
@@ -64,7 +76,7 @@ exsce-variation-dsl -> exsce-floorplan-dslexsce-floorplan[0.0.1]        Generate
 
 ## Getting started
 
-### Usage
+### Generating 3D meshes and occupancy grid maps
 
 This tool is currently in active development. To use the tool you can execute the following command: 
 
@@ -76,21 +88,47 @@ Optionally, you can remove the `--background` flag to see directly the result op
 
 ***Note**: The `--` before `<model_path>` is intentional and important.*
 
-***Note:** This tool has been tested on an Ubuntu machine with Blender v2.82a* 
-
-### Example
+#### Example
 
 ![3D asset generated from the environment description](images/hospital_no_brackground.png)
 
-An example model for a building is available [here](models/examples/hospital.floorplan)
+An example model for a building is available [here](models/examples/hospital.floorplan). To generate the 3D mesh and occupancy grid:
+
 
 ```
 blender --background --python exsce_floorplan/exsce_floorplan.py --python-use-system-env -- ../models/examples/hospital.floorplan
 ```
 
-The output of the tooling is available in the [output folder](output).
+That should generate the following files:
 
-### Tutorial
+```
+.
+├── map
+│   ├── hospital.pgm
+│   └── hospital.yaml
+└── mesh
+    └── hospital.stl
+```
+
+The output path for the generated models in configurable (see [confg/setup.cfg](config/setup.cfg) and note they are relative paths from where you're calling the command).
+
+The `.stl` mesh can now be used to specify the Gazebo models and included in a Gazebo world. See, for example, [this tutorial](https://classic.gazebosim.org/tutorials?tut=import_mesh&cat=build_robot).
+
+### Generating the composable model representation
+
+To generate the JSON-LD representation of the FloorPlan model, simply use textX's language generators:
+
+```
+textx generate <floorplan model> --target json-ld --output-path <output path>
+```
+
+For example: 
+
+```
+textx generate models/examples/brsu_building_c_with_doorways.floorplan --target json-ld --output-path .
+```
+
+### Tutorials
 
 Modelling an environment can be straightforward with some background information on how the concepts are specified and related to each other. [This tutorial](docs/Tutorial.md) will explain the concepts of the language and how to position them in the environment. An overview of the concepts and their attributes is available [here](docs/concepts.md). A tutorial on the variation DSL is also available [here](docs/Variation.md).
 
@@ -100,6 +138,6 @@ Modelling an environment can be straightforward with some background information
 This work is part of a project that has received funding from the European Union's Horizon 2020 research and innovation programme SESAME under grant agreement No 101017258.
 
 <p align="center">
-    <img src="images/EU.jpg" alt="drawing" height="100"/>
-    <img src="images/SESAME.jpg" alt="drawing" height="100"/>
+    <img src="docs/images/EU.jpg" alt="drawing" height="100"/>
+    <img src="docs/images/SESAME.jpg" alt="drawing" height="100"/>
 </p>

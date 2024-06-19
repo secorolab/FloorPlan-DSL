@@ -17,8 +17,6 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 COPY . .
 
-RUN pip install -r requirements.txt
-
 # Set python path for project src
 ENV PYTHONPATH /usr/src/app/src
 

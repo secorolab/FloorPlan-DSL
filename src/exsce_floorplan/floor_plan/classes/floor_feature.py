@@ -1,6 +1,7 @@
 import numpy as np
 from .helpers import get_value
 
+
 class FloorFeature(object):
 
     def __init__(self, parent, name, shape, location, divider, column, height):
@@ -18,7 +19,7 @@ class FloorFeature(object):
         if not self.location.from_frame.index is None:
             frame = self.parent.get_wall(self.location.from_frame.index).get_frame()
         self.shape.change_reference_frame(frame)
-        
+
         pose = self.pose.translation
         x = get_value(pose.x)
         y = get_value(pose.y)
@@ -38,14 +39,17 @@ class FloorFeature(object):
 
         new_vertices = np.copy(vertices)
         new_vertices[:, 2] += get_value(self.height)
-    
+
         vertices = np.vstack((vertices, new_vertices))
         vertices = np.hstack((vertices, np.ones((len(vertices), 1))))
-        vertices = self.shape.frame.get_point_transformation_wrt(vertices)[:,0:3]
-        
-        l = int(len(vertices)/2)
-        faces = [[i, (i+1)%l, (i+1)%l+l, i+l] for i,v in enumerate(vertices[0:l])]
-        faces.append([i for i,v in enumerate(vertices[0:l])])
-        faces.append([i+l for i,v in enumerate(vertices[0:l])])
+        vertices = self.shape.frame.get_point_transformation_wrt(vertices)[:, 0:3]
+
+        l = int(len(vertices) / 2)
+        faces = [
+            [i, (i + 1) % l, (i + 1) % l + l, i + l]
+            for i, v in enumerate(vertices[0:l])
+        ]
+        faces.append([i for i, v in enumerate(vertices[0:l])])
+        faces.append([i + l for i, v in enumerate(vertices[0:l])])
 
         return vertices, faces

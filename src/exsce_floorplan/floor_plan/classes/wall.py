@@ -3,11 +3,12 @@ import numpy as np
 from .geometry import Frame
 from .helpers import get_value
 
-class Wall():
-    '''
+
+class Wall:
+    """
     A class to represent a wall.
 
-    ... 
+    ...
 
     Attributes
     ----------
@@ -35,12 +36,12 @@ class Wall():
     set_wall_polygon(points)
         sets the boundary polygon of the wall concept
     generate_3d_structure()
-        returns the vertices and faces of the wall polytope to generate a 3D 
+        returns the vertices and faces of the wall polytope to generate a 3D
         mesh of the wall
-    '''
+    """
 
     def __init__(self, point_a, point_b, ref_frame, thickness, height, parent, index):
-        '''
+        """
         Constructs the wall object
 
         Parameters
@@ -59,11 +60,11 @@ class Wall():
             thickness of the wall
         height : Float
             Height of the wall
-        
+
         Returns
         -------
         None
-        '''
+        """
         self.point_a = point_a
         self.point_b = point_b
         self.ref_frame = ref_frame
@@ -73,25 +74,27 @@ class Wall():
         self.height = height
         self.parent = parent
         self.index = index
-        
-        self.name = "{space}.wall{index}".format(space=self.parent.name, index=self.index)
+
+        self.name = "{space}.wall{index}".format(
+            space=self.parent.name, index=self.index
+        )
 
         # determine middle point of wall and calculate x vector
-        middle = (point_a + point_b)/2 
-        vector = (point_b - point_a)/np.linalg.norm(point_b - point_a)
+        middle = (point_a + point_b) / 2
+        vector = (point_b - point_a) / np.linalg.norm(point_b - point_a)
         origin, vectors = self.ref_frame.get_direction_vectors(self.ref_frame)
 
         # determine the angle of the frame
         angle = np.arccos(np.clip(np.dot(vector, vectors[0]), -1.0, 1.0))
         if vector[1] < 0:
-            angle *= -1 
-        
+            angle *= -1
+
         # set the translation and angle wrt to the reference frame
         self.frame.set_translation((middle - origin)[0:3])
         self.frame.set_orientation(0, 0, angle)
 
     def get_points(self):
-        '''
+        """
         Returns the starting and end points of the wall wrt to the world frame
 
         Parameters
@@ -102,12 +105,12 @@ class Wall():
         -------
         points : numpy Array
             Starting and end points expressed wrt the world frame
-        '''
+        """
 
         return self.ref_frame.get_points(np.array([self.point_a, self.point_b]))
 
     def get_frame(self):
-        '''
+        """
         Returns the frame of the wall object
 
         Parameters
@@ -118,30 +121,30 @@ class Wall():
         -------
         frame : Frame
             Frame of the wall object
-        '''
+        """
 
         return self.frame
 
     def set_wall_polygon(self, points):
-        '''
+        """
         Sets the boundary polygon of the wall concept
 
         Parameters
         ----------
         points : numpy Array
             points describing the boundary polygon of the wall in 2D, points
-            expressed wrt of the reference frame of the wall/frame of the space 
+            expressed wrt of the reference frame of the wall/frame of the space
 
         Returns
         -------
-        None     
-        '''
+        None
+        """
 
         self.polygon = np.array(points)
 
     def generate_3d_structure(self):
-        '''
-        returns the vertices and faces of the wall polytope to generate a 3D 
+        """
+        returns the vertices and faces of the wall polytope to generate a 3D
         mesh of the wall
 
         Parameters
@@ -151,17 +154,17 @@ class Wall():
         Returns
         -------
         vertices : numpy Array
-            Array of vertices describing the polytope of the wall in the 3D 
+            Array of vertices describing the polytope of the wall in the 3D
             world
         faces : Matrix
-            Matrix that describe the vertices that form a face of the mesh. 
+            Matrix that describe the vertices that form a face of the mesh.
             Each row containt the index of the vertices that form the face.
             This matrix is constant.
-        '''
+        """
 
         elevated_polygon = np.copy(self.polygon)
         elevated_polygon[:, 2] = get_value(self.height)
-        
+
         vertices = np.concatenate((self.polygon, elevated_polygon), axis=0)
         vertices = np.hstack((vertices, np.ones((len(vertices), 1))))
 
@@ -176,7 +179,7 @@ class Wall():
             [0, 1, 5, 4],
             [1, 2, 6, 5],
             [2, 3, 7, 6],
-            [3, 0, 4, 7]
+            [3, 0, 4, 7],
         ]
-        
+
         return vertices, faces
