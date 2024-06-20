@@ -132,6 +132,18 @@ textx generate models/examples/brsu_building_c_with_doorways.floorplan --target 
 
 Modelling an environment can be straightforward with some background information on how the concepts are specified and related to each other. [This tutorial](docs/Tutorial.md) will explain the concepts of the language and how to position them in the environment. An overview of the concepts and their attributes is available [here](docs/concepts.md). A tutorial on the variation DSL is also available [here](docs/Variation.md).
 
+## Citation
+
+If you use our tooling and approach please cite our paper as follows:
+
+```
+@inproceedings{parra2023iros,
+    author = {Parra, Samuel and Ortega, Argentina and Schneider, Sven and Hochgeschwender, Nico},
+    title = {{A Thousand Worlds: Scenery Specification and Generation for Simulation-Based Testing of Mobile Robot Navigation Stacks}},
+    booktitle = {Proceedings of the IEEE International Conference on Intelligent Systems and Robots (IROS)},
+    year = {2023}
+}
+```
 
 ## Acknowledgments
 
