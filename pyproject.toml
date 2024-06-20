@@ -44,7 +44,7 @@ classifiers = [
 ]
 
 [project.optional-dependencies]
-dev =["wheel", "twine"]
+dev =["wheel", "twine", "black>=24.4.2"]
 test =[
     "flake8",
     "tox",
@@ -69,3 +69,6 @@ where = ["src"]  # list of folders that contain the packages (["."] by default)
 
 [tool.setuptools.package-data]
 "*" = ["*.tx"]
+
+[tool.black]
+required-version = "24.4.2"

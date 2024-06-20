@@ -45,7 +45,7 @@ def new_sample(fp_model, var_model):
             if not hasattr(obj.value, "value"):
                 raise TextXSemanticError(
                     "Semantic Error: This attribute is originally set by a variable.",
-                    **get_location(att)
+                    **get_location(att),
                 )
             elif (
                 obj is fp_model["Default.WallThickness"]
@@ -53,7 +53,7 @@ def new_sample(fp_model, var_model):
             ):
                 raise TextXSemanticError(
                     "Semantic Error: This attribute must set in the original model.",
-                    **get_location(att)
+                    **get_location(att),
                 )
 
             obj.value.value = att.distribution.sample()
