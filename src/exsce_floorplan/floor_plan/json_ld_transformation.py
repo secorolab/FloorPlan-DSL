@@ -40,31 +40,3 @@ def jsonld_floorplan_generator(
     coordinate = build_floorplan_coordinate_graph(model, output_path)
     with open("{}/coordinate.json".format(output_path), "w") as file:
         json.dump(coordinate, file, indent=4)
-
-
-if __name__ == "__main__":
-    import sys
-    import configparser
-    from textx import metamodel_for_language
-    import traceback
-
-    try:
-        my_metamodel = metamodel_for_language("exsce-floorplan-dsl")
-        argv = sys.argv[sys.argv.index("--") + 1 :]
-        my_model = my_metamodel.model_from_file(argv[0])
-
-        config = configparser.ConfigParser()
-        config.read("setup.cfg")
-
-        output_path = config["composable_models"]["output_folder"]
-
-        if "{{model_name}}" in output_path:
-            output_path = output_path.replace("{{model_name}}", my_model.name)
-            if not os.path.exists(output_path):
-                os.makedirs(output_path)
-
-        jsonld_floorplan_generator(my_metamodel, my_model, output_path)
-
-    except Exception:
-        print(traceback.format_exc())
-        sys.exit(1)
