@@ -1,0 +1,75 @@
+{% extends "./base.json" %}
+{% from './geometry.json' import point, frame, polygon%}
+{% from "./floorplan.json" import polygon_walls, floor_features %}
+
+{% macro floorplan(model) %}
+{
+    "@id": "floorplan:{{ model.name }}",
+    "@type": "FloorPlan",
+    "spaces": [
+        {% for space in model.spaces %}
+        "floorplan:space-{{ space.name }}"{%- if not loop.last %},
+    {% endif %}
+        {% endfor +%}
+    ]
+}
+{%- endmacro %}
+
+
+{% macro space_json(space) %}
+{
+    "@id": "floorplan:space-{{ space.name }}",
+    "@type": "Space",
+    "walls": [
+    {% for w in space.walls %}
+        "floorplan:space-{{ space.name }}-wall-{{ loop.index0 }}"{%- if not loop.last %},
+    {% endif %}
+    {% endfor +%}
+    ],
+    "feature": [
+    {% for feature in space.floor_features %}
+        "floorplan:feature-{{ space.name }}-{{ feature.name }}"{%- if not loop.last %},
+    {% endif %}
+    {% endfor +%}
+    ],
+    "shape": "polytope:polygon-{{ space.name }}"
+}
+{%- endmacro %}
+
+{% macro wall(space, wall_id) %}
+{
+    "@id": "floorplan:space-{{ space.name }}-wall-{{ wall_id }}",
+    "@type": "Wall",
+    "shape": "polytope:polygon-{{ space.name }}-wall-{{ wall_id }}"
+}
+{%- endmacro %}
+
+{% macro floor_features(space, feature)%}
+{
+    "@id": "floorplan:feature-{{ space.name }}-{{ feature.name }}",
+    "@type": "Feature",
+    "shape": "polytope:polygon-{{ space.name }}-feature-{{ feature.name }}"
+}
+{%- endmacro %}
+
+{% block context %}
+        {
+            "floorplan": "https://secorolab.github.io/metamodels/floorplan#",
+            "polytope": "https://secorolab.github.io/metamodels/polytope#"
+        },
+        "https://secorolab.github.io/metamodels/floor-plan/floor-plan.json"
+{% endblock%}
+
+
+{% block graph %}
+{% for space in model.spaces %}
+    {% for w in space.walls %}
+    {{ wall(space, loop.index0)}},
+    {% endfor %}
+    {% for f in space.floor_features %}
+    {{ floor_features(f)}},
+    {% endfor %}
+    {{ space_json(space)}},
+{% endfor %}
+{{ floorplan(model) }}
+{% endblock %}
