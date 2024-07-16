@@ -21,10 +21,6 @@ def jsonld_floorplan_generator(
     if not os.path.exists(output_path):
         os.makedirs(output_path)
 
-    spatial_relations = build_spatial_relations_graph(model, output_path)
-    with open("{}/spatial_relations.json".format(output_path), "w") as file:
-        json.dump(spatial_relations, file, indent=4)
-
     floorplan = build_floorplan_graph(model, output_path)
     with open("{}/floorplan.json".format(output_path), "w") as file:
         json.dump(floorplan, file, indent=4)
@@ -41,7 +37,8 @@ def jsonld_floorplan_generator(
     this_folder = os.path.dirname(__file__)
     print(this_folder)
     # template_folder = os.path.join(this_folder, '../templates/skeleton.json.jinja')
-    template_folder = os.path.join(this_folder, '../templates/shape.json.jinja')
+    # template_folder = os.path.join(this_folder, '../templates/shape.json.jinja')
+    template_folder = os.path.join(this_folder, '../templates/spatial_relations.json.jinja')
     print("Template folder: ", template_folder)
 
     # Run Jinja generator

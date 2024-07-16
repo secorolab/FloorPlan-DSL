@@ -1,0 +1,91 @@
+{% extends "./base.json" %}
+{% from './geometry.json' import point, frame, polygon%}
+{% from "./floorplan.json" import polygon_walls, floor_features %}
+
+{# TODO Not sure why the graphs.helpers were needed #}
+
+{% macro from_ref_name(from_frame) -%}
+{%if from_frame.world %}
+world-frame
+{%- elif from_frame.ref is not none and from_frame.index %}
+frame-{{from_frame.ref.name}}-wall-{{from_frame.index}}
+{%- elif from_frame.ref is not none %}
+frame-center-{{from_frame.ref.name }}
+{%- endif %}
+{%- endmacro %}
+
+{% macro to_ref_name(to_frame, space) -%}
+{% if to_frame.index is not none %}
+frame-{{space.name}}-wall-{{to_frame.index}}
+{%- else %}
+frame-center-{{space.name}}
+{%- endif %}
+{%- endmacro %}
+
+{% macro pose_from_to(of, to) %}
+{
+    "@id": "geor:pose-{{of}}-to-{{to}}",
+    "@type": "Pose",
+    "of": "geom:{{of}}",
+    "with-respect-to": "geom:{{to}}"
+}
+{%- endmacro %}
+
+{% macro polygon_position(point_id, space) %}
+{
+    "@id": "geor:position-point-{{ point_id }}-to-{{ space.name }}-frame",
+    "@type": "Position",
+    "of": "geom:point-shape-{{ space.name }}-{{ point_id }}",
+    "with-respect-to": "geom:point-center-{{ space.name }}"
+}
+{%- endmacro %}
+
+{% macro wall_pose_to_space_ref_frame(space, wall_id) %}
+{
+    "@id": "geor:pose-of-wall-{{ wall_id }}-frame-to-{{ space.name }}-frame",
+    "@type": "Pose",
+    "of": "geom:frame-{{ space.name }}-wall-{{ wall_id }}",
+    "with-respect-to": "geom:frame-center-{{ space.name }}"
+}
+{%- endmacro %}
+
+{% macro wall_corner_to_wall_ref_frame(space, wall_id, corner_id) %}
+{
+    "@id": "geor:position-corner-{{ corner_id }}-to-{{ space.name }}-wall-{{ wall_id }}-frame",
+    "@type": "Position",
+    "of": "geom:point-corner-{{ space.name }}-wall-{{ wall_id }}-{{ corner_id }}",
+    "with-respect-to": "geom:frame-{{ space.name }}-wall-{{ wall_id }}"
+}
+{%- endmacro %}
+
+{% block context %}
+        {
+            "geor": "https://comp-rob2b.github.io/metamodels/geometry/spatial-relations#",
+            "geom": "https://comp-rob2b.github.io/metamodels/geometry/structural-entities#"
+        },
+        "https://comp-rob2b.github.io/metamodels/geometry/spatial-relations.json"
+{% endblock%}
+
+{% block graph %}
+{# Pose of the spaces as specificied in the model #}
+{% for space in model.spaces %}
+    {%- set to_f = to_ref_name(space.location.to_frame, space) %}
+    {%- set from_f = from_ref_name(space.location.from_frame) %}
+    {{ pose_from_to( to_f, from_f) }},
+    {# Positions of the Polygons to the center frame #} 
+    {% for pc in space.get_shape().get_points(wrt=space.get_shape().get_frame()) %}
+        {{ polygon_position(loop.index0, space) }},
+    {% endfor %}
+    {# Pose of the wall frames with regards to the space frame #}
+    {% for wall in space.walls %}
+        {% set outer_loop = loop %}
+        {{ wall_pose_to_space_ref_frame(space, outer_loop.index0)}},
+        {% for i in [0,1,2,3] %}
+        {{ wall_corner_to_wall_ref_frame(space, outer_loop.index0, i)}}{%- if not loop.last %},
+            {% endif %}
+        {% endfor %}{% if not loop.last %},
+            {% endif %}
+    {% endfor %}{% if not loop.last %},
+            {% endif %}
+{% endfor %}
+{% endblock %}
