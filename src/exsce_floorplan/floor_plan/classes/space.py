@@ -382,3 +382,28 @@ class Space(object):
             wall_points.append(self.shape.frame.get_point_transformation_wrt(points))
 
         return wall_points
+
+    def is_wall_to_wall(self):
+        return self.location.to_frame.index is not None and self.location.from_frame.index is not None
+
+    def theta_coord(self):
+        th = get_value(self.location.pose.rotation)
+        if not self.location.aligned and self.is_wall_to_wall():
+            return th + 180
+        return th
+
+    def y_coord(self):
+        y = get_value(self.location.pose.translation.y)
+        if self.is_wall_to_wall() and self.location.spaced:
+            from_wall = self.location.from_frame.ref.get_wall(
+                self.location.from_frame.index
+            )
+            to_wall = self.get_wall(self.location.to_frame.index)
+            wall_thickness = get_value(from_wall.thickness) + get_value(
+                to_wall.thickness
+            )
+            y += wall_thickness
+        return y
+        
+    def x_coord(self):
+        return get_value(self.location.pose.translation.x)

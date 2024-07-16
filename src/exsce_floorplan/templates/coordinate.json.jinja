@@ -1,0 +1,114 @@
+{% extends "./base.json" %}
+{% from "./relations.json" import to_ref_name, from_ref_name%}
+
+
+{# Pose of the spaces as specificied in the model #}
+{% macro coord_frame_to_ref(space, of, to) %}
+{
+    "@id": "coord:coord-pose-{{of}}-to-{{to}}",
+    "@type": [
+        "PoseReference", 
+        "PoseCoordinate", 
+        "VectorXY"
+    ],
+    "of-pose": "geor:pose-{{of}}-to-{{to}}",
+    "as-seen-by": "{{to}}",
+    "unit": [
+        "M", 
+        "degrees"
+    ],
+    "theta": {{ space.theta_coord() }},
+    "x": {{ space.x_coord() }},
+    "y": {{ space.y_coord() }}
+}
+{%- endmacro %}
+
+{# Coordinates of vertices of space shape #}
+{% macro pose_coord(space, point, point_id) %}
+{
+    "@id": "coord:coord-position-point-{{ point_id }}-to-{{ space.name }}-frame",
+    "@type": [
+        "PositionReference", 
+        "PositionCoordinate", 
+        "VectorXY"
+    ],
+    "of-position": "geor:position-point-{{ point_id }}-to-{{ space.name }}-frame",
+    "with-respect-to": "geom:point-center-{{ space.name }}",
+    "as-seen-by": "geom:frame-center-{{ space.name }}",
+    "unit": "M",
+    "x": {{ point[0] }},
+    "y": {{ point[1] }}
+}
+{%- endmacro %}
+
+{% macro wall_pose_frame_to_space_frame(space, wall, wall_id) %}
+    {% set origin, theta = wall.get_wall_origin_coord() %}
+{
+    "@id": "coord:coord-pose-of-wall-{{ wall_id }}-frame-to-{{ space.name }}-frame",
+    "@type": [
+        "PoseReference", 
+        "PoseCoordinate", 
+        "VectorXY"
+    ],
+    "of-pose": "geor:pose-of-wall-{{ wall_id }}-frame-to-{{ space.name }}-frame",
+    "as-seen-by": "geom:frame-center-{{ space.name }}",
+    "unit": [
+        "M", 
+        "degrees"
+    ],
+    "theta": {{theta}},
+    "x": {{origin[0]}},
+    "y": {{origin[1]}}
+}
+{%- endmacro %}
+
+{% macro shape_point_position_to_wall_frame(space, wall_id, poly_id, point) %}
+{
+    "@id": "coord:coord-position-corner-{{ poly_id }}-to-{{ space.name }}-wall-{{ wall_id }}-frame",
+    "@type": [
+        "PositionReference", 
+        "PositionCoordinate", 
+        "VectorXY"
+    ],
+    "of-position": "geor:position-corner-{{ poly_id }}-to-{{ space.name }}-wall-{{ wall_id }}-frame",
+    "with-respect-to": "geom:point-frame-{{ space.name }}-wall-{{wall_id}}",
+    "as-seen-by": "geom:frame-{{ space.name }}-wall-{{ wall_id }}",
+    "unit": "M",
+    "x": {{point[0]}},
+    "y": {{point[1]}}
+}
+{%- endmacro %}
+
+{% block context %}
+        {
+            "coord": "https://comp-rob2b.github.io/metamodels/geometry/coordinates#",
+            "coordinate": "https://secorolab.github.io/metamodels/coordinates#",
+            "geor": "https://comp-rob2b.github.io/metamodels/geometry/spatial-relations#",
+            "geom": "https://comp-rob2b.github.io/metamodels/geometry/structural-entities#"
+        },
+        "https://comp-rob2b.github.io/metamodels/qudt.json",
+        "https://comp-rob2b.github.io/metamodels/geometry/coordinates.json",
+        "https://secorolab.github.io/metamodels/geometry/coordinate-extension.json"
+{% endblock%}
+
+{% block graph %}
+{% for space in model.spaces %}
+    {%- set to_f = to_ref_name(space.location.to_frame, space) %}
+    {%- set from_f = from_ref_name(space.location.from_frame) %}
+    {{ coord_frame_to_ref(space, to_f, from_f) }},
+    {% for point in space.get_shape().get_points(wrt=space.get_shape().get_frame()) %}
+    {{ pose_coord(space, point, loop.index0) }},
+    {% endfor %}
+    {% for w in space.walls %}
+        {% set outer_loop = loop %}
+        {% set wall_id = outer_loop.index0 %}
+    {{ wall_pose_frame_to_space_frame(space, w, wall_id)}},
+        {% for p in w.polygon %}
+        {{ shape_point_position_to_wall_frame(space, wall_id, loop.index0, p) }}{% if not loop.last %},
+            {% endif %}
+        {% endfor %}{% if not loop.last %},
+            {% endif %}
+    {% endfor %}{% if not loop.last %},
+            {% endif %}
+{% endfor +%}
+{% endblock %}

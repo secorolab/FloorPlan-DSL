@@ -1,26 +1,7 @@
 {% extends "./base.json" %}
 {% from './geometry.json' import point, frame, polygon%}
 {% from "./floorplan.json" import polygon_walls, floor_features %}
-
-{# TODO Not sure why the graphs.helpers were needed #}
-
-{% macro from_ref_name(from_frame) -%}
-{%if from_frame.world %}
-world-frame
-{%- elif from_frame.ref is not none and from_frame.index %}
-frame-{{from_frame.ref.name}}-wall-{{from_frame.index}}
-{%- elif from_frame.ref is not none %}
-frame-center-{{from_frame.ref.name }}
-{%- endif %}
-{%- endmacro %}
-
-{% macro to_ref_name(to_frame, space) -%}
-{% if to_frame.index is not none %}
-frame-{{space.name}}-wall-{{to_frame.index}}
-{%- else %}
-frame-center-{{space.name}}
-{%- endif %}
-{%- endmacro %}
+{% from "./relations.json" import to_ref_name, from_ref_name%}
 
 {% macro pose_from_to(of, to) %}
 {
