@@ -11,3 +11,23 @@
     "origin": "geom:{{ origin }}"
 }
 {%- endmacro -%}
+
+{% macro shape_points(space) %}
+    {% for point_id in space.get_shape().get_points() %}
+    {{ point("point-shape-{}-{}".format(space.name, loop.index0)) }},
+    {% endfor %}
+{%- endmacro -%}
+
+{% macro polygon(space) -%}
+{
+    "@id": "polytope:polygon-{{ space.name }}",
+    "@type": "Polygon",
+    "points": [
+    {% for point_id in space.get_shape().get_points() %}
+    "{{ "geom:point-shape-{}-{}".format(space.name, loop.index0) }}"
+    {%- if not loop.last %},
+    {% endif %}
+    {% endfor +%}
+    ]
+}
+{%- endmacro %}

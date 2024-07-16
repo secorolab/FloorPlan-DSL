@@ -1,30 +1,7 @@
 {% extends "./base.json" %}
-{% from './geometry.json' import point, frame %}
+{% from './geometry.json' import point, frame, shape_points %}
+{% from './floorplan.json' import space_macro, wall_points %}
 
-{% macro space_macro(name) %}
-    {{ point("point-center-{}".format(name)) }},
-    {{ frame("frame-center-{}".format(name), "point-center-{}".format(name)) }},
-{%- endmacro -%}
-
-{% macro shape_points(space) %}
-    {% for point_id in space.get_shape().get_points() %}
-    {{ point("point-shape-{}-{}".format(space.name, loop.index0)) }},
-    {% endfor %}
-{%- endmacro -%}
-
-{% macro wall_points(space) %}
-    {% for wall in space.walls %}
-    {% set outer_loop = loop %}
-    {% set point_id = outer_loop.index0 %}
-    {{ point("point-frame-{}-wall-{}".format(space.name, point_id)) }},
-    {{ frame("frame-{}-wall-{}".format(space.name, point_id), "point-frame-{}-wall-{}".format(space.name, point_id)) }},
-    {% for corner in [0, 1, 2, 3] %}
-    {{ point("point-corner-{}-wall-{}-{}".format(space.name, point_id, corner)) }}
-    {%- if not outer_loop.last or not loop.last %},
-    {% endif %}
-    {%- endfor %}
-    {%- endfor %}
-{%- endmacro -%}
 
 {% block context %}
 {
