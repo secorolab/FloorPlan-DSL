@@ -1,0 +1,13 @@
+{%- macro point(identifier) -%}
+{
+    "@id": "geom:{{ identifier }}",
+    "@type": "Point"
+}
+{%- endmacro -%}
+{%- macro frame(name, origin) -%}
+{
+    "@id": "geom:{{ name }}",
+    "@type": "Frame",
+    "origin": "geom:{{ origin }}"
+}
+{%- endmacro -%}

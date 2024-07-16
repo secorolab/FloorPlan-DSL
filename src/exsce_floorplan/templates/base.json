@@ -1,0 +1,10 @@
+{
+    "@context": [
+    {% block context %}
+    {% endblock %}
+    ],
+    "@graph": [
+    {% block graph %}
+    {% endblock %}
+    ]
+}

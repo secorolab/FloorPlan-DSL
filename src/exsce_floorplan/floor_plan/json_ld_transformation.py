@@ -1,8 +1,8 @@
 import os
 import json
 
+from textxjinja import textx_jinja_generator
 
-from .graph.skeleton import build_skeleton_graph
 from .graph.shape import build_shape_graph
 from .graph.spatial_relations import build_spatial_relations_graph
 from .graph.floor_plan import build_floorplan_graph
@@ -21,10 +21,6 @@ def jsonld_floorplan_generator(
     if not os.path.exists(output_path):
         os.makedirs(output_path)
 
-    skeleton = build_skeleton_graph(model, output_path)
-    with open("{}/skeleton.json".format(output_path), "w") as file:
-        json.dump(skeleton, file, indent=4)
-
     shape = build_shape_graph(model, output_path)
     with open("{}/shape.json".format(output_path), "w") as file:
         json.dump(shape, file, indent=4)
@@ -40,3 +36,15 @@ def jsonld_floorplan_generator(
     coordinate = build_floorplan_coordinate_graph(model, output_path)
     with open("{}/coordinate.json".format(output_path), "w") as file:
         json.dump(coordinate, file, indent=4)
+
+
+    # Prepare context dictionary
+    context = dict(trim_blocks=True, lstrip_blocks=True)
+    context['model'] = model
+
+    this_folder = os.path.dirname(__file__)
+    print(this_folder)
+    template_folder = os.path.join(this_folder, '../templates/skeleton.json.jinja')
+
+    # Run Jinja generator
+    textx_jinja_generator(template_folder, output_path, context, overwrite=True)
