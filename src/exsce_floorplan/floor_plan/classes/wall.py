@@ -185,9 +185,6 @@ class Wall:
         return vertices, faces
 
     def get_wall_origin_coord(self):
-        origin, vectors = self.get_frame().get_direction_vectors(
-            self.get_frame().ref
-        )
+        origin, vectors = self.get_frame().get_direction_vectors(self.get_frame().ref)
         theta = angle_from_rotation(vectors)
         return origin, theta
-

@@ -384,7 +384,10 @@ class Space(object):
         return wall_points
 
     def is_wall_to_wall(self):
-        return self.location.to_frame.index is not None and self.location.from_frame.index is not None
+        return (
+            self.location.to_frame.index is not None
+            and self.location.from_frame.index is not None
+        )
 
     def theta_coord(self):
         th = get_value(self.location.pose.rotation)
@@ -404,6 +407,6 @@ class Space(object):
             )
             y += wall_thickness
         return y
-        
+
     def x_coord(self):
         return get_value(self.location.pose.translation.x)

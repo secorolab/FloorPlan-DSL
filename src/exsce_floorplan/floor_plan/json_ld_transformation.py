@@ -17,7 +17,7 @@ def jsonld_floorplan_generator(
 
     # Prepare context dictionary
     context = dict(trim_blocks=True, lstrip_blocks=True)
-    context['model'] = model
+    context["model"] = model
 
     this_folder = os.path.dirname(__file__)
     print(this_folder)
@@ -25,7 +25,7 @@ def jsonld_floorplan_generator(
     # template_folder = os.path.join(this_folder, '../templates/shape.json.jinja')
     # template_folder = os.path.join(this_folder, '../templates/spatial_relations.json.jinja')
     # template_folder = os.path.join(this_folder, '../templates/floorplan.json.jinja')
-    template_folder = os.path.join(this_folder, '../templates/coordinate.json.jinja')
+    template_folder = os.path.join(this_folder, "../templates/coordinate.json.jinja")
     print("Template folder: ", template_folder)
 
     # Run Jinja generator
