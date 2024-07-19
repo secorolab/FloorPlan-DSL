@@ -125,7 +125,7 @@ textx generate <floorplan model> --target json-ld --output-path <output path>
 For example: 
 
 ```
-textx generate models/examples/brsu_building_c_with_doorways.floorplan --target json-ld --output-path .
+textx generate ../models/examples/brsu_building_c_with_doorways.floorplan --target json-ld --output-path .
 ```
 
 ### Tutorials
