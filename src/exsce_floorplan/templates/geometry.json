@@ -1,30 +1,33 @@
+{% from './identifiers.json' import point_id, frame_id, shape_point_id %}
+{% import "./identifiers.json" as ids %}
+
 {%- macro point(identifier) -%}
 {
-    "@id": "geom:{{ identifier }}",
+    "@id": "{{ ids.point_id(identifier) }}",
     "@type": "Point"
 }
 {%- endmacro -%}
 {%- macro frame(name, origin) -%}
 {
-    "@id": "geom:{{ name }}",
+    "@id": "{{ ids.frame_id(name) }}",
     "@type": "Frame",
-    "origin": "geom:{{ origin }}"
+    "origin": "{{ ids.point_id(origin) }}"
 }
 {%- endmacro -%}
 
 {% macro shape_points(space) %}
     {% for point_id in space.get_shape().get_points() %}
-    {{ point("point-shape-{}-{}".format(space.name, loop.index0)) }},
+    {{ point(ids.shape_point_id(space, loop.index0)) }},
     {% endfor %}
 {%- endmacro -%}
 
 {% macro polygon(space) -%}
 {
-    "@id": "polytope:polygon-{{ space.name }}",
+    "@id": "polytope:{{ ids.polygon_id(space) }}",
     "@type": "Polygon",
     "points": [
     {% for point_id in space.get_shape().get_points() %}
-    "{{ "geom:point-shape-{}-{}".format(space.name, loop.index0) }}"
+    "geom:{{ ids.shape_point_id(space, loop.index0)}}"
     {%- if not loop.last %},
     {% endif %}
     {% endfor +%}

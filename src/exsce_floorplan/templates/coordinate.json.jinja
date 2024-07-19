@@ -1,17 +1,18 @@
 {% extends "./base.json" %}
 {% from "./relations.json" import to_ref_name, from_ref_name%}
+{% import "./identifiers.json" as ids %}
 
 
 {# Pose of the spaces as specificied in the model #}
 {% macro coord_frame_to_ref(space, of, to) %}
 {
-    "@id": "coord:coord-pose-{{of}}-to-{{to}}",
+    "@id": "coord:{{ ids.coord_pose_id(of, to) }}",
     "@type": [
         "PoseReference", 
         "PoseCoordinate", 
         "VectorXY"
     ],
-    "of-pose": "geor:pose-{{of}}-to-{{to}}",
+    "of-pose": "geor:{{ ids.pose_id(of, to) }}",
     "as-seen-by": "{{to}}",
     "unit": [
         "M", 
@@ -26,15 +27,15 @@
 {# Coordinates of vertices of space shape #}
 {% macro pose_coord(space, point, point_id) %}
 {
-    "@id": "coord:coord-position-point-{{ point_id }}-to-{{ space.name }}-frame",
+    "@id": "coord:{{ ids.coord_position_id(point_id, space) }}",
     "@type": [
         "PositionReference", 
         "PositionCoordinate", 
         "VectorXY"
     ],
-    "of-position": "geor:position-point-{{ point_id }}-to-{{ space.name }}-frame",
-    "with-respect-to": "geom:point-center-{{ space.name }}",
-    "as-seen-by": "geom:frame-center-{{ space.name }}",
+    "of-position": "geor:{{ ids.position_id(point_id, space) }}",
+    "with-respect-to": "geom:{{ ids.space_point_id(space) }}",
+    "as-seen-by": "geom:{{ ids.space_frame_id(space) }}",
     "unit": "M",
     "x": {{ point[0] }},
     "y": {{ point[1] }}
@@ -44,14 +45,14 @@
 {% macro wall_pose_frame_to_space_frame(space, wall, wall_id) %}
     {% set origin, theta = wall.get_wall_origin_coord() %}
 {
-    "@id": "coord:coord-pose-of-wall-{{ wall_id }}-frame-to-{{ space.name }}-frame",
+    "@id": "coord:{{ ids.coord_wall_pose_id(wall_id, space)}}",
     "@type": [
         "PoseReference", 
         "PoseCoordinate", 
         "VectorXY"
     ],
-    "of-pose": "geor:pose-of-wall-{{ wall_id }}-frame-to-{{ space.name }}-frame",
-    "as-seen-by": "geom:frame-center-{{ space.name }}",
+    "of-pose": "geor:{{ ids.wall_pose_id(wall_id, space)}}",
+    "as-seen-by": "geom:{{ ids.space_frame_id(space) }}",
     "unit": [
         "M", 
         "degrees"
@@ -64,15 +65,15 @@
 
 {% macro shape_point_position_to_wall_frame(space, wall_id, poly_id, point) %}
 {
-    "@id": "coord:coord-position-corner-{{ poly_id }}-to-{{ space.name }}-wall-{{ wall_id }}-frame",
+    "@id": "coord:{{ ids.coord_position_corner_id(poly_id, space, wall_id)}}",
     "@type": [
         "PositionReference", 
         "PositionCoordinate", 
         "VectorXY"
     ],
-    "of-position": "geor:position-corner-{{ poly_id }}-to-{{ space.name }}-wall-{{ wall_id }}-frame",
-    "with-respect-to": "geom:point-frame-{{ space.name }}-wall-{{wall_id}}",
-    "as-seen-by": "geom:frame-{{ space.name }}-wall-{{ wall_id }}",
+    "of-position": "geor:{{ ids.corner_position_id(poly_id, space, wall_id)}}",
+    "with-respect-to": "geom:{{ ids.wall_point_id(space, wall_id) }}",
+    "as-seen-by": "geom:{{ ids.wall_frame_id(space, wall_id) }}",
     "unit": "M",
     "x": {{point[0]}},
     "y": {{point[1]}}

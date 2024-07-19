@@ -2,10 +2,11 @@
 {% from './geometry.json' import point, frame, polygon%}
 {% from "./floorplan.json" import polygon_walls, floor_features %}
 {% from "./relations.json" import to_ref_name, from_ref_name%}
+{% import "./identifiers.json" as ids %}
 
 {% macro pose_from_to(of, to) %}
 {
-    "@id": "geor:pose-{{of}}-to-{{to}}",
+    "@id": "geor:{{ ids.pose_id(of, to) }}",
     "@type": "Pose",
     "of": "geom:{{of}}",
     "with-respect-to": "geom:{{to}}"
@@ -14,28 +15,28 @@
 
 {% macro polygon_position(point_id, space) %}
 {
-    "@id": "geor:position-point-{{ point_id }}-to-{{ space.name }}-frame",
+    "@id": "geor:{{ ids.position_id(point_id, space) }}",
     "@type": "Position",
-    "of": "geom:point-shape-{{ space.name }}-{{ point_id }}",
-    "with-respect-to": "geom:point-center-{{ space.name }}"
+    "of": "geom:{{ ids.shape_point_id(space, point_id) }}",
+    "with-respect-to": "geom:{{ ids.space_point_id(space) }}"
 }
 {%- endmacro %}
 
 {% macro wall_pose_to_space_ref_frame(space, wall_id) %}
 {
-    "@id": "geor:pose-of-wall-{{ wall_id }}-frame-to-{{ space.name }}-frame",
+    "@id": "geor:{{ ids.wall_pose_id(wall_id, space) }}",
     "@type": "Pose",
-    "of": "geom:frame-{{ space.name }}-wall-{{ wall_id }}",
-    "with-respect-to": "geom:frame-center-{{ space.name }}"
+    "of": "geom:{{ ids.wall_frame_id(space, wall_id) }}",
+    "with-respect-to": "geom:{{ ids.space_frame_id(space) }}"
 }
 {%- endmacro %}
 
 {% macro wall_corner_to_wall_ref_frame(space, wall_id, corner_id) %}
 {
-    "@id": "geor:position-corner-{{ corner_id }}-to-{{ space.name }}-wall-{{ wall_id }}-frame",
+    "@id": "geor:{{ ids.corner_position_id(corner_id, space, wall_id) }}",
     "@type": "Position",
-    "of": "geom:point-corner-{{ space.name }}-wall-{{ wall_id }}-{{ corner_id }}",
-    "with-respect-to": "geom:frame-{{ space.name }}-wall-{{ wall_id }}"
+    "of": "geom:{{ ids.wall_corner_point_id(space, wall_id, corner_id) }}",
+    "with-respect-to": "geom:{{ ids.wall_frame_id(space, wall_id) }}"
 }
 {%- endmacro %}
 
@@ -69,4 +70,4 @@
     {% endfor %}{% if not loop.last %},
             {% endif %}
 {% endfor %}
-{% endblock %}
+{% endblock +%}

@@ -14,7 +14,7 @@
 {{ point("world-origin") }},
 {{ frame("world-frame", "world-origin") }},
 {% for space in model.spaces -%}
-{{ space_macro(space.name) }}
+{{ space_macro(space) }}
 {{ shape_points(space) }}
 {{ wall_points(space)}}{%- if not loop.last %},
 {% endif %}

@@ -1,6 +1,7 @@
 {% extends "./base.json" %}
 {% from './geometry.json' import point, frame, polygon%}
 {% from "./floorplan.json" import polygon_walls, floor_features %}
+{% import "./identifiers.json" as ids %}
 
 {% macro floorplan(model) %}
 {
@@ -8,7 +9,7 @@
     "@type": "FloorPlan",
     "spaces": [
         {% for space in model.spaces %}
-        "floorplan:space-{{ space.name }}"{%- if not loop.last %},
+        "floorplan:{{ ids.space_id(space) }}"{%- if not loop.last %},
     {% endif %}
         {% endfor +%}
     ]
@@ -18,37 +19,37 @@
 
 {% macro space_json(space) %}
 {
-    "@id": "floorplan:space-{{ space.name }}",
+    "@id": "floorplan:{{ ids.space_id(space) }}",
     "@type": "Space",
     "walls": [
     {% for w in space.walls %}
-        "floorplan:space-{{ space.name }}-wall-{{ loop.index0 }}"{%- if not loop.last %},
+        "floorplan:{{ ids.wall_id(space, loop.index0) }}"{%- if not loop.last %},
     {% endif %}
     {% endfor +%}
     ],
     "feature": [
     {% for feature in space.floor_features %}
-        "floorplan:feature-{{ space.name }}-{{ feature.name }}"{%- if not loop.last %},
+        "floorplan:{{ ids.feature_id(space, feature) }}"{%- if not loop.last %},
     {% endif %}
     {% endfor +%}
     ],
-    "shape": "polytope:polygon-{{ space.name }}"
+    "shape": "polytope:{{ ids.polygon_id(space) }}"
 }
 {%- endmacro %}
 
-{% macro wall(space, wall_id) %}
+{% macro wall(space, wall_idx) %}
 {
-    "@id": "floorplan:space-{{ space.name }}-wall-{{ wall_id }}",
+    "@id": "floorplan:{{ ids.wall_id(space, wall_idx) }}",
     "@type": "Wall",
-    "shape": "polytope:polygon-{{ space.name }}-wall-{{ wall_id }}"
+    "shape": "polytope:{{ ids.wall_polygon_id(space, wall_idx) }}"
 }
 {%- endmacro %}
 
 {% macro floor_features(space, feature)%}
 {
-    "@id": "floorplan:feature-{{ space.name }}-{{ feature.name }}",
+    "@id": "floorplan:{{ ids.feature_id(space, feature) }}",
     "@type": "Feature",
-    "shape": "polytope:polygon-{{ space.name }}-feature-{{ feature.name }}"
+    "shape": "polytope:{{ ids.feature_polygon_id(space, feature) }}"
 }
 {%- endmacro %}
 

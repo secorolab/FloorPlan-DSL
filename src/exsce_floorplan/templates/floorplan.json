@@ -1,13 +1,10 @@
 {% from './geometry.json' import point, frame, shape_points %}
+{% import "./identifiers.json" as ids %}
 
-{% set POLYGON_ID = "polygon-{space_name}" %}
-{% set POINT_SHAPE_ID = "point-shape-{space_name}-{point_id}" %}
-{% set POLYGON_WALL_ID = "polygon-{space_name}-wall-{wall_id}" %}
-{% set WALL_CORNER_ID = "point-corner-{space_name}-wall-{wall_id}-{corner_id}" %}
 
-{% macro space_macro(name) %}
-    {{ point("point-center-{}".format(name)) }},
-    {{ frame("frame-center-{}".format(name), "point-center-{}".format(name)) }},
+{% macro space_macro(space) %}
+    {{ point(ids.space_point_id(space)) }},
+    {{ frame(ids.space_frame_id(space), ids.space_point_id(space)) }},
 {%- endmacro -%}
 
 
@@ -15,10 +12,10 @@
     {% for wall in space.walls %}
     {% set outer_loop = loop %}
     {% set point_id = outer_loop.index0 %}
-    {{ point("point-frame-{}-wall-{}".format(space.name, point_id)) }},
-    {{ frame("frame-{}-wall-{}".format(space.name, point_id), "point-frame-{}-wall-{}".format(space.name, point_id)) }},
+    {{ point(ids.wall_point_id(space, point_id)) }},
+    {{ frame(ids.wall_frame_id(space, point_id), ids.wall_point_id(space, point_id)) }},
     {% for corner in [0, 1, 2, 3] %}
-    {{ point("point-corner-{}-wall-{}-{}".format(space.name, point_id, corner)) }}
+    {{ point(ids.wall_corner_point_id(space, point_id, corner)) }}
     {%- if not outer_loop.last or not loop.last %},
     {% endif %}
     {%- endfor %}
@@ -30,12 +27,12 @@
     {% for wall in space.walls %}
 {
     {% set outer_loop = loop %}
-    {% set point_id = outer_loop.index0 %}
-    "@id": "polytope:polygon-{{ space.name }}-wall-{{ point_id }}",
+    {% set wall_id = outer_loop.index0 %}
+    "@id": "polytope:{{ ids.wall_polygon_id(space, wall_id) }}",
     "@type": "Polygon",
     "points": [
     {% for corner in [0, 1, 2, 3] %}
-    "geom:point-corner-{{space.name}}-wall-{{point_id}}-{{corner}}"
+    "geom:{{ ids.wall_corner_point_id(space, wall_id, corner) }}"
     {%- if not loop.last %},
     {% endif %}
     {% endfor +%}
@@ -48,11 +45,11 @@
 {% macro floor_features(space) -%}
     {% for feature in space.features %}
 {
-    "@id": "polytope:polygon-{{ space.name }}-feature-{{ feature.name }}"
+    "@id": "polytope:{{ ids.feature_polygon_id( space, feature) }}"
     "@type": "Polygon",
     "points": [
         {% for point in feature.get_points() %}
-        "geom:point-feature-shape-{{ feature.name }}-{{ point }}"
+        "geom:{{ ids.feature_shape_point_id(feature.name, point) }}"
     {%- if not loop.last %},
     {% endif %}
         {% endfor +%}
