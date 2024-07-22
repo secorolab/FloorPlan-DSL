@@ -1,6 +1,5 @@
 {% extends "./floorplan/floorplan.json" %}
-{% import "./floorplan/identifiers.json" as ids %}
-{% from "./geometry/spatial-relations.json" import to_ref_name, from_ref_name, pose_from_to, polygon_position, wall_pose_to_space_ref_frame, wall_corner_to_wall_ref_frame %}
+{% from "./floorplan/spatial-relations/macros.json" import to_ref_name, from_ref_name, pose_from_to, polygon_position, wall_pose_to_space_ref_frame, wall_corner_to_wall_ref_frame %}
 
 
 {% block context %}
@@ -13,21 +12,23 @@
 
 {% block space %}
 {# Pose of the spaces as specificied in the model #}
-{%- set to_f = to_ref_name(space.location.to_frame, space) %}
-{%- set from_f = from_ref_name(space.location.from_frame) %}
-{{ pose_from_to( to_f, from_f) }},
+{%- set of = to_ref_name(space.location.to_frame, space) %}
+{%- set to = from_ref_name(space.location.from_frame) %}
+{% include "./floorplan/spatial-relations/pose_space_wrt_ref.json" with context %},
 {# Positions of the Polygons to the center frame #} 
 {%- for pc in space.get_shape().get_points(wrt=space.get_shape().get_frame()) %}
-    {{ polygon_position(loop.index0, space) }},
+{% set point_id = loop.index0 %}
+{% include "./floorplan/spatial-relations/position_space_shape_wrt_space_point.json" with context %},
 {% endfor %}
 {% endblock %}
 
 {% block wall %}
 {# Pose of the wall frames with regards to the space frame #}
 {% set outer_loop = loop %}
-{{ wall_pose_to_space_ref_frame(space, outer_loop.index0)}},
-{% for i in [0,1,2,3] %}
-{{ wall_corner_to_wall_ref_frame(space, outer_loop.index0, i)}}{%- if not loop.last %},
+{% set wall_id = outer_loop.index0 %}
+{% include "./floorplan/spatial-relations/pose_wall_frame_wrt_space_frame.json" with context %},
+{% for corner_id in [0,1,2,3] %}
+{% include "./floorplan/spatial-relations/position_wall_corner_wrt_wall_frame.json" with context %}{%- if not loop.last %},
     {% endif %}
 {% endfor %}{% if not loop.last %},
     {% endif %}

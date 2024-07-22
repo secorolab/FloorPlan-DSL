@@ -1,0 +1,20 @@
+{% import "./floorplan/identifiers.json" as ids %}
+
+{# TODO Not sure why the graphs.helpers were needed #}
+{% macro from_ref_name(from_frame) -%}
+{%if from_frame.world %}
+world-frame
+{%- elif from_frame.ref is not none and from_frame.index %}
+{{ ids.wall_frame_id(from_frame.ref, from_frame.index) }}
+{%- elif from_frame.ref is not none %}
+{{ ids.space_frame_id(from_frame.ref) }}
+{%- endif %}
+{%- endmacro %}
+
+{% macro to_ref_name(to_frame, space) -%}
+{% if to_frame.index is not none %}
+{{ ids.wall_frame_id(space, to_frame.index) }}
+{%- else %}
+{{ ids.space_frame_id(space) }}
+{%- endif %}
+{%- endmacro %}
