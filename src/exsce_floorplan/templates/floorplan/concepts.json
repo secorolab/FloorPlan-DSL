@@ -1,5 +1,4 @@
 {% import "./floorplan/identifiers.json" as ids %}
-{% from './geometry/structural-entities.json' import point, frame %}
 
 {% macro floorplan(model) -%}
 {
