@@ -1,6 +1,5 @@
 {% extends "./floorplan/floorplan.json" %}
-{% from './geometry.json' import point, frame, polygon%}
-{% from "./floorplan.json" import polygon_walls, floor_features %}
+{% from "./geometry/polytope.json" import polygon, polygon_walls, floor_features %}
 
 
 {% block context %}

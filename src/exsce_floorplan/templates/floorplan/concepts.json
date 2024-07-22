@@ -1,0 +1,53 @@
+{% import "./floorplan/identifiers.json" as ids %}
+{% from './geometry/structural-entities.json' import point, frame %}
+{% from "./geometry/polytope.json" import polygon, polygon_walls, floor_features %}
+
+{% macro floorplan(model) -%}
+{
+    "@id": "floorplan:{{ model.name }}",
+    "@type": "FloorPlan",
+    "spaces": [
+        {% for space in model.spaces %}
+        "floorplan:{{ ids.space_id(space) }}"{%- if not loop.last %},
+    {% endif %}
+        {% endfor +%}
+    ]
+}
+{%- endmacro %}
+
+
+{%- macro space(space_model) -%}
+{
+    "@id": "floorplan:{{ ids.space_id(space_model) }}",
+    "@type": "Space",
+    "walls": [
+    {% for w in space_model.walls %}
+        "floorplan:{{ ids.wall_id(space_model, loop.index0) }}"{%- if not loop.last %},
+    {% endif %}
+    {% endfor +%}
+    ],
+    "feature": [
+    {%- for feature in space_model.floor_features %}
+        "floorplan:{{ ids.feature_id(space_model, feature) }}"{%- if not loop.last %},
+    {% endif %}
+    {%- endfor +%}],
+    "shape": "polytope:{{ ids.polygon_id(space_model) }}"
+}
+{%- endmacro -%}
+
+{% macro wall(space, wall_idx) -%}
+{
+    "@id": "floorplan:{{ ids.wall_id(space, wall_idx) }}",
+    "@type": "Wall",
+    "shape": "polytope:{{ ids.wall_polygon_id(space, wall_idx) }}"
+}
+{%- endmacro %}
+
+{% macro floor_features(space, feature) -%}
+{
+    "@id": "floorplan:{{ ids.feature_id(space, feature) }}",
+    "@type": "Feature",
+    "shape": "polytope:{{ ids.feature_polygon_id(space, feature) }}"
+}
+{%- endmacro %}
+

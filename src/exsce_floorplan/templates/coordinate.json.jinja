@@ -1,84 +1,8 @@
 {% extends "./floorplan/floorplan.json" %}
-{% from "./relations.json" import to_ref_name, from_ref_name%}
-{% import "./identifiers.json" as ids %}
+{% import "./floorplan/identifiers.json" as ids %}
+{% from "./geometry/spatial-relations.json" import to_ref_name, from_ref_name%}
+{% from "./geometry/coordinate.json" import coord_frame_to_ref, pose_coord, wall_pose_frame_to_space_frame, shape_point_position_to_wall_frame %}
 
-
-{# Pose of the spaces as specificied in the model #}
-{% macro coord_frame_to_ref(space, of, to) %}
-{
-    "@id": "coord:{{ ids.coord_pose_id(of, to) }}",
-    "@type": [
-        "PoseReference", 
-        "PoseCoordinate", 
-        "VectorXY"
-    ],
-    "of-pose": "geor:{{ ids.pose_id(of, to) }}",
-    "as-seen-by": "{{to}}",
-    "unit": [
-        "M", 
-        "degrees"
-    ],
-    "theta": {{ space.theta_coord() }},
-    "x": {{ space.x_coord() }},
-    "y": {{ space.y_coord() }}
-}
-{%- endmacro %}
-
-{# Coordinates of vertices of space shape #}
-{% macro pose_coord(space, point, point_id) %}
-{
-    "@id": "coord:{{ ids.coord_position_id(point_id, space) }}",
-    "@type": [
-        "PositionReference", 
-        "PositionCoordinate", 
-        "VectorXY"
-    ],
-    "of-position": "geor:{{ ids.position_id(point_id, space) }}",
-    "with-respect-to": "geom:{{ ids.space_point_id(space) }}",
-    "as-seen-by": "geom:{{ ids.space_frame_id(space) }}",
-    "unit": "M",
-    "x": {{ point[0] }},
-    "y": {{ point[1] }}
-}
-{%- endmacro %}
-
-{% macro wall_pose_frame_to_space_frame(space, wall, wall_id) %}
-    {% set origin, theta = wall.get_wall_origin_coord() %}
-{
-    "@id": "coord:{{ ids.coord_wall_pose_id(wall_id, space)}}",
-    "@type": [
-        "PoseReference", 
-        "PoseCoordinate", 
-        "VectorXY"
-    ],
-    "of-pose": "geor:{{ ids.wall_pose_id(wall_id, space)}}",
-    "as-seen-by": "geom:{{ ids.space_frame_id(space) }}",
-    "unit": [
-        "M", 
-        "degrees"
-    ],
-    "theta": {{theta}},
-    "x": {{origin[0]}},
-    "y": {{origin[1]}}
-}
-{%- endmacro %}
-
-{% macro shape_point_position_to_wall_frame(space, wall_id, poly_id, point) %}
-{
-    "@id": "coord:{{ ids.coord_position_corner_id(poly_id, space, wall_id)}}",
-    "@type": [
-        "PositionReference", 
-        "PositionCoordinate", 
-        "VectorXY"
-    ],
-    "of-position": "geor:{{ ids.corner_position_id(poly_id, space, wall_id)}}",
-    "with-respect-to": "geom:{{ ids.wall_point_id(space, wall_id) }}",
-    "as-seen-by": "geom:{{ ids.wall_frame_id(space, wall_id) }}",
-    "unit": "M",
-    "x": {{point[0]}},
-    "y": {{point[1]}}
-}
-{%- endmacro %}
 
 {% block context %}
         {

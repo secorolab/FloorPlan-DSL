@@ -1,0 +1,37 @@
+{% import "./floorplan/identifiers.json" as ids %}
+
+{%- macro point(identifier) -%}
+{
+    "@id": "{{ ids.point_id(identifier) }}",
+    "@type": "Point"
+}
+{%- endmacro -%}
+{%- macro frame(name, origin) -%}
+{
+    "@id": "{{ ids.frame_id(name) }}",
+    "@type": "Frame",
+    "origin": "{{ ids.point_id(origin) }}"
+}
+{%- endmacro -%}
+
+{% macro space_macro(space) -%}
+    {{ point(ids.space_point_id(space)) }},
+    {{ frame(ids.space_frame_id(space), ids.space_point_id(space)) }},
+{%- endmacro %}
+
+{% macro shape_points(space) -%}
+{%- for point_id in space.get_shape().get_points() %}
+{{ point(ids.shape_point_id(space, loop.index0)) }},
+{% endfor -%}
+{%- endmacro -%}
+
+{% macro wall_points(space, wall_id) -%}
+{{ point(ids.wall_point_id(space, wall_id)) }},
+{{ frame(ids.wall_frame_id(space, wall_id), ids.wall_point_id(space, wall_id)) }},
+{% for corner in [0, 1, 2, 3] %}
+{{ point(ids.wall_corner_point_id(space, wall_id, corner)) }}
+{%- if not loop.last %},
+{% endif %}
+{%- endfor %}
+{%- endmacro -%}
+

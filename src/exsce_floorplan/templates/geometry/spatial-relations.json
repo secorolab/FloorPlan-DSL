@@ -1,0 +1,56 @@
+{% import "./floorplan/identifiers.json" as ids %}
+
+{# TODO Not sure why the graphs.helpers were needed #}
+{% macro from_ref_name(from_frame) -%}
+{%if from_frame.world %}
+world-frame
+{%- elif from_frame.ref is not none and from_frame.index %}
+{{ ids.wall_frame_id(from_frame.ref, from_frame.index) }}
+{%- elif from_frame.ref is not none %}
+{{ ids.space_frame_id(from_frame.ref) }}
+{%- endif %}
+{%- endmacro %}
+
+{% macro to_ref_name(to_frame, space) -%}
+{% if to_frame.index is not none %}
+{{ ids.wall_frame_id(space, to_frame.index) }}
+{%- else %}
+{{ ids.space_frame_id(space) }}
+{%- endif %}
+{%- endmacro %}
+
+{% macro pose_from_to(of, to) -%}
+{
+    "@id": "geor:{{ ids.pose_id(of, to) }}",
+    "@type": "Pose",
+    "of": "geom:{{of}}",
+    "with-respect-to": "geom:{{to}}"
+}
+{%- endmacro %}
+
+{% macro polygon_position(point_id, space) -%}
+{
+    "@id": "geor:{{ ids.position_id(point_id, space) }}",
+    "@type": "Position",
+    "of": "geom:{{ ids.shape_point_id(space, point_id) }}",
+    "with-respect-to": "geom:{{ ids.space_point_id(space) }}"
+}
+{%- endmacro %}
+
+{% macro wall_pose_to_space_ref_frame(space, wall_id) -%}
+{
+    "@id": "geor:{{ ids.wall_pose_id(wall_id, space) }}",
+    "@type": "Pose",
+    "of": "geom:{{ ids.wall_frame_id(space, wall_id) }}",
+    "with-respect-to": "geom:{{ ids.space_frame_id(space) }}"
+}
+{%- endmacro %}
+
+{% macro wall_corner_to_wall_ref_frame(space, wall_id, corner_id) -%}
+{
+    "@id": "geor:{{ ids.corner_position_id(corner_id, space, wall_id) }}",
+    "@type": "Position",
+    "of": "geom:{{ ids.wall_corner_point_id(space, wall_id, corner_id) }}",
+    "with-respect-to": "geom:{{ ids.wall_frame_id(space, wall_id) }}"
+}
+{%- endmacro %}
