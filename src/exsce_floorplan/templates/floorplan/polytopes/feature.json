@@ -1,0 +1,12 @@
+{% extends "./geometry/polytope.json" %}
+{% import "./floorplan/identifiers.json" as ids %}
+
+{% block poly_id -%}
+{{ ids.feature_polygon_id(space, feature) }}
+{%- endblock %}
+
+{% block point_id -%}
+{{ ids.feature_shape_point_id(feature.name, p) }}
+{%- endblock %}
+
+

@@ -1,6 +1,5 @@
 {% import "./floorplan/identifiers.json" as ids %}
 {% from './geometry/structural-entities.json' import point, frame %}
-{% from "./geometry/polytope.json" import polygon, polygon_walls, floor_features %}
 
 {% macro floorplan(model) -%}
 {

@@ -1,5 +1,5 @@
 {% extends "./floorplan/floorplan.json" %}
-{% from "./geometry/polytope.json" import polygon, polygon_walls, floor_features %}
+{% from "./floorplan/polytope.json" import polygon, polygon_walls, floor_features %}
 
 
 {% block context %}
@@ -11,16 +11,19 @@
 {% endblock%}
 
 {% block space %}
-{{ polygon(space) }},
+{% set points = space.get_shape().get_points() %}
+{% include "./floorplan/polytopes/space.json" with context %},
 {% endblock %}
 
 {% block wall %}
 {% set outer_loop = loop %}
 {% set wall_id = outer_loop.index0 %}
-{{ polygon_walls(space, wall_id) }}{% if not outer_loop.last %},
+{% set points = [0,1,2,3] %}
+{% include "./floorplan/polytopes/wall.json" with context %}{% if not outer_loop.last %},
 {% endif %}
 {% endblock%}
 
 {% block features %}
-{{ floor_features(space, feature) }}
+{% set points = feature.get_points() %}
+{% include "./floorplan/polytopes/feature.json" with context %}
 {% endblock %}
