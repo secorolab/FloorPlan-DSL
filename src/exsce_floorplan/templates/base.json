@@ -5,6 +5,6 @@
     ],
     "@graph": [
     {% block graph %}
-    {% endblock %}
+    {% endblock +%}
     ]
 }

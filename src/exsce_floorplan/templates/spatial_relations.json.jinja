@@ -1,10 +1,9 @@
-{% extends "./base.json" %}
-{% from './geometry.json' import point, frame, polygon%}
+{% extends "./floorplan/floorplan.json" %}
 {% from "./floorplan.json" import polygon_walls, floor_features %}
 {% from "./relations.json" import to_ref_name, from_ref_name%}
 {% import "./identifiers.json" as ids %}
 
-{% macro pose_from_to(of, to) %}
+{% macro pose_from_to(of, to) -%}
 {
     "@id": "geor:{{ ids.pose_id(of, to) }}",
     "@type": "Pose",
@@ -13,7 +12,7 @@
 }
 {%- endmacro %}
 
-{% macro polygon_position(point_id, space) %}
+{% macro polygon_position(point_id, space) -%}
 {
     "@id": "geor:{{ ids.position_id(point_id, space) }}",
     "@type": "Position",
@@ -22,7 +21,7 @@
 }
 {%- endmacro %}
 
-{% macro wall_pose_to_space_ref_frame(space, wall_id) %}
+{% macro wall_pose_to_space_ref_frame(space, wall_id) -%}
 {
     "@id": "geor:{{ ids.wall_pose_id(wall_id, space) }}",
     "@type": "Pose",
@@ -31,7 +30,7 @@
 }
 {%- endmacro %}
 
-{% macro wall_corner_to_wall_ref_frame(space, wall_id, corner_id) %}
+{% macro wall_corner_to_wall_ref_frame(space, wall_id, corner_id) -%}
 {
     "@id": "geor:{{ ids.corner_position_id(corner_id, space, wall_id) }}",
     "@type": "Position",
@@ -48,26 +47,24 @@
         "https://comp-rob2b.github.io/metamodels/geometry/spatial-relations.json"
 {% endblock%}
 
-{% block graph %}
+{% block space %}
 {# Pose of the spaces as specificied in the model #}
-{% for space in model.spaces %}
-    {%- set to_f = to_ref_name(space.location.to_frame, space) %}
-    {%- set from_f = from_ref_name(space.location.from_frame) %}
-    {{ pose_from_to( to_f, from_f) }},
-    {# Positions of the Polygons to the center frame #} 
-    {% for pc in space.get_shape().get_points(wrt=space.get_shape().get_frame()) %}
-        {{ polygon_position(loop.index0, space) }},
-    {% endfor %}
-    {# Pose of the wall frames with regards to the space frame #}
-    {% for wall in space.walls %}
-        {% set outer_loop = loop %}
-        {{ wall_pose_to_space_ref_frame(space, outer_loop.index0)}},
-        {% for i in [0,1,2,3] %}
-        {{ wall_corner_to_wall_ref_frame(space, outer_loop.index0, i)}}{%- if not loop.last %},
-            {% endif %}
-        {% endfor %}{% if not loop.last %},
-            {% endif %}
-    {% endfor %}{% if not loop.last %},
-            {% endif %}
+{%- set to_f = to_ref_name(space.location.to_frame, space) %}
+{%- set from_f = from_ref_name(space.location.from_frame) %}
+{{ pose_from_to( to_f, from_f) }},
+{# Positions of the Polygons to the center frame #} 
+{%- for pc in space.get_shape().get_points(wrt=space.get_shape().get_frame()) %}
+    {{ polygon_position(loop.index0, space) }},
 {% endfor %}
-{% endblock +%}
+{% endblock %}
+
+{% block wall %}
+{# Pose of the wall frames with regards to the space frame #}
+{% set outer_loop = loop %}
+{{ wall_pose_to_space_ref_frame(space, outer_loop.index0)}},
+{% for i in [0,1,2,3] %}
+{{ wall_corner_to_wall_ref_frame(space, outer_loop.index0, i)}}{%- if not loop.last %},
+    {% endif %}
+{% endfor %}{% if not loop.last %},
+    {% endif %}
+{% endblock %}

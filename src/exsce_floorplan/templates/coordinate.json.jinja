@@ -1,4 +1,4 @@
-{% extends "./base.json" %}
+{% extends "./floorplan/floorplan.json" %}
 {% from "./relations.json" import to_ref_name, from_ref_name%}
 {% import "./identifiers.json" as ids %}
 
@@ -92,24 +92,22 @@
         "https://secorolab.github.io/metamodels/geometry/coordinate-extension.json"
 {% endblock%}
 
-{% block graph %}
-{% for space in model.spaces %}
+{% block space %}
     {%- set to_f = to_ref_name(space.location.to_frame, space) %}
     {%- set from_f = from_ref_name(space.location.from_frame) %}
     {{ coord_frame_to_ref(space, to_f, from_f) }},
     {% for point in space.get_shape().get_points(wrt=space.get_shape().get_frame()) %}
     {{ pose_coord(space, point, loop.index0) }},
     {% endfor %}
-    {% for w in space.walls %}
-        {% set outer_loop = loop %}
-        {% set wall_id = outer_loop.index0 %}
-    {{ wall_pose_frame_to_space_frame(space, w, wall_id)}},
-        {% for p in w.polygon %}
-        {{ shape_point_position_to_wall_frame(space, wall_id, loop.index0, p) }}{% if not loop.last %},
-            {% endif %}
-        {% endfor %}{% if not loop.last %},
-            {% endif %}
-    {% endfor %}{% if not loop.last %},
-            {% endif %}
-{% endfor +%}
+{% endblock %}
+
+{% block wall %}
+{% set outer_loop = loop %}
+{% set wall_id = outer_loop.index0 %}
+{{ wall_pose_frame_to_space_frame(space, w, wall_id)}},
+{% for p in w.polygon %}
+{{ shape_point_position_to_wall_frame(space, wall_id, loop.index0, p) }}{% if not loop.last %},
+    {% endif %}
+{% endfor %}{% if not loop.last %},
+    {% endif %}
 {% endblock %}

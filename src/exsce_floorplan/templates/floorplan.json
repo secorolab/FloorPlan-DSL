@@ -2,32 +2,25 @@
 {% import "./identifiers.json" as ids %}
 
 
-{% macro space_macro(space) %}
+{% macro space_macro(space) -%}
     {{ point(ids.space_point_id(space)) }},
     {{ frame(ids.space_frame_id(space), ids.space_point_id(space)) }},
+{%- endmacro %}
+
+
+{% macro wall_points(space, wall_id) -%}
+{{ point(ids.wall_point_id(space, wall_id)) }},
+{{ frame(ids.wall_frame_id(space, wall_id), ids.wall_point_id(space, wall_id)) }},
+{% for corner in [0, 1, 2, 3] %}
+{{ point(ids.wall_corner_point_id(space, wall_id, corner)) }}
+{%- if not loop.last %},
+{% endif %}
+{%- endfor %}
 {%- endmacro -%}
 
 
-{% macro wall_points(space) %}
-    {% for wall in space.walls %}
-    {% set outer_loop = loop %}
-    {% set point_id = outer_loop.index0 %}
-    {{ point(ids.wall_point_id(space, point_id)) }},
-    {{ frame(ids.wall_frame_id(space, point_id), ids.wall_point_id(space, point_id)) }},
-    {% for corner in [0, 1, 2, 3] %}
-    {{ point(ids.wall_corner_point_id(space, point_id, corner)) }}
-    {%- if not outer_loop.last or not loop.last %},
-    {% endif %}
-    {%- endfor %}
-    {%- endfor %}
-{%- endmacro -%}
-
-
-{% macro polygon_walls(space) -%}
-    {% for wall in space.walls %}
+{% macro polygon_walls(space, wall_id) -%}
 {
-    {% set outer_loop = loop %}
-    {% set wall_id = outer_loop.index0 %}
     "@id": "polytope:{{ ids.wall_polygon_id(space, wall_id) }}",
     "@type": "Polygon",
     "points": [
@@ -37,13 +30,10 @@
     {% endif %}
     {% endfor +%}
     ]
-}{%- if not loop.last %},
-    {% endif %}
-{% endfor %}
+}
 {%- endmacro -%}
 
-{% macro floor_features(space) -%}
-    {% for feature in space.features %}
+{% macro floor_features(space, feature) -%}
 {
     "@id": "polytope:{{ ids.feature_polygon_id( space, feature) }}"
     "@type": "Polygon",
@@ -55,5 +45,4 @@
         {% endfor +%}
     ]
 }
-{% endfor %}
 {%- endmacro %}

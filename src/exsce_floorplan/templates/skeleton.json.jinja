@@ -1,4 +1,4 @@
-{% extends "./base.json" %}
+{% extends "./floorplan/floorplan.json" %}
 {% from './geometry.json' import point, frame, shape_points %}
 {% from './floorplan.json' import space_macro, wall_points %}
 
@@ -10,13 +10,20 @@
 "https://comp-rob2b.github.io/metamodels/geometry/structural-entities.json"
 {% endblock%}
 
+{% block space -%}
+{{ space_macro(space) }}
+{{ shape_points(space) }}
+{%- endblock %}
+
+{% block wall %}
+{%- set outer_loop = loop -%}
+{%- set wall_id = outer_loop.index0 -%}
+{{ wall_points(space, wall_id) }}{%- if not loop.last %},
+{% endif -%}
+{% endblock %}
+
 {% block graph %}
 {{ point("world-origin") }},
 {{ frame("world-frame", "world-origin") }},
-{% for space in model.spaces -%}
-{{ space_macro(space) }}
-{{ shape_points(space) }}
-{{ wall_points(space)}}{%- if not loop.last %},
-{% endif %}
-{%- endfor %}
+{{ super() }}
 {% endblock %}

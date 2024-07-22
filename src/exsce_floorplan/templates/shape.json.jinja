@@ -1,4 +1,4 @@
-{% extends "./base.json" %}
+{% extends "./floorplan/floorplan.json" %}
 {% from './geometry.json' import point, frame, polygon%}
 {% from "./floorplan.json" import polygon_walls, floor_features %}
 
@@ -11,15 +11,17 @@
         "https://secorolab.github.io/metamodels/geometry/polytope.json"
 {% endblock%}
 
-{% block graph %}
-{% for space in model.spaces %}
+{% block space %}
 {{ polygon(space) }},
-{{ polygon_walls(space) }}{%- if loop.last and not space.features %}{% else %},
-    {% endif %}
-{% if space.features %}
-"features",
-{{ floor_features(space) }}{%- if not loop.last %},
-    {% endif %}
+{% endblock %}
+
+{% block wall %}
+{% set outer_loop = loop %}
+{% set wall_id = outer_loop.index0 %}
+{{ polygon_walls(space, wall_id) }}{% if not outer_loop.last %},
 {% endif %}
-{% endfor %}
-{% endblock +%}
+{% endblock%}
+
+{% block features %}
+{{ floor_features(space, feature) }}
+{% endblock %}

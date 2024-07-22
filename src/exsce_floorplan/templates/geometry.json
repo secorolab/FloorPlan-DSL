@@ -15,10 +15,10 @@
 }
 {%- endmacro -%}
 
-{% macro shape_points(space) %}
-    {% for point_id in space.get_shape().get_points() %}
-    {{ point(ids.shape_point_id(space, loop.index0)) }},
-    {% endfor %}
+{% macro shape_points(space) -%}
+{%- for point_id in space.get_shape().get_points() %}
+{{ point(ids.shape_point_id(space, loop.index0)) }},
+{% endfor -%}
 {%- endmacro -%}
 
 {% macro polygon(space) -%}
