@@ -1,0 +1,21 @@
+{% extends "./geometry/coordinate/pose.json" %}
+{% import "./floorplan/identifiers.json" as ids %}
+{# Pose of the spaces as specificied in the model #}
+
+{% block coord_id -%}
+{{ ids.coord_pose_id(of, to) }}
+{%- endblock %}
+
+{% block of_pose -%}
+{{ ids.pose_id(of, to) }}
+{%- endblock %}
+
+{% block as_seen_by -%}
+{{ to }}
+{%- endblock %}
+
+{% block coords %}
+"theta": {{ space.theta_coord() }},
+"x": {{ space.x_coord() }},
+"y": {{ space.y_coord() }}
+{% endblock %}

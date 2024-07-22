@@ -17,20 +17,23 @@
 {% endblock%}
 
 {% block space %}
-    {%- set to_f = to_ref_name(space.location.to_frame, space) %}
-    {%- set from_f = from_ref_name(space.location.from_frame) %}
-    {{ coord_frame_to_ref(space, to_f, from_f) }},
+    {%- set of = to_ref_name(space.location.to_frame, space) %}
+    {%- set to = from_ref_name(space.location.from_frame) %}
+    {% include "./floorplan/coordinates/space_pose.json" with context %},
     {% for point in space.get_shape().get_points(wrt=space.get_shape().get_frame()) %}
-    {{ pose_coord(space, point, loop.index0) }},
+    {% set point_id = loop.index0 %}
+    {% include "./floorplan/coordinates/shape_position.json" with context %},
     {% endfor %}
 {% endblock %}
 
 {% block wall %}
 {% set outer_loop = loop %}
 {% set wall_id = outer_loop.index0 %}
-{{ wall_pose_frame_to_space_frame(space, w, wall_id)}},
-{% for p in w.polygon %}
-{{ shape_point_position_to_wall_frame(space, wall_id, loop.index0, p) }}{% if not loop.last %},
+{% set origin, theta = w.get_wall_origin_coord() %}
+{% include "./floorplan/coordinates/wall_pose.json" with context %},
+{% for point in w.polygon %}
+{% set poly_id = loop.index0 %}
+{% include "./floorplan/coordinates/wall_shape_position.json" with context %}{% if not loop.last %},
     {% endif %}
 {% endfor %}{% if not loop.last %},
     {% endif %}
