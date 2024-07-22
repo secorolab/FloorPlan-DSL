@@ -1,0 +1,4 @@
+{
+    "@id": "geom:{% block point_id %}{% endblock %}",
+    "@type": "Point"
+}

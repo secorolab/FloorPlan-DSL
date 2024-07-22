@@ -1,0 +1,9 @@
+{% extends "./geometry/structural-entities/frame.json" %}
+
+{% block frame_id -%}
+world-frame
+{%- endblock %}
+
+{% block origin -%}
+world-origin
+{%- endblock %}

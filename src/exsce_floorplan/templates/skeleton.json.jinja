@@ -1,5 +1,4 @@
 {% extends "./floorplan/floorplan.json" %}
-{% from "./geometry/structural-entities.json" import point, frame, shape_points, space_macro, wall_points %}
 
 
 {% block context %}
@@ -10,19 +9,30 @@
 {% endblock%}
 
 {% block space -%}
-{{ space_macro(space) }}
-{{ shape_points(space) }}
+{% include "./floorplan/structural-entities/space_point.json" with context %},
+{% include "./floorplan/structural-entities/space_frame.json" with context %},
+{% for p in space.get_shape().get_points() %}
+{% set point_id = loop.index0 %}
+{% include "./floorplan/structural-entities/space_shape_point.json" with context %},
+{% endfor -%}
 {%- endblock %}
 
 {% block wall %}
 {%- set outer_loop = loop -%}
 {%- set wall_id = outer_loop.index0 -%}
-{{ wall_points(space, wall_id) }}{%- if not loop.last %},
-{% endif -%}
+{% include "./floorplan/structural-entities/wall_point.json" with context %},
+{% include "./floorplan/structural-entities/wall_frame.json" with context %},
+{% for corner_id in [0, 1, 2, 3] %}
+{% include "./floorplan/structural-entities/wall_corner_point.json" with context %}
+{%- if not loop.last %},
+{% endif %}
+{% endfor %}
+{%- if not outer_loop.last %},
+{% endif %}
 {% endblock %}
 
 {% block graph %}
-{{ point("world-origin") }},
-{{ frame("world-frame", "world-origin") }},
+{% include "./floorplan/structural-entities/world_origin.json" with context %},
+{% include "./floorplan/structural-entities/world_frame.json" with context %},
 {{ super() }}
-{% endblock %}
+{%- endblock %}

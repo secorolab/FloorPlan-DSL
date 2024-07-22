@@ -1,0 +1,5 @@
+{
+    "@id": "geom:{% block frame_id %}{% endblock %}",
+    "@type": "Frame",
+    "origin": "geom:{% block origin %}{% endblock %}"
+}
