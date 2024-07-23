@@ -7,14 +7,12 @@
 {% for w in space.walls -%}
 {% block wall scoped -%}
 {%- endblock %}
-{% endfor %}{% if not loop.last and space.floor_features %},
+{% endfor %}{% if space.floor_features %},
     {% endif %}
 {% for f in space.floor_features -%}
 {% block feature scoped -%}
 {%- endblock %}
-{% endfor %}
-{% block space_bottom scoped -%}
-{%- endblock %}{%- if not loop.last %},
+{% endfor %}{% if not loop.last %},
     {% endif %}
 {% endfor %}
 {% endblock %}

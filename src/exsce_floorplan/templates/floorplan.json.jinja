@@ -10,18 +10,20 @@
 {% endblock%}
 
 {% block wall %}
-{{ fp.wall(space, loop.index0)}},
+{{ fp.wall(space, loop.index0)}}{% if not loop.last %},
+{% endif %}
 {% endblock %}
 
 {% block feature %}
-{{ fp.floor_features(space, f)}}
+{{ fp.floor_features(space, f)}}{% if not loop.last %},
+{% endif %}
 {% endblock %}
 
-{%- block space_bottom -%}
-{{ fp.space(space)}}
+{%- block space -%}
+{{ fp.space(space)}},
 {%- endblock -%}
 
 {% block graph %}
-{{ super() }},
-{{ fp.floorplan(model) }}
+{{ fp.floorplan(model) }},
+{{ super() }}
 {% endblock %}

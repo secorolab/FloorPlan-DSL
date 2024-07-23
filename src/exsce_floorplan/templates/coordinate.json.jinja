@@ -34,6 +34,12 @@
 {% set poly_id = loop.index0 %}
 {% include "./floorplan/coordinates/wall_shape_position.json" with context %}{% if not loop.last %},
     {% endif %}
-{% endfor %}{% if not loop.last %},
+{% endfor %}{% if not outer_loop.last %},
+    {% endif %}
+{% endblock %}
+
+{% block feature %}
+{# TODO Feature coordinates are missing #}
+{}{% if not loop.last %},
     {% endif %}
 {% endblock %}
