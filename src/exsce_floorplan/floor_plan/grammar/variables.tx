@@ -1,0 +1,15 @@
+import units
+
+/* ------------------------------------------ */
+// Variables
+Variable:
+'var' name=ID '=' value=FLOAT unit=Units?
+;
+
+LengthValue:
+value=Length | var_neg?="-" variable=[Variable]
+;
+
+AngleValue:
+value=Angle | var_neg?="-" variable=[Variable]
+;

@@ -1,0 +1,16 @@
+/* ------------------------------------------ */
+// Units
+Units: 
+AngularUnits|CartesianUnit
+;
+
+AngularUnits: 'rad' | 'deg';
+CartesianUnit: 'm';
+
+Length:
+value=FLOAT unit=CartesianUnit?
+;
+
+Angle:
+value=FLOAT unit=AngularUnits?
+;

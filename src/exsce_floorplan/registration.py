@@ -13,33 +13,34 @@ dir_path = dirname(realpath(__file__))
 sys.path.append(dir_path)
 
 # Classes for FloorPlan DSL and Variation DSL
-from .floor_plan.classes.space import Space
-from .floor_plan.classes.polytope import (
+from exsce_floorplan.floor_plan.classes.space import Space
+from exsce_floorplan.floor_plan.classes.polytope import (
     Circle,
     Polygon,
     Rectangle,
     VerticalPolygon,
     VerticalRectangle,
 )
-from .floor_plan.classes.wall_opening import WallOpening
-from .floor_plan.classes.floor_feature import FloorFeature
-from .floor_plan.classes.position import Position, PoseDescription
+from exsce_floorplan.floor_plan.classes.wall_opening import WallOpening
+from exsce_floorplan.floor_plan.classes.floor_feature import FloorFeature
+from exsce_floorplan.floor_plan.classes.position import Position, PoseDescription
 
-
-from .variation.classes.distribution import (
+from exsce_floorplan.variation.classes.distribution import (
     UniformDistribution,
     DiscreteDistribution,
     NormalDistribution,
 )
 
 # object processors for FloorPlan DSL
-from .floor_plan.processors.processors import unique_names_processor
+from exsce_floorplan.floor_plan.processors.processors import unique_names_processor
 
-from .variation.processors.processors import discrete_distribution_obj_processor
+from exsce_floorplan.variation.processors.processors import (
+    discrete_distribution_obj_processor,
+)
 
-from .variation.exsce_variations import variation_floorplan_generator
+from exsce_floorplan.variation.exsce_variations import variation_floorplan_generator
 
-from .floor_plan.json_ld_transformation import jsonld_floorplan_generator
+from exsce_floorplan.floor_plan.json_ld_transformation import jsonld_floorplan_generator
 
 
 def exsce_floorplan_metamodel():
@@ -71,6 +72,21 @@ def exsce_floorplan_metamodel():
     return mm_floorplan
 
 
+
+def fpv2_metamodel():
+    current_dir = dirname(__file__)
+    path = join(current_dir, "floor_plan", "grammar", "syntax.tx")
+    floorplan_mm = metamodel_from_file(path)
+    floorplan_mm.auto_init_attributes = False
+    floorplan_mm.register_obj_processors(
+        {
+            "FloorPlan": unique_names_processor,
+        }
+    )
+    # floorplan_mm.register_scope_providers({"*.*": scoping_providers.FQN()})
+    return floorplan_mm
+
+
 def exsce_variation_metamodel():
 
     current_dir = dirname(__file__)
@@ -91,6 +107,13 @@ floorplan_lang = LanguageDesc(
     pattern="*.floorplan",
     description="A language to model indoor environments",
     metamodel=exsce_floorplan_metamodel,
+)
+
+fpv2_lang = LanguageDesc(
+    "floorplan v2",
+    pattern="*.fp2",
+    description="FloorPlan language v2",
+    metamodel=fpv2_metamodel,
 )
 
 variation_lang = LanguageDesc(
