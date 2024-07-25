@@ -43,20 +43,20 @@ Space:
 ;
 
 SpaceLocation:
-    wrt=SpacePoseRef
+    (wrt=SpacePoseRef
     of=SpaceToRef
-    'pose:' transformation=Transformation
+    transformation=Transformation
     //flags
-    (aligned?="not aligned" spaced?="spaced")#
+    aligned?="not aligned" spaced?="spaced")#
 ;
 
 
 SpacePoseRef:
-'from'':' (world?="world"|space=[Space] (".walls[" wall_idx=INT "]")?)
+'wrt'':' (world?="world"|space=[Space] (".walls[" wall_idx=INT "]")?)
 ;
 
 SpaceToRef:
-'to' ':' this?="this" (".walls[" wall_idx=INT "]")?
+'of' ':' this?="this" (".walls[" wall_idx=INT "]")?
 ;
 
 /* ------------------------------------------ */
@@ -70,23 +70,23 @@ Divider:
     'Divider' name=ID ':'
     'shape:' shape=Polytope
         'height: ' height=LengthValue
-        location=FeatureLocation
+        'location:' location=FeatureLocation
 ;
 
 Column:
     'Column' name=ID ':'
     'shape:' shape=Polytope
         'height: ' height=LengthValue
-        location=FeatureLocation
+        'location:' location=FeatureLocation
 ;
 
 FeatureLocation:
-    wrt=FeaturePoseRef
-    'pose:' transformation=Transformation
+    (wrt=FeaturePoseRef
+    transformation=Transformation)#
 ;
 
 FeaturePoseRef:
-'from' ':' this?="this" (".walls[" wall_idx=INT "]")?
+'wrt' ':' this?="this" (".walls[" wall_idx=INT "]")?
 ;
 
 /* ------------------------------------------ */
@@ -98,18 +98,18 @@ Entryway|Window
 Entryway:
     'Entryway' name=ID ':'
     'shape:' shape=Polytope // Check that it's vertical?
-    location=WallOpeningLocation
+    'location:' location=WallOpeningLocation
 ;
 
 Window:
     'Window' name=ID ':'
     'shape:' shape=Polytope // Check that it's vertical?
-    location=WallOpeningLocation
+    'location:'location=WallOpeningLocation
 ;
 
 WallOpeningLocation: 
     'in:' walls=WallOpeningRef ('and' walls=WallOpeningRef)? //Check that 2 walls are declared if opening is between two spaces
-    'pose:' transformation=Transformation
+    transformation=Transformation
 ;
 
 WallOpeningRef:
