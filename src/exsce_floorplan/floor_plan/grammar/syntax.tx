@@ -1,0 +1,123 @@
+import geometry
+import units
+import variables
+
+/*
+DSL for specifying the floorplans of indoor environments
+*/
+
+FloorPlanModel:
+    'Floor plan' ':' name = ID
+        variables *= Variable?
+        (defaults = DefaultValues?
+        spaces += Space 
+        wall_openings *= WallOpening?)#
+;
+
+/* ------------------------------------------ */
+// Defaults
+DefaultValues:
+    'Defaults:'
+        ('walls:' wall = DefaultWallValues)?
+;
+
+DefaultWallValues:
+(("thickness: " thickness=Length)?
+("height: " height=Length)?)#
+;
+
+
+
+/* ------------------------------------------ */
+// Spaces
+
+Space:
+    'Space' name=ID ':'
+    'shape:' shape=Polytope
+        'location' ':' 
+            location=SpaceLocation
+        ('walls' ':' walls=DefaultWallValues)?
+        ('features:' 
+            features*=Feature
+        )?
+;
+
+SpaceLocation:
+    wrt=SpacePoseRef
+    of=SpaceToRef
+    'pose:' transformation=Transformation
+    //flags
+    (aligned?="not aligned" spaced?="spaced")#
+;
+
+
+SpacePoseRef:
+'from'':' (world?="world"|space=[Space] (".walls[" wall_idx=INT "]")?)
+;
+
+SpaceToRef:
+'to' ':' this?="this" (".walls[" wall_idx=INT "]")?
+;
+
+/* ------------------------------------------ */
+// Features
+
+Feature:
+Divider|Column
+;
+
+Divider:
+    'Divider' name=ID ':'
+    'shape:' shape=Polytope
+        'height: ' height=LengthValue
+        location=FeatureLocation
+;
+
+Column:
+    'Column' name=ID ':'
+    'shape:' shape=Polytope
+        'height: ' height=LengthValue
+        location=FeatureLocation
+;
+
+FeatureLocation:
+    wrt=FeaturePoseRef
+    'pose:' transformation=Transformation
+;
+
+FeaturePoseRef:
+'from' ':' this?="this" (".walls[" wall_idx=INT "]")?
+;
+
+/* ------------------------------------------ */
+// Wall openings
+WallOpening:
+Entryway|Window
+;
+
+Entryway:
+    'Entryway' name=ID ':'
+    'shape:' shape=Polytope // Check that it's vertical?
+    location=WallOpeningLocation
+;
+
+Window:
+    'Window' name=ID ':'
+    'shape:' shape=Polytope // Check that it's vertical?
+    location=WallOpeningLocation
+;
+
+WallOpeningLocation: 
+    'in:' walls=WallOpeningRef ('and' walls=WallOpeningRef)? //Check that 2 walls are declared if opening is between two spaces
+    'pose:' transformation=Transformation
+;
+
+WallOpeningRef:
+space=[Space] ".walls[" wall_idx=INT "]"
+;
+
+/* ------------------------------------------ */
+// special rule for comments.
+Comment:
+    /\/\/.*$/
+;
