@@ -40,7 +40,7 @@ from exsce_floorplan.variation.processors.processors import (
 
 from exsce_floorplan.variation.exsce_variations import variation_floorplan_generator
 
-from exsce_floorplan.floor_plan.json_ld_transformation import jsonld_floorplan_generator
+from exsce_floorplan.floor_plan.generators import jsonld_floorplan_generator
 
 
 def exsce_floorplan_metamodel():
