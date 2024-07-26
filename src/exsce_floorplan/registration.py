@@ -47,7 +47,7 @@ def exsce_floorplan_metamodel():
     "exsce_floorplan language"
 
     current_dir = dirname(__file__)
-    path = join(current_dir, "floor_plan", "grammar", "exsce_floorplan.tx")
+    path = join(current_dir, "floor_plan", "grammar/fpm1", "floorplan.tx")
     mm_floorplan = metamodel_from_file(
         path,
         classes=[
@@ -72,10 +72,9 @@ def exsce_floorplan_metamodel():
     return mm_floorplan
 
 
-
 def fpv2_metamodel():
     current_dir = dirname(__file__)
-    path = join(current_dir, "floor_plan", "grammar", "syntax.tx")
+    path = join(current_dir, "floor_plan", "grammar/fpm2", "floorplan.tx")
     floorplan_mm = metamodel_from_file(path)
     floorplan_mm.auto_init_attributes = False
     floorplan_mm.register_obj_processors(
@@ -90,7 +89,7 @@ def fpv2_metamodel():
 def exsce_variation_metamodel():
 
     current_dir = dirname(__file__)
-    path = join(current_dir, "variation", "grammar", "exsce_variation.tx")
+    path = join(current_dir, "variation", "grammar", "floorplan_variation.tx")
     mm_variation = metamodel_from_file(
         path, classes=[UniformDistribution, DiscreteDistribution, NormalDistribution]
     )
@@ -103,35 +102,35 @@ def exsce_variation_metamodel():
 
 
 floorplan_lang = LanguageDesc(
-    "exsce-floorplan-dsl",
+    "floorplan-v1",
     pattern="*.floorplan",
     description="A language to model indoor environments",
     metamodel=exsce_floorplan_metamodel,
 )
 
 fpv2_lang = LanguageDesc(
-    "floorplan v2",
-    pattern="*.fp2",
-    description="FloorPlan language v2",
+    "floorplan-v2",
+    pattern="*.fpm2",
+    description="A language to model floor plans (v2)",
     metamodel=fpv2_metamodel,
 )
 
 variation_lang = LanguageDesc(
-    "exsce-variation-dsl",
+    "floorplan-variation",
     pattern="*.variation",
     description="A language to variate models from ExSce",
     metamodel=exsce_variation_metamodel,
 )
 
 variation_floorplan_gen = GeneratorDesc(
-    language="exsce-variation-dsl",
-    target="exsce-floorplan-dsl",
+    language="floorplan-variation",
+    target="floorplan-v1",
     description="Generate variations of indoor environments from .floorplan models",
     generator=variation_floorplan_generator,
 )
 
 json_ld_floorplan_gen = GeneratorDesc(
-    language="exsce-floorplan-dsl",
+    language="floorplan-v1",
     target="json-ld",
     description="Generate composable models in json-ld",
     generator=jsonld_floorplan_generator,

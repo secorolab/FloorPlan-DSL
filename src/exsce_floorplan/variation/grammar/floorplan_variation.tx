@@ -1,4 +1,4 @@
-reference exsce-floorplan-dsl as f
+reference floorplan-v1 as f
 import distributions
 
 Model:
