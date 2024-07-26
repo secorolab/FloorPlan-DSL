@@ -81,7 +81,7 @@ exsce-variation-dsl -> exsce-floorplan-dslexsce-floorplan[0.0.1]        Generate
 This tool is currently in active development. To use the tool you can execute the following command: 
 
 ```
-blender --background --python exsce_floorplan/exsce_floorplan.py --python-use-system-env -- <model_path>
+blender --background --python src/exsce_floorplan/exsce_floorplan.py --python-use-system-env -- <model_path>
 ```
 
 Optionally, you can remove the `--background` flag to see directly the result opened in Blender.
@@ -96,6 +96,7 @@ An example model for a building is available [here](models/examples/hospital.flo
 
 
 ```
+cd src
 blender --background --python exsce_floorplan/exsce_floorplan.py --python-use-system-env -- ../models/examples/hospital.floorplan
 ```
 
