@@ -36,10 +36,6 @@ DefaultValues:
         'Wall height' ':' wall_height = Value
 ;
 
-FloorPlanReference:
-    Space | FloorFeature | WallOpening | Variable
-;
-
 /* ------------------------------------------ */
 // New features
 Repetition:
