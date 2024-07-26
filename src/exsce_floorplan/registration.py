@@ -40,7 +40,10 @@ from exsce_floorplan.variation.processors.processors import (
 
 from exsce_floorplan.variation.exsce_variations import variation_floorplan_generator
 
-from exsce_floorplan.floor_plan.generators import jsonld_floorplan_generator
+from exsce_floorplan.floor_plan.generators import (
+    jsonld_floorplan_generator,
+    v1_to_v2_converter,
+)
 
 
 def exsce_floorplan_metamodel():
@@ -134,4 +137,11 @@ json_ld_floorplan_gen = GeneratorDesc(
     target="json-ld",
     description="Generate composable models in json-ld",
     generator=jsonld_floorplan_generator,
+)
+
+floorplan_v1_to_v2_gen = GeneratorDesc(
+    language="floorplan-v1",
+    target="floorplan-v2",
+    description="Convert from floorplan models from v1 to v2",
+    generator=v1_to_v2_converter,
 )
