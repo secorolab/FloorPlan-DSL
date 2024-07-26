@@ -3,6 +3,7 @@ import units
 import variables
 
 import features
+import walls
 
 /* ------------------------------------------ */
 // Syntax: Spaces
@@ -16,8 +17,12 @@ Space:
         ('features:' 
             features*=Feature
         )?
+        (walls*=Wall)? // Semantics
 ;
 
+DefaultSpaceValues:
+wall=DefaultWallValues
+;
 
 SpaceLocation:
     (wrt=SpacePoseRef
