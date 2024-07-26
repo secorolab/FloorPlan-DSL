@@ -1,4 +1,5 @@
 reference exsce-floorplan-dsl as f
+import distributions
 
 Model:
     import_uri=Import
@@ -23,27 +24,6 @@ VariableRef:
     ref=[f.Variable] ':' distribution=Distribution
 ;
 
-Distribution:
-    UniformDistribution | DiscreteDistribution | NormalDistribution
-;
-
-UniformDistribution:
-    'uniform' '(' '[' values+=FLOAT[','] ']' ')'
-;
-
-DiscreteDistribution:
-    'discrete' '(' '['
-        pairs += DiscreteValue[',']
-    ']' ')'
-;
-
-NormalDistribution: 
-    'normal' '(' 'mean' '=' mean=FLOAT ',' 'std' '=' std=FLOAT ')'
-;
-
-DiscreteValue:
-    '(' prob=FLOAT ',' value=FLOAT ')'
-;
 
 Import: 'import' importURI=STRING;
 FQN: ID+['.'];
