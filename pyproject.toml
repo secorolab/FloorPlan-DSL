@@ -54,10 +54,9 @@ test =[
 ]
 
 [project.entry-points.textx_languages]
-exsce-floorplan-dsl = "exsce_floorplan.registration:floorplan_lang"
-floorplan = "exsce_floorplan.registration:fp_lang"
-floorplanv2 = "exsce_floorplan.registration:fpv2_lang"
-exsce-variation-dsl = "exsce_floorplan.registration:variation_lang"
+floorplan-v1 = "exsce_floorplan.registration:floorplan_lang"
+floorplan-v2 = "exsce_floorplan.registration:fpv2_lang"
+floorplan-variation = "exsce_floorplan.registration:variation_lang"
 
 [project.entry-points.textx_generators]
 variation-to-floorplan = "exsce_floorplan.registration:variation_floorplan_gen"

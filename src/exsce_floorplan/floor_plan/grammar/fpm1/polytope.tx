@@ -1,4 +1,4 @@
-import floorplan_geometry
+import geometry
 
 Polytope:
     Rectangle | Circle | Polygon

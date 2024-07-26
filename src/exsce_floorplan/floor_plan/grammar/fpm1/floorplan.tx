@@ -1,5 +1,5 @@
-import floorplan_polytope
-import floorplan_geometry
+import polytope
+import geometry
 
 /*
     Floorplan language for modeling the floorplan of indoor environments.

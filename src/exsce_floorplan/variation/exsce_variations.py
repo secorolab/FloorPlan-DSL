@@ -66,7 +66,7 @@ def variation_floorplan_generator(
     model_folder_path = os.path.dirname(var_model._tx_parser.file_name)
     fp_model_path = var_model.import_uri.importURI
 
-    fp_mm = metamodel_for_language("exsce-floorplan-dsl")
+    fp_mm = metamodel_for_language("floorplan-v1")
     fp_model = fp_mm.model_from_file(os.path.join(model_folder_path, fp_model_path))
 
     full_path = os.path.realpath(__file__)
