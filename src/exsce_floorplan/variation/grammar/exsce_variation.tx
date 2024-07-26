@@ -11,7 +11,7 @@ Vars:
 ;
 
 Variation:
-    ref=[f.FloorPlanReference | FQN] ':' '{'
+    (ref=[f.Space:FQN] | ref=[f.FloorFeature:FQN] | ref=[f.WallOpening:FQN] | ref=[f.Variable:FQN]) ':' '{'
         attributes += Attribute
     '}'
 ;
