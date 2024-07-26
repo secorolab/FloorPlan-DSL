@@ -61,6 +61,7 @@ floorplan-variation = "exsce_floorplan.registration:variation_lang"
 [project.entry-points.textx_generators]
 variation-to-floorplan = "exsce_floorplan.registration:variation_floorplan_gen"
 floorplan-to-jsonld = "exsce_floorplan.registration:json_ld_floorplan_gen"
+floorplan-v1-to-floorplan-v2 = "exsce_floorplan.registration:floorplan_v1_to_v2_gen"
 
 [tool.setuptools.packages.find]
 where = ["src"]  # list of folders that contain the packages (["."] by default)
