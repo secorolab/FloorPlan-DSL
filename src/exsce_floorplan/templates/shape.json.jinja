@@ -1,0 +1,28 @@
+{% extends "./floorplan/floorplan.json" %}
+
+
+{% block context %}
+        {
+            "polytope": "https://secorolab.github.io/metamodels/polytope#",
+            "geom": "https://comp-rob2b.github.io/metamodels/geometry/structural-entities#"
+        },
+        "https://secorolab.github.io/metamodels/geometry/polytope.json"
+{% endblock%}
+
+{% block space %}
+{% set points = space.get_shape().get_points() %}
+{% include "./floorplan/polytopes/space.json" with context %},
+{% endblock %}
+
+{% block wall %}
+{% set outer_loop = loop %}
+{% set wall_id = outer_loop.index0 %}
+{% set points = [0,1,2,3] %}
+{% include "./floorplan/polytopes/wall.json" with context %}{% if not outer_loop.last %},
+{% endif %}
+{% endblock%}
+
+{% block features %}
+{% set points = feature.get_points() %}
+{% include "./floorplan/polytopes/feature.json" with context %}
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "./geometry/structural-entities/frame.json" %}
+{% import "./floorplan/identifiers.json" as ids %}
+
+{% block frame_id -%}
+{{ ids.wall_frame_id(space, wall_id) }}
+{%- endblock %}
+
+{% block origin -%}
+{{ ids.wall_point_id(space, wall_id) }}
+{%- endblock %}

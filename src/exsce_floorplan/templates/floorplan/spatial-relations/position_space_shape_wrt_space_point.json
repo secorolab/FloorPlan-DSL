@@ -1,0 +1,18 @@
+{% extends "./geometry/spatial-relations.json" %}
+{% import "./floorplan/identifiers.json" as ids %}
+
+{% block rel_id -%}
+{{ ids.position_id(point_id, space) }}
+{%- endblock %}
+
+{% block type -%}
+Position
+{%- endblock %}
+
+{% block of -%}
+{{ ids.shape_point_id(space, point_id) }}
+{%- endblock %}
+
+{% block to -%}
+{{ ids.space_point_id(space) }}
+{%- endblock %}

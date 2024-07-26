@@ -1,0 +1,17 @@
+{% extends "./geometry/coordinate/base.json" %}
+
+{% block type %}
+"PositionReference", 
+"PositionCoordinate", 
+"VectorXY"
+{% endblock %}
+
+{% block reference %}
+"of-position": "geor:{% block of_position %}{% endblock %}",
+"with-respect-to": "geom:{% block wrt %}{% endblock %}",
+{{ super() }}
+{% endblock %}
+
+{% block units %}
+"M",
+{% endblock %}

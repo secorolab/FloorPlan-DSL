@@ -1,0 +1,11 @@
+{
+    "@id": "polytope:{% block poly_id scoped %}{% endblock %}",
+    "@type": "Polygon",
+    "points": [
+    {% for p in points %}
+    "geom:{% block point_id scoped %}{% endblock %}"
+    {%- if not loop.last %},
+    {% endif %}
+    {% endfor +%}
+    ]
+}

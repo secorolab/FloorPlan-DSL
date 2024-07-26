@@ -1,0 +1,45 @@
+{% extends "./floorplan/floorplan.json" %}
+{% import "./floorplan/identifiers.json" as ids %}
+{% from "./floorplan/spatial-relations/macros.json" import to_ref_name, from_ref_name %}
+
+
+{% block context %}
+        {
+            "coord": "https://comp-rob2b.github.io/metamodels/geometry/coordinates#",
+            "coordinate": "https://secorolab.github.io/metamodels/coordinates#",
+            "geor": "https://comp-rob2b.github.io/metamodels/geometry/spatial-relations#",
+            "geom": "https://comp-rob2b.github.io/metamodels/geometry/structural-entities#"
+        },
+        "https://comp-rob2b.github.io/metamodels/qudt.json",
+        "https://comp-rob2b.github.io/metamodels/geometry/coordinates.json",
+        "https://secorolab.github.io/metamodels/geometry/coordinate-extension.json"
+{% endblock%}
+
+{% block space %}
+    {%- set of = to_ref_name(space.location.to_frame, space) %}
+    {%- set to = from_ref_name(space.location.from_frame) %}
+    {% include "./floorplan/coordinates/space_pose.json" with context %},
+    {% for point in space.get_shape().get_points(wrt=space.get_shape().get_frame()) %}
+    {% set point_id = loop.index0 %}
+    {% include "./floorplan/coordinates/shape_position.json" with context %},
+    {% endfor %}
+{% endblock %}
+
+{% block wall %}
+{% set outer_loop = loop %}
+{% set wall_id = outer_loop.index0 %}
+{% set origin, theta = w.get_wall_origin_coord() %}
+{% include "./floorplan/coordinates/wall_pose.json" with context %},
+{% for point in w.polygon %}
+{% set poly_id = loop.index0 %}
+{% include "./floorplan/coordinates/wall_shape_position.json" with context %}{% if not loop.last %},
+    {% endif %}
+{% endfor %}{% if not outer_loop.last %},
+    {% endif %}
+{% endblock %}
+
+{% block feature %}
+{# TODO Feature coordinates are missing #}
+{}{% if not loop.last %},
+    {% endif %}
+{% endblock %}

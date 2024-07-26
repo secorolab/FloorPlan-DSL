@@ -1,0 +1,25 @@
+{% extends "./geometry/coordinate/base.json" %}
+
+{% block type %}
+    "PoseReference", 
+    "PoseCoordinate", 
+    "VectorXY"
+{% endblock %}
+
+{% block reference %}
+"of-pose": "geor:{% block of_pose scoped -%}{%- endblock %}",
+{{ super() }}
+{% endblock %}
+
+{% block units %}
+[
+"M", 
+"degrees"
+],
+{% endblock %}
+
+{% block coords %}
+"x": {{ x }},
+"y": {{ y }},
+"theta": {{ theta }}
+{% endblock %}

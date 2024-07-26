@@ -1,7 +1,7 @@
 import numpy as np
 
 from .geometry import Frame
-from .helpers import get_value
+from .helpers import get_value, angle_from_rotation
 
 
 class Wall:
@@ -183,3 +183,8 @@ class Wall:
         ]
 
         return vertices, faces
+
+    def get_wall_origin_coord(self):
+        origin, vectors = self.get_frame().get_direction_vectors(self.get_frame().ref)
+        theta = angle_from_rotation(vectors)
+        return origin, theta

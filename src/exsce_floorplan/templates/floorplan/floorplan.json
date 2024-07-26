@@ -1,0 +1,18 @@
+{% extends "./base.json" %}
+
+{% block graph %}
+{% for space in model.spaces %}
+{% block space scoped -%}
+{%- endblock %}
+{% for w in space.walls -%}
+{% block wall scoped -%}
+{%- endblock %}
+{% endfor %}{% if space.floor_features %},
+    {% endif %}
+{% for f in space.floor_features -%}
+{% block feature scoped -%}
+{%- endblock %}
+{% endfor %}{% if not loop.last %},
+    {% endif %}
+{% endfor %}
+{% endblock %}

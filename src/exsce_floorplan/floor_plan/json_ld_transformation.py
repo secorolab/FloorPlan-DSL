@@ -1,12 +1,6 @@
 import os
-import json
 
-
-from .graph.skeleton import build_skeleton_graph
-from .graph.shape import build_shape_graph
-from .graph.spatial_relations import build_spatial_relations_graph
-from .graph.floor_plan import build_floorplan_graph
-from .graph.coordinate import build_floorplan_coordinate_graph
+from textxjinja import textx_jinja_generator
 
 
 def jsonld_floorplan_generator(
@@ -21,22 +15,26 @@ def jsonld_floorplan_generator(
     if not os.path.exists(output_path):
         os.makedirs(output_path)
 
-    skeleton = build_skeleton_graph(model, output_path)
-    with open("{}/skeleton.json".format(output_path), "w") as file:
-        json.dump(skeleton, file, indent=4)
+    # Prepare context dictionary
+    context = dict(trim_blocks=True, lstrip_blocks=True)
+    context["model"] = model
 
-    shape = build_shape_graph(model, output_path)
-    with open("{}/shape.json".format(output_path), "w") as file:
-        json.dump(shape, file, indent=4)
+    this_folder = os.path.dirname(__file__)
+    # If given a directory instead of a single template, textX-Jinja copies the entire file/folder tree to the output folder
+    # For now we invoke the generator for each template we are interested in
+    # TODO Find more optimal way to handle templates
+    template_folder = os.path.join(this_folder, "../templates/skeleton.json.jinja")
 
-    spatial_relations = build_spatial_relations_graph(model, output_path)
-    with open("{}/spatial_relations.json".format(output_path), "w") as file:
-        json.dump(spatial_relations, file, indent=4)
+    # Run Jinja generator
+    textx_jinja_generator(template_folder, output_path, context, overwrite=True)
 
-    floorplan = build_floorplan_graph(model, output_path)
-    with open("{}/floorplan.json".format(output_path), "w") as file:
-        json.dump(floorplan, file, indent=4)
-
-    coordinate = build_floorplan_coordinate_graph(model, output_path)
-    with open("{}/coordinate.json".format(output_path), "w") as file:
-        json.dump(coordinate, file, indent=4)
+    template_folder = os.path.join(this_folder, "../templates/shape.json.jinja")
+    textx_jinja_generator(template_folder, output_path, context, overwrite=True)
+    template_folder = os.path.join(
+        this_folder, "../templates/spatial_relations.json.jinja"
+    )
+    textx_jinja_generator(template_folder, output_path, context, overwrite=True)
+    template_folder = os.path.join(this_folder, "../templates/floorplan.json.jinja")
+    textx_jinja_generator(template_folder, output_path, context, overwrite=True)
+    template_folder = os.path.join(this_folder, "../templates/coordinate.json.jinja")
+    textx_jinja_generator(template_folder, output_path, context, overwrite=True)

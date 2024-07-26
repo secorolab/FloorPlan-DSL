@@ -1,0 +1,29 @@
+{% extends "./floorplan/floorplan.json" %}
+{% import "./floorplan/concepts.json" as fp  %}
+
+{% block context %}
+        {
+            "floorplan": "https://secorolab.github.io/metamodels/floorplan#",
+            "polytope": "https://secorolab.github.io/metamodels/polytope#"
+        },
+        "https://secorolab.github.io/metamodels/floor-plan/floor-plan.json"
+{% endblock%}
+
+{% block wall %}
+{{ fp.wall(space, loop.index0)}}{% if not loop.last %},
+{% endif %}
+{% endblock %}
+
+{% block feature %}
+{{ fp.floor_features(space, f)}}{% if not loop.last %},
+{% endif %}
+{% endblock %}
+
+{%- block space -%}
+{{ fp.space(space)}},
+{%- endblock -%}
+
+{% block graph %}
+{{ fp.floorplan(model) }},
+{{ super() }}
+{% endblock %}
