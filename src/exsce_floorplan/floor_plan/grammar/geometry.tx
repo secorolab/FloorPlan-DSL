@@ -2,7 +2,7 @@ import units
 import variables
 
 /* ------------------------------------------ */
-// Structural entities
+// Syntax: Structural entities
 
 Point:
     '('x=Length',' y=Length(',' z=Length)?')'
@@ -24,7 +24,7 @@ Transformation:
 ;
 
 /* ------------------------------------------ */
-// Polytope
+// Syntax: Polytope
 
 Polytope: Rectangle | Circle | Polygon;
 

@@ -1,0 +1,34 @@
+import geometry
+import units
+import variables
+
+/* ------------------------------------------ */
+// Syntax: Features
+
+Feature:
+Divider|Column
+;
+
+Divider:
+    'Divider' name=ID ':'
+    'shape:' shape=Polytope
+        'height: ' height=LengthValue
+        'location:' location=FeatureLocation
+;
+
+Column:
+    'Column' name=ID ':'
+    'shape:' shape=Polytope
+        'height: ' height=LengthValue
+        'location:' location=FeatureLocation
+;
+
+FeatureLocation:
+    (wrt=FeaturePoseRef
+    transformation=Transformation)#
+;
+
+FeaturePoseRef:
+'wrt' ':' this?="this" (".walls[" wall_idx=INT "]")?
+;
+
