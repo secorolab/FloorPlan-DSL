@@ -1,7 +1,7 @@
 import units
 
 /* ------------------------------------------ */
-// Variables
+// Syntax: Variables
 Variable:
 'var' name=ID '=' value=FLOAT unit=Units?
 ;
@@ -12,4 +12,16 @@ value=Length | var_neg?="-" variable=[Variable]
 
 AngleValue:
 value=Angle | var_neg?="-" variable=[Variable]
+;
+
+/* ------------------------------------------ */
+// Syntax: Defaults
+DefaultValues:
+    'Defaults:'
+        ('walls:' wall = DefaultWallValues)?
+;
+
+DefaultWallValues:
+(("thickness: " thickness=Length)?
+("height: " height=Length)?)#
 ;
