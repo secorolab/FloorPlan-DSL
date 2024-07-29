@@ -23,20 +23,26 @@ def jsonld_floorplan_generator(
     # If given a directory instead of a single template, textX-Jinja copies the entire file/folder tree to the output folder
     # For now we invoke the generator for each template we are interested in
     # TODO Find more optimal way to handle templates
-    template_folder = os.path.join(this_folder, "../templates/skeleton.json.jinja")
+    template_folder = os.path.join(
+        this_folder, "../templates/json-ld/skeleton.json.jinja"
+    )
 
     # Run Jinja generator
     textx_jinja_generator(template_folder, output_path, context, overwrite=True)
 
-    template_folder = os.path.join(this_folder, "../templates/shape.json.jinja")
+    template_folder = os.path.join(this_folder, "../templates/json-ld/shape.json.jinja")
     textx_jinja_generator(template_folder, output_path, context, overwrite=True)
     template_folder = os.path.join(
-        this_folder, "../templates/spatial_relations.json.jinja"
+        this_folder, "../templates/json-ld/spatial_relations.json.jinja"
     )
     textx_jinja_generator(template_folder, output_path, context, overwrite=True)
-    template_folder = os.path.join(this_folder, "../templates/floorplan.json.jinja")
+    template_folder = os.path.join(
+        this_folder, "../templates/json-ld/floorplan.json.jinja"
+    )
     textx_jinja_generator(template_folder, output_path, context, overwrite=True)
-    template_folder = os.path.join(this_folder, "../templates/coordinate.json.jinja")
+    template_folder = os.path.join(
+        this_folder, "../templates/json-ld/coordinate.json.jinja"
+    )
     textx_jinja_generator(template_folder, output_path, context, overwrite=True)
 
 
