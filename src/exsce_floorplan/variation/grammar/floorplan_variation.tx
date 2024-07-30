@@ -1,4 +1,4 @@
-reference floorplan-v1 as f
+reference floorplan-v2 as f
 import distributions
 
 Model:
