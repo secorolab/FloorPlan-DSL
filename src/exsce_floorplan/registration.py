@@ -127,7 +127,7 @@ variation_lang = LanguageDesc(
 
 variation_floorplan_gen = GeneratorDesc(
     language="floorplan-variation",
-    target="floorplan-v1",
+    target="floorplan-v2",
     description="Generate variations of indoor environments from .floorplan models",
     generator=variation_floorplan_generator,
 )
