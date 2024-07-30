@@ -1,6 +1,6 @@
 # How to introduce variations into the environment
 
-The objective of this tutorial is to demonstrate how to specify variations of FloorPlan DSL models and generate new concrete environments. 
+The objective of this tutorial is to demonstrate how to specify variations of FloorPlan DSL models and generate new concrete environments.
 
 The variations of an environment are specified with the Variation DSL in a separate model. We create a new file and give it a name with the appropiate format: `<file_name>.variation`. The first line of the model imports the concrete environment where we will introduce the variations. The variation model is available [here](../models/examples/hbrs.variation).
 
@@ -23,7 +23,7 @@ We can then declare the spacial attributes we wish to associate to one of the th
 
 ```
 
-We can refer to attributes through refences to the corresponding spaces or features. We need to provide the FQN of the attribute inside of the scope of the refence. 
+We can refer to attributes through refences to the corresponding spaces or features. We need to provide the FQN of the attribute inside of the scope of the refence.
 
 ```floorplan
 hallway: {
@@ -33,8 +33,9 @@ hallway: {
         (0.4, 0.35),
         (0.4, 0.51)
     ])
-} 
+}
 ```
+
 For features such as columns and dividers, we need to provide the FQN that include the space they belong to:
 
 ```floorplan
@@ -44,7 +45,7 @@ reception.divider_central: {
         (0.8, 0.0),
         (0.2, 0.20)
     ])
-} 
+}
 ```
 
 After we have specified all the probability distributions, we can generate as many variations as we desired:

@@ -7,20 +7,22 @@ The ExSce-FloorPlan DSL is a domain-specific language and tooling for specifying
 The goal of this tutorial is to create the environment above. We will go over concepts such as Spaces, Entryways, and other features in order to specify a specific environment.
 
 ## Concepts available
+
 Let's do a review of the most important concepts when modelling an indoor environment:
 
-* Spaces: these are the central concepts when modelling. This concept allows you to model any space in a floor plan: a room, a hallway, an intersection, a reception, and any other space that is surrounded by walls.
+- Spaces: these are the central concepts when modelling. This concept allows you to model any space in a floor plan: a room, a hallway, an intersection, a reception, and any other space that is surrounded by walls.
 
-* Walls: walls surround the spaces, and these are not modelled directly. When modelling a space, you select the shape of the space, and the walls are created automatically when interpreting the model.
+- Walls: walls surround the spaces, and these are not modelled directly. When modelling a space, you select the shape of the space, and the walls are created automatically when interpreting the model.
 
-* Entryways and Windows: These are openings in the walls that allow you to connect two spaces.
+- Entryways and Windows: These are openings in the walls that allow you to connect two spaces.
 
-* Column and Dividers: These are features of the environments that are usually located freely in space or next to walls. Both cases can be modelled using the language.
+- Column and Dividers: These are features of the environments that are usually located freely in space or next to walls. Both cases can be modelled using the language.
 
 ## Modelling
+
 Modelling an indoor environment consists of declaring the Spaces, Entryways, Windows, Columns, and Dividers; and specifying their location in the environment. Each of these concepts is modelled by specifying its shape and other attributes such as thickness or height. Specifying the location is simple, but requires some background.
 
-The location of any space or feature is specified by a translation and rotation with regards to a frame of reference. There are multiple frames of references that can be chosen for this. Apart from the world frame, each space has N + 1 frames of references that can be selected, where N is the number of walls. 
+The location of any space or feature is specified by a translation and rotation with regards to a frame of reference. There are multiple frames of references that can be chosen for this. Apart from the world frame, each space has N + 1 frames of references that can be selected, where N is the number of walls.
 
 For each wall in the space, there is a frame located in the middle of the wall, with the x axis going along the wall and the y axis perpendicular to the wall. From the perspective of being inside the room looking into one of the walls: Positive values in the x axis are located from the centre to the right, and negative values in the opposite direction. Whereas the positive direction from the y axis moves away from you and the negative direction moves closer. The frame is located at floor level, meaning that for the z axis only positive values are above the floor.
 
@@ -32,7 +34,7 @@ A space requires two frames in order to specify a location: A reference frame wh
 
 ### Using the world frame
 
-You can select the world frame as your frame of reference by using the keyword `world`. You may only use this frame for locating spaces. Any other feature or entryway must be specified by either the center frame or one of the walls. Should be noted that you can use the `this` keyword to reference a frame when you are inside the scope of the space that frame belongs to. 
+You can select the world frame as your frame of reference by using the keyword `world`. You may only use this frame for locating spaces. Any other feature or entryway must be specified by either the center frame or one of the walls. Should be noted that you can use the `this` keyword to reference a frame when you are inside the scope of the space that frame belongs to.
 
 ```floorplan
 location:
@@ -42,11 +44,12 @@ location:
         translation: x:3.0 m, y:4.0 m
         rotation: 45.0 deg
 ```
+
 ![Pose of a space with regards to the world frame](../images/updated_wall_location.png)
 
 ### Using two wall frames
 
-You can also use two wall frames to define locations. When you model a location using two wall frames, the default behaviour is to do an extra 180 degree rotation of the space you are locating so that the two spaces are not overlapping. Depending on the two walls that are chosen, the results can be different, as illustrated in the two next examples 
+You can also use two wall frames to define locations. When you model a location using two wall frames, the default behaviour is to do an extra 180 degree rotation of the space you are locating so that the two spaces are not overlapping. Depending on the two walls that are chosen, the results can be different, as illustrated in the two next examples
 
 ```floorplan
 location:
@@ -87,6 +90,7 @@ location:
         rotation: 0.0 deg
     not aligned
 ```
+
 ![Two spaces not aligned as the `not aligned` flag was used](../images/walls_not_aligned.png)
 
 ## Features
@@ -103,7 +107,7 @@ Column wall_column:
         rotation: 0.0 deg
 ```
 
-Entryways and windows are specified outside of the scope of the space, after all the spaces in the floorplan have been specified. These features create the openings in the walls required to connect two spaces or one space with the "outside". 
+Entryways and windows are specified outside of the scope of the space, after all the spaces in the floorplan have been specified. These features create the openings in the walls required to connect two spaces or one space with the "outside".
 
 ```floorplan
 Entryway doorway:
@@ -113,6 +117,7 @@ Entryway doorway:
         translation: x: -1.0 m, y: 0.0 m, z: 0.0 m
         rotation: 0.0 deg
 ```
+
 Whenever an entryway or window is located in a wall shared by two spaces, you must specify the two walls that will be opened by the entryway or window (`my_room.walls[0] and second_room.walls[1]`). However, The location is specified with regards to the first frame specified, in the example above it would be `my_room.walls[0]`.
 
 # Modelling the example
@@ -143,7 +148,7 @@ Each floor plan has a name, which gets used to identify all the artefacts that g
 
 ```floorplan
         ...
-        wall thickness: 0.40 m 
+        wall thickness: 0.40 m
         wall height: 3.0 m
         features:
             Column central_left:
@@ -155,6 +160,7 @@ Each floor plan has a name, which gets used to identify all the artefacts that g
                     rotation: -35.0 deg
         ...
 ```
+
 The `reception` space will have a wall thickness of 0.4 metres and a wall height of 3 metres. These values don't have to be specified for every space, as default values will be set later for all spaces. Nested in the feature concept, columns and dividers can be specified. The reference frame for these is always part of the space (either the space frame or a wall frame of the `reception` space)
 
 ```floorplan
@@ -163,7 +169,7 @@ The `reception` space will have a wall thickness of 0.4 metres and a wall height
         location:
             from: reception.walls[0]
             to: this.walls[2]
-            pose: 
+            pose:
                 translation: x:2.0 m, y:0.0 m
                 rotation: 0.0 deg
             spaced
@@ -171,27 +177,28 @@ The `reception` space will have a wall thickness of 0.4 metres and a wall height
 
     Space room_A:
         ...
-    
+
     Space room_B:
         ...
 ```
+
 The hallway is located using two wall frames, and the flag `spaced` is present so that the interpreter calculates spacing necessary to avoid overlapping in between the spaces. Two other spaces also get defined in a similar way.
 
 ```floorplan
-    Entryway reception_main: 
+    Entryway reception_main:
         in: reception.walls[3]
         shape: Rectangle width=2.5 m, height=2.0 m
         pose:
             translation: x:0.0 m, y: 0.0 m, z: 0.0 m
             rotation: 0.0 deg
 
-    Entryway reception_hallway: 
+    Entryway reception_hallway:
         in: reception.walls[0] and hallway.walls[2]
         shape: Rectangle width=4.0 m, height=2.0 m
         pose:
             translation: x: 2.0 m, y: 0.0 m, z: 0.0 m
             rotation: 0.0 deg
-    
+
     ...
     Window hallway_window_1:
         in: hallway.walls[1]
@@ -206,9 +213,10 @@ Two entryways and one window are modelled, each with a unique name. In the case 
 ```floorplan
     Default values:
         Wall thickness: 0.23 m
-        Wall height: 2.5 m 
+        Wall height: 2.5 m
 ```
-At the very end of the model the default values for all the spaces must be specified. 
+
+At the very end of the model the default values for all the spaces must be specified.
 
 ## How to generate 3D files and occupancy grid maps
 
@@ -216,7 +224,7 @@ Once all requirements are installed, as specified [here](https://github.com/sesa
 To interpret the model and get artefacts, you only need to run one command:
 
 ```sh
-blender --python src/exsce_floorplan/exsce_floorplan.py --background 
+blender --python src/exsce_floorplan/exsce_floorplan.py --background
 --python-use-system-env -- <path to model>
 ```
 
