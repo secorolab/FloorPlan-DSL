@@ -96,8 +96,7 @@ An example model for a building is available [here](models/examples/hospital.flo
 
 
 ```
-cd src
-blender --background --python exsce_floorplan/exsce_floorplan.py --python-use-system-env -- ../models/examples/hospital.floorplan
+blender --background --python src/exsce_floorplan/exsce_floorplan.py --python-use-system-env -- models/examples/hospital.floorplan
 ```
 
 That should generate the following files:
