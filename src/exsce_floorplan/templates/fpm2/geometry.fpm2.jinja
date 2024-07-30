@@ -1,0 +1,62 @@
+
+{% macro space_location_wrt(frame) -%}
+{%- if frame.world -%}
+world
+{%- else -%}
+{{ frame.space.name }}{% if frame.wall_idx is not none %}.walls[{{ frame.wall_idx }}]{% endif %}
+{%- endif -%}
+{%- endmacro %}
+
+{% macro space_location_of(frame) -%}
+this{% if frame.wall_idx is not none %}.walls[{{ frame.wall_idx }}]{% endif %}
+{%- endmacro +%}
+
+{% macro translation(p) -%}
+{% if p -%}
+{%- if p.x %}x: {{ p.x.value.value }} {{ p.x.value.unit }}{% endif %}
+{%- if p.y %}, y: {{ p.y.value.value }} {{ p.y.value.unit }}{% endif %}
+{%- if p.z %}, z: {{ p.z.value.value }} {{ p.z.value.unit }}{% endif %}
+{%- endif %}
+{%- endmacro %}
+
+{% macro rotation(r) -%}
+{% if r -%}
+{{ r.z.value.value }} {{ r.z.value.unit }}
+{%- endif %}
+{%- endmacro %}
+
+{# Polytopes #}
+
+{%- macro shape_macro(shape) -%}
+    {%- if shape.__class__.__name__ == 'Polygon' -%}
+        {{ polygon(shape) }}
+    {%- elif shape.__class__.__name__== 'Rectangle' -%}
+        {{ rectangle(shape) }}
+    {%- elif shape.__class__.__name__== 'Circle' -%}
+        {{ circle(shape) }}
+    {%- else -%}
+        wrong
+    {%- endif -%}
+{%- endmacro -%}
+
+{%- macro polygon(shape) -%}
+        Polygon points:[
+            {% for point in shape.points %}
+                ({{ point.x.value.value }} {{ point.x.value.unit }}, {{ point.y.value.value }} {{ point.y.value.unit }}) 
+                {%- if not loop.last -%},
+                {%endif%}
+            {% endfor%}
+
+        ]
+{%- endmacro -%}
+
+{%- macro rectangle(shape) -%}
+        Rectangle width={{ shape.width.value.value }} {{shape.width.value.unit }}, 
+        {%- if shape.length %} length={{ shape.length.value.value }} {{ shape.length.value.unit }}
+        {%- elif shape.height %} height={{ shape.height.value.value }} {{ shape.height.value.unit }}
+        {%- endif -%}
+{%- endmacro -%}
+
+{%- macro circle(shape) -%}
+Circle radius={{ shape.radius.value.value }} {{ shape.radius.value.unit }}
+{%- endmacro -%}
