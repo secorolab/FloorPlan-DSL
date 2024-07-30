@@ -38,11 +38,10 @@ You can select the world frame as your frame of reference by using the keyword `
 
 ```floorplan
 location:
-    from: world
-    to: this
-    pose:
-        translation: x:3.0 m, y:4.0 m
-        rotation: 45.0 deg
+    wrt: world
+    of: this
+    translation: x:3.0 m, y:4.0 m
+    rotation: 45.0 deg
 ```
 
 ![Pose of a space with regards to the world frame](../images/updated_wall_location.png)
@@ -53,11 +52,10 @@ You can also use two wall frames to define locations. When you model a location 
 
 ```floorplan
 location:
-    from: my_room.walls[1]
-    to: second_room.walls[0]
-    pose:
-        translation: x:-1.0 m, y:0.0 m
-        rotation: 0.0 deg
+    wrt: my_room.walls[1]
+    of: second_room.walls[0]
+    translation: x:-1.0 m, y:0.0 m
+    rotation: 0.0 deg
     spaced
 ```
 
@@ -65,11 +63,10 @@ location:
 
 ```floorplan
 location:
-    from: my_room.walls[1]
-    to: second_room.walls[1]
-    pose:
-        translation: x:0.0 m, y:0.0 m
-        rotation: 0.0 deg
+    wrt: my_room.walls[1]
+    of: second_room.walls[1]
+    translation: x:0.0 m, y:0.0 m
+    rotation: 0.0 deg
     spaced
 ```
 
@@ -83,11 +80,10 @@ Similarly, the default alignment behaviour can be disabled by using the `not ali
 
 ```floorplan
 location:
-    from: my_room.walls[1]
-    to: second_room.walls[1]
-    pose:
-        translation: x:0.0 m, y:0.0 m
-        rotation: 0.0 deg
+    wrt: my_room.walls[1]
+    of: second_room.walls[1]
+    translation: x:0.0 m, y:0.0 m
+    rotation: 0.0 deg
     not aligned
 ```
 
@@ -101,8 +97,8 @@ The language enables the modelling of doorways, windows, columns, and dividers. 
 Column wall_column:
     shape: Rectangle width=0.5 m, length=0.3 m
     height: 2.5 m
-    from: this.walls[3]
-    pose:
+    location:
+        wrt: this.walls[3]
         translation: x:7.0 m, y:0.0 m, z: 0.0 m
         rotation: 0.0 deg
 ```
@@ -111,9 +107,9 @@ Entryways and windows are specified outside of the scope of the space, after all
 
 ```floorplan
 Entryway doorway:
-    in: my_room.walls[0] and second_room.walls[1]
     shape: Rectangle width=1.0 m, height=1.8 m
-    pose:
+    location:
+        in: my_room.walls[0] and second_room.walls[1]
         translation: x: -1.0 m, y: 0.0 m, z: 0.0 m
         rotation: 0.0 deg
 ```
@@ -137,25 +133,25 @@ Floor plan: hospital
             (-7.0 m, -3.0 m)
         ]
         location:
-            from: world
-            to: this
-            pose:
-                translation: x:0.0 m, y:-5.0 m
-                rotation: 45.0 deg
+            wrt: world
+            of: this
+            translation: x:0.0 m, y:-5.0 m
+            rotation: 45.0 deg
 ```
 
 Each floor plan has a name, which gets used to identify all the artefacts that get generated. The `reception` space has a custom polygon as shape, so we specify all the points to bound it. Every pair of points is a wall, with the last point and the first point being the final wall to close the polygon (i.e. no need to repeat the first point at the very end). From the world frame, this space is translated -5 metres in the y axis and rotated 45 degrees w.r.t. the z axis.
 
 ```floorplan
         ...
-        wall thickness: 0.40 m
-        wall height: 3.0 m
+        wall:
+            thickness: 0.40 m
+            height: 3.0 m
         features:
             Column central_left:
                 shape: Rectangle width=0.5 m, length=0.5 m
                 height: 3.0 m
-                from: this
-                pose:
+                location:
+                    wrt: this
                     translation: x:-2.5 m, y:0.0 m
                     rotation: -35.0 deg
         ...
@@ -167,11 +163,10 @@ The `reception` space will have a wall thickness of 0.4 metres and a wall height
     Space hallway:
         shape: Rectangle width=5.0 m, length=14.0 m
         location:
-            from: reception.walls[0]
-            to: this.walls[2]
-            pose:
-                translation: x:2.0 m, y:0.0 m
-                rotation: 0.0 deg
+            wrt: reception.walls[0]
+            of: this.walls[2]
+            translation: x:2.0 m, y:0.0 m
+            rotation: 0.0 deg
             spaced
         ...
 
@@ -186,24 +181,24 @@ The hallway is located using two wall frames, and the flag `spaced` is present s
 
 ```floorplan
     Entryway reception_main:
-        in: reception.walls[3]
         shape: Rectangle width=2.5 m, height=2.0 m
-        pose:
+        location:
+            in: reception.walls[3]
             translation: x:0.0 m, y: 0.0 m, z: 0.0 m
             rotation: 0.0 deg
 
     Entryway reception_hallway:
-        in: reception.walls[0] and hallway.walls[2]
         shape: Rectangle width=4.0 m, height=2.0 m
-        pose:
+        location:
+            in: reception.walls[0] and hallway.walls[2]
             translation: x: 2.0 m, y: 0.0 m, z: 0.0 m
             rotation: 0.0 deg
 
     ...
     Window hallway_window_1:
-        in: hallway.walls[1]
         shape: Rectangle width=3.0 m, height=1.5 m
-        pose:
+        location:
+            in: hallway.walls[1]
             translation: x: 3.0 m, y: 0.0 m, z: 0.8 m
             rotation: 0.0 deg
 ```
@@ -212,8 +207,9 @@ Two entryways and one window are modelled, each with a unique name. In the case 
 
 ```floorplan
     Default values:
-        Wall thickness: 0.23 m
-        Wall height: 2.5 m
+        walls:
+            thickness: 0.23 m
+            height: 2.5 m
 ```
 
 At the very end of the model the default values for all the spaces must be specified.
