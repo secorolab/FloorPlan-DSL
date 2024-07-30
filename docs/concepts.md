@@ -30,7 +30,7 @@ Space concepts are the main concepts in a floor plan. They can be used to descri
 
   - `height` (optional): The wall height for the walls of the space, when the desired value is different than the default
 
-- `features`: A set of features
+- `features`: A set of [features](#floor-features)
 
 ```floorplan
 Space <name>:
@@ -107,9 +107,9 @@ Window <name>:
 
 Features are common in the floor of a floor plan
 
-**Column**
+### Column
 
-### Attributes
+#### Attributes
 
 - `name`: name for the column, should be unique
 
@@ -135,9 +135,9 @@ Column <name>:
         rotation: 0.0 deg
 ```
 
-**Divider**
+### Divider
 
-### Attributes
+#### Attributes
 
 - `name`: name for the divider, should be unique
 
