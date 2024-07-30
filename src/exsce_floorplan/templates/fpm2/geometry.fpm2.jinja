@@ -1,3 +1,4 @@
+{% from "./fpm2/variables.fpm2.jinja" import value_assignment %}
 
 {% macro space_location_wrt(frame) -%}
 {%- if frame.world -%}
@@ -13,15 +14,15 @@ this{% if frame.wall_idx is not none %}.walls[{{ frame.wall_idx }}]{% endif %}
 
 {% macro translation(p) -%}
 {% if p -%}
-{%- if p.x %}x: {{ p.x.value.value }} {{ p.x.value.unit }}{% endif %}
-{%- if p.y %}, y: {{ p.y.value.value }} {{ p.y.value.unit }}{% endif %}
-{%- if p.z %}, z: {{ p.z.value.value }} {{ p.z.value.unit }}{% endif %}
+{%- if p.x %}x: {{ value_assignment(p.x) }}{% endif %}
+{%- if p.y %}, y: {{ value_assignment(p.y) }}{% endif %}
+{%- if p.z %}, z: {{ value_assignment(p.z) }}{% endif %}
 {%- endif %}
 {%- endmacro %}
 
 {% macro rotation(r) -%}
 {% if r -%}
-{{ r.z.value.value }} {{ r.z.value.unit }}
+{{ value_assignment(r.z) }}
 {%- endif %}
 {%- endmacro %}
 
@@ -42,7 +43,7 @@ this{% if frame.wall_idx is not none %}.walls[{{ frame.wall_idx }}]{% endif %}
 {%- macro polygon(shape) -%}
         Polygon points:[
             {% for point in shape.points %}
-                ({{ point.x.value.value }} {{ point.x.value.unit }}, {{ point.y.value.value }} {{ point.y.value.unit }}) 
+                ({{ value_assignment(point.x) }}, {{ value_assignment(point.y) }}) 
                 {%- if not loop.last -%},
                 {%endif%}
             {% endfor%}
@@ -51,12 +52,12 @@ this{% if frame.wall_idx is not none %}.walls[{{ frame.wall_idx }}]{% endif %}
 {%- endmacro -%}
 
 {%- macro rectangle(shape) -%}
-        Rectangle width={{ shape.width.value.value }} {{shape.width.value.unit }}, 
-        {%- if shape.length %} length={{ shape.length.value.value }} {{ shape.length.value.unit }}
-        {%- elif shape.height %} height={{ shape.height.value.value }} {{ shape.height.value.unit }}
+        Rectangle width={{ value_assignment(shape.width) }}, 
+        {%- if shape.length %} length={{ value_assignment(shape.length) }} 
+        {%- elif shape.height %} height={{ value_assignment(shape.height) }}
         {%- endif -%}
 {%- endmacro -%}
 
 {%- macro circle(shape) -%}
-Circle radius={{ shape.radius.value.value }} {{ shape.radius.value.unit }}
+Circle radius={{ value_assignment(shape.radius) }} 
 {%- endmacro -%}
