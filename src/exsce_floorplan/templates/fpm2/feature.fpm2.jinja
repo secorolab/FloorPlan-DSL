@@ -1,7 +1,8 @@
 {% import "./fpm2/geometry.fpm2.jinja" as geom %}
+{% from "./fpm2/variables.fpm2.jinja" import value_assignment %}
             {{ feature.__class__.__name__ }} {{ feature.name }}:
                 shape: {{ geom.shape_macro(feature.shape) }}
-                height: {{ feature.height.value.value }} {{ feature.height.value.unit }}
+                height: {{ value_assignment(feature.height) }} 
                 location: 
                     {% if feature.location.transformation.translation %}
                     translation: {{ geom.translation(feature.location.transformation.translation) }}
