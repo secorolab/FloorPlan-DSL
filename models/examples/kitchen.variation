@@ -1,4 +1,4 @@
-import "kitchen.floorplan"
+import "kitchen.fpm2"
 
 room_a_to_corridor_1: {
     pose.translation.x : normal(mean=3.5, std=2.0)

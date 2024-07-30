@@ -1,0 +1,71 @@
+// Converted to v2 from models/examples/kitchen.floorplan
+Floor plan: kitchen
+
+    Defaults:
+        walls: 
+            thickness: 0.15 m
+            height: 2.5 m
+
+    // variables
+    
+    Space room_b:
+        shape: Polygon points:[
+                (7.0 m, -2.5 m),
+                (-7.0 m, -2.5 m),
+                (-7.0 m, 2.5 m),
+                (7.0 m, 4.5 m)
+        ]
+        location:
+            translation: x: 0.0 m, y: 2.0 m
+            rotation: z: 0.0 deg
+            wrt: world
+            of: this
+        spaced 
+
+    Space corridor:
+        shape: Rectangle width=2.0 m, length=14.0 m
+        location:
+            translation: x: 0.0 m, y: 0.0 m
+            rotation: z: 0.0 deg
+            wrt: room_b.walls[0]
+            of: this.walls[1]
+        spaced 
+
+    Space room_a:
+        shape: Rectangle width=14.0 m, length=5.0 m
+        location:
+            translation: x: 0.0 m, y: 0.0 m
+            rotation: z: 0.0 deg
+            wrt: corridor.walls[3]
+            of: this.walls[0]
+        spaced 
+        features:
+            Divider extra_wall:
+                shape: Rectangle width=5.0 m, length=0.2 m
+                height: 1.0 m
+                location:
+                    wrt: this
+                    translation: x: 0.0 m, y: 0.0 m
+                    rotation: z: 90.0 deg
+            
+    Entryway room_a_to_corridor_1:
+        shape: Rectangle width=1.2 m, height=2.0 m
+        location:
+            in: room_a.walls[0] and corridor.walls[3]
+            translation: x: 2.5 m, y: 0.0 m, z: 0.0 m
+            rotation: y: 0.0 deg
+
+    Entryway room_a_to_corridor_2:
+        shape: Rectangle width=1.2 m, height=2.0 m
+        location:
+            in: room_a.walls[0] and corridor.walls[3]
+            translation: x: -2.5 m, y: 0.0 m, z: 0.0 m
+            rotation: y: 0.0 deg
+
+    Entryway room_b_to_corridor:
+        shape: Rectangle width=1.2 m, height=2.0 m
+        location:
+            in: room_b.walls[0] and corridor.walls[1]
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: y: 0.0 deg
+
