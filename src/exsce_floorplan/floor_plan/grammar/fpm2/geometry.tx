@@ -5,7 +5,7 @@ import variables
 // Syntax: Structural entities
 
 Point:
-    '('x=Length',' y=Length(',' z=Length)?')'
+    '('x=LengthValue',' y=LengthValue(',' z=LengthValue)?')'
 ;
 
 Position:
