@@ -16,7 +16,7 @@ Floor plan: hospital
         ]
         location:
             translation: x: 10.0 m, y: 5.0 m
-            rotation: 45.0 deg
+            rotation: z: 45.0 deg
             wrt: world
             of: this
         walls: 
@@ -29,7 +29,7 @@ Floor plan: hospital
                 location:
                     wrt: this
                     translation: x: -2.5 m
-                    rotation: -35.0 deg
+                    rotation: z: -35.0 deg
             
             Column central_right:
                 shape: Rectangle width=0.5 m, length=0.5 m
@@ -37,7 +37,7 @@ Floor plan: hospital
                 location:
                     wrt: this
                     translation: x: 2.5 m
-                    rotation: 35.0 deg
+                    rotation: z: 35.0 deg
 
             Divider divider_central:
                 shape: Rectangle width=doorway_width, length=0.2 m
@@ -51,7 +51,7 @@ Floor plan: hospital
                 location:
                     wrt: this
                     translation: x: -2.5 m, y: 1.0 m
-                    rotation: 90.0 deg
+                    rotation: z: 90.0 deg
 
             Divider divider_right:
                 shape: Rectangle width=2.0 m, length=0.2 m
@@ -59,7 +59,7 @@ Floor plan: hospital
                 location:
                     wrt: this
                     translation: x: 2.5 m, y: 1.0 m
-                    rotation: 90.0 deg
+                    rotation: z: 90.0 deg
     
     Space hallway:
         shape: Rectangle width=5.0 m, length=14.0 m
