@@ -1,0 +1,13 @@
+{% import "./fpm2/geometry.fpm2.jinja" as geom %}
+            {{ feature.__class__.__name__ }} {{ feature.name }}:
+                shape: {{ geom.shape_macro(feature.shape) }}
+                height: {{ feature.height.value.value }} {{ feature.height.value.unit }}
+                location: 
+                    {% if feature.location.transformation.translation %}
+                    translation: {{ geom.translation(feature.location.transformation.translation) }}
+                    {% endif %}
+                    {% if feature.location.transformation.rotation %}
+                    rotation: {{ geom.rotation(feature.location.transformation.rotation) }}
+                    {% endif %}
+                    wrt: this{% if feature.location.wrt.wall_idx is not none %}.walls[{{ feature.location.wrt.wall_idx }}]{%- endif %}
+        

@@ -1,3 +1,4 @@
+{% extends "./floorplan.fpm2.jinja"%}
 {%- macro variable_macro(type, name, value)-%}
     {%- if type == "MeterVariable"-%}
         var {{name}} = {{value}} m
@@ -62,20 +63,22 @@
     {%- endif -%}
 {%- endmacro -%}
 
+{% block comments %}
 // Converted to v2 from {{model.name}}
-Floor plan: {{ model.name }}
+{% endblock %}
 
+{% block defaults %}
     Defaults:
         walls: 
             thickness: {{value_macro(model.default.wall_thickness)}}
             height: {{value_macro(model.default.wall_height)}}
+{% endblock %}
 
-    // variables
-    {% for variable in model.variables %}
+{% block variable %}
     {{variable_macro(variable.__class__.__name__, variable.name, variable.value.value)}}
-    {% endfor %}
+{% endblock %}
     
-    {% for space in model.spaces %}
+{% block space %}
     Space {{space.name}}:
         shape: {{shape_macro(space.shape)}}
         location:
@@ -90,9 +93,10 @@ Floor plan: {{ model.name }}
         walls:
             {{wall_macro("thickness", space.wall_thickness, model.default.wall_thickness)}}
             {{wall_macro("height", space.wall_height, model.default.wall_height)}}
-            {#height: {{ value_macro(space.wall_height) }}
-            thickness: {{ value_macro(space.wall_thickness) }}#}
         {% endif %}
+{% endblock %}
+
+{% block features %}
         {% if space.floor_features|length > 0 %}
         features:
             {%+ for feature in space.floor_features %}
@@ -105,13 +109,14 @@ Floor plan: {{ model.name }}
                     rotation: {{value_macro(feature.location.pose.rotation)}}
             {%+ endfor -%}
         {%+ endif +%}
-    {%endfor %}
-    {% for wall_opening in model.wall_openings %}
+{% endblock %}
+    
+{% block wall_opening %}
     {%+ if wall_opening.window -%} Window {%- else -%} Entryway {%- endif +%} {{wall_opening.name}}:
         shape: {{shape_macro(wall_opening.shape)}}
         location:
             in: {{wall_opening.wall_a.parent.name}}.walls[{{wall_opening.wall_a.index}}] {%- if not wall_opening.wall_b == None %} and {{wall_opening.wall_b.parent.name}}.walls[{{wall_opening.wall_b.index}}]{%- endif +%}
-            translation: x: {{value_macro(wall_opening.pose.translation.x)}}, y: {{value_macro(wall_opening.pose.translation.y)}}, z:{{value_macro(wall_opening.pose.translation.z)}}
+            translation: x: {{value_macro(wall_opening.pose.translation.x)}}, y: {{value_macro(wall_opening.pose.translation.y)}}, z: {{value_macro(wall_opening.pose.translation.z)}}
             rotation: {{value_macro(wall_opening.pose.rotation)}}
 
-    {% endfor %}
+{% endblock %}
