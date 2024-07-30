@@ -1,4 +1,4 @@
-# Concepts of the FloorPlan DSL
+# Concepts of the FloorPlan DSL (v2)
 
 ## Space
 
@@ -12,19 +12,23 @@ Space concepts are the main concepts in a floor plan. They can be used to descri
 
 * location: A location description:
 
-    * from: The frame of reference for the location, can be `world` to refer to the world frame or `<space>` to refer to the space frame of another space (i.e. the centre of a rectangle or circle), or `<space>.walls[<index>]` to refer to a wall of a space.
+    * wrt: The frame of reference for the location, can be `world` to refer to the world frame or `<space>` to refer to the space frame of another space (i.e. the centre of a rectangle or circle), or `<space>.walls[<index>]` to refer to a wall of a space.
 
-    * to: The frame of the space that you are locating. All walls and features of the space will keep their pose with regards to this frame. The value can be `this` to refer to the space frame of this space (i.e. the space you are modelling), or `this.walls[<index>]` to refer to one of the walls
+    * of: The frame of the space that you are locating. All walls and features of the space will keep their pose with regards to this frame. The value can be `this` to refer to the space frame of this space (i.e. the space you are modelling), or `this.walls[<index>]` to refer to one of the walls
 
-    * pose: A pose description. It contains a translation in the `x` and `y` axis, and a rotation w.r.t. the `z` axis.
+    * translation: The translation in the `x` and `y` axis
+
+    * rotation: The rotation w.r.t. the `z` axis of the frame in `wrt`
 
     * spaced (optional, recommended): A flag to tell the interpreter that it must calculate the correct space between the two spaces to ensure no overlap.
 
     * not aligned (optional): A flag to tell the interpreter to not perform the default behaviour of aligning two spaces when two wall frames are used.
 
-* wall thickness (optional): The wall thickness for the walls of the space, when the desired value is different than the default.
+* wall:
 
-* wall height (optional): The wall height for the walls of the space, when the desired value is different than the default.
+    * thickness (optional): The wall thickness for the walls of the space, when the desired value is different than the default.
+
+    * height (optional): The wall height for the walls of the space, when the desired value is different than the default.
 
 * features: A set of features.
 
@@ -32,15 +36,16 @@ Space concepts are the main concepts in a floor plan. They can be used to descri
 Space <name>:
         shape: <shape>
         location:
-            from: <frame>
-            to: <frame>
-            pose:
-                translation: x: 0.0 m, y:0.0 m
-                rotation: 0.0 deg 
+            wrt: <frame>
+            of: <frame>
+            translation: x: 0.0 m, y:0.0 m
+            rotation: 0.0 deg 
             {spaced}
             {not aligned}
-        {wall thickness: 0.0 m}
-        {wall height: 0.0 m}
+        {wall:
+            {thickness: 0.0 m}
+            {height: 0.0 m}
+        }
         {features:
             <feature>
         }
@@ -103,17 +108,21 @@ The entryway concept is used to model the space for doorways and other openings 
 
 * Name: name for the entryway, should be unique.
 
-* in: wall reference (`<space>.walls[<index>]`). The frame associated with this wall will be used as the reference frame for the location of the entryway. When an entryway is between two spaces, both walls have to be specified. The first frame remains as a reference frame.
-
 * shape: Shape for the entryway. 
 
-* pose: A pose description. It contains a translation in the `x` and `z` axis, and a rotation w.r.t. the `y` axis. Translations in the y axis should be avoided for appropriate results.
+* location: 
+
+    * in: wall reference (`<space>.walls[<index>]`). The frame associated with this wall will be used as the reference frame for the location of the entryway. When an entryway is between two spaces, both walls have to be specified. The first frame remains as a reference frame.
+
+    * translation: The translation in the `x` and `z` axis. Translations in the y axis should be avoided for appropriate results.
+    
+    * rotation: The rotation w.r.t. the `y` axis. 
 
 ```floorplan
 Entryway <name>: 
-    in: <wall reference 1> {and <wall reference 2>}
     shape: <shape>
-    pose:
+    location:
+        in: <wall reference 1> {and <wall reference 2>}
         translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
         rotation: 0.0 deg
 ```
@@ -124,17 +133,21 @@ Entryway <name>:
 
 * Name: name for the window, should be unique.
 
-* in: wall reference (`<space>.walls[<index>]`). The frame associated with this wall will be used as the reference frame for the location of the window. When a window is between two spaces, both walls have to be specified. The first frame remains as a reference frame.
-
 * shape: Shape for the window. 
 
-* pose: A pose description. It contains a translation in the `x` and `z` axis, and a rotation w.r.t. the `y` axis. Translations in the y axis should be avoided for appropriate results.
+* location: 
+
+    * in: wall reference (`<space>.walls[<index>]`). The frame associated with this wall will be used as the reference frame for the location of the entryway. When an entryway is between two spaces, both walls have to be specified. The first frame remains as a reference frame.
+
+    * translation: The translation in the `x` and `z` axis. Translations in the y axis should be avoided for appropriate results.
+    
+    * rotation: The rotation w.r.t. the `y` axis. 
 
 ```floorplan
 Window <name>: 
-    in: <wall reference 1> {and <wall reference 2>}
     shape: <shape>
-    pose:
+    location:
+        in: <wall reference 1> {and <wall reference 2>}
         translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
         rotation: 0.0 deg
 ```
@@ -153,16 +166,20 @@ Features are common in the floor of a floor plan.
 
 * height: Height of the column, in metres.
 
-* from: Frame of reference, it can be: space frame of the space (`this`) or wall reference (`this.walls[<index>]`)
+* location:
 
-* pose: A pose description. It contains a translation in the `x` and `y` axis, and a rotation w.r.t. the `z` axis.
+    * wrt: Frame of reference, it can be: space frame of the space (`this`) or wall reference (`this.walls[<index>]`)
+
+    * translation: The translation in the `x` and `y` axis
+    
+    * rotation: The rotation w.r.t. the `z` axis.
 
 ```floorplan
 Column <name>:
     shape: <shape>
     height: 0.0 m
-    from: <frame>
-    pose:
+    location:
+        from: <frame>
         translation: x:0.0 m, y:0.0 m
         rotation: 0.0 deg
 ```
@@ -176,16 +193,20 @@ Column <name>:
 
 * height: Height of the divider, in metres.
 
-* from: Frame of reference, it can be: space frame of the space (`this`) or wall reference (`this.walls[<index>]`)
+* location:
 
-* pose: A pose description. It contains a translation in the `x` and `y` axis, and a rotation w.r.t. the `z` axis.
+    * wrt: Frame of reference, it can be: space frame of the space (`this`) or wall reference (`this.walls[<index>]`)
+
+    * translation: The translation in the `x` and `y` axis
+    
+    * rotation: The rotation w.r.t. the `z` axis.
 
 ```floorplan
 Divider <name>:
     shape: <shape>
     height: 0.0 m
-    from: <frame>
-    pose:
+    location:
+        wrt: <frame>
         translation: x:0.0 m, y:0.0 m
         rotation: 0.0 deg
 ```
