@@ -22,7 +22,9 @@ this{% if frame.wall_idx is not none %}.walls[{{ frame.wall_idx }}]{% endif %}
 
 {% macro rotation(r) -%}
 {% if r -%}
-{{ value_assignment(r.z) }}
+{%- if r.x %}x: {{ value_assignment(r.x) }}{% endif %}{% if r.x and r.y %}, {% endif %}
+{%- if r.y %}y: {{ value_assignment(r.y) }}{% endif %}{% if r.y and r.z or not r.y and r.x %}, {% endif %}
+{%- if r.z %}z: {{ value_assignment(r.z) }}{% endif %}
 {%- endif %}
 {%- endmacro %}
 

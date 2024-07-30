@@ -14,7 +14,7 @@ Position:
 
 // Around which axis?
 Orientation:
-    z=AngleValue | var=[Variable]
+    (('x'':' x=AngleValue)? ('y'':' y=AngleValue)? ('z'':' z=AngleValue)?)#[","]
 ;
 
 

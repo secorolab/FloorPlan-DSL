@@ -41,7 +41,7 @@ location:
     wrt: world
     of: this
     translation: x:3.0 m, y:4.0 m
-    rotation: 45.0 deg
+    rotation: z: 45.0 deg
 ```
 
 ![Pose of a space with regards to the world frame](../images/updated_wall_location.png)
@@ -55,7 +55,7 @@ location:
     wrt: my_room.walls[1]
     of: second_room.walls[0]
     translation: x:-1.0 m, y:0.0 m
-    rotation: 0.0 deg
+    rotation: z: 0.0 deg
     spaced
 ```
 
@@ -66,7 +66,7 @@ location:
     wrt: my_room.walls[1]
     of: second_room.walls[1]
     translation: x:0.0 m, y:0.0 m
-    rotation: 0.0 deg
+    rotation: z: 0.0 deg
     spaced
 ```
 
@@ -83,7 +83,7 @@ location:
     wrt: my_room.walls[1]
     of: second_room.walls[1]
     translation: x:0.0 m, y:0.0 m
-    rotation: 0.0 deg
+    rotation: z: 0.0 deg
     not aligned
 ```
 
@@ -100,7 +100,7 @@ Column wall_column:
     location:
         wrt: this.walls[3]
         translation: x:7.0 m, y:0.0 m, z: 0.0 m
-        rotation: 0.0 deg
+        rotation: z: 0.0 deg
 ```
 
 Entryways and windows are specified outside of the scope of the space, after all the spaces in the floorplan have been specified. These features create the openings in the walls required to connect two spaces or one space with the "outside".
@@ -111,7 +111,7 @@ Entryway doorway:
     location:
         in: my_room.walls[0] and second_room.walls[1]
         translation: x: -1.0 m, y: 0.0 m, z: 0.0 m
-        rotation: 0.0 deg
+        rotation: z: 0.0 deg
 ```
 
 Whenever an entryway or window is located in a wall shared by two spaces, you must specify the two walls that will be opened by the entryway or window (`my_room.walls[0] and second_room.walls[1]`). However, The location is specified with regards to the first frame specified, in the example above it would be `my_room.walls[0]`.
@@ -136,7 +136,7 @@ Floor plan: hospital
             wrt: world
             of: this
             translation: x:0.0 m, y:-5.0 m
-            rotation: 45.0 deg
+            rotation: z: 45.0 deg
 ```
 
 Each floor plan has a name, which gets used to identify all the artefacts that get generated. The `reception` space has a custom polygon as shape, so we specify all the points to bound it. Every pair of points is a wall, with the last point and the first point being the final wall to close the polygon (i.e. no need to repeat the first point at the very end). From the world frame, this space is translated -5 metres in the y axis and rotated 45 degrees w.r.t. the z axis.
@@ -153,7 +153,7 @@ Each floor plan has a name, which gets used to identify all the artefacts that g
                 location:
                     wrt: this
                     translation: x:-2.5 m, y:0.0 m
-                    rotation: -35.0 deg
+                    rotation: z: -35.0 deg
         ...
 ```
 
@@ -166,7 +166,7 @@ The `reception` space will have a wall thickness of 0.4 metres and a wall height
             wrt: reception.walls[0]
             of: this.walls[2]
             translation: x:2.0 m, y:0.0 m
-            rotation: 0.0 deg
+            rotation: z: 0.0 deg
             spaced
         ...
 
@@ -185,14 +185,14 @@ The hallway is located using two wall frames, and the flag `spaced` is present s
         location:
             in: reception.walls[3]
             translation: x:0.0 m, y: 0.0 m, z: 0.0 m
-            rotation: 0.0 deg
+            rotation: y: 0.0 deg
 
     Entryway reception_hallway:
         shape: Rectangle width=4.0 m, height=2.0 m
         location:
             in: reception.walls[0] and hallway.walls[2]
             translation: x: 2.0 m, y: 0.0 m, z: 0.0 m
-            rotation: 0.0 deg
+            rotation: y: 0.0 deg
 
     ...
     Window hallway_window_1:
@@ -200,7 +200,7 @@ The hallway is located using two wall frames, and the flag `spaced` is present s
         location:
             in: hallway.walls[1]
             translation: x: 3.0 m, y: 0.0 m, z: 0.8 m
-            rotation: 0.0 deg
+            rotation: y: 0.0 deg
 ```
 
 Two entryways and one window are modelled, each with a unique name. In the case of the second entryway, since it connects two spaces we must specify the two walls where the entryway is located. Notice that for windows we have to specify a translation in the z axis.

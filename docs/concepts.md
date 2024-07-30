@@ -39,7 +39,7 @@ Space <name>:
             wrt: <frame>
             of: <frame>
             translation: x: 0.0 m, y:0.0 m
-            rotation: 0.0 deg
+            rotation: z: 0.0 deg
             {spaced}
             {not aligned}
         {wall:
@@ -75,7 +75,7 @@ Entryway <name>:
     location:
         in: <wall reference 1> {and <wall reference 2>}
         translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
-        rotation: 0.0 deg
+        rotation: y: 0.0 deg
 ```
 
 ## Window
@@ -100,7 +100,7 @@ Window <name>:
     location:
         in: <wall reference 1> {and <wall reference 2>}
         translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
-        rotation: 0.0 deg
+        rotation: y: 0.0 deg
 ```
 
 ## Floor Features
@@ -132,7 +132,7 @@ Column <name>:
     location:
         from: <frame>
         translation: x:0.0 m, y:0.0 m
-        rotation: 0.0 deg
+        rotation: z: 0.0 deg
 ```
 
 ### Divider
@@ -160,7 +160,7 @@ Divider <name>:
     location:
         wrt: <frame>
         translation: x:0.0 m, y:0.0 m
-        rotation: 0.0 deg
+        rotation: z: 0.0 deg
 ```
 
 ## Shapes

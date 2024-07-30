@@ -83,7 +83,7 @@
         shape: {{shape_macro(space.shape)}}
         location:
             translation: x: {{value_macro(space.location.pose.translation.x)}}, y: {{value_macro(space.location.pose.translation.y)}}
-            rotation: {{value_macro(space.location.pose.rotation)}}
+            rotation: z: {{value_macro(space.location.pose.rotation)}}
             wrt: {{from_frame(space.location.from_frame.world, space.location.from_frame.ref, space.location.from_frame.index)}}
             of: {{to_frame(space.location.to_frame.index)}}
         {%+ if space.location.spaced -%}
@@ -106,7 +106,7 @@
                 location:
                     wrt: this{% if not feature.location.from_frame.index == None %}.walls[{{feature.location.from_frame.index}}]{%- endif +%}
                     translation: x: {{value_macro(feature.location.pose.translation.x)}}, y: {{value_macro(feature.location.pose.translation.y)}}
-                    rotation: {{value_macro(feature.location.pose.rotation)}}
+                    rotation: z: {{value_macro(feature.location.pose.rotation)}}
             {%+ endfor -%}
         {%+ endif +%}
 {% endblock %}
@@ -117,6 +117,6 @@
         location:
             in: {{wall_opening.wall_a.parent.name}}.walls[{{wall_opening.wall_a.index}}] {%- if not wall_opening.wall_b == None %} and {{wall_opening.wall_b.parent.name}}.walls[{{wall_opening.wall_b.index}}]{%- endif +%}
             translation: x: {{value_macro(wall_opening.pose.translation.x)}}, y: {{value_macro(wall_opening.pose.translation.y)}}, z: {{value_macro(wall_opening.pose.translation.z)}}
-            rotation: {{value_macro(wall_opening.pose.rotation)}}
+            rotation: y: {{value_macro(wall_opening.pose.rotation)}}
 
 {% endblock %}
