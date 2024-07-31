@@ -50,7 +50,7 @@ def floorplan_metamodel():
     "floorplan language"
 
     current_dir = dirname(__file__)
-    path = join(current_dir, "floor_plan", "grammar/fpm1", "floorplan.tx")
+    path = join(current_dir, "grammar/fpm1", "floorplan.tx")
     mm_floorplan = metamodel_from_file(
         path,
         classes=[
@@ -77,7 +77,7 @@ def floorplan_metamodel():
 
 def fpv2_metamodel():
     current_dir = dirname(__file__)
-    path = join(current_dir, "floor_plan", "grammar/fpm2", "floorplan.tx")
+    path = join(current_dir, "grammar/fpm2", "floorplan.tx")
     floorplan_mm = metamodel_from_file(path)
     floorplan_mm.auto_init_attributes = False
     floorplan_mm.register_obj_processors(
@@ -92,7 +92,7 @@ def fpv2_metamodel():
 def variation_metamodel():
 
     current_dir = dirname(__file__)
-    path = join(current_dir, "variation", "grammar", "floorplan_variation.tx")
+    path = join(current_dir, "grammar/variation", "floorplan_variation.tx")
     mm_variation = metamodel_from_file(
         path, classes=[UniformDistribution, DiscreteDistribution, NormalDistribution]
     )
