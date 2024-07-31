@@ -304,7 +304,7 @@ if __name__ == "__main__":
 
     try:
 
-        my_metamodel = metamodel_for_language("exsce-floorplan-dsl")
+        my_metamodel = metamodel_for_language("floorplan-v1")
         argv = sys.argv[sys.argv.index("--") + 1 :]
         my_model = my_metamodel.model_from_file(argv[0])
         floor_plan = FloorPlan(my_model)
