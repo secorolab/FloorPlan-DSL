@@ -1,4 +1,3 @@
-from .geometry import Frame
 import copy
 import numpy as np
 
@@ -18,7 +17,7 @@ class Polytope(object):
     parent : object
         TextX requirement
     frame : Frame
-        Refernce frame for the polytope
+        Reference frame for the polytope
     points : Numpy array
         Group of points that bound the polytope, specified wrt the polytope
         frame
@@ -201,14 +200,14 @@ class Rectangle(Polytope):
     parent : object
         TextX requirement
     frame : Frame
-        Refernce frame for the polytope
+        Reference frame for the polytope
     points : Numpy array
         Group of points that bound the polytope, specified wrt the polytope
         frame
     width : float
         width of rectangle
     length : float
-        lenght of rectangle
+        length of rectangle
     """
 
     def __init__(self, parent, width, length):
@@ -224,7 +223,7 @@ class Rectangle(Polytope):
         width : float
             width of rectangle
         length : float
-            lenght of rectangle
+            length of rectangle
 
         Returns
         -------
@@ -261,7 +260,7 @@ class Polygon(Polytope):
     parent : object
         TextX requirement
     frame : Frame
-        Refernce frame for the polytope
+        Reference frame for the polytope
     points : Numpy array
         Group of points that bound the polytope, specified wrt the polytope
         frame
@@ -302,7 +301,7 @@ class Circle(Polytope):
     parent : object
         TextX requirement
     frame : Frame
-        Refernce frame for the polytope
+        Reference frame for the polytope
     points : Numpy array
         Group of points that bound the polytope, specified wrt the polytope
         frame
@@ -392,7 +391,7 @@ class VerticalPolygon(Polytope):
     parent : object
         TextX requirement
     frame : Frame
-        Refernce frame for the polytope
+        Reference frame for the polytope
     points : Numpy array
         Group of points that bound the polytope, specified wrt the polytope
         frame

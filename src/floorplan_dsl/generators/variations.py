@@ -1,4 +1,5 @@
-import sys, os
+import sys
+import os
 
 from operator import attrgetter
 import numpy.random as random
