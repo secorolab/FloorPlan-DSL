@@ -3,7 +3,7 @@ requires = ["setuptools >= 61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "exsce-floorplan"
+name = "floorplan-dsl"
 description = "Python realization of metamodels for indoor environment"
 # dynamic = ["version"]
 version = "1.1.0"
@@ -54,14 +54,14 @@ test =[
 ]
 
 [project.entry-points.textx_languages]
-floorplan-v1 = "exsce_floorplan.registration:floorplan_lang"
-floorplan-v2 = "exsce_floorplan.registration:fpv2_lang"
-floorplan-variation = "exsce_floorplan.registration:variation_lang"
+floorplan-v1 = "floorplan_dsl.registration:floorplan_lang"
+floorplan-v2 = "floorplan_dsl.registration:fpv2_lang"
+floorplan-variation = "floorplan_dsl.registration:variation_lang"
 
 [project.entry-points.textx_generators]
-variation-to-floorplan = "exsce_floorplan.registration:variation_floorplan_gen"
-floorplan-to-jsonld = "exsce_floorplan.registration:json_ld_floorplan_gen"
-floorplan-v1-to-floorplan-v2 = "exsce_floorplan.registration:floorplan_v1_to_v2_gen"
+variation-to-floorplan = "floorplan_dsl.registration:variation_floorplan_gen"
+floorplan-to-jsonld = "floorplan_dsl.registration:json_ld_floorplan_gen"
+floorplan-v1-to-floorplan-v2 = "floorplan_dsl.registration:floorplan_v1_to_v2_gen"
 
 [tool.setuptools.packages.find]
 where = ["src"]  # list of folders that contain the packages (["."] by default)

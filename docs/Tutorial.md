@@ -220,7 +220,7 @@ Once all requirements are installed, as specified [here](https://github.com/sesa
 To interpret the model and get artefacts, you only need to run one command:
 
 ```sh
-blender --python src/exsce_floorplan/exsce_floorplan.py --background
+blender --python src/floorplan_dsl/exsce_floorplan.py --background
 --python-use-system-env -- <path to model>
 ```
 
