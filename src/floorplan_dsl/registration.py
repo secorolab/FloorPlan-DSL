@@ -13,34 +13,34 @@ dir_path = dirname(realpath(__file__))
 sys.path.append(dir_path)
 
 # Classes for FloorPlan DSL and Variation DSL
-from floorplan_dsl.floor_plan.classes.space import Space
-from floorplan_dsl.floor_plan.classes.polytope import (
+from floorplan_dsl.parser.classes.fpm1.space import Space
+from floorplan_dsl.parser.classes.fpm1.polytope import (
     Circle,
     Polygon,
     Rectangle,
     VerticalPolygon,
     VerticalRectangle,
 )
-from floorplan_dsl.floor_plan.classes.wall_opening import WallOpening
-from floorplan_dsl.floor_plan.classes.floor_feature import FloorFeature
-from floorplan_dsl.floor_plan.classes.position import Position, PoseDescription
+from floorplan_dsl.parser.classes.fpm1.wall_opening import WallOpening
+from floorplan_dsl.parser.classes.fpm1.floor_feature import FloorFeature
+from floorplan_dsl.parser.classes.fpm1.position import Position, PoseDescription
 
-from floorplan_dsl.variation.classes.distribution import (
+from floorplan_dsl.parser.classes.variation.distribution import (
     UniformDistribution,
     DiscreteDistribution,
     NormalDistribution,
 )
 
 # object processors for FloorPlan DSL
-from floorplan_dsl.floor_plan.processors.processors import unique_names_processor
+from floorplan_dsl.parser.processors.fpm1 import unique_names_processor
 
-from floorplan_dsl.variation.processors.processors import (
+from floorplan_dsl.parser.processors.variation import (
     discrete_distribution_obj_processor,
 )
 
-from floorplan_dsl.variation.exsce_variations import variation_floorplan_generator
+from floorplan_dsl.generators.variations import variation_floorplan_generator
 
-from floorplan_dsl.floor_plan.generators import (
+from floorplan_dsl.generators.fpm import (
     jsonld_floorplan_generator,
     v1_to_v2_converter,
 )
