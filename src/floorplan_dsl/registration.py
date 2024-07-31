@@ -13,41 +13,41 @@ dir_path = dirname(realpath(__file__))
 sys.path.append(dir_path)
 
 # Classes for FloorPlan DSL and Variation DSL
-from exsce_floorplan.floor_plan.classes.space import Space
-from exsce_floorplan.floor_plan.classes.polytope import (
+from floorplan_dsl.floor_plan.classes.space import Space
+from floorplan_dsl.floor_plan.classes.polytope import (
     Circle,
     Polygon,
     Rectangle,
     VerticalPolygon,
     VerticalRectangle,
 )
-from exsce_floorplan.floor_plan.classes.wall_opening import WallOpening
-from exsce_floorplan.floor_plan.classes.floor_feature import FloorFeature
-from exsce_floorplan.floor_plan.classes.position import Position, PoseDescription
+from floorplan_dsl.floor_plan.classes.wall_opening import WallOpening
+from floorplan_dsl.floor_plan.classes.floor_feature import FloorFeature
+from floorplan_dsl.floor_plan.classes.position import Position, PoseDescription
 
-from exsce_floorplan.variation.classes.distribution import (
+from floorplan_dsl.variation.classes.distribution import (
     UniformDistribution,
     DiscreteDistribution,
     NormalDistribution,
 )
 
 # object processors for FloorPlan DSL
-from exsce_floorplan.floor_plan.processors.processors import unique_names_processor
+from floorplan_dsl.floor_plan.processors.processors import unique_names_processor
 
-from exsce_floorplan.variation.processors.processors import (
+from floorplan_dsl.variation.processors.processors import (
     discrete_distribution_obj_processor,
 )
 
-from exsce_floorplan.variation.exsce_variations import variation_floorplan_generator
+from floorplan_dsl.variation.exsce_variations import variation_floorplan_generator
 
-from exsce_floorplan.floor_plan.generators import (
+from floorplan_dsl.floor_plan.generators import (
     jsonld_floorplan_generator,
     v1_to_v2_converter,
 )
 
 
-def exsce_floorplan_metamodel():
-    "exsce_floorplan language"
+def floorplan_metamodel():
+    "floorplan language"
 
     current_dir = dirname(__file__)
     path = join(current_dir, "floor_plan", "grammar/fpm1", "floorplan.tx")
@@ -89,7 +89,7 @@ def fpv2_metamodel():
     return floorplan_mm
 
 
-def exsce_variation_metamodel():
+def variation_metamodel():
 
     current_dir = dirname(__file__)
     path = join(current_dir, "variation", "grammar", "floorplan_variation.tx")
@@ -108,7 +108,7 @@ floorplan_lang = LanguageDesc(
     "floorplan-v1",
     pattern="*.floorplan",
     description="A language to model indoor environments",
-    metamodel=exsce_floorplan_metamodel,
+    metamodel=floorplan_metamodel,
 )
 
 fpv2_lang = LanguageDesc(
@@ -122,7 +122,7 @@ variation_lang = LanguageDesc(
     "floorplan-variation",
     pattern="*.variation",
     description="A language to variate models from ExSce",
-    metamodel=exsce_variation_metamodel,
+    metamodel=variation_metamodel,
 )
 
 variation_floorplan_gen = GeneratorDesc(
