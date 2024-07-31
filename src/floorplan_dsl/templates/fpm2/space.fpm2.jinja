@@ -1,0 +1,20 @@
+{% import "./fpm2/geometry.fpm2.jinja" as geom %}
+    Space {{ space.name }}:
+        shape: {{ geom.shape_macro(space.shape) }}
+        location: 
+            {% if space.location.transformation.translation %}
+            translation: {{ geom.translation(space.location.transformation.translation) }}
+            {% endif %}
+            {% if space.location.transformation.rotation %}
+            rotation: {{ geom.rotation(space.location.transformation.rotation) }}
+            {% endif %}
+            wrt: {{ geom.space_location_wrt(space.location.wrt) }}
+            of: {{ geom.space_location_of(space.location.of) }}
+            {%- if space.location.spaced +%}
+            spaced
+            {%- endif %} 
+        {% if space.defaults %}
+        walls:
+            thickness: {{ space.defaults.wall.thickness.value }} {{ space.defaults.wall.thickness.unit }}
+            height: {{ space.defaults.wall.height.value }} {{ space.defaults.wall.height.unit }}
+        {% endif %}

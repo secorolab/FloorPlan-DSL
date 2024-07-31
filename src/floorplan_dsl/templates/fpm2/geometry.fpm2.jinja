@@ -1,0 +1,65 @@
+{% from "./fpm2/variables.fpm2.jinja" import value_assignment %}
+
+{% macro space_location_wrt(frame) -%}
+{%- if frame.world -%}
+world
+{%- else -%}
+{{ frame.space.name }}{% if frame.wall_idx is not none %}.walls[{{ frame.wall_idx }}]{% endif %}
+{%- endif -%}
+{%- endmacro %}
+
+{% macro space_location_of(frame) -%}
+this{% if frame.wall_idx is not none %}.walls[{{ frame.wall_idx }}]{% endif %}
+{%- endmacro +%}
+
+{% macro translation(p) -%}
+{% if p -%}
+{%- if p.x %}x: {{ value_assignment(p.x) }}{% endif %}
+{%- if p.y %}, y: {{ value_assignment(p.y) }}{% endif %}
+{%- if p.z %}, z: {{ value_assignment(p.z) }}{% endif %}
+{%- endif %}
+{%- endmacro %}
+
+{% macro rotation(r) -%}
+{% if r -%}
+{%- if r.x %}x: {{ value_assignment(r.x) }}{% endif %}{% if r.x and r.y %}, {% endif %}
+{%- if r.y %}y: {{ value_assignment(r.y) }}{% endif %}{% if r.y and r.z or not r.y and r.x %}, {% endif %}
+{%- if r.z %}z: {{ value_assignment(r.z) }}{% endif %}
+{%- endif %}
+{%- endmacro %}
+
+{# Polytopes #}
+
+{%- macro shape_macro(shape) -%}
+    {%- if shape.__class__.__name__ == 'Polygon' -%}
+        {{ polygon(shape) }}
+    {%- elif shape.__class__.__name__== 'Rectangle' -%}
+        {{ rectangle(shape) }}
+    {%- elif shape.__class__.__name__== 'Circle' -%}
+        {{ circle(shape) }}
+    {%- else -%}
+        wrong
+    {%- endif -%}
+{%- endmacro -%}
+
+{%- macro polygon(shape) -%}
+        Polygon points:[
+            {% for point in shape.points %}
+                ({{ value_assignment(point.x) }}, {{ value_assignment(point.y) }}) 
+                {%- if not loop.last -%},
+                {%endif%}
+            {% endfor%}
+
+        ]
+{%- endmacro -%}
+
+{%- macro rectangle(shape) -%}
+        Rectangle width={{ value_assignment(shape.width) }}, 
+        {%- if shape.length %} length={{ value_assignment(shape.length) }} 
+        {%- elif shape.height %} height={{ value_assignment(shape.height) }}
+        {%- endif -%}
+{%- endmacro -%}
+
+{%- macro circle(shape) -%}
+Circle radius={{ value_assignment(shape.radius) }} 
+{%- endmacro -%}

@@ -1,16 +1,16 @@
-import "hbrs.floorplan"
+import "hbrs.fpm2"
 
 column_height : uniform([0.5, 0.7, 2.4])
 
 room_c022: {
-    location.pose.translation.x : uniform([-1.1, -0.95, -1.25])
+    location.transformation.translation.x : uniform([-1.1, -0.95, -1.25])
     wall_thickness : uniform([-1.1, -0.95, -1.25])
 }
 
 corridor_1.pillar_1: {
-    pose.translation.x : normal(mean=1.0, std=3.0)
+    location.transformation.translation.x : normal(mean=1.0, std=3.0)
 }
 
 room_c025_door_1: {
-    pose.translation.x : normal(mean=1.0, std=1.0)
+    location.transformation.translation.x : normal(mean=1.0, std=1.0)
 }

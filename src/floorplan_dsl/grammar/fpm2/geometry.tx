@@ -1,0 +1,46 @@
+import units
+import variables
+
+/* ------------------------------------------ */
+// Syntax: Structural entities
+
+Point:
+    '('x=LengthValue',' y=LengthValue(',' z=LengthValue)?')'
+;
+
+Position:
+    (('x'':' x=LengthValue)? ('y'':' y=LengthValue)? ('z'':' z=LengthValue)?)#[","]
+;
+
+// Around which axis?
+Orientation:
+    (('x'':' x=AngleValue)? ('y'':' y=AngleValue)? ('z'':' z=AngleValue)?)#[","]
+;
+
+
+Transformation:
+    (('translation' ':' translation=Position)?
+    ('rotation' ':' rotation=Orientation)?)#
+;
+
+/* ------------------------------------------ */
+// Syntax: Polytope
+
+Polytope: Rectangle | Circle | Polygon;
+
+Rectangle:
+    'Rectangle' 'width' '=' width=LengthValue',' ('length' '=' length=LengthValue|'height' '=' height=LengthValue)
+    (points*=Point[','])? // Semantics
+;
+
+Circle:
+    'Circle' 'radius' '=' (radius=LengthValue)
+;
+
+
+Polygon:
+    'Polygon' 'points'':''['
+        points*=Point[',']
+    ']'
+;
+

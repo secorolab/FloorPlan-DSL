@@ -1,0 +1,33 @@
+import geometry
+
+Polytope:
+    Rectangle | Circle | Polygon
+;
+
+Rectangle:
+    'Rectangle' 'width' '=' width=Value ',' 'length' '=' length=Value
+;
+
+Circle:
+    'Circle' 'radius' '=' r=CartesianUnit
+;
+
+Polygon:
+    'Polygon' 'points'':''['
+        points*=Point[',']
+    ']'
+;
+
+VerticalPolytope:
+    VerticalRectangle | VerticalPolygon
+;
+
+VerticalPolygon:
+    'Polygon' 'points'':''['
+        points*=Point[',']
+    ']'
+;
+
+VerticalRectangle:
+    'Rectangle' 'width' '=' width=Value ',' 'height' '=' height=Value
+;

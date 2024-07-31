@@ -1,0 +1,38 @@
+{% block comments %}
+{% endblock %}
+Floor plan: {{ model.name }}
+
+    {% block defaults %}
+    Defaults:
+        walls: 
+            thickness: {{ model.defaults.wall.thickness.value }} {{ model.defaults.wall.thickness.unit }}
+            height: {{ model.defaults.wall.height.value }} {{ model.defaults.wall.height.unit }}
+    {% endblock %}
+
+    // variables
+    {% for variable in model.variables %}
+    {% block variable scoped %}
+    var {{ variable.name }} = {{ variable.value }} {{ variable.unit }}
+    {% endblock %}
+    {% endfor %}
+    
+    {% for space in model.spaces %}
+    {% block space scoped %}
+    {% include "./fpm2/space.fpm2.jinja" with context %}
+    {% endblock %}
+    {% block features scoped %}
+        {% if space.features|length > 0 %}
+        features:
+            {% for feature in space.features %}
+            {% block feature scoped %}
+            {% include "./fpm2/feature.fpm2.jinja" with context +%}
+            {% endblock %}
+            {% endfor %}
+        {% endif %}
+    {% endblock %}
+    {% endfor %}
+    {% for wall_opening in model.wall_openings %}
+    {% block wall_opening scoped %}
+    {% include "./fpm2/wall_opening.fpm2.jinja" with context +%}
+    {% endblock %}
+    {% endfor %}

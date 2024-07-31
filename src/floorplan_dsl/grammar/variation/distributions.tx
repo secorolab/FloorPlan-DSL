@@ -1,0 +1,21 @@
+Distribution:
+    UniformDistribution | DiscreteDistribution | NormalDistribution
+;
+
+UniformDistribution:
+    'uniform' '(' '[' values+=FLOAT[','] ']' ')'
+;
+
+DiscreteDistribution:
+    'discrete' '(' '['
+        pairs += DiscreteValue[',']
+    ']' ')'
+;
+
+NormalDistribution: 
+    'normal' '(' 'mean' '=' mean=FLOAT ',' 'std' '=' std=FLOAT ')'
+;
+
+DiscreteValue:
+    '(' prob=FLOAT ',' value=FLOAT ')'
+;

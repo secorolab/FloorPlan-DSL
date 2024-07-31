@@ -1,0 +1,35 @@
+reference floorplan-v2 as f
+import distributions
+
+Model:
+    import_uri=Import
+    variations+=Vars
+;
+
+Vars:
+    (Variation|VariableRef)
+;
+
+Variation:
+    (ref=[f.Space:FQN] | ref=[f.FloorFeature:FQN] | ref=[f.WallOpening:FQN] | ref=[f.Variable:FQN]) ':' '{'
+        attributes += Attribute
+    '}'
+;
+
+Attribute:
+    fqn=FQN ':' distribution=Distribution
+;
+
+VariableRef:
+    ref=[f.Variable] ':' distribution=Distribution
+;
+
+
+Import: 'import' importURI=STRING;
+FQN: ID+['.'];
+
+/* ------------------------------------------ */
+// special rule for comments.
+Comment:
+    /\/\/.*$/
+;

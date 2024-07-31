@@ -1,0 +1,11 @@
+import geometry
+import variables
+
+/* ------------------------------------------ */
+// Semantics: Walls
+
+Wall:
+    ('thickness: ' thickness=LengthValue)?
+    ('height: ' height=LengthValue)?
+    (shape=Polytope)?
+;

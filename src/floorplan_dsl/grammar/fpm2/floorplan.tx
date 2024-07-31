@@ -1,0 +1,26 @@
+import geometry
+import units
+import variables
+
+import features
+import openings
+import spaces
+
+/*
+DSL for specifying the floorplans of indoor environments
+*/
+
+FloorPlanModel:
+    'Floor plan' ':' name = ID
+        (defaults = DefaultValues?
+        variables *= Variable?
+        spaces += Space 
+        wall_openings *= WallOpening?)#
+;
+
+
+/* ------------------------------------------ */
+// special rule for comments.
+Comment:
+    /\/\/.*$/
+;

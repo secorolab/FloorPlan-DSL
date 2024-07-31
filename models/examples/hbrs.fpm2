@@ -1,0 +1,87 @@
+// Converted to v2 from models/examples/hbrs.floorplan
+Floor plan: hbrs
+
+    Defaults:
+        walls: 
+            thickness: 0.2 m
+            height: 3.0 m
+
+    // variables
+    var column_height = 1.5 m
+    var from_the_wall = 0.0 m
+    var same_pose = 1.0 m
+    var my_width = 3.5 m
+    var my_length = 5.0 m
+    var my_rotation = 47.0 deg
+    var my_door_width = 0.8 m
+    var my_thickness = 0.5 m
+    
+    Space corridor_1:
+        shape: Rectangle width=3.5 m, length=10.0 m
+        location:
+            translation: x: 0.0 m, y: 0.0 m
+            rotation: z: 0.0 deg
+            wrt: world
+            of: this
+         
+        features:
+            Column pillar_1:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: column_height
+                location:
+                    wrt: this.walls[3]
+                    translation: x: 1.0 m, y: from_the_wall
+                    rotation: z: my_rotation
+            Column pillar_2:
+                shape: Rectangle width=0.4 m, length=0.4 m
+                height: 1.5 m
+                location:
+                    wrt: this.walls[1]
+                    translation: x: 1.0 m, y: from_the_wall
+                    rotation: z: my_rotation
+            
+    Space room_c022:
+        shape: Rectangle width=my_width, length=my_length
+        location:
+            translation: x: 0.5 m, y: 0.0 m
+            rotation: z: 0.0 deg
+            wrt: corridor_1.walls[3]
+            of: this.walls[0]
+        spaced 
+        walls:
+            thickness: 0.5 m
+            
+
+    Space room_c025:
+        shape: Rectangle width=my_width, length=my_length
+        location:
+            translation: x: same_pose, y: 0.2 m
+            rotation: z: 0.0 deg
+            wrt: corridor_1.walls[1]
+            of: this.walls[0]
+         
+        walls:
+            thickness: my_thickness
+            
+
+    Entryway room_c022_door_1:
+        shape: Rectangle width=my_door_width, height=2.2 m
+        location:
+            in: room_c022.walls[0] and corridor_1.walls[3]
+            translation: x: 1.0 m, y: 0.0 m, z: 0.0 m
+            rotation: y: 0.0 deg
+
+    Entryway room_c025_door_1:
+        shape: Rectangle width=my_door_width, height=2.2 m
+        location:
+            in: room_c025.walls[0] and corridor_1.walls[1]
+            translation: x: -1.0 m, y: 0.0 m, z: 0.0 m
+            rotation: y: 0.0 deg
+
+    Entryway junction_corridor_1_transition:
+        shape: Rectangle width=3.499 m, height=3.0 m
+        location:
+            in: corridor_1.walls[0]
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: y: 0.0 deg
+
