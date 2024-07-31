@@ -158,7 +158,7 @@ class Wall:
             world
         faces : Matrix
             Matrix that describe the vertices that form a face of the mesh.
-            Each row containt the index of the vertices that form the face.
+            Each row contains the index of the vertices that form the face.
             This matrix is constant.
         """
 

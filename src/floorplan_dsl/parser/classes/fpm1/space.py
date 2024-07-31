@@ -191,7 +191,7 @@ class Space(object):
             t, R = frame.get_transformation()
             T[0:3, 0:3] = R.dot(T[0:3, 0:3])
 
-        # Calculate the transfomation needed to obtain desired result
+        # Calculate the transformation needed to obtain desired result
         t_a, R_a = to_frame.get_transformation()
 
         po_p_T = np.hstack(
@@ -226,7 +226,7 @@ class Space(object):
 
         Returns
         -------
-        shape : Polyotpe
+        shape : Polytope
             Polytope object
         """
         return self.shape

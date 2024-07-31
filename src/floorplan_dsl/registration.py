@@ -4,27 +4,28 @@ Registration of languages with TextX registration API
 
 # dependencies
 import sys
-from os.path import abspath, dirname, join, realpath
-from textx import LanguageDesc, GeneratorDesc, metamodel_from_file
+from os.path import dirname, join, realpath
+
 import textx.scoping.providers as scoping_providers
-import textx.scoping as scoping
+from textx import LanguageDesc, GeneratorDesc, metamodel_from_file
 
-dir_path = dirname(realpath(__file__))
-sys.path.append(dir_path)
-
-# Classes for FloorPlan DSL and Variation DSL
-from floorplan_dsl.parser.classes.fpm1.space import Space
+from floorplan_dsl.generators.fpm import (
+    jsonld_floorplan_generator,
+    v1_to_v2_converter,
+)
+from floorplan_dsl.generators.variations import variation_floorplan_generator
+from floorplan_dsl.parser.classes.fpm1.floor_feature import FloorFeature
 from floorplan_dsl.parser.classes.fpm1.polytope import (
     Circle,
     Polygon,
     Rectangle,
-    VerticalPolygon,
     VerticalRectangle,
 )
-from floorplan_dsl.parser.classes.fpm1.wall_opening import WallOpening
-from floorplan_dsl.parser.classes.fpm1.floor_feature import FloorFeature
 from floorplan_dsl.parser.classes.fpm1.position import Position, PoseDescription
 
+# Classes for FloorPlan DSL and Variation DSL
+from floorplan_dsl.parser.classes.fpm1.space import Space
+from floorplan_dsl.parser.classes.fpm1.wall_opening import WallOpening
 from floorplan_dsl.parser.classes.variation.distribution import (
     UniformDistribution,
     DiscreteDistribution,
@@ -33,17 +34,12 @@ from floorplan_dsl.parser.classes.variation.distribution import (
 
 # object processors for FloorPlan DSL
 from floorplan_dsl.parser.processors.fpm1 import unique_names_processor
-
 from floorplan_dsl.parser.processors.variation import (
     discrete_distribution_obj_processor,
 )
 
-from floorplan_dsl.generators.variations import variation_floorplan_generator
-
-from floorplan_dsl.generators.fpm import (
-    jsonld_floorplan_generator,
-    v1_to_v2_converter,
-)
+dir_path = dirname(realpath(__file__))
+sys.path.append(dir_path)
 
 
 def floorplan_metamodel():
@@ -90,7 +86,6 @@ def fpv2_metamodel():
 
 
 def variation_metamodel():
-
     current_dir = dirname(__file__)
     path = join(current_dir, "grammar/variation", "floorplan_variation.tx")
     mm_variation = metamodel_from_file(

@@ -1,5 +1,4 @@
 from textx import TextXSemanticError, get_location
-import numpy as np
 
 
 def unique_names_processor(floorplan):

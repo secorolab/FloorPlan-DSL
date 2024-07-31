@@ -2,7 +2,7 @@ import numpy as np
 
 
 def get_value(variable):
-    """Helper function to retrive a numeric value from the model"""
+    """Helper function to retrieve a numeric value from the model"""
 
     if variable is None:
         return 0

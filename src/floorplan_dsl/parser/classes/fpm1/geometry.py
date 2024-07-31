@@ -1,5 +1,4 @@
 import numpy as np
-import copy
 
 cos = np.cos
 sin = np.sin
@@ -19,7 +18,7 @@ class Frame:
         The reference frame for the translation and rotation of this frame (no
         reference frame means that this is the world frame).
     t : Numpy array
-        3 dimensional vector with the translation from the perspective of the
+        3-dimensional vector with the translation from the perspective of the
         reference frame.
     R : Numpy array
         Rotation matrix for the orientation of the frame from the perspective
@@ -30,7 +29,7 @@ class Frame:
     set_translation(t)
         sets the translation of the frame wrt to the reference frame.
     set_orientation(gamma, beta, alpha)
-        sets the orientation of the frame wrt to the refernece frame.
+        sets the orientation of the frame wrt to the reference frame.
     get_transformation()
         returns the translation and rotation matrix for the frame.
     get_transformation_matrix()
@@ -76,7 +75,7 @@ class Frame:
         Parameters
         ----------
         t : Numpy array
-            3 dimensional vector
+            3-dimensional vector
 
         Returns
         -------
@@ -129,7 +128,7 @@ class Frame:
         Returns
         -------
         t : numpy array
-            A 3 dimensinal vector
+            A 3-dimensional vector
         R : numpy array
             The rotation matrix (3x3)
         """
@@ -170,7 +169,7 @@ class Frame:
 
     def get_reference_frame(self):
         """
-        returns the refernece frame
+        returns the reference frame
 
         Parameters
         ----------
@@ -202,7 +201,7 @@ class Frame:
     def get_point_transformation_wrt(self, points, wrt=None):
         """
         calculates the transformation of a group of points that are specified
-        with respect to the frame to another specifiec frame.
+        with respect to the frame to another specified frame.
 
         Parameters
         ----------
@@ -236,7 +235,7 @@ class Frame:
 
     def get_direction_vectors(self, wrt=None):
         """
-        returns the origin and direction of the orthonomal vectors describing
+        returns the origin and direction of the orthonormal vectors describing
         the frame axis using the (x, y, z) convention wrt another frame.
 
         Parameters
@@ -248,7 +247,7 @@ class Frame:
         origin : numpy array
             the origin of the frame wrt the specified frame.
         vectors : numpy array
-            Array of direction vectors for the orthonomal axis.
+            Array of direction vectors for the orthonormal axis.
         """
 
         points = array(

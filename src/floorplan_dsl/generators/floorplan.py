@@ -1,36 +1,37 @@
+import configparser
+import io
+import os
 import sys
 import traceback
-import os
-import io
-import configparser
-from pathlib import Path
-
-dir_path = os.path.dirname(os.path.realpath(__file__))
-sys.path.append(dir_path)
 
 import yaml
-from PIL import Image, ImageDraw, ImageOps
-from textx import metamodel_for_language
 
 # Blender
 import bpy
-import bmesh
 
 # Debug graphic
 import matplotlib.pyplot as plt
-from matplotlib.patches import Polygon as Pol
-from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
+from matplotlib.patches import Polygon as Pol
 
-np.set_printoptions(suppress=True)
+from pathlib import Path
 
-from blender.blender import (
+from PIL import Image, ImageDraw, ImageOps
+from textx import metamodel_for_language
+
+from floorplan_dsl.blender.blender import (
     boolean_operation_difference,
     clear_scene,
     create_mesh,
     create_collection,
     export,
 )
+
+dir_path = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(dir_path)
+
+np.set_printoptions(suppress=True)
+
 
 """
 TODO
@@ -192,7 +193,6 @@ class FloorPlan(object):
         directions = []
 
         for space in self.spaces:
-
             shape = space.get_shape()
             shape_points = shape.get_points()
             points.append(shape_points)
