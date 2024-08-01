@@ -15,12 +15,14 @@ Entryway:
     'Entryway' name=ID ':'
     'shape:' shape=Polytope // Check that it's vertical?
     'location:' location=WallOpeningLocation
+    (frame=Frame)? //Semantics
 ;
 
 Window:
     'Window' name=ID ':'
     'shape:' shape=Polytope // Check that it's vertical?
     'location:'location=WallOpeningLocation
+    (frame=Frame)? //Semantics
 ;
 
 WallOpeningLocation: 
@@ -29,7 +31,7 @@ WallOpeningLocation:
 ;
 
 WallOpeningRef:
-space=[Space] ".walls[" wall_idx=INT "]"
+space=[Space] ".walls[" wall_idx=INT "]"|frame=[Frame]
 ;
 
 
