@@ -14,6 +14,7 @@ Divider:
     'shape:' shape=Polytope
         'height: ' height=LengthValue
         'location:' location=FeatureLocation
+        (frame=Frame)? //Semantics
 ;
 
 Column:
@@ -21,6 +22,7 @@ Column:
     'shape:' shape=Polytope
         'height: ' height=LengthValue
         'location:' location=FeatureLocation
+        (frame=Frame)? //Semantics
 ;
 
 FeatureLocation:
@@ -29,6 +31,6 @@ FeatureLocation:
 ;
 
 FeaturePoseRef:
-'wrt' ':' this?="this" (".walls[" wall_idx=INT "]")?
+'wrt' ':' (this?="this" (".walls[" wall_idx=INT "]")?|frame=[Frame])
 ;
 

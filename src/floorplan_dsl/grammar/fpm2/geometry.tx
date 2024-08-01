@@ -17,6 +17,9 @@ Orientation:
     (('x'':' x=AngleValue)? ('y'':' y=AngleValue)? ('z'':' z=AngleValue)?)#[","]
 ;
 
+Frame:
+'frame:' name=ID origin=Point?
+;
 
 Transformation:
     (('translation' ':' translation=Position)?

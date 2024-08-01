@@ -18,6 +18,7 @@ Space:
             features*=Feature
         )?
         (walls*=Wall)? // Semantics
+        (frame=Frame)?
 ;
 
 DefaultSpaceValues:
@@ -33,9 +34,9 @@ SpaceLocation:
 ;
 
 SpacePoseRef:
-'wrt'':' (world?="world"|space=[Space] (".walls[" wall_idx=INT "]")?)
+'wrt'':' (world?="world"|space=[Space] (".walls[" wall_idx=INT "]")?|frame=[Frame])
 ;
 
 SpaceToRef:
-'of' ':' this?="this" (".walls[" wall_idx=INT "]")?
+'of' ':' (this?="this" (".walls[" wall_idx=INT "]")?|frame=[Frame])
 ;

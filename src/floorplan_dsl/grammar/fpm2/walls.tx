@@ -7,5 +7,5 @@ import variables
 Wall:
     ('thickness: ' thickness=LengthValue)?
     ('height: ' height=LengthValue)?
-    (shape=Polytope)?
+    (frame=Frame)?
 ;
