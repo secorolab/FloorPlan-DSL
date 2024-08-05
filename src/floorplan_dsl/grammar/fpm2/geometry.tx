@@ -21,11 +21,6 @@ Frame:
 'frame:' name=ID origin=PointCoordinate?
 ;
 
-Transformation:
-    (('translation' ':' translation=Position)?
-    ('rotation' ':' rotation=Orientation)?)#
-;
-
 /* ------------------------------------------ */
 // Syntax: Polytope
 

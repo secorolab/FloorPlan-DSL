@@ -27,7 +27,8 @@ Window:
 
 WallOpeningLocation: 
     'in:' walls=WallOpeningRef ('and' walls=WallOpeningRef)? //Check that 2 walls are declared if opening is between two spaces
-    transformation=Transformation
+    ('translation' ':' translation=PositionVector)?
+    ('rotation' ':' rotation=EulerAngles)?
 ;
 
 WallOpeningRef:
