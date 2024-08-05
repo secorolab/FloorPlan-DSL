@@ -27,7 +27,9 @@ Column:
 
 FeatureLocation:
     (wrt=FeaturePoseRef
-    transformation=Transformation)#
+    ('translation' ':' translation=PositionVector)?
+    ('rotation' ':' rotation=EulerAngles)?
+    )#
 ;
 
 FeaturePoseRef:

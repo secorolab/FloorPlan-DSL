@@ -28,7 +28,8 @@ wall=DefaultWallValues
 SpaceLocation:
     (wrt=SpacePoseRef
     of=SpaceToRef
-    transformation=Transformation
+    ('translation' ':' translation=PositionVector)?
+    ('rotation' ':' rotation=EulerAngles)?
     //flags
     aligned?="not aligned" spaced?="spaced")#
 ;
