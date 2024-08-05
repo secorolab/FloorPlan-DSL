@@ -6,12 +6,16 @@ Variable:
 'var' name=ID '=' value=FLOAT unit=Units?
 ;
 
+VariableReference:
+var_neg?="-" variable=[Variable]
+;
+
 LengthValue:
-value=Length | var_neg?="-" variable=[Variable]
+Length | VariableReference
 ;
 
 AngleValue:
-value=Angle | var_neg?="-" variable=[Variable]
+Angle | VariableReference
 ;
 
 /* ------------------------------------------ */
