@@ -4,21 +4,21 @@ import variables
 /* ------------------------------------------ */
 // Syntax: Structural entities
 
-Point:
+PointCoordinate:
     '('x=LengthValue',' y=LengthValue(',' z=LengthValue)?')'
 ;
 
-Position:
+PositionVector:
     (('x'':' x=LengthValue)? ('y'':' y=LengthValue)? ('z'':' z=LengthValue)?)#[","]
 ;
 
-// Around which axis?
-Orientation:
+// TODO Rename this alpha beta gamma?
+EulerAngles:
     (('x'':' x=AngleValue)? ('y'':' y=AngleValue)? ('z'':' z=AngleValue)?)#[","]
 ;
 
 Frame:
-'frame:' name=ID origin=Point?
+'frame:' name=ID origin=PointCoordinate?
 ;
 
 Transformation:
@@ -33,7 +33,7 @@ Polytope: Rectangle | Circle | Polygon;
 
 Rectangle:
     'Rectangle' 'width' '=' width=LengthValue',' ('length' '=' length=LengthValue|'height' '=' height=LengthValue)
-    (points*=Point[','])? // Semantics
+    (points*=PointCoordinate[','])? // Semantics
 ;
 
 Circle:
@@ -43,7 +43,7 @@ Circle:
 
 Polygon:
     'Polygon' 'points'':''['
-        points*=Point[',']
+        points*=PointCoordinate[',']
     ']'
 ;
 
