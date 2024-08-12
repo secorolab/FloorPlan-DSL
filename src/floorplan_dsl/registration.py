@@ -32,6 +32,13 @@ from floorplan_dsl.parser.classes.variation.distribution import (
     NormalDistribution,
 )
 
+import floorplan_dsl.parser.classes.fpm2.floorplan as fpm
+import floorplan_dsl.parser.classes.fpm2.geometry as geom
+import floorplan_dsl.parser.classes.fpm2.qudt as qudt
+import floorplan_dsl.parser.classes.fpm2.variables as var
+
+import floorplan_dsl.parser.processors.fpm2 as proc2
+
 # object processors for FloorPlan DSL
 from floorplan_dsl.parser.processors.fpm1 import unique_names_processor
 from floorplan_dsl.parser.processors.variation import (
@@ -74,14 +81,38 @@ def floorplan_metamodel():
 def fpv2_metamodel():
     current_dir = dirname(__file__)
     path = join(current_dir, "grammar/fpm2", "floorplan.tx")
-    floorplan_mm = metamodel_from_file(path)
-    floorplan_mm.auto_init_attributes = False
+    floorplan_mm = metamodel_from_file(
+        path,
+        classes=[
+            fpm.Space,
+            fpm.Wall,
+            fpm.Column,
+            fpm.Divider,
+            fpm.Window,
+            fpm.Entryway,
+            fpm.Frame,
+            geom.PointCoordinate,
+            geom.Rectangle,
+            geom.Polygon,
+            var.VariableReference,
+            qudt.Length,
+            qudt.Angle,
+        ],
+    )
     floorplan_mm.register_obj_processors(
         {
-            "FloorPlan": unique_names_processor,
+            "Space": proc2.space_obj_processor,
+            "Feature": proc2.feature_obj_processor,
+            "WallOpening": proc2.opening_obj_processor,
         }
     )
-    # floorplan_mm.register_scope_providers({"*.*": scoping_providers.FQN()})
+    floorplan_mm.register_scope_providers(
+        {
+            "WallFrame.space": proc2.space_location_scope_provider,
+            "SpaceFrame.space": proc2.space_location_scope_provider,
+        }
+    )
+    floorplan_mm.auto_init_attributes = False
     return floorplan_mm
 
 

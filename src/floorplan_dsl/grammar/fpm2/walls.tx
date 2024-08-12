@@ -5,6 +5,8 @@ import variables
 // Semantics: Walls
 
 Wall:
+    ('p1:' points=PointCoordinate)?
+    ('p2:' points=PointCoordinate)?
     ('thickness: ' thickness=LengthValue)?
     ('height: ' height=LengthValue)?
     (frame=Frame)?
