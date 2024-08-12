@@ -1,15 +1,15 @@
 import "kitchen.fpm2"
 
 room_a_to_corridor_1: {
-    pose.translation.x : normal(mean=3.5, std=2.0)
+    location.translation.x : normal(mean=3.5, std=2.0)
 }
 
 room_a_to_corridor_2: {
-    pose.translation.x : normal(mean=-3.5, std=2.0)
+    location.translation.x : normal(mean=-3.5, std=2.0)
 }
 
 room_b_to_corridor: {
-    pose.translation.x : normal(mean=0.0, std=4.0)
+    location.translation.x : normal(mean=0.0, std=4.0)
 }
 
 corridor: {

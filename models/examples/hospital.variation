@@ -1,7 +1,7 @@
 import "hospital.fpm2"
 
 hallway: {
-    location.transformation.translation.x : normal(mean=0.0, std=5.0) // TODO this doesn't match the format in fpm (location.translation)
+    location.translation.x : normal(mean=0.0, std=5.0) // TODO this doesn't match the format in fpm (location.translation)
     defaults.wall.thickness : discrete([
         (0.2, 0.14),
         (0.4, 0.35),
@@ -13,13 +13,13 @@ reception_hallway : {
 }   
 reception.divider_left: { // TODO Temporarily changed divider_center until we add semantics for default values
     height : normal(mean=1.0, std=0.2)
-    location.transformation.rotation.z : discrete([
+    location.rotation.z : discrete([
         (0.8, 0.0),
         (0.2, 0.20)
     ])
 }  
 room_B: {
-    location.transformation.translation.x : uniform([2.0, 3.0, 4.0, 5.0])
+    location.translation.x : uniform([2.0, 3.0, 4.0, 5.0])
     shape.length : uniform([4.2, 5.0, 6.0, 3.0]) 
 }
     

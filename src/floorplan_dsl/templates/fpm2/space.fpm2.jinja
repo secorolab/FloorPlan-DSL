@@ -2,19 +2,19 @@
     Space {{ space.name }}:
         shape: {{ geom.shape_macro(space.shape) }}
         location: 
-            {% if space.location.transformation.translation %}
-            translation: {{ geom.translation(space.location.transformation.translation) }}
+            {% if space.location.translation %}
+            translation: {{ geom.translation(space.location.translation) }}
             {% endif %}
-            {% if space.location.transformation.rotation %}
-            rotation: {{ geom.rotation(space.location.transformation.rotation) }}
+            {% if space.location.rotation %}
+            rotation: {{ geom.rotation(space.location.rotation) }}
             {% endif %}
             wrt: {{ geom.space_location_wrt(space.location.wrt) }}
             of: {{ geom.space_location_of(space.location.of) }}
             {%- if space.location.spaced +%}
             spaced
             {%- endif %} 
-        {% if space.defaults %}
+        {% if space.defaults.wall.thickness.value != model.defaults.wall.thickness.value or space.defaults.wall.height.value != model.defaults.wall.height.value %}
         walls:
-            thickness: {{ space.defaults.wall.thickness.value }} {{ space.defaults.wall.thickness.unit }}
-            height: {{ space.defaults.wall.height.value }} {{ space.defaults.wall.height.unit }}
-        {% endif %}
+            {%+ if space.defaults.wall.thickness.value != model.defaults.wall.thickness.value %}thickness: {{ space.defaults.wall.thickness.value }} {{ space.defaults.wall.thickness.unit }}{% endif +%}
+            {%+ if space.defaults.wall.height.value != model.defaults.wall.height.value %}height: {{ space.defaults.wall.height.value }} {{ space.defaults.wall.height.unit }}{% endif +%}
+        {% endif +%}

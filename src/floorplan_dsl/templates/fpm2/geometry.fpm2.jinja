@@ -9,7 +9,7 @@ world
 {%- endmacro %}
 
 {% macro space_location_of(frame) -%}
-this{% if frame.wall_idx is not none %}.walls[{{ frame.wall_idx }}]{% endif %}
+this{% if frame.wall_idx %}.walls[{{ frame.wall_idx }}]{% endif %}
 {%- endmacro +%}
 
 {% macro translation(p) -%}
