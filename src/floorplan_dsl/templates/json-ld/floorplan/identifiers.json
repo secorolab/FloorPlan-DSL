@@ -15,12 +15,12 @@ point-shape-{{ space.name }}-{{ point_id }}
 point-feature-shape-{{ feature.name }}-{{ point_id }}
 {%- endmacro %}
 
-{% macro wall_point_id(space, wall_id) -%}
-point-frame-{{ space.name }}-wall-{{ wall_id }}
+{% macro wall_point_id(space, wall) -%}
+point-frame-{{ space.name }}-wall-{{ wall.idx }}
 {%- endmacro %}
 
-{% macro wall_corner_point_id(space, wall_id, corner_id) -%}
-point-corner-{{ space.name }}-wall-{{ wall_id }}-{{ corner_id }}
+{% macro wall_corner_point_id(space, wall, corner_id) -%}
+point-corner-{{ space.name }}-wall-{{ wall.idx }}-{{ corner_id }}
 {%- endmacro %}
 
 {# Frames #}
@@ -29,11 +29,11 @@ geom:{{ name }}
 {%- endmacro %}
 
 {% macro space_frame_id(space) -%}
-frame-center-{{ space.name }}
+{{ space.frame.name }}
 {%- endmacro %}
 
-{% macro wall_frame_id(space, wall_id) -%}
-frame-{{ space.name }}-wall-{{wall_id}}
+{% macro wall_frame_id(wall) -%}
+{{wall.frame.name}}
 {%- endmacro %}
 
 {# Polygon #}
@@ -41,8 +41,8 @@ frame-{{ space.name }}-wall-{{wall_id}}
 polygon-{{space.name}}
 {%- endmacro %}
 
-{% macro wall_polygon_id(space, wall_id) -%}
-polygon-{{space.name}}-wall-{{wall_id}}
+{% macro wall_polygon_id(space, wall) -%}
+polygon-{{space.name}}-wall-{{wall.idx}}
 {%- endmacro %}
 
 {% macro feature_polygon_id(space, feature) -%}
@@ -50,29 +50,29 @@ polygon-{{ space.name }}-feature-{{ feature.name }}
 {%- endmacro %}
 
 {# Coordinates #}
-{% macro coord_pose_id(of, to) -%}
-coord-pose-{{of}}-to-{{to}}
+{% macro coord_pose_id(of, wrt) -%}
+coord-pose-{{ of }}-to-{{ wrt }}
 {%- endmacro %}
 
 {% macro coord_position_id(point_id, space) -%}
 coord-position-point-{{ point_id }}-to-{{ space.name }}-frame
 {%- endmacro %}
 
-{% macro coord_wall_pose_id(wall_id, space) -%}
-coord-pose-of-wall-{{ wall_id }}-frame-to-{{ space.name }}-frame
+{% macro coord_wall_pose_id(wall, space) -%}
+coord-pose-of-wall-{{ wall.idx }}-frame-to-{{ space.name }}-frame
 {%- endmacro %}
 
-{% macro coord_position_corner_id(poly_id, space, wall_id) -%}
-coord-position-corner-{{ poly_id }}-to-{{ space.name }}-wall-{{ wall_id }}-frame
+{% macro coord_position_corner_id(poly_id, space, wall) -%}
+coord-position-corner-{{ poly_id }}-to-{{ space.name }}-wall-{{ wall.idx }}-frame
 {%- endmacro %}
 
 {# Pose #}
-{% macro pose_id(of, to) -%}
-pose-{{of}}-to-{{to}}
+{% macro pose_id(of, wrt) -%}
+pose-{{ of }}-wrt-{{ wrt }}
 {%- endmacro %}
 
-{% macro wall_pose_id(wall_id, space) -%}
-pose-of-wall-{{ wall_id }}-frame-to-{{ space.name }}-frame
+{% macro wall_pose_id(wall, space) -%}
+pose-of-wall-{{ wall.idx }}-frame-to-{{ space.name }}-frame
 {%- endmacro %}
 
 {# Position #}
@@ -81,8 +81,8 @@ pose-of-wall-{{ wall_id }}-frame-to-{{ space.name }}-frame
 position-point-{{ point_id }}-to-{{ space.name }}-frame
 {%- endmacro %}
 
-{% macro corner_position_id(poly_id, space, wall_id) -%}
-position-corner-{{ poly_id }}-to-{{ space.name }}-wall-{{ wall_id }}-frame
+{% macro corner_position_id(poly_id, space, wall) -%}
+position-corner-{{ poly_id }}-to-{{ space.name }}-wall-{{ wall.idx }}-frame
 {%- endmacro %}
 
 
@@ -91,8 +91,8 @@ position-corner-{{ poly_id }}-to-{{ space.name }}-wall-{{ wall_id }}-frame
 space-{{ space.name }}
 {%- endmacro %}
 
-{% macro wall_id(space, wall_id) -%}
-space-{{ space.name }}-wall-{{ wall_id}}
+{% macro wall_id(space, wall) -%}
+space-{{ space.name }}-wall-{{ wall.idx }}
 {%- endmacro %}
 
 {% macro feature_id(space, feature) -%}

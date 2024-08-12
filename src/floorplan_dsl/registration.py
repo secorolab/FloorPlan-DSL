@@ -159,7 +159,7 @@ variation_floorplan_gen = GeneratorDesc(
 )
 
 json_ld_floorplan_gen = GeneratorDesc(
-    language="floorplan-v1",
+    language="floorplan-v2",
     target="json-ld",
     description="Generate composable models in json-ld",
     generator=jsonld_floorplan_generator,

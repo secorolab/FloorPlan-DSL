@@ -1,6 +1,5 @@
 {% extends "./floorplan/floorplan.json" %}
 {% import "./floorplan/identifiers.json" as ids %}
-{% from "./floorplan/spatial-relations/macros.json" import to_ref_name, from_ref_name %}
 
 
 {% block context %}
@@ -16,8 +15,8 @@
 {% endblock%}
 
 {% block space %}
-    {%- set of = to_ref_name(space.location.to_frame, space) %}
-    {%- set to = from_ref_name(space.location.from_frame) %}
+    {%- set of = space.location.of.name %}
+    {%- set wrt = space.location.wrt.name %}
     {% include "./floorplan/coordinates/space_pose.json" with context %},
     {% for point in space.get_shape().get_points(wrt=space.get_shape().get_frame()) %}
     {% set point_id = loop.index0 %}
@@ -27,7 +26,6 @@
 
 {% block wall %}
 {% set outer_loop = loop %}
-{% set wall_id = outer_loop.index0 %}
 {% set origin, theta = w.get_wall_origin_coord() %}
 {% include "./floorplan/coordinates/wall_pose.json" with context %},
 {% for point in w.polygon %}

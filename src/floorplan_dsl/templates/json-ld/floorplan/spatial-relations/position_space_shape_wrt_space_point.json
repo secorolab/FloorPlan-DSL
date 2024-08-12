@@ -13,6 +13,6 @@ Position
 {{ ids.shape_point_id(space, point_id) }}
 {%- endblock %}
 
-{% block to -%}
+{% block wrt -%}
 {{ ids.space_point_id(space) }}
 {%- endblock %}

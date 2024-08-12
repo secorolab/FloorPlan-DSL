@@ -11,7 +11,7 @@
 {% block space -%}
 {% include "./floorplan/structural-entities/space_point.json" with context %},
 {% include "./floorplan/structural-entities/space_frame.json" with context %},
-{% for p in space.get_shape().get_points() %}
+{% for p in space.shape.points %}
 {% set point_id = loop.index0 %}
 {% include "./floorplan/structural-entities/space_shape_point.json" with context %},
 {% endfor -%}
@@ -19,7 +19,6 @@
 
 {% block wall %}
 {%- set outer_loop = loop -%}
-{%- set wall_id = outer_loop.index0 -%}
 {% include "./floorplan/structural-entities/wall_point.json" with context %},
 {% include "./floorplan/structural-entities/wall_frame.json" with context %},
 {% for corner_id in [0, 1, 2, 3] %}

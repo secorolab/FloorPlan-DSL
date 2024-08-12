@@ -2,11 +2,11 @@
 {% import "./floorplan/identifiers.json" as ids %}
 
 {% block poly_id -%}
-{{ ids.wall_polygon_id(space, wall_id) }}
+{{ ids.wall_polygon_id(space, w) }}
 {%- endblock %}
 
 {% block point_id -%}
-{{ ids.wall_corner_point_id(space, wall_id, loop.index0) }}
+{{ ids.wall_corner_point_id(space, w, loop.index0) }}
 {%- endblock %}
 
 

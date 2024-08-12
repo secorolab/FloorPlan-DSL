@@ -2,19 +2,19 @@
 {% import "./floorplan/identifiers.json" as ids %}
 
 {% block coord_id -%}
-{{ ids.coord_position_corner_id(poly_id, space, wall_id) }}
+{{ ids.coord_position_corner_id(poly_id, space, w) }}
 {%- endblock %}
 
 {% block of_position -%}
-{{ ids.corner_position_id(poly_id, space, wall_id) }}
+{{ ids.corner_position_id(poly_id, space, w) }}
 {%- endblock %}
 
 {% block wrt -%}
-{{ ids.wall_point_id(space, wall_id) }}
+{{ ids.wall_point_id(space, w) }}
 {%- endblock %}
 
 {% block as_seen_by -%}
-{{ ids.wall_frame_id(space, wall_id) }}
+    {{ ids.wall_frame_id(w) }}
 {%- endblock %}
 
 {% block coords %}

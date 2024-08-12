@@ -2,7 +2,7 @@
 {% import "./floorplan/identifiers.json" as ids %}
 
 {% block rel_id -%}
-{{ ids.pose_id(of, to) }}
+{{ ids.pose_id(space.location.of.name, space.location.wrt.name) }}
 {%- endblock %}
 
 {% block type -%}
@@ -10,9 +10,9 @@ Pose
 {%- endblock %}
 
 {% block of -%}
-{{ of }}
+{{ space.location.of.name }}
 {%- endblock %}
 
-{% block to -%}
-{{ to }}
+{% block wrt -%}
+{{ space.location.wrt.name }}
 {%- endblock %}
