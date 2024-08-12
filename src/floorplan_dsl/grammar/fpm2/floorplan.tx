@@ -2,9 +2,10 @@ import geometry
 import units
 import variables
 
-import features
-import openings
-import spaces
+//import features
+//import openings
+//import spaces
+import walls
 
 /*
 DSL for specifying the floorplans of indoor environments
@@ -15,9 +16,135 @@ FloorPlanModel:
         (defaults = DefaultValues?
         variables *= Variable?
         spaces += Space 
-        wall_openings *= WallOpening?)#
+        features *= Feature?
+        wall_openings *= WallOpening?
+        frame=[Frame]?
+        )#
 ;
 
+/* ------------------------------------------ */
+// Syntax: Spaces
+
+Space:
+    'Space' name=ID ':'
+    'shape:' shape=Polytope
+        'location' ':' 
+            location=SpaceLocation
+        ('walls' ':' defaults=DefaultSpaceValues)?
+        ('features:' 
+            features*=Feature
+        )?
+        (walls*=Wall)? // Semantics
+        (frame=Frame)?
+;
+
+DefaultSpaceValues:
+wall=DefaultWallValues
+;
+
+/* ------------------------------------------ */
+// Syntax: Features
+
+Feature:
+Divider|Column
+;
+
+Divider:
+    'Divider' name=ID ':'
+    'shape:' shape=Polytope
+        'height: ' height=LengthValue
+        'location:' location=FeatureLocation
+        (frame=Frame)? //Semantics
+;
+
+Column:
+    'Column' name=ID ':'
+    'shape:' shape=Polytope
+        'height: ' height=LengthValue
+        'location:' location=FeatureLocation
+        (frame=Frame)? //Semantics
+;
+
+/* ------------------------------------------ */
+// Syntax: Wall openings
+
+WallOpening:
+Entryway|Window
+;
+
+Entryway:
+    'Entryway' name=ID ':'
+    'shape:' shape=Polytope // Check that it's vertical?
+    'location:' location=WallOpeningLocation
+    (frame=Frame)? //Semantics
+;
+
+Window:
+    'Window' name=ID ':'
+    'shape:' shape=Polytope // Check that it's vertical?
+    'location:'location=WallOpeningLocation
+    (frame=Frame)? //Semantics
+;
+/* ------------------------------------------ */
+// Syntax: Locations
+
+WorldFrame:
+world?="world"
+;
+
+SpaceFrame:
+space=[Space]
+;
+
+
+WallFrame:
+space=[Space] ".walls[" wall_idx=INT "]"
+;
+
+ReferenceFrame: // Semantics
+frame=[Frame]
+;
+
+// Spaces
+SpaceLocation:
+    (('wrt:' wrt=SpaceWrtReference)
+    ('of:' of=SpaceOfReference)
+    ('translation' ':' translation=PositionVector)?
+    ('rotation' ':' rotation=EulerAngles)?
+    //flags
+    aligned?="not aligned" spaced?="spaced")#
+;
+
+SpaceWrtReference:
+WorldFrame|WallFrame|SpaceFrame|ReferenceFrame
+;
+
+SpaceOfReference:
+WallFrame|SpaceFrame|ReferenceFrame
+;
+
+// Features
+FeatureLocation:
+    ('wrt:' wrt=FeatureWrtReference
+    ('translation' ':' translation=PositionVector)?
+    ('rotation' ':' rotation=EulerAngles)?
+    )#
+;
+
+FeatureWrtReference:
+WallFrame|SpaceFrame|ReferenceFrame
+;
+
+// Openings
+WallOpeningLocation: 
+    'in:' walls=OpeningInWallReference ('and' walls=OpeningInWallReference)? //Check that 2 walls are declared if opening is between two spaces
+    ('translation' ':' translation=PositionVector)?
+    ('rotation' ':' rotation=EulerAngles)?
+;
+
+OpeningInWallReference:
+WallFrame|ReferenceFrame
+;
 
 /* ------------------------------------------ */
 // special rule for comments.
