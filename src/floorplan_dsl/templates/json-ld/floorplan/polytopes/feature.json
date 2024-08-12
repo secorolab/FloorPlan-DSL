@@ -6,7 +6,7 @@
 {%- endblock %}
 
 {% block point_id -%}
-{{ ids.feature_shape_point_id(feature.name, p) }}
+{{ ids.feature_shape_point_id(feature.name, loop.index0) }}
 {%- endblock %}
 
 

@@ -10,19 +10,18 @@
 {% endblock%}
 
 {% block space %}
-{% set points = space.get_shape().get_points() %}
+{% set points = space.shape.points %}
 {% include "./floorplan/polytopes/space.json" with context %},
 {% endblock %}
 
 {% block wall %}
 {% set outer_loop = loop %}
-{% set wall_id = outer_loop.index0 %}
-{% set points = [0,1,2,3] %}
+{% set points = w.shape.points %}
 {% include "./floorplan/polytopes/wall.json" with context %}{% if not outer_loop.last %},
 {% endif %}
 {% endblock%}
 
 {% block features %}
-{% set points = feature.get_points() %}
+{% set points = feature.shape.points %}
 {% include "./floorplan/polytopes/feature.json" with context %}
 {% endblock %}

@@ -2,5 +2,5 @@
     "@id": "geor:{% block rel_id %}{% endblock %}",
     "@type": "{% block type %}{% endblock %}",
     "of": "geom:{% block of %}{% endblock %}",
-    "with-respect-to": "geom:{% block to %}{% endblock %}"
+    "with-respect-to": "geom:{% block wrt %}{% endblock %}"
 }

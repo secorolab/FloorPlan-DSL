@@ -25,7 +25,7 @@
     {% endfor +%}
     ],
     "feature": [
-    {%- for feature in space_model.floor_features %}
+    {%- for feature in space_model.features %}
         "floorplan:{{ ids.feature_id(space_model, feature) }}"{%- if not loop.last %},
     {% endif %}
     {%- endfor +%}],
@@ -41,7 +41,7 @@
 }
 {%- endmacro %}
 
-{% macro floor_features(space, feature) -%}
+{% macro features(space, feature) -%}
 {
     "@id": "floorplan:{{ ids.feature_id(space, feature) }}",
     "@type": "Feature",
