@@ -4,11 +4,11 @@
                 shape: {{ geom.shape_macro(feature.shape) }}
                 height: {{ value_assignment(feature.height) }} 
                 location: 
-                    {% if feature.location.transformation.translation %}
-                    translation: {{ geom.translation(feature.location.transformation.translation) }}
+                    {% if feature.location.translation %}
+                    translation: {{ geom.translation(feature.location.translation) }}
                     {% endif %}
-                    {% if feature.location.transformation.rotation %}
-                    rotation: {{ geom.rotation(feature.location.transformation.rotation) }}
+                    {% if feature.location.rotation %}
+                    rotation: {{ geom.rotation(feature.location.rotation) }}
                     {% endif %}
-                    wrt: this{% if feature.location.wrt.wall_idx is not none %}.walls[{{ feature.location.wrt.wall_idx }}]{%- endif %}
+                    wrt: this{% if feature.location.wrt.wall_idx %}.walls[{{ feature.location.wrt.wall_idx }}]{%- endif %}
         

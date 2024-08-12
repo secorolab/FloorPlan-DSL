@@ -4,9 +4,9 @@
         location: 
             in: {{wall_opening.location.walls[0].space.name}}.walls[{{wall_opening.location.walls[0].wall_idx}}] 
             {%- if wall_opening.location.walls| length == 2 %} and {{wall_opening.location.walls[1].space.name}}.walls[{{wall_opening.location.walls[1].wall_idx}}]{% endif +%}
-            {% if wall_opening.location.transformation.translation %}
-            translation: {{ geom.translation(wall_opening.location.transformation.translation) }}
+            {% if wall_opening.location.translation %}
+            translation: {{ geom.translation(wall_opening.location.translation) }}
             {% endif %}
-            {% if wall_opening.location.transformation.rotation %}
-            rotation: {{ geom.rotation(wall_opening.location.transformation.rotation) }}
+            {% if wall_opening.location.rotation %}
+            rotation: {{ geom.rotation(wall_opening.location.rotation) }}
             {% endif %}

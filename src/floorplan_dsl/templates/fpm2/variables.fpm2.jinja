@@ -2,6 +2,6 @@
 {% if v.variable %}
 {% if v.neg %}-{% endif %}{{ v.variable.name }}
 {%- else %}
-{{ v.value.value }} {{ v.value.unit }}
+{{ v.value }} {{ v.unit }}
 {%- endif %}
 {%- endmacro %}

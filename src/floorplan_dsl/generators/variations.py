@@ -30,7 +30,7 @@ def new_sample(fp_model, var_model):
         # If it's a variable, sample a new value for it
         if var.__class__.__name__ == "VariableRef":
             var_obj = get_unique_named_object(fp_model, var.ref.name)
-            var_obj.value = att.distribution.sample()
+            var_obj.value = var.distribution.sample()
             continue
 
         # Otherwise select the of attributes
@@ -54,11 +54,15 @@ def variation_floorplan_generator(
     fp_model_path = var_model.import_uri.importURI
 
     fp_mm = metamodel_for_language("floorplan-v2")
+
+    # Remove the object processors to have references to location.wrt and location.of
+    fp_mm._obj_processors = fp_mm._default_obj_processors
+
     fp_model = fp_mm.model_from_file(os.path.join(model_folder_path, fp_model_path))
 
     this_folder = os.path.dirname(__file__)
     template_folder = os.path.join(
-        this_folder, "../templates/__name____seed__.fpm2.jinja"
+        this_folder, "../templates/__name_____seed__.fpm2.jinja"
     )
 
     variations = custom_args["variations"]
