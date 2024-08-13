@@ -17,8 +17,35 @@ EulerAngles:
     (('x'':' x=AngleValue)? ('y'':' y=AngleValue)? ('z'':' z=AngleValue)?)#[","]
 ;
 
+// Semantics of structural entities. 
+// These are especially usefl/needed to generate json-ld models
+Point:
+'point:' name=ID
+;
+
 Frame:
-'frame:' name=ID origin=PointCoordinate?
+'frame:' name=ID origin=Point?
+;
+
+Translation:
+PointCoordinate|PositionVector
+;
+
+Orientation:
+EulerAngles
+;
+
+PositionCoordinate:
+translation=Translation
+of=[Point]
+wrt=[Frame]
+;
+
+PoseCoordinate:
+of=[Frame]
+wrt=[Frame]
+translation=Translation?
+orientation=Orientation?
 ;
 
 /* ------------------------------------------ */
@@ -28,7 +55,7 @@ Polytope: Rectangle | Circle | Polygon;
 
 Rectangle:
     'Rectangle' 'width' '=' width=LengthValue',' ('length' '=' length=LengthValue|'height' '=' height=LengthValue)
-    (points*=PointCoordinate[','])? // Semantics
+    (coordinates*=PointCoordinate[','] points*=Point)? // Semantics
 ;
 
 Circle:
@@ -38,7 +65,8 @@ Circle:
 
 Polygon:
     'Polygon' 'points'':''['
-        points*=PointCoordinate[',']
+        coordinates*=PointCoordinate[',']
     ']'
+    points*=Point? //Semantics
 ;
 

@@ -1,6 +1,0 @@
-{% extends "./geometry/structural-entities/point.json" %}
-{% import "./floorplan/identifiers.json" as ids %}
-
-{% block point_id -%}
-{{ ids.shape_point_id(space, point_id) }}
-{%- endblock %}

@@ -9,20 +9,35 @@
 {% endblock%}
 
 {% block space -%}
-{% include "./floorplan/structural-entities/space_point.json" with context %},
-{% include "./floorplan/structural-entities/space_frame.json" with context %},
-{% for p in space.shape.points %}
-{% set point_id = loop.index0 %}
-{% include "./floorplan/structural-entities/space_shape_point.json" with context %},
+{% set frame = space.frame %}
+{% include "./floorplan/structural-entities/origin.json" with context %},
+{% include "./geometry/structural-entities/frame.json" with context %},
+{% for point in space.shape.points %}
+{% include "./geometry/structural-entities/point.json" with context %},
 {% endfor -%}
 {%- endblock %}
 
 {% block wall %}
 {%- set outer_loop = loop -%}
-{% include "./floorplan/structural-entities/wall_point.json" with context %},
-{% include "./floorplan/structural-entities/wall_frame.json" with context %},
-{% for corner_id in [0, 1, 2, 3] %}
-{% include "./floorplan/structural-entities/wall_corner_point.json" with context %}
+{% set frame = w.frame %}
+{% include "./floorplan/structural-entities/origin.json" with context %},
+{% include "./geometry/structural-entities/frame.json" with context %},
+{% for point in w.shape.points %}
+{% include "./geometry/structural-entities/point.json" with context %}
+{%- if not loop.last %},
+{% endif %}
+{% endfor %}
+{%- if not outer_loop.last %},
+{% endif %}
+{% endblock %}
+
+{% block feature %}
+{%- set outer_loop = loop -%}
+{% set frame = f.frame %}
+{% include "./floorplan/structural-entities/origin.json" with context %},
+{% include "./geometry/structural-entities/frame.json" with context %},
+{% for point in f.shape.points %}
+{% include "./geometry/structural-entities/point.json" with context %}
 {%- if not loop.last %},
 {% endif %}
 {% endfor %}

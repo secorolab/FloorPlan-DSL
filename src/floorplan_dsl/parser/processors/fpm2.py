@@ -24,6 +24,8 @@ def process_location(element):
 
 def space_obj_processor(space):
     process_location(space)
+    space.wall_pose_coords = space.get_wall_poses()
+    space.pose = space.get_pose_coord_wrt_location()
 
 
 def feature_obj_processor(feature):

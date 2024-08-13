@@ -1,4 +1,3 @@
-{% import "./floorplan/identifiers.json" as ids %}
 
 {% macro floorplan(model) -%}
 {
@@ -6,7 +5,7 @@
     "@type": "FloorPlan",
     "spaces": [
         {% for space in model.spaces %}
-        "floorplan:{{ ids.space_id(space) }}"{%- if not loop.last %},
+        "floorplan:{{ space.name }}"{%- if not loop.last %},
     {% endif %}
         {% endfor +%}
     ]
@@ -14,38 +13,38 @@
 {%- endmacro %}
 
 
-{%- macro space(space_model) -%}
+{%- macro space(space) -%}
 {
-    "@id": "floorplan:{{ ids.space_id(space_model) }}",
+    "@id": "floorplan:{{ space.name }}",
     "@type": "Space",
     "walls": [
-    {% for w in space_model.walls %}
-        "floorplan:{{ ids.wall_id(space_model, loop.index0) }}"{%- if not loop.last %},
+    {% for w in space.walls %}
+        "floorplan:{{ w.name }}"{%- if not loop.last %},
     {% endif %}
     {% endfor +%}
     ],
     "feature": [
-    {%- for feature in space_model.features %}
-        "floorplan:{{ ids.feature_id(space_model, feature) }}"{%- if not loop.last %},
+    {%- for feature in space.features %}
+        "floorplan:{{ feature.name }}"{%- if not loop.last %},
     {% endif %}
     {%- endfor +%}],
-    "shape": "polytope:{{ ids.polygon_id(space_model) }}"
+    "shape": "polytope:{{ space.shape.name }}"
 }
 {%- endmacro -%}
 
-{% macro wall(space, wall_idx) -%}
+{% macro wall(wall) -%}
 {
-    "@id": "floorplan:{{ ids.wall_id(space, wall_idx) }}",
+    "@id": "floorplan:{{ wall.name }}",
     "@type": "Wall",
-    "shape": "polytope:{{ ids.wall_polygon_id(space, wall_idx) }}"
+    "shape": "polytope:{{ wall.shape.name }}"
 }
 {%- endmacro %}
 
-{% macro features(space, feature) -%}
+{% macro features(feature) -%}
 {
-    "@id": "floorplan:{{ ids.feature_id(space, feature) }}",
+    "@id": "floorplan:{{ feature.name }}",
     "@type": "Feature",
-    "shape": "polytope:{{ ids.feature_polygon_id(space, feature) }}"
+    "shape": "polytope:{{ feature.shape.name }}"
 }
 {%- endmacro %}
 

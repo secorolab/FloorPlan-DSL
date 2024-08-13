@@ -10,12 +10,12 @@
 {% endblock%}
 
 {% block wall %}
-{{ fp.wall(space, loop.index0)}}{% if not loop.last %},
+{{ fp.wall(w)}}{% if not loop.last %},
 {% endif %}
 {% endblock %}
 
 {% block feature %}
-{{ fp.features(space, f)}}{% if not loop.last %},
+{{ fp.features(f)}}{% if not loop.last %},
 {% endif %}
 {% endblock %}
 

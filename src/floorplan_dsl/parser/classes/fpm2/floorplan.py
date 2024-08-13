@@ -5,10 +5,32 @@ from textx.exceptions import TextXSemanticError
 from textx import textx_isinstance, get_metamodel, get_model
 from textx.scoping.tools import get_unique_named_object
 
-from floorplan_dsl.parser.classes.fpm2.geometry import PointCoordinate, Polygon, Frame
+from floorplan_dsl.parser.classes.fpm2.geometry import (
+    PointCoordinate,
+    Polygon,
+    Point,
+    Frame,
+    PositionCoordinate,
+    PoseCoordinate,
+    get_angle_between_vectors,
+)
 
 
-class Space:
+class FloorPlanElement:
+    def set_shape_points(self):
+
+        points = list()
+        for i, c in enumerate(self.shape.coordinates):
+            p = Point(self, "{}-corner-{}".format(self.name, i))
+            points.append((p))
+
+        return points
+
+    def set_polytope_name(self):
+        self.shape.name = "{}-polygon".format(self.name)
+
+
+class Space(FloorPlanElement):
     def __init__(
         self, parent, name, shape, location, features, defaults, walls=None, frame=None
     ):
@@ -33,8 +55,8 @@ class Space:
         self.frame = Frame(self, "{}".format(self.name))
 
         vertices = list()
-        vertices.extend(self.shape.points)
-        vertices.append(self.shape.points[0])
+        vertices.extend(self.shape.coordinates)
+        vertices.append(self.shape.coordinates[0])
         self.walls = [
             Wall(
                 self,
@@ -45,6 +67,12 @@ class Space:
             )
             for i, (p1, p2) in enumerate(itertools.pairwise(vertices))
         ]
+
+        # self.pose = self.get_pose_coord_wrt_location()
+        self.shape.points = self.set_shape_points()
+        self.set_polytope_name()
+        self.shape_position_coords = self.get_shape_point_positions()
+        # self.wall_pose_coords = self.get_wall_poses()
 
     def process_location(self):
         mm = get_metamodel(self)
@@ -75,18 +103,48 @@ class Space:
         elif textx_isinstance(self.location.wrt, mm["SpaceFrame"]):
             self.location.wrt = self.location.wrt.space.frame
 
+    # TODO: Move this to interpreter?
+    def get_pose_coord_wrt_location(self):
+        # TODO This might be an alternative to replacing model data in the obj_processor
+        return PoseCoordinate(
+            self,
+            self.location.of,
+            self.location.wrt,
+            self.location.translation,
+            self.location.rotation,
+        )
 
-class Wall:
+    def get_shape_point_positions(self):
+        position_coords = list()
+        for c, p in zip(self.shape.coordinates, self.shape.points):
+            coord = PositionCoordinate(self, c, p, self.frame)
+            position_coords.append(coord)
+        return position_coords
+
+    def get_wall_poses(self):
+        pose_coords = list()
+        for w in self.walls:
+            pose_coords.append(PoseCoordinate.wall_wrt_parent_space(w))
+        return pose_coords
+
+
+class Wall(FloorPlanElement):
     def __init__(
         self, parent, points, idx, thickness, height, shape=None, frame=None
     ) -> None:
         self.parent = parent
-        self.points = points
         self.idx = idx
+        self.points = points
         self.thickness = thickness
         self.height = height
-        self.frame = Frame(self, "{}-wall-{}".format(self.parent.name, self.idx))
+
+        self.name = "{}-wall-{}".format(self.parent.name, self.idx)
+
+        # Semantics
+        self.frame = Frame(self, self.name)
         self.shape = self.get_2D_shape()
+        self.point_positions = self.get_wall_point_positions()
+        self.set_polytope_name()
 
     @property
     def width(self):
@@ -97,19 +155,35 @@ class Wall:
 
         return math.dist((x1, y1), (x2, y2))
 
+    # TODO: Move this to interpreter
     def get_2D_shape(self):
-        x = self.width / 2
+        return Polygon.from_wall(self)
 
-        points = [
-            PointCoordinate(self, -x, 0.0, 0.0),
-            PointCoordinate(self, -x, self.thickness, 0.0),
-            PointCoordinate(self, x, self.thickness, 0.0),
-            PointCoordinate(self, x, 0.0, 0.0),
-        ]
-        return Polygon(self, points)
+    def get_wall_origin_pose_coord(self):
+        """Pose of the wall frame wrt to its parent (space)"""
+        x1 = self.points[0].x.value
+        y1 = self.points[0].y.value
+        x2 = self.points[1].x.value
+        y2 = self.points[1].y.value
+
+        orig = [1, 0]  # x-axis of space
+        x_axis = [x2 - x1, y2 - y1]  # x vector from wall
+        rotation = get_angle_between_vectors(x_axis, orig)
+
+        return (x1 + x2) / 2, (y1 + y2) / 2, rotation
+
+    def get_wall_point_positions(self):
+        """Positions of the wall polygon wrt to the wall frame"""
+        position_coords = list()
+        for i in range(4):
+            p = self.shape.points[i]
+            c = self.shape.coordinates[i]
+            coord = PositionCoordinate(self, c, p, self.frame)
+            position_coords.append(coord)
+        return position_coords
 
 
-class Feature:
+class Feature(FloorPlanElement):
     def process_location(self):
         mm = get_metamodel(self)
 
@@ -132,6 +206,9 @@ class Column(Feature):
         if frame is None:
             self.frame = Frame(self, "column-{}".format(self.name))
 
+        self.shape.points = self.set_shape_points()
+        self.set_polytope_name()
+
 
 class Divider(Feature):
     def __init__(self, parent, name, shape, height, location, frame=None) -> None:
@@ -144,8 +221,11 @@ class Divider(Feature):
         if frame is None:
             self.frame = Frame(self, "divider-{}".format(self.name))
 
+        self.shape.points = self.set_shape_points()
+        self.set_polytope_name()
 
-class Opening:
+
+class Opening(FloorPlanElement):
     def process_location(self):
         mm = get_metamodel(self)
         if len(self.location.walls) > 2:
@@ -172,6 +252,9 @@ class Entryway(Opening):
         if frame is None:
             self.frame = Frame(self, "entryway-{}".format(self.name))
 
+        self.shape.points = self.set_shape_points()
+        self.set_polytope_name()
+
 
 class Window(Opening):
     def __init__(self, parent, name, shape, location, frame=None) -> None:
@@ -182,3 +265,6 @@ class Window(Opening):
 
         if frame is None:
             self.frame = Frame(self, "window-{}".format(self.name))
+
+        self.shape.points = self.set_shape_points()
+        self.set_polytope_name()

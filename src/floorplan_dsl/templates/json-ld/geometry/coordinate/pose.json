@@ -1,13 +1,21 @@
 {% extends "./geometry/coordinate/base.json" %}
 
+{% block coord_id -%}
+coord-{{ pose.name }}
+{%- endblock %}
+
 {% block type %}
     "PoseReference", 
     "PoseCoordinate", 
     "VectorXY"
 {% endblock %}
 
+{% block as_seen_by -%}
+{{ pose.wrt.name }}
+{%- endblock %}
+
 {% block reference %}
-"of-pose": "geor:{% block of_pose scoped -%}{%- endblock %}",
+"of-pose": "geor:{% block of_pose scoped -%}{{ pose.name }}{%- endblock %}",
 {{ super() }}
 {% endblock %}
 
@@ -19,7 +27,7 @@
 {% endblock %}
 
 {% block coords %}
-"x": {{ x }},
-"y": {{ y }},
-"theta": {{ theta }}
+    {% if pose.orientation.z %}"theta": {{ pose.orientation.z.value }},{% endif +%}
+    {% if pose.translation.x %}"x": {{ pose.translation.x.value }},{% endif +%}
+    {% if pose.translation.y %}"y": {{ pose.translation.y.value }}{% endif +%}
 {% endblock %}
