@@ -1,0 +1,5 @@
+{% extends "./geometry/structural-entities/point.json" %}
+
+{% block point_id -%}
+{{ frame.origin.name }}
+{%- endblock %}

@@ -10,18 +10,23 @@
 {% endblock%}
 
 {% block space %}
+{% set shape = space.shape %}
 {% set points = space.shape.points %}
-{% include "./floorplan/polytopes/space.json" with context %},
+{% include "./geometry/polytope.json" with context %},
 {% endblock %}
 
 {% block wall %}
 {% set outer_loop = loop %}
+{% set shape = w.shape %}
 {% set points = w.shape.points %}
-{% include "./floorplan/polytopes/wall.json" with context %}{% if not outer_loop.last %},
+{% include "./geometry/polytope.json" with context %}{% if not outer_loop.last %},
 {% endif %}
 {% endblock%}
 
-{% block features %}
-{% set points = feature.shape.points %}
-{% include "./floorplan/polytopes/feature.json" with context %}
+{% block feature %}
+{% set outer_loop = loop %}
+{% set points = f.shape.points %}
+{% set shape = f.shape %}
+{% include "./geometry/polytope.json" with context %}{% if not outer_loop.last %},
+{% endif %}
 {% endblock %}

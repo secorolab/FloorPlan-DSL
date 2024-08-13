@@ -1,17 +1,29 @@
 {% extends "./geometry/coordinate/base.json" %}
 
+{% block coord_id -%}
+coord-{{ position.name }}
+{%- endblock %}
+
 {% block type %}
 "PositionReference", 
 "PositionCoordinate", 
 "VectorXY"
 {% endblock %}
 
+{% block as_seen_by -%}
+    {{ position.wrt.name }}
+{%- endblock %}
+
 {% block reference %}
-"of-position": "geor:{% block of_position %}{% endblock %}",
-"with-respect-to": "geom:{% block wrt %}{% endblock %}",
+"of-position": "geor:{% block of_position %}{{ position.name }}{% endblock %}",
 {{ super() }}
 {% endblock %}
 
 {% block units %}
 "M",
+{% endblock %}
+
+{% block coords %}
+"x": {{ position.translation.x.value }},
+"y": {{ position.translation.y.value }}
 {% endblock %}

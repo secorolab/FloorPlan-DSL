@@ -1,5 +1,4 @@
 {% extends "./floorplan/floorplan.json" %}
-{% import "./floorplan/identifiers.json" as ids %}
 
 
 {% block context %}
@@ -15,22 +14,20 @@
 {% endblock%}
 
 {% block space %}
-    {%- set of = space.location.of.name %}
-    {%- set wrt = space.location.wrt.name %}
-    {% include "./floorplan/coordinates/space_pose.json" with context %},
-    {% for point in space.get_shape().get_points(wrt=space.get_shape().get_frame()) %}
-    {% set point_id = loop.index0 %}
-    {% include "./floorplan/coordinates/shape_position.json" with context %},
+    {% set pose = space.pose %}
+    {% include "./geometry/coordinates/pose.json" with context %},
+    {% for position in space.shape_position_coords %}
+    {% include "./geometry/coordinates/position.json" with context %},
+    {% endfor %}
+    {% for pose in space.wall_pose_coords %}
+    {% include "./geometry/coordinates/pose.json" with context %},
     {% endfor %}
 {% endblock %}
 
 {% block wall %}
 {% set outer_loop = loop %}
-{% set origin, theta = w.get_wall_origin_coord() %}
-{% include "./floorplan/coordinates/wall_pose.json" with context %},
-{% for point in w.polygon %}
-{% set poly_id = loop.index0 %}
-{% include "./floorplan/coordinates/wall_shape_position.json" with context %}{% if not loop.last %},
+{% for position in w.point_positions %}
+    {% include "./geometry/coordinates/position.json" with context %}{% if not loop.last %},
     {% endif %}
 {% endfor %}{% if not outer_loop.last %},
     {% endif %}
