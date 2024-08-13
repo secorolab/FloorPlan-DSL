@@ -15,4 +15,9 @@
 {% endfor %}{% if not loop.last %},
     {% endif %}
 {% endfor %}
+{% for o in model.wall_openings %}
+{% block opening scoped -%}
+{%- endblock %}{% if not loop.last %},
+    {% endif %}
+{% endfor %}
 {% endblock %}

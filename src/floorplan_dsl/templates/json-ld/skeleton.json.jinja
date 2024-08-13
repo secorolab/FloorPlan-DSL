@@ -45,6 +45,20 @@
 {% endif %}
 {% endblock %}
 
+{% block opening %}
+{%- set outer_loop = loop -%}
+{% set frame = o.frame %}
+{% include "./floorplan/structural-entities/origin.json" with context %},
+{% include "./geometry/structural-entities/frame.json" with context %},
+{% for point in o.shape.points %}
+{% include "./geometry/structural-entities/point.json" with context %}
+{%- if not loop.last %},
+{% endif %}
+{% endfor %}
+{%- if not outer_loop.last %},
+{% endif %}
+{% endblock %}
+
 {% block graph %}
 {% include "./floorplan/structural-entities/world_origin.json" with context %},
 {% include "./floorplan/structural-entities/world_frame.json" with context %},

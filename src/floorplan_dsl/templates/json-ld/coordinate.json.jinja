@@ -15,26 +15,40 @@
 
 {% block space %}
     {% set pose = space.pose %}
-    {% include "./geometry/coordinates/pose.json" with context %},
+    {% include "./geometry/coordinate/pose.json" with context %},
     {% for position in space.shape_position_coords %}
-    {% include "./geometry/coordinates/position.json" with context %},
+    {% include "./geometry/coordinate/position.json" with context %},
     {% endfor %}
     {% for pose in space.wall_pose_coords %}
-    {% include "./geometry/coordinates/pose.json" with context %},
+    {% include "./geometry/coordinate/pose.json" with context %},
     {% endfor %}
 {% endblock %}
 
 {% block wall %}
 {% set outer_loop = loop %}
 {% for position in w.point_positions %}
-    {% include "./geometry/coordinates/position.json" with context %}{% if not loop.last %},
+    {% include "./geometry/coordinate/position.json" with context %}{% if not loop.last %},
     {% endif %}
 {% endfor %}{% if not outer_loop.last %},
     {% endif %}
 {% endblock %}
 
 {% block feature %}
-{# TODO Feature coordinates are missing #}
-{}{% if not loop.last %},
+    {% set pose = f.pose %}
+    {% include "./geometry/coordinate/pose.json" with context %},
+    {% for position in f.shape_position_coords %}
+    {% include "./geometry/coordinate/position.json" with context %}
+{% if not loop.last %},
     {% endif %}
+    {% endfor %}
+{% endblock %}
+
+{% block opening %}
+    {% set pose = o.pose %}
+    {% include "./geometry/coordinate/pose.json" with context %},
+    {% for position in o.shape_position_coords %}
+    {% include "./geometry/coordinate/position.json" with context %}
+{% if not loop.last %},
+    {% endif %}
+    {% endfor %}
 {% endblock %}
