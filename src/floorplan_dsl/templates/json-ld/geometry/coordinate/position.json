@@ -24,6 +24,7 @@ coord-{{ position.name }}
 {% endblock %}
 
 {% block coords %}
-"x": {{ position.translation.x.value }},
-"y": {{ position.translation.y.value }}
+    {% if position.translation.x %}"x": {{ position.translation.x.value }},{% endif +%}
+    {% if position.translation.y %}"y": {{ position.translation.y.value }},{% endif +%}
+    {% if position.translation.z %}"z": {{ position.translation.z.value }}{% endif +%}
 {% endblock %}

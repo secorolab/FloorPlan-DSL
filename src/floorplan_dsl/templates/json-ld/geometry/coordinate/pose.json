@@ -27,7 +27,13 @@ coord-{{ pose.name }}
 {% endblock %}
 
 {% block coords %}
-    {% if pose.orientation.z %}"theta": {{ pose.orientation.z.value }},{% endif +%}
+{% if pose.orientation %}
+    {% if pose.orientation.z %}"gamma": {{ pose.orientation.z.value }},{% endif +%}
+    {% if pose.orientation.y %}"beta": {{ pose.orientation.y.value }},{% endif +%}
+{% endif %}
+{% if pose.translation %}
     {% if pose.translation.x %}"x": {{ pose.translation.x.value }},{% endif +%}
     {% if pose.translation.y %}"y": {{ pose.translation.y.value }}{% endif +%}
+    {% if pose.translation.z %}"z": {{ pose.translation.z.value }}{% endif +%}
+{% endif %}
 {% endblock %}

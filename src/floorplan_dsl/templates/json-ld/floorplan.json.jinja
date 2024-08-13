@@ -19,6 +19,11 @@
 {% endif %}
 {% endblock %}
 
+{% block opening %}
+{{ fp.openings(o)}}{% if not loop.last %},
+{% endif %}
+{% endblock %}
+
 {%- block space -%}
 {{ fp.space(space)}},
 {%- endblock -%}

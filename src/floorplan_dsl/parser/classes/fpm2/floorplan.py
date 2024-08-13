@@ -29,6 +29,13 @@ class FloorPlanElement:
     def set_polytope_name(self):
         self.shape.name = "{}-polygon".format(self.name)
 
+    def get_shape_point_positions(self):
+        position_coords = list()
+        for c, p in zip(self.shape.coordinates, self.shape.points):
+            coord = PositionCoordinate(self, c, p, self.frame)
+            position_coords.append(coord)
+        return position_coords
+
 
 class Space(FloorPlanElement):
     def __init__(
@@ -114,13 +121,6 @@ class Space(FloorPlanElement):
             self.location.rotation,
         )
 
-    def get_shape_point_positions(self):
-        position_coords = list()
-        for c, p in zip(self.shape.coordinates, self.shape.points):
-            coord = PositionCoordinate(self, c, p, self.frame)
-            position_coords.append(coord)
-        return position_coords
-
     def get_wall_poses(self):
         pose_coords = list()
         for w in self.walls:
@@ -194,6 +194,16 @@ class Feature(FloorPlanElement):
         elif textx_isinstance(self.location.wrt, mm["SpaceFrame"]):
             self.location.wrt = self.location.wrt.space.frame
 
+    def get_pose_coord_wrt_location(self):
+        # TODO This might be an alternative to replacing model data in the obj_processor
+        return PoseCoordinate(
+            self,
+            self.frame,
+            self.location.wrt,
+            self.location.translation,
+            self.location.rotation,
+        )
+
 
 class Column(Feature):
     def __init__(self, parent, name, shape, height, location, frame=None) -> None:
@@ -207,6 +217,7 @@ class Column(Feature):
             self.frame = Frame(self, "column-{}".format(self.name))
 
         self.shape.points = self.set_shape_points()
+        self.shape_position_coords = self.get_shape_point_positions()
         self.set_polytope_name()
 
 
@@ -222,6 +233,7 @@ class Divider(Feature):
             self.frame = Frame(self, "divider-{}".format(self.name))
 
         self.shape.points = self.set_shape_points()
+        self.shape_position_coords = self.get_shape_point_positions()
         self.set_polytope_name()
 
 
@@ -241,6 +253,16 @@ class Opening(FloorPlanElement):
 
         self.location.walls = frames
 
+    def get_pose_coord_wrt_location(self):
+        # TODO This might be an alternative to replacing model data in the obj_processor
+        return PoseCoordinate(
+            self,
+            self.frame,
+            self.location.walls[0],
+            self.location.translation,
+            self.location.rotation,
+        )
+
 
 class Entryway(Opening):
     def __init__(self, parent, name, shape, location, frame=None) -> None:
@@ -253,6 +275,7 @@ class Entryway(Opening):
             self.frame = Frame(self, "entryway-{}".format(self.name))
 
         self.shape.points = self.set_shape_points()
+        self.shape_position_coords = self.get_shape_point_positions()
         self.set_polytope_name()
 
 
@@ -267,4 +290,5 @@ class Window(Opening):
             self.frame = Frame(self, "window-{}".format(self.name))
 
         self.shape.points = self.set_shape_points()
+        self.shape_position_coords = self.get_shape_point_positions()
         self.set_polytope_name()

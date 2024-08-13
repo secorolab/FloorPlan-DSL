@@ -30,7 +30,9 @@ def space_obj_processor(space):
 
 def feature_obj_processor(feature):
     process_location(feature)
+    feature.pose = feature.get_pose_coord_wrt_location()
 
 
 def opening_obj_processor(opening):
     process_location(opening)
+    opening.pose = opening.get_pose_coord_wrt_location()

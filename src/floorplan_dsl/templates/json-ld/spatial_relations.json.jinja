@@ -37,7 +37,21 @@
 {% endblock %}
 
 {% block feature %}
-{}
+{% set pose = f.pose %}
+{% include "./floorplan/spatial-relations/pose.json" with context %},
+{%- for position in f.shape_position_coords %}
+{% include "./floorplan/spatial-relations/position.json" with context %}
 {%- if not loop.last %},
 {% endif %}
+{% endfor %}
+{% endblock %}
+
+{% block opening %}
+{% set pose = o.pose %}
+{% include "./floorplan/spatial-relations/pose.json" with context %},
+{%- for position in o.shape_position_coords %}
+{% include "./floorplan/spatial-relations/position.json" with context %}
+{%- if not loop.last %},
+{% endif %}
+{% endfor %}
 {% endblock %}

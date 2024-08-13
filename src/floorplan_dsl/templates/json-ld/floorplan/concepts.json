@@ -9,6 +9,14 @@
     {% endif %}
         {% endfor +%}
     ]
+    {%- if model.wall_openings %},
+    "openings": [
+        {% for opening in model.wall_openings %}
+        "floorplan:{{ opening.name }}"{%- if not loop.last %},
+        {% endif %}
+        {% endfor %}
+    ]
+    {% endif %}
 }
 {%- endmacro %}
 
@@ -24,10 +32,11 @@
     {% endfor +%}
     ],
     "feature": [
-    {%- for feature in space.features %}
+    {% for feature in space.features %}
         "floorplan:{{ feature.name }}"{%- if not loop.last %},
     {% endif %}
-    {%- endfor +%}],
+    {% endfor +%}
+    ],
     "shape": "polytope:{{ space.shape.name }}"
 }
 {%- endmacro -%}
@@ -43,8 +52,16 @@
 {% macro features(feature) -%}
 {
     "@id": "floorplan:{{ feature.name }}",
-    "@type": "Feature",
+    "@type": "{{ feature.__class__.__name__ }}",
     "shape": "polytope:{{ feature.shape.name }}"
+}
+{%- endmacro %}
+
+{% macro openings(opening) -%}
+{
+    "@id": "floorplan:{{ opening.name }}",
+    "@type": "{{ opening.__class__.__name__ }}",
+    "shape": "polytope:{{ opening.shape.name }}"
 }
 {%- endmacro %}
 
