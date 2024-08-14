@@ -4,7 +4,7 @@ column_height : uniform([0.5, 0.7, 2.4])
 
 room_c022: {
     location.translation.x : uniform([-1.1, -0.95, -1.25])
-    wall_thickness : uniform([-1.1, -0.95, -1.25])
+    defaults.wall.thickness : uniform([-1.1, -0.95, -1.25])
 }
 
 corridor_1.pillar_1: {
