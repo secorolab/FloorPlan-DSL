@@ -5,9 +5,9 @@ coord-{{ position.name }}
 {%- endblock %}
 
 {% block type %}
-"PositionReference", 
-"PositionCoordinate", 
-"VectorXY"
+                "PositionReference", 
+                "PositionCoordinate", 
+                "VectorXY"
 {% endblock %}
 
 {% block as_seen_by -%}
@@ -15,8 +15,8 @@ coord-{{ position.name }}
 {%- endblock %}
 
 {% block reference %}
-"of-position": "geor:{% block of_position %}{{ position.name }}{% endblock %}",
-{{ super() }}
+            "of-position": "geor:{% block of_position %}{{ position.name }}{% endblock %}",
+            {{ super() }}
 {% endblock %}
 
 {% block units %}
@@ -24,7 +24,13 @@ coord-{{ position.name }}
 {% endblock %}
 
 {% block coords %}
-    {% if position.translation.x %}"x": {{ position.translation.x.value }},{% endif +%}
-    {% if position.translation.y %}"y": {{ position.translation.y.value }},{% endif +%}
-    {% if position.translation.z %}"z": {{ position.translation.z.value }}{% endif +%}
+    {% if position.translation.x %}
+            "x": {{ position.translation.x.value }},
+    {%- endif +%}
+    {% if position.translation.y %}
+            "y": {{ position.translation.y.value }},
+    {%- endif +%}
+    {% if position.translation.z %}
+            "z": {{ position.translation.z.value }}
+    {%- endif +%}
 {% endblock %}

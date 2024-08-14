@@ -2,10 +2,10 @@
 
 
 {% block context %}
-{
-    "geom": "https://comp-rob2b.github.io/metamodels/geometry/structural-entities#"
-},
-"https://comp-rob2b.github.io/metamodels/geometry/structural-entities.json"
+        {
+            "geom": "https://comp-rob2b.github.io/metamodels/geometry/structural-entities#"
+        },
+        "https://comp-rob2b.github.io/metamodels/geometry/structural-entities.json"
 {% endblock%}
 
 {% block space -%}
@@ -49,13 +49,15 @@
 {%- set outer_loop = loop -%}
 {% set frame = o.frame %}
 {% include "./floorplan/structural-entities/origin.json" with context %},
-{% include "./geometry/structural-entities/frame.json" with context %},
+{% include "./geometry/structural-entities/frame.json" with context %}
+{%- if not loop.last or o.shape.points %},
+{% endif %}
+{% if o.shape.points %}
 {% for point in o.shape.points %}
 {% include "./geometry/structural-entities/point.json" with context %}
 {%- if not loop.last %},
 {% endif %}
 {% endfor %}
-{%- if not outer_loop.last %},
 {% endif %}
 {% endblock %}
 

@@ -109,6 +109,38 @@ class PoseCoordinate:
         translation = PointCoordinate(wall, x, y)
         return cls(wall, wall.frame, wall.parent.frame, translation, rotation)
 
+    @classmethod
+    def opening_wrt_wall(cls, opening):
+        if opening.location.rotation and opening.location.rotation.y:
+            rotation = opening.location.rotation
+        else:
+            rotation = EulerAngles(opening, y=0.0)
+        if opening.location.translation and (
+            opening.location.translation.x or opening.location.translation.z
+        ):
+            translation = opening.location.translation
+        else:
+            translation = PointCoordinate(opening, x=0.0, z=0.0)
+        return cls(
+            opening, opening.frame, opening.location.walls[0], translation, rotation
+        )
+
+    @classmethod
+    def feature_wrt_space(cls, feature):
+        if feature.location.rotation and feature.location.rotation.z:
+            rotation = feature.location.rotation
+        else:
+            rotation = EulerAngles(feature, z=0.0)
+
+        if feature.location.translation and (
+            feature.location.translation.x or feature.location.translation.y
+        ):
+            translation = feature.location.translation
+        else:
+            translation = PointCoordinate(feature, x=0.0, y=0.0)
+
+        return cls(feature, feature.frame, feature.location.wrt, translation, rotation)
+
 
 class Polytope:
     pass
