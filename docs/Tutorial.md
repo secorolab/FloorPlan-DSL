@@ -2,7 +2,7 @@
 
 The ExSce-FloorPlan DSL is a domain-specific language and tooling for specifying and generating indoor environments. In this tutorial we are going to go over the most important concepts to model a concrete floor plan.
 
-![Environment generated with the tooling with concepts annotated](../images/floorplan_concepts.png)
+![Environment generated with the tooling with concepts annotated](images/floorplan_concepts.png)
 
 The goal of this tutorial is to create the environment above. We will go over concepts such as Spaces, Entryways, and other features in order to specify a specific environment.
 
@@ -50,7 +50,7 @@ The location of any space or feature is specified by a translation and rotation 
 
 For each wall in the space, there is a frame located in the middle of the wall, with the x axis going along the wall and the y axis perpendicular to the wall. From the perspective of being inside the room looking into one of the walls: Positive values in the x axis are located from the centre to the right, and negative values in the opposite direction. Whereas the positive direction from the y axis moves away from you and the negative direction moves closer. The frame is located at floor level, meaning that for the z axis only positive values are above the floor.
 
-![Frames available when modelling](../images/updated_walls_with_frames.png)
+![Frames available when modelling](images/updated_walls_with_frames.png)
 
 The image above illustrates a room with all of its frames. Each wall has an index, so you can select the frame of reference by specifying the index of the desired wall: `<name of space>.walls[<index>]`. You can also select the center frame of the space by just referring to the name: `<name of space>`. You may also select the world frame with the `world` keyword.
 
@@ -68,7 +68,7 @@ location:
     rotation: z: 45.0 deg
 ```
 
-![Pose of a space with regards to the world frame](../images/updated_wall_location.png)
+![Pose of a space with regards to the world frame](images/updated_wall_location.png)
 
 #### Using two wall frames
 
@@ -83,7 +83,7 @@ location:
     spaced
 ```
 
-![Pose of two spaces when walls are used as reference frames](../images/updated_walls_with_frames_01.png)
+![Pose of two spaces when walls are used as reference frames](images/updated_walls_with_frames_01.png)
 
 ```floorplan
 location:
@@ -94,11 +94,11 @@ location:
     spaced
 ```
 
-![Pose of two spaces when another wall is used as a reference frame](../images/walls_with_frames_02.png)
+![Pose of two spaces when another wall is used as a reference frame](images/walls_with_frames_02.png)
 
 The flag `spaced` is used to tell the interpreter to calculate the combined thickness of the two walls, and space the two rooms accordingly. When not present, the two rooms are not spaced correctly, as seen in the next figure.
 
-![Two spaces not spaced correctly, as the `spaced` flag was not included](../images/walls_not_spaced.png)
+![Two spaces not spaced correctly, as the `spaced` flag was not included](images/walls_not_spaced.png)
 
 Similarly, the default alignment behaviour can be disabled by using the `not aligned` flag, so that the two rooms overlap.
 
@@ -111,7 +111,7 @@ location:
     not aligned
 ```
 
-![Two spaces not aligned as the `not aligned` flag was used](../images/walls_not_aligned.png)
+![Two spaces not aligned as the `not aligned` flag was used](images/walls_not_aligned.png)
 
 #### Features
 
