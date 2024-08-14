@@ -20,7 +20,7 @@ textx generate src/floorplan_dsl/grammar/fpm2/*.tx --target dot -o gen/dot/fpm2/
 textx generate models/examples/*.fpm2 --target dot -o gen/dot/fpm2/models --overwrite && dot -Tpng -O gen/dot/fpm2/models/*.dot
 
 # Generate diagrams for variation (meta)models
-textx generate src/floorplan_dsl/grammar/variation/*.tx --target dot -o gen/dot/variation/metamodels --overwrite && dot -Tpng -O gen/dot/variations/metamodels/*.dot
+textx generate src/floorplan_dsl/grammar/variation/*.tx --target dot -o gen/dot/variation/metamodels --overwrite && dot -Tpng -O gen/dot/variation/metamodels/*.dot
 textx generate models/examples/*.variation --target dot -o gen/dot/variation/models --overwrite && dot -Tpng -O gen/dot/variation/models/*.dot
 
 # Generate floorplan variations
