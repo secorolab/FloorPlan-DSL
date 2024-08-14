@@ -92,7 +92,7 @@ Optionally, you can remove the `--background` flag to see directly the result op
 
 ![3D asset generated from the environment description](images/hospital_no_brackground.png)
 
-An example model for a building is available [here](models/examples/hospital.floorplan). To generate the 3D mesh and occupancy grid:
+An example model for a building is available [here](../models/examples/hospital.floorplan). To generate the 3D mesh and occupancy grid:
 
 
 ```
@@ -110,7 +110,7 @@ That should generate the following files:
     └── hospital.stl
 ```
 
-The output path for the generated models in configurable (see [confg/setup.cfg](config/setup.cfg) and note they are relative paths from where you're calling the command).
+The output path for the generated models in configurable (see [confg/setup.cfg](../config/setup.cfg) and note they are relative paths from where you're calling the command).
 
 The `.stl` mesh can now be used to specify the Gazebo models and included in a Gazebo world. See, for example, [this tutorial](https://classic.gazebosim.org/tutorials?tut=import_mesh&cat=build_robot).
 
@@ -130,7 +130,7 @@ textx generate models/examples/brsu_building_c_with_doorways.floorplan --target 
 
 ### Tutorials
 
-Modelling an environment can be straightforward with some background information on how the concepts are specified and related to each other. [This tutorial](docs/Tutorial.md) will explain the concepts of the language and how to position them in the environment. An overview of the concepts and their attributes is available [here](docs/concepts.md). A tutorial on the variation DSL is also available [here](docs/Variation.md).
+Modelling an environment can be straightforward with some background information on how the concepts are specified and related to each other. [This tutorial](Tutorial.md) will explain the concepts of the language and how to position them in the environment. An overview of the concepts and their attributes is available [here](concepts.md). A tutorial on the variation DSL is also available [here](Variation.md).
 
 ## Citation
 
@@ -150,6 +150,6 @@ If you use our tooling and approach please cite our paper as follows:
 This work is part of a project that has received funding from the European Union's Horizon 2020 research and innovation programme SESAME under grant agreement No 101017258.
 
 <p align="center">
-    <img src="docs/images/EU.jpg" alt="drawing" height="100"/>
-    <img src="docs/images/SESAME.jpg" alt="drawing" height="100"/>
+    <img src="images/EU.jpg" alt="drawing" height="100"/>
+    <img src="images/SESAME.jpg" alt="drawing" height="100"/>
 </p>
