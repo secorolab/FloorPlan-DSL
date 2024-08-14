@@ -90,7 +90,6 @@
         spaced
         {%- endif %} 
         {% if space.wall_thickness != model.default.wall_thickness or space.wall_height != model.default.wall_height %}
-        defaults:
         walls:
             {{wall_macro("thickness", space.wall_thickness, model.default.wall_thickness)}}
             {{wall_macro("height", space.wall_height, model.default.wall_height)}}
