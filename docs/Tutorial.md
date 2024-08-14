@@ -22,6 +22,30 @@ Let's do a review of the most important concepts when modelling an indoor enviro
 
 Modelling an indoor environment consists of declaring the Spaces, Entryways, Windows, Columns, and Dividers; and specifying their location in the environment. Each of these concepts is modelled by specifying its shape and other attributes such as thickness or height. Specifying the location is simple, but requires some background.
 
+### Conventions
+
+In the examples below, you will notice some conventions for the frames of reference of each element. 
+
+#### Z-axis
+
+Most of the descriptions assume you are modelling the floor plan using a top-down view, with the `z` axis pointing outside of your screen.
+
+#### Colors 
+
+The `x` axis is red and the `y` axis is green.
+
+#### Space frames
+
+Each space has its origin frame in its center. The `x` axis is positive to the right side and the `y` axis towards the top.
+
+Polygon coordinates are always defined with respect to the center of the space and considering the _inside_ of the room.
+
+#### Walls
+
+The wall frame is located on the wall edge _inside_ of the room. The thickness of the wall is applied in its `y` (positive) direction of the wall frame.
+
+### Locations
+
 The location of any space or feature is specified by a translation and rotation with regards to a frame of reference. There are multiple frames of references that can be chosen for this. Apart from the world frame, each space has N + 1 frames of references that can be selected, where N is the number of walls.
 
 For each wall in the space, there is a frame located in the middle of the wall, with the x axis going along the wall and the y axis perpendicular to the wall. From the perspective of being inside the room looking into one of the walls: Positive values in the x axis are located from the centre to the right, and negative values in the opposite direction. Whereas the positive direction from the y axis moves away from you and the negative direction moves closer. The frame is located at floor level, meaning that for the z axis only positive values are above the floor.
@@ -32,7 +56,7 @@ The image above illustrates a room with all of its frames. Each wall has an inde
 
 A space requires two frames in order to specify a location: A reference frame where the translation and rotation are specified from, and the frame that will get translated and rotated.
 
-### Using the world frame
+#### Using the world frame
 
 You can select the world frame as your frame of reference by using the keyword `world`. You may only use this frame for locating spaces. Any other feature or entryway must be specified by either the center frame or one of the walls. Should be noted that you can use the `this` keyword to reference a frame when you are inside the scope of the space that frame belongs to.
 
@@ -46,7 +70,7 @@ location:
 
 ![Pose of a space with regards to the world frame](../images/updated_wall_location.png)
 
-### Using two wall frames
+#### Using two wall frames
 
 You can also use two wall frames to define locations. When you model a location using two wall frames, the default behaviour is to do an extra 180 degree rotation of the space you are locating so that the two spaces are not overlapping. Depending on the two walls that are chosen, the results can be different, as illustrated in the two next examples
 
@@ -89,7 +113,7 @@ location:
 
 ![Two spaces not aligned as the `not aligned` flag was used](../images/walls_not_aligned.png)
 
-## Features
+#### Features
 
 The language enables the modelling of doorways, windows, columns, and dividers. Features such as columns or dividers are always defined within a space scope, so you can use the "this" keyword to refer to the walls inside the space.
 
@@ -116,7 +140,7 @@ Entryway doorway:
 
 Whenever an entryway or window is located in a wall shared by two spaces, you must specify the two walls that will be opened by the entryway or window (`my_room.walls[0] and second_room.walls[1]`). However, The location is specified with regards to the first frame specified, in the example above it would be `my_room.walls[0]`.
 
-# Modelling the example
+## Modelling the example
 
 Now that we have reviewed all of the important concepts, we can put them together in a model. The finished model for this tutorial is available [here](../models/examples/hospital.floorplan). In this section we will go over the model section by section with some explanations when needed.
 
