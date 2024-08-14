@@ -5,9 +5,9 @@ coord-{{ pose.name }}
 {%- endblock %}
 
 {% block type %}
-    "PoseReference", 
-    "PoseCoordinate", 
-    "VectorXY"
+                "PoseReference", 
+                "PoseCoordinate", 
+                "VectorXY"
 {% endblock %}
 
 {% block as_seen_by -%}
@@ -15,25 +15,37 @@ coord-{{ pose.name }}
 {%- endblock %}
 
 {% block reference %}
-"of-pose": "geor:{% block of_pose scoped -%}{{ pose.name }}{%- endblock %}",
-{{ super() }}
+            "of-pose": "geor:{% block of_pose scoped -%}{{ pose.name }}{%- endblock %}",
+            {{ super() }}
 {% endblock %}
 
 {% block units %}
 [
-"M", 
-"degrees"
-],
+                "M", 
+                "degrees"
+            ],
 {% endblock %}
 
 {% block coords %}
 {% if pose.orientation %}
-    {% if pose.orientation.z %}"gamma": {{ pose.orientation.z.value }},{% endif +%}
-    {% if pose.orientation.y %}"beta": {{ pose.orientation.y.value }},{% endif +%}
+    {% if pose.orientation.z %}
+            "gamma": {{ pose.orientation.z.value }},
+    {%- endif +%}
+    {% if pose.orientation.y %}
+            "beta": {{ pose.orientation.y.value }},
+            {%- endif +%}
 {% endif %}
 {% if pose.translation %}
-    {% if pose.translation.x %}"x": {{ pose.translation.x.value }},{% endif +%}
-    {% if pose.translation.y %}"y": {{ pose.translation.y.value }}{% endif +%}
-    {% if pose.translation.z %}"z": {{ pose.translation.z.value }}{% endif +%}
+    {% if pose.translation.x %}
+            "x": {{ pose.translation.x.value }}
+    {%- endif %}
+    {%- if pose.translation.y and pose.translation.x %},{% endif +%}
+    {% if pose.translation.y %}
+            "y": {{ pose.translation.y.value }}
+    {%- endif %}
+    {%- if pose.translation.z %},{% endif %}
+    {% if pose.translation.z +%}
+            "z": {{ pose.translation.z.value }}
+    {%- endif +%}
 {% endif %}
 {% endblock %}

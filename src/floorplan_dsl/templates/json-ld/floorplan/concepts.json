@@ -1,67 +1,66 @@
 
-{% macro floorplan(model) -%}
-{
-    "@id": "floorplan:{{ model.name }}",
-    "@type": "FloorPlan",
-    "spaces": [
-        {% for space in model.spaces %}
-        "floorplan:{{ space.name }}"{%- if not loop.last %},
-    {% endif %}
-        {% endfor +%}
-    ]
-    {%- if model.wall_openings %},
-    "openings": [
-        {% for opening in model.wall_openings %}
-        "floorplan:{{ opening.name }}"{%- if not loop.last %},
-        {% endif %}
-        {% endfor %}
-    ]
-    {% endif %}
-}
+{% macro floorplan(model) %}
+        {
+            "@id": "floorplan:{{ model.name }}",
+            "@type": "FloorPlan",
+            "spaces": [
+                {% for space in model.spaces %}
+                "floorplan:{{ space.name }}"{%- if not loop.last %},
+            {% endif %}
+                {% endfor +%}
+            ]
+            {%- if model.wall_openings %},
+            "openings": [
+                {% for opening in model.wall_openings %}
+                "floorplan:{{ opening.name }}"{%- if not loop.last %},
+                {% endif %}
+                {% endfor +%}
+            ]
+            {% endif %}
+        }
 {%- endmacro %}
 
 
-{%- macro space(space) -%}
-{
-    "@id": "floorplan:{{ space.name }}",
-    "@type": "Space",
-    "walls": [
-    {% for w in space.walls %}
-        "floorplan:{{ w.name }}"{%- if not loop.last %},
-    {% endif %}
-    {% endfor +%}
-    ],
-    "feature": [
-    {% for feature in space.features %}
-        "floorplan:{{ feature.name }}"{%- if not loop.last %},
-    {% endif %}
-    {% endfor +%}
-    ],
-    "shape": "polytope:{{ space.shape.name }}"
-}
-{%- endmacro -%}
-
-{% macro wall(wall) -%}
-{
-    "@id": "floorplan:{{ wall.name }}",
-    "@type": "Wall",
-    "shape": "polytope:{{ wall.shape.name }}"
-}
+{%- macro space(space) %}
+        {
+            "@id": "floorplan:{{ space.name }}",
+            "@type": "Space",
+            "walls": [
+            {% for w in space.walls %}
+                "floorplan:{{ w.name }}"{%- if not loop.last %},
+            {% endif %}
+            {% endfor +%}
+            ],
+            "feature": [
+            {% for feature in space.features %}
+                "floorplan:{{ feature.name }}"{%- if not loop.last %},
+            {% endif %}
+            {% endfor +%}
+            ],
+            "shape": "polytope:{{ space.shape.name }}"
+        }
 {%- endmacro %}
 
-{% macro features(feature) -%}
-{
-    "@id": "floorplan:{{ feature.name }}",
-    "@type": "{{ feature.__class__.__name__ }}",
-    "shape": "polytope:{{ feature.shape.name }}"
-}
+{% macro wall(wall) %}
+        {
+            "@id": "floorplan:{{ wall.name }}",
+            "@type": "Wall",
+            "shape": "polytope:{{ wall.shape.name }}"
+        }
 {%- endmacro %}
 
-{% macro openings(opening) -%}
-{
-    "@id": "floorplan:{{ opening.name }}",
-    "@type": "{{ opening.__class__.__name__ }}",
-    "shape": "polytope:{{ opening.shape.name }}"
-}
+{% macro features(feature) %}
+        {
+            "@id": "floorplan:{{ feature.name }}",
+            "@type": "{{ feature.__class__.__name__ }}",
+            "shape": "polytope:{{ feature.shape.name }}"
+        }
 {%- endmacro %}
 
+{% macro openings(opening) %}
+        {
+            "@id": "floorplan:{{ opening.name }}",
+            "@type": "{{ opening.__class__.__name__ }}",
+            "shape": "polytope:{{ opening.shape.name }}"
+        }
+{%- endmacro %}

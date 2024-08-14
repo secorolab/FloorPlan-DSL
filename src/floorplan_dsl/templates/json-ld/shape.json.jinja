@@ -35,6 +35,5 @@
 {% set outer_loop = loop %}
 {% set points = o.shape.points %}
 {% set shape = o.shape %}
-{% include "./geometry/polytope.json" with context %}{% if not outer_loop.last %},
-{% endif %}
+{% include "./geometry/polytope.json" with context %}
 {% endblock %}

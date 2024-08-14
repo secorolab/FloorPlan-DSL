@@ -196,13 +196,7 @@ class Feature(FloorPlanElement):
 
     def get_pose_coord_wrt_location(self):
         # TODO This might be an alternative to replacing model data in the obj_processor
-        return PoseCoordinate(
-            self,
-            self.frame,
-            self.location.wrt,
-            self.location.translation,
-            self.location.rotation,
-        )
+        return PoseCoordinate.feature_wrt_space(self)
 
 
 class Column(Feature):
@@ -255,13 +249,7 @@ class Opening(FloorPlanElement):
 
     def get_pose_coord_wrt_location(self):
         # TODO This might be an alternative to replacing model data in the obj_processor
-        return PoseCoordinate(
-            self,
-            self.frame,
-            self.location.walls[0],
-            self.location.translation,
-            self.location.rotation,
-        )
+        return PoseCoordinate.opening_wrt_wall(self)
 
 
 class Entryway(Opening):

@@ -1,18 +1,18 @@
-{
-    "@id": "coord:{% block coord_id scoped -%}{%- endblock %}",
-    "@type": [
-        {% block type scoped -%}
-        {%- endblock %}
-    ],
-    {% block reference -%}
-    "as-seen-by": "geom:{% block as_seen_by scoped %}{% endblock %}",
-    {%- endblock %}
-    "unit": {% block units scoped -%}
-    [
-    ],
-    {%- endblock %}
-    {% block coords scoped -%}
-    "x": {{ x }},
-    "y": {{ y }}
-    {%- endblock %}
-}
+        {
+            "@id": "coord:{% block coord_id scoped -%}{%- endblock %}",
+            "@type": [
+                {% block type scoped -%}
+                {%- endblock %}
+            ],
+            {% block reference -%}
+            "as-seen-by": "geom:{% block as_seen_by scoped %}{% endblock %}",
+            {%- endblock %}
+            "unit": {% block units scoped -%}
+            [
+            ],
+            {%- endblock %}
+            {% block coords scoped -%}
+            "x": {{ x }},
+            "y": {{ y }}
+            {%- endblock %}
+        }
