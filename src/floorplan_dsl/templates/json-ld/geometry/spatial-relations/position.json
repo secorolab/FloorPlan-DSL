@@ -1,17 +1,17 @@
-{% extends "./geometry/spatial-relations.json" %}
+{% extends "./geometry/spatial-relations/base.json" %}
 
 {% block rel_id -%}
-{{ pose.name }}
+{{ position.name }}
 {%- endblock %}
 
 {% block type -%}
-Pose
+Position
 {%- endblock %}
 
 {% block of -%}
-{{ pose.of.name }}
+{{ position.of.name }}
 {%- endblock %}
 
 {% block wrt -%}
-{{ pose.wrt.name }}
+{{ position.wrt.origin.name }}
 {%- endblock %}

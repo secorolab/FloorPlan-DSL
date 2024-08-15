@@ -13,14 +13,14 @@
 {%- set outer_loop = loop -%}
 {# Pose of the space frame wrt to other frames (walls or spaces) as specificied in the model #}
 {% set pose = space.pose %}
-{% include "./floorplan/spatial-relations/pose.json" with context %},
+{% include "./geometry/spatial-relations/pose.json" with context %},
 {# Positions of the points in the space shape wrt the shape's frame #} 
 {%- for position in space.shape_position_coords %}
-{% include "./floorplan/spatial-relations/position.json" with context %},
+{% include "./geometry/spatial-relations/position.json" with context %},
 {% endfor %}
 {# Pose of the wall frames with regards to the space frame #}
 {% for pose in space.wall_pose_coords %}
-{% include "./floorplan/spatial-relations/pose.json" with context %},
+{% include "./geometry/spatial-relations/pose.json" with context %},
 {% endfor %}
 {% endblock %}
 
@@ -28,7 +28,7 @@
 {%- set outer_loop = loop -%}
 {# Position of the points in the wall's shape wrt to the wall's frame #}
 {% for position in w.point_positions %}
-{% include "./floorplan/spatial-relations/position.json" with context %}
+{% include "./geometry/spatial-relations/position.json" with context %}
 {%- if not loop.last %},
 {% endif %}
 {% endfor %}
@@ -39,9 +39,9 @@
 {% block feature %}
 {%- set outer_loop = loop -%}
 {% set pose = f.pose %}
-{% include "./floorplan/spatial-relations/pose.json" with context %},
+{% include "./geometry/spatial-relations/pose.json" with context %},
 {% for position in f.shape_position_coords %}
-{% include "./floorplan/spatial-relations/position.json" with context %}
+{% include "./geometry/spatial-relations/position.json" with context %}
 {%- if not loop.last %},
 {% endif %}
 {% endfor %}
@@ -51,12 +51,12 @@
 
 {% block opening %}
 {% set pose = o.pose %}
-{% include "./floorplan/spatial-relations/pose.json" with context %}
+{% include "./geometry/spatial-relations/pose.json" with context %}
 {%- if not loop.last or o.shape_position_coords %},
 {% endif %}
 {% if o.shape_position_coords %}
 {% for position in o.shape_position_coords %}
-{% include "./floorplan/spatial-relations/position.json" with context %}
+{% include "./geometry/spatial-relations/position.json" with context %}
 {%- if not loop.last %},
 {% endif %}
 {% endfor %}
