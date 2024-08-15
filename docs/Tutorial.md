@@ -24,13 +24,13 @@ Modelling an indoor environment consists of declaring the Spaces, Entryways, Win
 
 ### Conventions
 
-In the examples below, you will notice some conventions for the frames of reference of each element. 
+In the examples below, you will notice some conventions for the frames of reference of each element.
 
 #### Z-axis
 
 Most of the descriptions assume you are modelling the floor plan using a top-down view, with the `z` axis pointing outside of your screen.
 
-#### Colors 
+#### Colors
 
 The `x` axis is red and the `y` axis is green.
 
