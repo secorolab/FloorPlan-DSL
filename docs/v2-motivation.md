@@ -193,6 +193,7 @@ The repository is currently organized as follows:
 
 > [!NOTE] 
 > **Status: Work in Progress**
+> 
 > The refactoring is almost finished. 
 > Currently working on the implementation of the semantics for the `not aligned` and `spaced` keywords, and the interpretation of the location wrt to the world frame.
 > Unit conversion will be worked on last.
@@ -229,6 +230,7 @@ Modularization of the grammar is discussed [below](#modularity-and-model-reuse).
     
 > [!NOTE] 
 > **Status: Work in Progress**
+> 
 > The generation is currently working, however the generated JSON-LD models currently do not match the old versions for two reasons:
 > - The semantics for `not aligned` and `spaced` have not yet been implemented
 > - In the `v1`, the coordinates were transformed to frames of reference different to those that were specified in the concrete syntax. TBD if this is a design decision to be changed or if it should be added as an additional option for the generation in `v2`.
@@ -243,6 +245,7 @@ Modularization of the grammar is discussed [below](#modularity-and-model-reuse).
 
 > [!NOTE] 
 > **Status: Paused**
+> 
 > Only the last two constraints still need to be implemented, but they require the implementation of the semantics for the `not aligned` and `spaced` keywords, and the interpretation of the location wrt to the world frame.
 
 - [x] Verify that RHS variable assignments match the units of the LHS (validate type matches)
@@ -284,6 +287,7 @@ Similarly to the point above, the implementation was done through a processor to
 
 > [!NOTE] 
 > **Status: Planned**
+> 
 > This part of the refactoring has not started yet
 
 - [ ] Add new way to specify doors with kinematic chains (see IFC models as reference)
@@ -293,6 +297,7 @@ Similarly to the point above, the implementation was done through a processor to
 
 > [!NOTE] 
 > **Status: Paused**
+> 
 > Initially each floor plan element had its own grammar, but this made the syntax cumbersome (see point below). 
 > Most elements were moved back into a single file (`floorplan.tx`) until other parts of the refactoring are finished.
 
