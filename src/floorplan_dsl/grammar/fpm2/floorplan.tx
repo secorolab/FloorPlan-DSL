@@ -74,14 +74,14 @@ Entryway|Window
 
 Entryway:
     'Entryway' name=ID ':'
-    'shape:' shape=Polytope // Check that it's vertical?
+    'shape:' shape=Polytope 
     'location:' location=WallOpeningLocation
     (frame=Frame)? //Semantics
 ;
 
 Window:
     'Window' name=ID ':'
-    'shape:' shape=Polytope // Check that it's vertical?
+    'shape:' shape=Polytope
     'location:'location=WallOpeningLocation
     (frame=Frame)? //Semantics
 ;

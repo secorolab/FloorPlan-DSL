@@ -1,6 +1,5 @@
 import numpy as np
 
-from textx.exceptions import TextXSemanticError, TextXSyntaxError
 from textx import textx_isinstance, get_metamodel
 
 from floorplan_dsl.classes.fpm2.qudt import Length, Angle
@@ -142,10 +141,6 @@ class Rectangle(Polytope):
     ) -> None:
         self.parent = parent
         self.width = width
-        if length is None and height is None:
-            raise TextXSyntaxError("Missing length or height values")
-        elif length is not None and height is not None:
-            raise TextXSyntaxError("Only length or height must be defined")
 
         self.length = length
         self.height = height
@@ -154,7 +149,7 @@ class Rectangle(Polytope):
         )
         self.points = points
 
-    def get_point_coordinates(self, width, length, height, center=True):
+    def get_point_coordinates(self, width, length, height):
         x = width.value / 2
 
         if length is not None:

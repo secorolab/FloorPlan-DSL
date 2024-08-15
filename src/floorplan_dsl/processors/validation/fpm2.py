@@ -74,3 +74,48 @@ def validate_element_location(element):
             "{} must only define translations wrt to x and/or y".format(element_type),
             **get_location(element.location.translation),
         )
+
+
+def validate_size_is_non_zero_positive(metric):
+    if metric.value <= 0:
+        raise TextXSemanticError(
+            "Width must be a positive number",
+            **get_location(metric),
+        )
+
+
+def validate_opening_shape(opening):
+    mm = get_metamodel(opening)
+    if textx_isinstance(opening.shape, mm["Rectangle"]):
+        if opening.shape.length:
+            raise TextXSyntaxError(
+                "Openings with rectangle shape must define height instead of length",
+                **get_location(opening.shape.length),
+            )
+
+        validate_size_is_non_zero_positive(opening.shape.width)
+        validate_size_is_non_zero_positive(opening.shape.height)
+
+
+def validate_element_shape(element):
+    element_type = element.__class__.__name__
+    mm = get_metamodel(element)
+    if textx_isinstance(element.shape, mm["Rectangle"]):
+        if element.shape.height:
+            raise TextXSyntaxError(
+                "{} with rectangle shape must define length instead of height".format(
+                    element_type
+                ),
+                **get_location(element.shape.height),
+            )
+        validate_size_is_non_zero_positive(element.shape.width)
+        validate_size_is_non_zero_positive(element.shape.length)
+    elif textx_isinstance(element.shape, mm["Polygon"]):
+        for point in element.shape.coordinates:
+            if transformation_in_direction(point.z):
+                raise TextXSyntaxError(
+                    "{} with polygon shape must define points with coordinates only in (x,y)".format(
+                        element_type
+                    ),
+                    **get_location(element.shape.coordinates),
+                )
