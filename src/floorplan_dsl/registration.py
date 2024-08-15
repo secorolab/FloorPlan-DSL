@@ -39,6 +39,7 @@ import floorplan_dsl.classes.fpm2.variables as var
 
 import floorplan_dsl.processors.semantics.fpm2 as semantics2
 import floorplan_dsl.scoping.fpm2 as scope2
+import floorplan_dsl.processors.validation.fpm2 as validation
 
 # object processors for FloorPlan DSL
 from floorplan_dsl.processors.validation.fpm1 import unique_names_processor
@@ -106,6 +107,8 @@ def fpv2_metamodel():
             "Space": semantics2.space_obj_processor,
             "Feature": semantics2.feature_obj_processor,
             "WallOpening": semantics2.opening_obj_processor,
+            "LengthValue": validation.validate_length_value,
+            "AngleValue": validation.validate_angle_value,
         }
     )
     floorplan_mm.register_scope_providers(
