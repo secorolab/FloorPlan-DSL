@@ -3,7 +3,7 @@ import numpy as np
 from textx.exceptions import TextXSemanticError, TextXSyntaxError
 from textx import textx_isinstance, get_metamodel
 
-from floorplan_dsl.parser.classes.fpm2.qudt import Length, Angle
+from floorplan_dsl.classes.fpm2.qudt import Length, Angle
 
 
 class PointCoordinate:

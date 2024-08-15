@@ -2,7 +2,7 @@ from textx import get_model, textx_isinstance
 from textx.scoping.tools import get_unique_named_object
 
 
-from floorplan_dsl.parser.classes.fpm2.floorplan import Feature
+from floorplan_dsl.classes.fpm2.floorplan import Feature
 
 
 def space_location_scope_provider(frame, attr, attr_ref):

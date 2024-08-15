@@ -5,7 +5,7 @@ from textx.exceptions import TextXSemanticError
 from textx import textx_isinstance, get_metamodel, get_model
 from textx.scoping.tools import get_unique_named_object
 
-from floorplan_dsl.parser.classes.fpm2.geometry import (
+from floorplan_dsl.classes.fpm2.geometry import (
     PointCoordinate,
     Polygon,
     Point,

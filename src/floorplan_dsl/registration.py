@@ -14,34 +14,34 @@ from floorplan_dsl.generators.fpm import (
     v1_to_v2_converter,
 )
 from floorplan_dsl.generators.variations import variation_floorplan_generator
-from floorplan_dsl.parser.classes.fpm1.floor_feature import FloorFeature
-from floorplan_dsl.parser.classes.fpm1.polytope import (
+from floorplan_dsl.classes.fpm1.floor_feature import FloorFeature
+from floorplan_dsl.classes.fpm1.polytope import (
     Circle,
     Polygon,
     Rectangle,
     VerticalRectangle,
 )
-from floorplan_dsl.parser.classes.fpm1.position import Position, PoseDescription
+from floorplan_dsl.classes.fpm1.position import Position, PoseDescription
 
 # Classes for FloorPlan DSL and Variation DSL
-from floorplan_dsl.parser.classes.fpm1.space import Space
-from floorplan_dsl.parser.classes.fpm1.wall_opening import WallOpening
-from floorplan_dsl.parser.classes.variation.distribution import (
+from floorplan_dsl.classes.fpm1.space import Space
+from floorplan_dsl.classes.fpm1.wall_opening import WallOpening
+from floorplan_dsl.classes.variation.distribution import (
     UniformDistribution,
     DiscreteDistribution,
     NormalDistribution,
 )
 
-import floorplan_dsl.parser.classes.fpm2.floorplan as fpm
-import floorplan_dsl.parser.classes.fpm2.geometry as geom
-import floorplan_dsl.parser.classes.fpm2.qudt as qudt
-import floorplan_dsl.parser.classes.fpm2.variables as var
+import floorplan_dsl.classes.fpm2.floorplan as fpm
+import floorplan_dsl.classes.fpm2.geometry as geom
+import floorplan_dsl.classes.fpm2.qudt as qudt
+import floorplan_dsl.classes.fpm2.variables as var
 
-import floorplan_dsl.parser.processors.fpm2 as proc2
+import floorplan_dsl.processors.fpm2 as proc2
 
 # object processors for FloorPlan DSL
-from floorplan_dsl.parser.processors.fpm1 import unique_names_processor
-from floorplan_dsl.parser.processors.variation import (
+from floorplan_dsl.processors.fpm1 import unique_names_processor
+from floorplan_dsl.processors.variation import (
     discrete_distribution_obj_processor,
 )
 
@@ -50,7 +50,7 @@ sys.path.append(dir_path)
 
 
 def floorplan_metamodel():
-    "floorplan language"
+    """floorplan language"""
 
     current_dir = dirname(__file__)
     path = join(current_dir, "grammar/fpm1", "floorplan.tx")
@@ -90,7 +90,7 @@ def fpv2_metamodel():
             fpm.Divider,
             fpm.Window,
             fpm.Entryway,
-            fpm.Frame,
+            geom.Frame,
             geom.PointCoordinate,
             geom.Rectangle,
             geom.Circle,
