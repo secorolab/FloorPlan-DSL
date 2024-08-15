@@ -37,11 +37,12 @@ import floorplan_dsl.classes.fpm2.geometry as geom
 import floorplan_dsl.classes.fpm2.qudt as qudt
 import floorplan_dsl.classes.fpm2.variables as var
 
-import floorplan_dsl.processors.fpm2 as proc2
+import floorplan_dsl.processors.semantics.fpm2 as semantics2
+import floorplan_dsl.scoping.fpm2 as scope2
 
 # object processors for FloorPlan DSL
-from floorplan_dsl.processors.fpm1 import unique_names_processor
-from floorplan_dsl.processors.variation import (
+from floorplan_dsl.processors.validation.fpm1 import unique_names_processor
+from floorplan_dsl.processors.validation.variation import (
     discrete_distribution_obj_processor,
 )
 
@@ -102,15 +103,15 @@ def fpv2_metamodel():
     )
     floorplan_mm.register_obj_processors(
         {
-            "Space": proc2.space_obj_processor,
-            "Feature": proc2.feature_obj_processor,
-            "WallOpening": proc2.opening_obj_processor,
+            "Space": semantics2.space_obj_processor,
+            "Feature": semantics2.feature_obj_processor,
+            "WallOpening": semantics2.opening_obj_processor,
         }
     )
     floorplan_mm.register_scope_providers(
         {
-            "WallFrame.space": proc2.space_location_scope_provider,
-            "SpaceFrame.space": proc2.space_location_scope_provider,
+            "WallFrame.space": scope2.space_location_scope_provider,
+            "SpaceFrame.space": scope2.space_location_scope_provider,
         }
     )
     floorplan_mm.auto_init_attributes = False
