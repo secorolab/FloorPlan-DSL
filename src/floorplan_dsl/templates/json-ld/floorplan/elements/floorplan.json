@@ -1,0 +1,18 @@
+        {
+            "@id": "floorplan:{{ model.name }}",
+            "@type": "FloorPlan",
+            "spaces": [
+                {% for space in model.spaces %}
+                "floorplan:{{ space.name }}"{%- if not loop.last %},
+            {% endif %}
+                {% endfor +%}
+            ]
+            {%- if model.wall_openings %},
+            "openings": [
+                {% for opening in model.wall_openings %}
+                "floorplan:{{ opening.name }}"{%- if not loop.last %},
+                {% endif %}
+                {% endfor +%}
+            ]
+            {% endif %}
+        }
