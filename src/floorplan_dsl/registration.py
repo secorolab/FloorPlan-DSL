@@ -108,6 +108,7 @@ def fpv2_metamodel():
             "Space": proc2.space_processor,
             "Feature": proc2.feature_processor,
             "WallOpening": proc2.opening_processor,
+            "Wall": proc2.wall_processor,
             "LengthValue": validation.validate_length_value,
             "AngleValue": validation.validate_angle_value,
         }
