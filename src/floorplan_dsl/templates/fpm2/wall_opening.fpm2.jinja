@@ -1,4 +1,4 @@
-{% import "./fpm2/geometry.fpm2.jinja" as geom %}
+{% import "./geometry.fpm2.jinja" as geom %}
     {{ wall_opening.__class__.__name__ }} {{ wall_opening.name }}:
         shape: {{ geom.shape_macro(wall_opening.shape) }}
         location: 

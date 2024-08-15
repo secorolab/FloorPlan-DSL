@@ -56,7 +56,7 @@ def v1_to_v2_converter(metamodel, model, output_path, overwrite, debug, **kwargs
     context["name"] = model.name
 
     this_folder = os.path.dirname(__file__)
-    template_folder = os.path.join(this_folder, "../templates/__name__.fpm2.jinja")
+    template_folder = os.path.join(this_folder, "../templates/fpm2/__name__.fpm2.jinja")
 
     # Run Jinja generator
     textx_jinja_generator(template_folder, output_path, context, overwrite=overwrite)
