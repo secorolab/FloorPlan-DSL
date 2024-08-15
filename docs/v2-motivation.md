@@ -105,8 +105,6 @@ With the exception of some code optimization/deduplication, most of the original
 Once the latter has been successfully completed, most likely only the v1 grammar will be kept (to allow for v1-v2 conversion), and eventually removed once v1 can be fully deprecated.
 The repository is currently organized as follows:
 
-<!-- TODO: Describe repository structure, including artefacts. Describe what is old and what is new and why it was kept -->
-
 ```bash
 .
 ├── models
@@ -192,8 +190,9 @@ The repository is currently organized as follows:
 
 ### Refactoring of the textx metamodels
 
-> [!NOTE] > **Status: Work in Progress**
->
+> [!NOTE] 
+> **Status: Work in Progress**
+> 
 > The refactoring is almost finished.
 > Currently working on the implementation of the semantics for the `not aligned` and `spaced` keywords, and the interpretation of the location wrt to the world frame.
 > Unit conversion will be worked on last.
@@ -228,25 +227,27 @@ Modularization of the grammar is discussed [below](#modularity-and-model-reuse).
 
 ### Model-to-text transformation
 
-> [!NOTE] > **Status: Work in Progress**
->
+> [!NOTE] 
+> **Status: Work in Progress**
+> 
 > The generation is currently working, however the generated JSON-LD models currently do not match the old versions for two reasons:
 >
 > - The semantics for `not aligned` and `spaced` have not yet been implemented
 > - In the `v1`, the coordinates were transformed to frames of reference different to those that were specified in the concrete syntax. TBD if this is a design decision to be changed or if it should be added as an additional option for the generation in `v2`.
 
 - [x] Using jinja2, we create templates for each (relevant) element type in the JSON-LD metamodels, in an attempt to use them as transformation rules (that call or extend the other more atomic element-level rules)
-  - The transformation engine takes the textX model and applies the pre-defined Jinja2 templates. These templates take advantage of the Jinja facilities discussed in [Jinja](#jinja). We defined templates for each concept in the JSON-LD metamodels. The structure and inheritance of the json-ld templates is shown below:
+  - The transformation engine takes the textX model and applies the pre-defined Jinja2 templates. These templates take advantage of the Jinja facilities discussed in [Jinja](#jinja). We defined templates for each concept in the JSON-LD metamodels. The structure and inheritance of the json-ld templates is shown below:  
     ![](images/jinja-templates-json-ld.png)
-- [x] Model-to-model transformation from old version to new version also using jinja2. How the jinja templates are organized is shown below:
+- [x] Model-to-model transformation from old version to new version also using jinja2. How the jinja templates are organized is shown below:  
       ![](images/jinja-templates-fpm2.png)
 - [ ] Add 3D representations to the JSON-LD generation
 - [ ] Add options in generation to convert units (e.g. from cm->m or deg->rad)
 
 ### Validation
 
-> [!NOTE] > **Status: Paused**
->
+> [!NOTE] 
+> **Status: Paused**
+> 
 > Only the last two constraints still need to be implemented, but they require the implementation of the semantics for the `not aligned` and `spaced` keywords, and the interpretation of the location wrt to the world frame.
 
 - [x] Verify that RHS variable assignments match the units of the LHS (validate type matches)
@@ -288,8 +289,9 @@ Modularization of the grammar is discussed [below](#modularity-and-model-reuse).
 
 ### Adding door models
 
-> [!NOTE] > **Status: Planned**
->
+> [!NOTE] 
+> **Status: Planned**
+> 
 > This part of the refactoring has not started yet
 
 - [ ] Add new way to specify doors with kinematic chains (see IFC models as reference)
@@ -297,8 +299,9 @@ Modularization of the grammar is discussed [below](#modularity-and-model-reuse).
 
 ### Modularity and model reuse
 
-> [!NOTE] > **Status: Paused**
->
+> [!NOTE] 
+> **Status: Paused**
+> 
 > Initially each floor plan element had its own grammar, but this made the syntax cumbersome (see point below).
 > Most elements were moved back into a single file (`floorplan.tx`) until other parts of the refactoring are finished.
 
