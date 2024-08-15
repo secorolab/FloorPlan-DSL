@@ -1,4 +1,4 @@
         {
-            "@id": "geom:{% block point_id %}{{ point.name }}{% endblock %}",
+            "@id": "floorplan:{% block point_id %}{{ point.name }}{% endblock %}",
             "@type": "Point"
         }

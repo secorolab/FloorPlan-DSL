@@ -15,7 +15,7 @@ coord-{{ position.name }}
 {%- endblock %}
 
 {% block reference %}
-            "of-position": "geor:{% block of_position %}{{ position.name }}{% endblock %}",
+            "of-position": "floorplan:{% block of_position %}{{ position.name }}{% endblock %}",
             {{ super() }}
 {% endblock %}
 

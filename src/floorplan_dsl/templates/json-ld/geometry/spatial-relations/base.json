@@ -1,6 +1,6 @@
         {
-            "@id": "geor:{% block rel_id %}{% endblock %}",
+            "@id": "floorplan:{% block rel_id %}{% endblock %}",
             "@type": "{% block type %}{% endblock %}",
-            "of": "geom:{% block of %}{% endblock %}",
-            "with-respect-to": "geom:{% block wrt %}{% endblock %}"
+            "of": "floorplan:{% block of %}{% endblock %}",
+            "with-respect-to": "floorplan:{% block wrt %}{% endblock %}"
         }

@@ -1,11 +1,11 @@
         {
-            "@id": "coord:{% block coord_id scoped -%}{%- endblock %}",
+            "@id": "floorplan:{% block coord_id scoped -%}{%- endblock %}",
             "@type": [
                 {% block type scoped -%}
                 {%- endblock %}
             ],
             {% block reference -%}
-            "as-seen-by": "geom:{% block as_seen_by scoped %}{% endblock %}",
+            "as-seen-by": "floorplan:{% block as_seen_by scoped %}{% endblock %}",
             {%- endblock %}
             "unit": {% block units scoped -%}
             [
