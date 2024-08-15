@@ -62,7 +62,7 @@ def variation_floorplan_generator(
 
     this_folder = os.path.dirname(__file__)
     template_folder = os.path.join(
-        this_folder, "../templates/__name_____seed__.fpm2.jinja"
+        this_folder, "../templates/fpm2/__name_____seed__.fpm2.jinja"
     )
 
     variations = custom_args["variations"]

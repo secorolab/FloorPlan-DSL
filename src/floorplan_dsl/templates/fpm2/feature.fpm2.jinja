@@ -1,5 +1,5 @@
-{% import "./fpm2/geometry.fpm2.jinja" as geom %}
-{% from "./fpm2/variables.fpm2.jinja" import value_assignment %}
+{% import "./geometry.fpm2.jinja" as geom %}
+{% from "./variables.fpm2.jinja" import value_assignment %}
             {{ feature.__class__.__name__ }} {{ feature.name }}:
                 shape: {{ geom.shape_macro(feature.shape) }}
                 height: {{ value_assignment(feature.height) }} 
