@@ -1,5 +1,5 @@
         {
-            "@id": "geom:{% block frame_id %}{{ frame.name }}{% endblock %}",
+            "@id": "floorplan:{% block frame_id %}{{ frame.name }}{% endblock %}",
             "@type": "Frame",
-            "origin": "geom:{% block origin %}{{ frame.origin.name }}{% endblock %}"
+            "origin": "floorplan:{% block origin %}{{ frame.origin.name }}{% endblock %}"
         }
