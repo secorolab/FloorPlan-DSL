@@ -3,7 +3,15 @@ import units
 /* ------------------------------------------ */
 // Syntax: Variables
 Variable:
-'var' name=ID '=' value=FLOAT unit=Units?
+LengthVariable|AngleVariable
+;
+
+LengthVariable:
+'var' name=ID '=' value=FLOAT unit=CartesianUnit
+;
+
+AngleVariable:
+'var' name=ID '=' value=FLOAT unit=AngularUnits
 ;
 
 VariableReference:

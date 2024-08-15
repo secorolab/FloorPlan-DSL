@@ -24,8 +24,6 @@ class PointCoordinate:
             return value
         elif textx_isinstance(value, mm["Length"]):
             return value
-        else:
-            raise TextXSyntaxError("Wrong type of value for PointCoordinate")
 
 
 class EulerAngles:
@@ -46,8 +44,6 @@ class EulerAngles:
             return value
         elif textx_isinstance(value, mm["Angle"]):
             return value
-        else:
-            raise TextXSyntaxError("Wrong type of value for Angle")
 
 
 class Point:
