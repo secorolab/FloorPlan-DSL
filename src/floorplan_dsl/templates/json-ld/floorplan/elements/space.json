@@ -1,0 +1,17 @@
+        {
+            "@id": "floorplan:{{ space.name }}",
+            "@type": "Space",
+            "walls": [
+            {% for w in space.walls %}
+                "floorplan:{{ w.name }}"{%- if not loop.last %},
+            {% endif %}
+            {% endfor +%}
+            ],
+            "feature": [
+            {% for feature in space.features %}
+                "floorplan:{{ feature.name }}"{%- if not loop.last %},
+            {% endif %}
+            {% endfor +%}
+            ],
+            "shape": "polytope:{{ space.shape.name }}"
+        }

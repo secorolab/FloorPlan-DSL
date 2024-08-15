@@ -1,5 +1,4 @@
 {% extends "./floorplan/floorplan.json" %}
-{% import "./floorplan/concepts.json" as fp  %}
 
 {% block context %}
         {
@@ -10,25 +9,27 @@
 {% endblock%}
 
 {% block wall %}
-{{ fp.wall(w)}}{% if not loop.last %},
+{% set element = w %}
+{% include "./floorplan/elements/element.json" with context %}{% if not loop.last %},
 {% endif %}
 {% endblock %}
 
 {% block feature %}
-{{ fp.features(f)}}{% if not loop.last %},
+{% set element = f %}
+{% include "./floorplan/elements/element.json" with context %}{% if not loop.last %},
 {% endif %}
 {% endblock %}
 
 {% block opening %}
-{{ fp.openings(o)}}{% if not loop.last %}
-{% endif %}
+{% set element = o %}
+{% include "./floorplan/elements/element.json" with context %}
 {% endblock %}
 
 {%- block space -%}
-{{ fp.space(space)}},
+{% include "./floorplan/elements/space.json" with context %},
 {%- endblock -%}
 
 {% block graph %}
-{{ fp.floorplan(model) }},
+{% include "./floorplan/elements/floorplan.json" with context %},
 {{ super() }}
 {% endblock %}
