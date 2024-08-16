@@ -40,7 +40,7 @@ The json-ld generator outputs the following files:
 
 Two main differences to Xtext influence the design decisions in the FloorPlan DSLs:
 
-- Static semantics: no constraint language like OCL, but has [object and metamodel processors](https://textx.github.io/textX/metamodel.html#processors) to apply static semantics (using python code for validation/checks)
+- Static semantics: no constraint language like OCL, but has [object and metamodel processors](https://textx.github.io/textX/metamodel.html#processors) to apply static semantics (using python code for validation/checks).
 - No transformation language available. [Generators](https://textx.github.io/textX/registration.html#textx-generators) can be written in Python to transform to other representations, or use the [Jinja](https://textx.github.io/textX/jinja.html) template engine for model-to-text transformations.
 
 For a more detailed comparison, see the [comparison to other tools](https://textx.github.io/textX/about/comparison.html) in the textX website.
@@ -66,37 +66,37 @@ The templating engine has some useful utilities to minimize duplication of code:
 - No 3D-data was included in the generated JSON-LD models (e.g. no height was exported for walls, dividers or columns)
 - Inconsistencies in the specification of locations for different elements.
   - Syntax is different between different types of elements.
-  - Some location concepts are defined outside the location model
-  - Abstraction levels: Features are defined inside the space model, but openings are defined outside of them, despite the relations between them, e.g. Dividers and Entryways
+  - Some location concepts are defined outside the location model.
+  - Abstraction levels: Features are defined inside the space model, but openings are defined outside of them, despite the relations between them, e.g. Dividers and Entryways.
 - Model transformations (from textX models to JSON-LD models) used a hard-coded "transformation engine" written in Python. This was error-prone and resulted in the following issues:
-  - No validation of model correctness (JSON-LD metamodels are not used in the transformation)
-  - Metamodel names in textX do not match JSON-LD metamodels for the same concepts
+  - No validation of model correctness (JSON-LD metamodels are not used in the transformation).
+  - Metamodel names in textX do not match JSON-LD metamodels for the same concepts.
   - Missing elements in the JSON-LD generation (in addition to 3D data):
     - Doors are modelled as "Dividers" but no JSON-LD is generated for them. Features were missing from some JSON-LD exports.
-    - Entryways and Windows were also not exported
+    - Entryways and Windows were also not exported.
     - The custom classes used to parse the model do not respect separation of concerns. Out of convenience, they mix semantics of the language with the interpretation required for some of the exports.
       - They use additional classes which are not part of the textx grammar and models, but have corresponding JSON-LD metamodels and are generated "out of thin air" part of the json-ld models (since they do not exist in the textx model AST).
-    - Units are part of the syntax but are ultimately ignored (i.e. no checks if angles are specified in radians or degrees)
-  - Abstraction level was inconsistent for some elements (e.g. AngleInDegrees or MeterVariable)
-- Duplicated/repeated models due to lack of modularity (e.g. in `models/examples/` three models of `brsu_building_c` add or remove features and openings but share the same spaces)
+    - Units are part of the syntax but are ultimately ignored (i.e. no checks if angles are specified in radians or degrees).
+  - Abstraction level was inconsistent for some elements (e.g. AngleInDegrees or MeterVariable).
+- Duplicated/repeated models due to lack of modularity (e.g. in `models/examples/` three models of `brsu_building_c` add or remove features and openings but share the same spaces).
 - Code principles
-  - Custom classes also do not have consistent levels of abstraction to match their domain concepts. They perform functions that do not match their level of abstraction or ar part of the semantics. As an example, `Frames` have translation and rotation matrices and perform transformation of positions and poses.
+  - Custom classes also do not have consistent levels of abstraction to match their domain concepts. They perform functions that do not match their level of abstraction or are part of the semantics. As an example, `Frames` have translation and rotation matrices and perform transformation of positions and poses.
   - Generally, the methods in custom classes don't follow the principle of single responsibility, and have duplicated code.
 
 ## Goals of the refactoring
 
-1. Refactoring the textX metamodels
-   1. Making the level of abstraction top-down
-   2. Renaming concepts to align with the JSON-LD ones where applicable
-   3. Expand language semantics to facilitate the generation of JSON-LD models
+1. Refactoring the textX metamodels.
+   1. Making the level of abstraction top-down.
+   2. Renaming concepts to align with the JSON-LD ones where applicable.
+   3. Expand language semantics to facilitate the generation of JSON-LD models.
    4. Custom classes that match the semantics of the concepts in the model and have appropriate levels of abstraction.
 2. Model-to-text transformations that follow the JSON-LD metamodels.
-   Challenge: There is no transformation language available. textX has ways to register [generators](https://textx.github.io/textX/registration.html#textx-generators) but this relies on the custom-written code of the transformation engine. JSON-LD metamodels only include types but no pre-defined schema
-   1. Systematically generate JSON-LD models to include all textx models
-   2. Add 3D data to JSON-LD generation
-3. Validation of models (e.g. unit consistency)
-4. Creating new textX metamodels for the new doors
-5. Modularity of the models to enable their reuse
+   Challenge: There is no transformation language available. textX has ways to register [generators](https://textx.github.io/textX/registration.html#textx-generators) but this relies on the custom-written code of the transformation engine. JSON-LD metamodels only include types but no pre-defined schema.
+   1. Systematically generate JSON-LD models to include all textx models.
+   2. Add 3D data to JSON-LD generation.
+3. Validation of models (e.g. unit consistency).
+4. Creating new textX metamodels for the new doors.
+5. Modularity of the models to enable their reuse.
 
 ## Implementation
 
@@ -200,8 +200,8 @@ The repository is currently organized as follows:
 - [x] Considered the requirements in the concrete syntax (what users can specify) separately from the abstract syntax that is needed to instantiate the floorplan (e.g. walls), and incorporated this as static semantics.
 - [x] Model optimization: reduced model size by removing unnecessary statements in the concrete syntax (e.g. translations and rotations of zero).
 - [x] Made the specification of locations of elements consistent. This required a small change in syntax.
-- [x] Added metamodels in the grammar to better support the semantics of the geometry domain. This required considerable changes to the static semantics to better-align the textx grammar to the JSON-LD metamodels. This change also facilitates the generation of JSON-LD models, as most concepts are now present in the AST after parsing. Examples of this include: Frames, Points, Position and PoseCoordinates
-- [x] Used textX's custom classes to do model refinement and expand the syntactic sugar (e.g., generating walls from the space's shape, adding a shape to each wall, adding frames and points to all elements, applying/propagating default values like wall height to model properties)
+- [x] Added metamodels in the grammar to better support the semantics of the geometry domain. This required considerable changes to the static semantics to better-align the textx grammar to the JSON-LD metamodels. This change also facilitates the generation of JSON-LD models, as most concepts are now present in the AST after parsing. Examples of this include: Frames, Points, Position and PoseCoordinates.
+- [x] Used textX's custom classes to do model refinement and expand the syntactic sugar (e.g., generating walls from the space's shape, adding a shape to each wall, adding frames and points to all elements, applying/propagating default values like wall height to model properties).
 - [x] Updated the variation DSL and its generator to work with the new syntax.
 
   - In the generator implementation, the object processors that expand the semantics are disabled. This is required because rather than the precise _meaning_ of the model, the variations are applied directly on the syntax elements, for example:
@@ -307,6 +307,6 @@ Modularization of the grammar is discussed [below](#modularity-and-model-reuse).
 
 Two options (not necessarily mutually exclusive):
 
-- [ ] Modularize the grammars to allow the reuse of model specifications (i.e., allow models to import other models)
+- [ ] Modularize the grammars to allow the reuse of model specifications (i.e., allow models to import other models).
   - Challenges: Limitations on what textx supports for importing grammars (circular references in space and feature locations).
-- [ ] Separate the specification of the element (space, feature, opening) separately from its location
+- [ ] Separate the specification of the element (space, feature, opening) separately from its location.
