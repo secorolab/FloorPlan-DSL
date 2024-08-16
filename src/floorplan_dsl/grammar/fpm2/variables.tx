@@ -7,7 +7,7 @@ LengthVariable|AngleVariable
 ;
 
 LengthVariable:
-'var' name=ID '=' value=FLOAT unit=CartesianUnit
+'var' name=ID '=' value=FLOAT unit=LengthUnits
 ;
 
 AngleVariable:
