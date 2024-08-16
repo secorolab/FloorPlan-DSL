@@ -1,14 +1,14 @@
 /* ------------------------------------------ */
 // Syntax: Units
 Units: 
-AngularUnits|CartesianUnit
+AngularUnits|LengthUnits
 ;
 
 AngularUnits: 'rad' | 'deg';
-CartesianUnit: 'm';
+LengthUnits: 'm';
 
 Length:
-value=FLOAT unit=CartesianUnit?
+value=FLOAT unit=LengthUnits?
 ;
 
 Angle:
