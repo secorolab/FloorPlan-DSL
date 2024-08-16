@@ -36,6 +36,15 @@ The json-ld generator outputs the following files:
 └── spatial_relations.json # Descriptions of positions and poses
 ```
 
+### scenery_builder
+
+The [scenery builder](https://github.com/secorolab/scenery_builder) uses the JSON-LD representation of the floorplan and composes it with JSON-LD models for door descriptions, door states and door instances:
+  - [door objects](https://github.com/secorolab/floorplan-object-modelling-and-placement/blob/master/input/object-door.json) (their shape and kinematic chains)
+  - [states of objects](https://github.com/secorolab/floorplan-object-modelling-and-placement/blob/master/input/object-door-states.json)
+  - [door instances](https://github.com/secorolab/floorplan-object-modelling-and-placement/blob/master/input/object-door-instance-1.json) (with poses and states attached)
+
+The composed model is used to generate the necessary artefacts for simulation-based testing, e.g. Gazebo world models, door models, ROS launch files, etc. Additionally, it provides three Gazebo plugins to control the initial state of doors at launch time and their dynamic behaviour at run-time.
+
 ### textX (and differences to Xtext)
 
 Two main differences to Xtext influence the design decisions in the FloorPlan DSLs:
@@ -49,21 +58,18 @@ For a more detailed comparison, see the [comparison to other tools](https://text
 
 The templating engine has some useful utilities to minimize duplication of code:
 
-- [inheritance](https://jinja.palletsprojects.com/en/3.1.x/templates/#template-inheritance): templates can **extend** other templates
-- [macros](https://jinja.palletsprojects.com/en/3.1.x/templates/#macros): functions to abstract and reuse pieces of code
-- [includes](https://jinja.palletsprojects.com/en/3.1.x/templates/#include): rendering a template at the location where this tag is invoked
+- [inheritance](https://jinja.palletsprojects.com/en/3.1.x/templates/#template-inheritance): templates can **extend** other templates.
+- [macros](https://jinja.palletsprojects.com/en/3.1.x/templates/#macros): functions to abstract and reuse pieces of code.
+- [includes](https://jinja.palletsprojects.com/en/3.1.x/templates/#include): rendering a template at the location where this tag is invoked.
 
 ## Motivation for the refactoring of the FloorPlan DSL
 
 - Migrating the generation of the 3D mesh to the [scenery_builder](https://github.com/secorolab/scenery_builder) required that 3D data would be exported to the JSON-LD representations (see issues below).
-- Modelling some floor plan elements for their use with the [scenery_builder](https://github.com/secorolab/scenery_builder) is currently done directly in JSON-LD. These elements have available JSON-LD models and metamodels.
-  - [door objects](https://github.com/secorolab/floorplan-object-modelling-and-placement/blob/master/input/object-door.json) (their shape and kinematic chains)
-  - [states of objects](https://github.com/secorolab/floorplan-object-modelling-and-placement/blob/master/input/object-door-states.json)
-  - [door instances](https://github.com/secorolab/floorplan-object-modelling-and-placement/blob/master/input/object-door-instance-1.json) (with poses and states attached)
+- Modelling some floor plan elements for their use with the [scenery_builder](https://github.com/secorolab/scenery_builder) is currently done directly in JSON-LD. These elements have available JSON-LD models and metamodels (see [scenery_builder](#scenery_builder)).
 
 ## Identified issues with the `floorplan-v1` (formerly `exsce-floorplan`) DSL
 
-- No 3D-data was included in the generated JSON-LD models (e.g. no height was exported for walls, dividers or columns)
+- No 3D-data was included in the generated JSON-LD models (e.g. no height was exported for walls, dividers or columns).
 - Inconsistencies in the specification of locations for different elements.
   - Syntax is different between different types of elements.
   - Some location concepts are defined outside the location model.
@@ -197,11 +203,83 @@ The repository is currently organized as follows:
 > Currently working on the implementation of the semantics for the `not aligned` and `spaced` keywords, and the interpretation of the location wrt to the world frame.
 > Unit conversion will be worked on last.
 
-- [x] Considered the requirements in the concrete syntax (what users can specify) separately from the abstract syntax that is needed to instantiate the floorplan (e.g. walls), and incorporated this as static semantics.
-- [x] Model optimization: reduced model size by removing unnecessary statements in the concrete syntax (e.g. translations and rotations of zero).
+The re-design of the grammar considered the requirements in the concrete syntax (what users can specify) separately from the abstract syntax that is needed to instantiate the floorplan (e.g. walls), and incorporated this as static semantics.
+The `v1` version focused mainly on the syntax of the and interpreted the model before the generation of the various artefacts. We decided to include the semantic elements as optional in the syntax rules in `v2` to allow for the full specification the model if desired, while treatng the required syntax as syntactic sugar (i.e., as a short hand to make it easier to specify and read floor plan models).
+
+The differences in syntax between `v1` and `v2` can be observed by comparing [hospital.floorplan](../models/examples/hospital.floorplan) with [hospital.fpm2](../models/examples/hospital.fpm2).
+
+- [x] Model optimization: reduced model size by making unnecessary statements in the concrete syntax optional (e.g. translations and rotations of zero).
+  ```diff
+  -translation: x:1.0 m, y:0.0 m
+  +translation: x: 1.0 m
+  -rotation: 0.0 deg
+  ```
 - [x] Made the specification of locations of elements consistent. This required a small change in syntax.
-- [x] Added metamodels in the grammar to better support the semantics of the geometry domain. This required considerable changes to the static semantics to better-align the textx grammar to the JSON-LD metamodels. This change also facilitates the generation of JSON-LD models, as most concepts are now present in the AST after parsing. Examples of this include: Frames, Points, Position and PoseCoordinates.
-- [x] Used textX's custom classes to do model refinement and expand the syntactic sugar (e.g., generating walls from the space's shape, adding a shape to each wall, adding frames and points to all elements, applying/propagating default values like wall height to model properties).
+  ```diff
+    Space hallway:
+        ...
+        location:
+  -          from: reception.walls[0]
+  -          to: this.walls[2]
+  -          pose: 
+  -              translation: x:2.0 m, y:0.0 m
+  -              rotation: 0.0 deg
+  +          wrt: reception.walls[0]
+  +          of: this.walls[2]
+  +          translation: x: 2.0 m
+            spaced
+        features:
+            Column wall_column_1:
+                shape: Rectangle width=0.5 m, length=0.3 m
+                height: 2.5 m
+  -             from: this.walls[3]
+  -             pose:
+  -                 translation: x:-2.5 m, y:0.0 m
+  -                 rotation: 0.0 deg
+  +             location:
+  +                 wrt: this.walls[3]
+  +                 translation: x: -2.5 m
+    Entryway hallway_roomA: 
+  -     in: room_A.walls[1] and hallway.walls[3]
+        shape: Rectangle width=1.2 m, height=2.0 m
+  -     pose:
+  -         translation: x: 1.0 m, y: 0.0 m, z: 0.0 m
+  -         rotation: 0.0 deg
+  +     location:
+  +         in: room_A.walls[1] and hallway.walls[3]
+  +         translation: x: 1.0 m
+  ```
+- [x] Added metamodels in the grammar to better support the semantics of the geometry domain. This required considerable changes to the static semantics to better-align the textx grammar to the JSON-LD metamodels. This change also facilitates the generation of JSON-LD models, as most concepts are now present in the AST after parsing. Examples of this include rules for: Frames, Points, Position and PoseCoordinates.
+  - Although Frames were part of the interpretation of the models in `v1`, they had nothing to do with the JSON-LD representation. In `v2` we added rules for them:
+    ```
+    Point:
+    'point:' name=ID
+    ;
+
+    Frame:
+    'frame:' name=ID origin=Point?
+    ;
+    ```
+
+    Which are then converted in the [model-to-text](#model-to-text-transformation) transformation (discussed later).
+- [x] Used textX's custom classes to do model refinement.
+  The addition of the rules necessary for the JSON-LD representation gives us a lower-level model from a more abstract specification. 
+  We expand the syntactic sugar in two places: the custom classes and the processors. Examples include: using the space's shape to instantiate its walls without having to model them explicitly, adding a shape to each wall, adding frames and points to all elements, applying/propagating default values like wall height to model properties, and updating the location from space and wall references to the frame that is meant.
+  As an example, the latter was achieved by including the `ReferenceFrame` rule in all locations' `of` and `wrt` rules:
+  ```
+  SpaceOfReference:
+  WallFrame|SpaceFrame|ReferenceFrame
+  ;
+  ```
+  and using an object processor to translate `room_1.walls[0]` to the frame of that wall:
+  ```python
+  if textx_isinstance(self.location.of, mm["WallFrame"]):
+      self.location.of = self.location.of.space.walls[self.location.of.wall_idx].frame
+  elif textx_isinstance(self.location.of, mm["SpaceFrame"]):
+      self.location.of = self.location.of.space.frame
+  else:
+      raise TextXSemanticError("Can't find 'of' frame for space {}".format(self.name))
+  ```
 - [x] Updated the variation DSL and its generator to work with the new syntax.
 
   - In the generator implementation, the object processors that expand the semantics are disabled. This is required because rather than the precise _meaning_ of the model, the variations are applied directly on the syntax elements, for example:
@@ -235,13 +313,36 @@ Modularization of the grammar is discussed [below](#modularity-and-model-reuse).
 > - The semantics for `not aligned` and `spaced` have not yet been implemented
 > - In the `v1`, the coordinates were transformed to frames of reference different to those that were specified in the concrete syntax. TBD if this is a design decision to be changed or if it should be added as an additional option for the generation in `v2`.
 
-- [x] Using jinja2, we create templates for each (relevant) element type in the JSON-LD metamodels, in an attempt to use them as transformation rules (that call or extend the other more atomic element-level rules)
+- [x] Using jinja2, we create templates for each (relevant) element type in the JSON-LD metamodels, in an attempt to use them as transformation rules (that call or extend the other more atomic element-level rules).
   - The transformation engine takes the textX model and applies the pre-defined Jinja2 templates. These templates take advantage of the Jinja facilities discussed in [Jinja](#jinja). We defined templates for each concept in the JSON-LD metamodels. The structure and inheritance of the json-ld templates is shown below:  
     ![](images/jinja-templates-json-ld.png)
-- [x] Model-to-model transformation from old version to new version also using jinja2. How the jinja templates are organized is shown below:  
+    - **Base templates:** The `base.json` file has the empty structure of a JSON-LD document. The `floorplan.json` defines the loops and reusable blocks for transforming the floorplan model AST.
+    - **Templates used by jinja:** These are the templates that are loaded by the generator. The jinja generator keeps the file name and changes the extension to `.fpm2`. Each template `includes` the relevant templates for the concepts for each of the five JSON-LD models (see [composable model representation](#composable-model-representation)).
+    - **Base JSON-LD representations:** Each concept has a template (that other templates can extend to minimize repetition). For example, a frame template matches what we specified in the grammar rule that we discussed the in [refactoring](#refactoring-of-the-textx-metamodels):
+      ```jinja
+      {
+          "@id": "floorplan:{% block frame_id %}{{ frame.name }}{% endblock %}",
+          "@type": "Frame",
+          "origin": "floorplan:{% block origin %}{{ frame.origin.name }}{% endblock %}"
+      }
+      ```
+      In `skeleton.fpm2.jinja`, we just define the frame of the element we're currently converting, e.g. to define the origin point and the frame of a space:
+      ```jinja
+      {% set frame = space.frame %}
+      {% include "./floorplan/structural-entities/origin.json" with context %},
+      {% include "./geometry/structural-entities/frame.json" with context %},
+      ```
+- [x] Model-to-model transformation from `v1` to `v2` was also implemented with jinja2. How the jinja templates are organized is shown below:  
       ![](images/jinja-templates-fpm2.png)
-- [ ] Add 3D representations to the JSON-LD generation
-- [ ] Add options in generation to convert units (e.g. from cm->m or deg->rad)
+
+  - `__name__.fpm2.jinja` is used by the `v1->v2` converter and is based on the templates for the variation generation of `v1`. Jinja will replace `__name__` with the `name` variable passed in its context, which is the filename in our case. For example:
+    ```bash
+    # Generates a hospital.fpm2 file (converting from v1 to v2)
+    textx generate models/examples/hospital.floorplan --target floorplan-v2
+    ```
+  - `__name_____seed__.fpm2.jinja` is used by the variation generator and was rewritten for `v2`. `__seed__` is replaced by the random seed used for the sampling.
+- [ ] Add 3D representations to the JSON-LD generation.
+- [ ] Add options in generation to convert units (e.g. from cm->m or deg->rad).
 
 ### Validation
 
@@ -250,7 +351,7 @@ Modularization of the grammar is discussed [below](#modularity-and-model-reuse).
 > 
 > Only the last two constraints still need to be implemented, but they require the implementation of the semantics for the `not aligned` and `spaced` keywords, and the interpretation of the location wrt to the world frame.
 
-- [x] Verify that RHS variable assignments match the units of the LHS (validate type matches)
+- [x] Verify that right-hand side (RHS) variable assignments match the units of the left-hand side (LHS) (validate type matches).
 
   - This was implemented with a processor in order to provide a more human-friendly message for the error. In the example below we try to assign an AngleVariable to a Rectangle that expects values in meters.
 
@@ -294,7 +395,7 @@ Modularization of the grammar is discussed [below](#modularity-and-model-reuse).
 > 
 > This part of the refactoring has not started yet
 
-- [ ] Add new way to specify doors with kinematic chains (see IFC models as reference)
+- [ ] Add new way to specify doors with kinematic chains (see [Industry Foundation Classes (IFC)](https://technical.buildingsmart.org/standards/ifc/) models used to represent the  as reference).
 - [ ] Specificying the location of doors should also be possible wrt to a doorway. Currently dividers are specified wrt to spaces.
 
 ### Modularity and model reuse
