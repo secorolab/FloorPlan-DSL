@@ -98,8 +98,7 @@ class PoseCoordinate:
 
     # TODO Move to right place
     @classmethod
-    def wall_wrt_parent_space(cls, wall):
-        x, y, theta = wall.get_wall_origin_pose_coord()
+    def wall_wrt_parent_space(cls, wall, x, y, theta):
         rotation = EulerAngles(wall, z=theta)
         translation = PointCoordinate(wall, x, y)
         return cls(wall, wall.frame, wall.parent.frame, translation, rotation)
@@ -184,24 +183,3 @@ class Polygon(Polytope):
         self.parent = parent
         self.coordinates = coordinates
         self.points = points
-
-    # TODO Move this to interpreter
-    @classmethod
-    def from_wall(cls, wall, corners=4):
-        points = [
-            Point(wall, "{}-corner-{}".format(wall.name, i)) for i in range(corners)
-        ]
-
-        poly = cls(wall, list(), points)
-
-        x = wall.width / 2
-        coords = [
-            PointCoordinate(poly, -x, 0.0, 0.0),
-            PointCoordinate(poly, -x, wall.thickness, 0.0),
-            PointCoordinate(poly, x, wall.thickness, 0.0),
-            PointCoordinate(poly, x, 0.0, 0.0),
-        ]
-
-        poly.coordinates = coords
-
-        return poly
