@@ -299,7 +299,7 @@ The differences in syntax between `v1` and `v2` can be observed by comparing [ho
 
     The `room_1.wall.thickness` is not specified. The semantics point the room's wall thickness to that of the global `Defaults.walls.thickness`. If we want to vary the room's thickness, we don't want to modify the (shared) global defaults, but rather the values specified in the model.
 
-- [ ] Converted units internally to meters and radians for consistency.
+- [x] Converted units internally to meters and radians for consistency.
 
 Modularization of the grammar is discussed [below](#modularity-and-model-reuse).
 

@@ -37,8 +37,8 @@ import floorplan_dsl.classes.fpm2.geometry as geom
 import floorplan_dsl.classes.fpm2.qudt as qudt
 import floorplan_dsl.classes.fpm2.variables as var
 
-# import floorplan_dsl.processors.semantics.fpm2 as semantics2
 import floorplan_dsl.processors.validation.fpm2 as validation
+import floorplan_dsl.processors.semantics.fpm2 as sem2
 import floorplan_dsl.processors as proc2
 import floorplan_dsl.scoping.fpm2 as scope2
 
@@ -109,6 +109,8 @@ def fpv2_metamodel():
             "Feature": proc2.feature_processor,
             "WallOpening": proc2.opening_processor,
             "Wall": proc2.wall_processor,
+            "Angle": sem2.process_angle_units,
+            "AngleVariable": sem2.process_angle_units,
             "LengthValue": validation.validate_length_value,
             "AngleValue": validation.validate_angle_value,
         }
