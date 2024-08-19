@@ -114,10 +114,10 @@ class WallSemantics:
 
         x = self.width / 2
         coords = [
-            PointCoordinate(poly, -x, 0.0, 0.0),
             PointCoordinate(poly, -x, self.thickness, 0.0),
             PointCoordinate(poly, x, self.thickness, 0.0),
             PointCoordinate(poly, x, 0.0, 0.0),
+            PointCoordinate(poly, -x, 0.0, 0.0),
         ]
 
         poly.coordinates = coords

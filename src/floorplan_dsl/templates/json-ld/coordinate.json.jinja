@@ -23,7 +23,7 @@
 
 {% block wall %}
 {% set outer_loop = loop %}
-{% for position in w.point_positions %}
+{% for position in w.shape_position_coords %}
     {% include "./geometry/coordinate/position.json" with context %}{% if not loop.last %},
     {% endif %}
 {% endfor %}{% if not outer_loop.last %},
