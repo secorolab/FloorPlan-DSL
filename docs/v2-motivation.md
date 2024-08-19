@@ -387,6 +387,9 @@ Modularization of the grammar is discussed [below](#modularity-and-model-reuse).
   - [ ] For contiguous walls: min 2 wall frames are required. This most likely requires additional semantics and refinement of the models to recognize contiguous walls.
 - [ ] Verify there are no opening shapes that go below the floor.
       This requires the implementation of the `not aligned` and `spaced` semantics, and the pose transformations wrt to the world frame.
+- [x] If a space is located wrt the world frame, its location must not have the `spaced` flag
+- [x] When the `spaced` flag is present, there should be no translation in `y`
+- [x] When the `aligned` flag is present (`True` by default), there should be no rotation in `z`
 
 ### Adding door models
 

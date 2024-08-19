@@ -5,6 +5,7 @@ import floorplan_dsl.processors.validation.fpm2 as v2
 def space_processor(space):
     v2.validate_element_location(space)
     v2.validate_element_shape(space)
+    v2.validate_space_location_flags(space)
     s2.space_obj_processor(space)
 
 
