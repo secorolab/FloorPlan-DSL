@@ -310,7 +310,6 @@ Modularization of the grammar is discussed [below](#modularity-and-model-reuse).
 > 
 > The generation is currently working, however the generated JSON-LD models currently do not match the old versions for two reasons:
 >
-> - The semantics for `not aligned` and `spaced` have not yet been implemented
 > - In the `v1`, the coordinates were transformed to frames of reference different to those that were specified in the concrete syntax. TBD if this is a design decision to be changed or if it should be added as an additional option for the generation in `v2`.
 
 - [x] Using jinja2, we create templates for each (relevant) element type in the JSON-LD metamodels, in an attempt to use them as transformation rules (that call or extend the other more atomic element-level rules).
