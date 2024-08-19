@@ -96,39 +96,6 @@ class PoseCoordinate:
         self.orientation = orientation
         self.name = "pose-{}-wrt-{}".format(of.name, wrt.name)
 
-    # TODO Move to right place
-    @classmethod
-    def wall_wrt_parent_space(cls, wall, x, y, theta):
-        rotation = EulerAngles(wall, z=theta)
-        translation = PointCoordinate(wall, x, y)
-        return cls(wall, wall.frame, wall.parent.frame, translation, rotation)
-
-    @classmethod
-    def opening_wrt_wall(cls, opening):
-        translation = opening.location.translation
-        rotation = opening.location.rotation
-        if opening.location.rotation is None:
-            rotation = EulerAngles(opening, y=0.0)
-
-        if opening.location.translation is None:
-            translation = PointCoordinate(opening, x=0.0, z=0.0)
-
-        return cls(
-            opening, opening.frame, opening.location.walls[0], translation, rotation
-        )
-
-    @classmethod
-    def feature_wrt_space(cls, feature):
-        translation = feature.location.translation
-        rotation = feature.location.rotation
-        if feature.location.rotation is None:
-            rotation = EulerAngles(feature, z=0.0)
-
-        if feature.location.translation is None:
-            translation = PointCoordinate(feature, x=0.0, y=0.0)
-
-        return cls(feature, feature.frame, feature.location.wrt, translation, rotation)
-
 
 class Polytope:
     pass
@@ -151,6 +118,7 @@ class Rectangle(Polytope):
     def get_point_coordinates(self, width, length, height):
         x = width.value / 2
 
+        coords = list()
         if length is not None:
             y = length.value / 2
             coords = [
