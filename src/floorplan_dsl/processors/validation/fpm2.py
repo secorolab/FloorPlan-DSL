@@ -76,6 +76,48 @@ def validate_element_location(element):
         )
 
 
+def validate_space_location_flags(space):
+    mm = get_metamodel(space)
+    if (
+        space.location.spaced
+        and textx_isinstance(space.location.wrt, mm["Frame"])
+        and space.location.wrt.name == "world-frame"
+    ):
+        raise TextXSemanticError(
+            "A space cannot be 'spaced' when defined wrt to the world frame",
+            **get_location(space.location.wrt),
+        )
+    elif space.location.spaced and textx_isinstance(
+        space.location.wrt, mm["WorldFrame"]
+    ):
+        raise TextXSemanticError(
+            "A space cannot be 'spaced' when defined wrt to the world frame",
+            **get_location(space.location.wrt),
+        )
+
+    if (
+        space.location.spaced
+        and space.location.translation
+        and space.location.translation.y
+        and space.location.translation.y.value != 0
+    ):
+        raise TextXSemanticError(
+            "The 'spaced' flag is incompatible with a translation in y",
+            **get_location(space.location.translation.y),
+        )
+
+    if (
+        space.location.aligned
+        and space.location.rotation
+        and space.location.rotation.z
+        and space.location.rotation.z != 0.0
+    ):
+        raise TextXSemanticError(
+            "The 'aligned' flag is incompatible with a rotation in z",
+            **get_location(space.location.rotation.z),
+        )
+
+
 def validate_size_is_non_zero_positive(metric):
     if metric.value <= 0:
         raise TextXSemanticError(
