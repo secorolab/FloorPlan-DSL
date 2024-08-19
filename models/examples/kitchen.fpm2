@@ -20,7 +20,6 @@ Floor plan: kitchen
             rotation: z: 0.0 deg
             wrt: world
             of: this
-        spaced 
 
     Space corridor:
         shape: Rectangle width=2.0 m, length=14.0 m
