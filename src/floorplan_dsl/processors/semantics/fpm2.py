@@ -1,11 +1,13 @@
 import math
 
+import numpy as np
 from textx.exceptions import TextXSemanticError
 from textx import textx_isinstance, get_metamodel, get_model
 from textx.scoping.tools import get_unique_named_object
 
 from floorplan_dsl.classes.fpm2.geometry import (
     PointCoordinate,
+    EulerAngles,
     PositionCoordinate,
     PoseCoordinate,
     Point,
@@ -93,12 +95,44 @@ class SpaceSemantics:
 
     def get_pose_coord_wrt_location(self):
         # TODO This might be an alternative to replacing model data in the obj_processor
+        if self.location.rotation:
+            rot_z = self.location.rotation.z.value
+        else:
+            rot_z = 0
+        if self.location.translation and self.location.translation.x:
+            x = self.location.translation.x.value
+        else:
+            x = 0
+        if self.location.translation and self.location.translation.y:
+            y = self.location.translation.y.value
+        else:
+            y = 0
+
+        mm = get_metamodel(self)
+
+        # Check if two walls are being used as frames of reference
+        if textx_isinstance(self.location.of.parent, mm["Wall"]) and textx_isinstance(
+            self.location.wrt.parent, mm["Wall"]
+        ):
+
+            # If the walls are spaced, the translation in y should include the thickness of both walls
+            # See https://github.com/secorolab/FloorPlan-DSL/blob/c2d5db45302a1506d17afe62140398d79abcf21d/src/exsce_floorplan/floor_plan/classes/space.py#L169
+            if self.location.spaced:
+                y = (
+                    y
+                    + self.defaults.wall.thickness.value
+                    + self.location.wrt.parent.thickness.value
+                )
+
+            # The aligned flag adds a rotation of 180 deg to align the walls or spaces
+            # See https://github.com/secorolab/FloorPlan-DSL/blob/c2d5db45302a1506d17afe62140398d79abcf21d/src/exsce_floorplan/floor_plan/classes/space.py#L188
+            if self.location.aligned:
+                rot_z = rot_z + np.deg2rad(180)
+
+        rotation = EulerAngles(self, z=rot_z)
+        translation = PointCoordinate(self, x, y)
         return PoseCoordinate(
-            self,
-            self.location.of,
-            self.location.wrt,
-            self.location.translation,
-            self.location.rotation,
+            self, self.location.of, self.location.wrt, translation, rotation
         )
 
     def get_wall_poses(self):
@@ -159,7 +193,11 @@ class WallSemantics:
 
     def get_pose_coord_wrt_parent(self):
         x, y, rotation = self.get_wall_origin_pose_coord_values()
-        return PoseCoordinate.wall_wrt_parent_space(self, x, y, rotation)
+        rotation = EulerAngles(self, z=self)
+        translation = PointCoordinate(self, x, y)
+        return PoseCoordinate(
+            self, self.frame, self.parent.frame, translation, rotation
+        )
 
 
 class FeatureSemantics:
@@ -175,7 +213,17 @@ class FeatureSemantics:
 
     def get_pose_coord_wrt_location(self):
         # TODO This might be an alternative to replacing model data in the obj_processor
-        return PoseCoordinate.feature_wrt_space(self)
+        translation = self.location.translation
+        rotation = self.location.rotation
+        if self.location.rotation is None:
+            rotation = EulerAngles(self, z=0.0)
+
+        if self.location.translation is None:
+            translation = PointCoordinate(self, x=0.0, y=0.0)
+
+        return PoseCoordinate(
+            self, self.frame, self.location.wrt, translation, rotation
+        )
 
 
 class OpeningSemantics:
@@ -196,4 +244,14 @@ class OpeningSemantics:
 
     def get_pose_coord_wrt_location(self):
         # TODO This might be an alternative to replacing model data in the obj_processor
-        return PoseCoordinate.opening_wrt_wall(self)
+        translation = self.location.translation
+        rotation = self.location.rotation
+        if self.location.rotation is None:
+            rotation = EulerAngles(self, y=0.0)
+
+        if self.location.translation is None:
+            translation = PointCoordinate(self, x=0.0, z=0.0)
+
+        return PoseCoordinate(
+            self, self.frame, self.location.walls[0], translation, rotation
+        )
