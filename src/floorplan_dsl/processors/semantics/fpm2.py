@@ -37,6 +37,15 @@ def opening_obj_processor(opening):
     opening.pose = opening.get_pose_coord_wrt_location()
 
 
+def process_angle_units(v):
+    mm = get_metamodel(v)
+    if (
+        textx_isinstance(v, mm["AngleVariable"]) or textx_isinstance(v, mm["Angle"])
+    ) and v.unit == "deg":
+        v.value = np.deg2rad(v.value)
+        v.unit = "rad"
+
+
 class FloorPlanElement:
     def set_shape_points(self):
 
