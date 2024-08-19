@@ -13,7 +13,6 @@ Floor plan: kitchen
             pose:
                 translation: x:0.0 m, y:2.0 m
                 rotation: 0.0 deg 
-            spaced
 
     Space corridor:
         shape: Rectangle width=2.0 m, length=14.0 m
