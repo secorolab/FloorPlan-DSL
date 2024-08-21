@@ -1,9 +1,10 @@
-from .polytope import *
 from .geometry import Frame
 from .wall import Wall
 
 from .helpers import get_value
 import numpy as np
+
+from floorplan_dsl.utils.geometry import get_intersection
 
 """
 TODO
@@ -335,17 +336,8 @@ class Space(object):
             a1, a2 = points_line1
             b1, b2 = points_line2
 
-            point = []
+            point = get_intersection(a1, a2, b1, b2)
 
-            # method source: https://stackoverflow.com/a/42727584
-            s = np.vstack([a1, a2, b1, b2])  # s for stacked
-            h = np.hstack((s, np.ones((4, 1))))  # h for homogeneous
-            l1 = np.cross(h[0], h[1])  # get first line
-            l2 = np.cross(h[2], h[3])  # get second line
-            x, y, z = np.cross(l1, l2)  # point of intersection
-            if z == 0:  # lines are parallel
-                point = (float("inf"), float("inf"))
-            point = (x / z, y / z)
             new_vertices.append([point[0], point[1], 0])
 
         for i, wall in enumerate(self.walls):

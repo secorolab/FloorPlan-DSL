@@ -1,5 +1,7 @@
 import numpy as np
 
+from floorplan_dsl.utils.transformations import Transformation
+
 cos = np.cos
 sin = np.sin
 rad = np.deg2rad
@@ -85,36 +87,7 @@ class Frame:
         self.t = t
 
     def set_orientation(self, gamma, beta, alpha):
-        """
-        Sets the orientation by calculating the rotation matrix
-
-        Parameters
-        ----------
-        gamma: float
-            Angle in radians for the rotation with respect to the X axis
-        beta: float
-            Angle in radians for the rotation with respect to the Y axis
-        alpha: float
-            Angle in radians for the rotation with respect to the Z axis
-
-        Returns
-        -------
-        None
-        """
-
-        Rx = np.array(
-            [[1, 0, 0], [0, cos(gamma), -sin(gamma)], [0, sin(gamma), cos(gamma)]]
-        )
-
-        Ry = np.array(
-            [[cos(beta), 0, sin(beta)], [0, 1, 0], [-sin(beta), 0, cos(beta)]]
-        )
-
-        Rz = np.array(
-            [[cos(alpha), -sin(alpha), 0], [sin(alpha), cos(alpha), 0], [0, 0, 1]]
-        )
-
-        self.R = Rz.dot(Ry.dot(Rx))
+        self.R = Transformation.get_rotation_matrix(gamma, beta, alpha)
 
     def get_transformation(self):
         """
@@ -136,21 +109,7 @@ class Frame:
         return self.t, self.R
 
     def get_transformation_matrix(self):
-        """
-        returns the 4x4 transformation matrix
-
-        Parameters
-        ----------
-        None
-
-        Returns
-        -------
-        T : numpy array
-            The 4x4 transformation matrix
-        """
-        R = np.vstack((self.R, np.zeros(3)))
-        t = np.vstack((self.t.reshape(3, 1), array([1])))
-        return np.hstack((R, t))
+        return Transformation.get_transformation_matrix(self.t, self.R)
 
     def set_rotation_matrix(self, R):
         """
