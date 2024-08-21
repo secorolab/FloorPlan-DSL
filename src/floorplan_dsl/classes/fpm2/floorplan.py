@@ -6,7 +6,6 @@ from floorplan_dsl.classes.fpm2.geometry import (
 )
 
 from floorplan_dsl.processors.semantics.fpm2 import (
-    FloorPlanElement,
     SpaceSemantics,
     FeatureSemantics,
     OpeningSemantics,
@@ -14,7 +13,7 @@ from floorplan_dsl.processors.semantics.fpm2 import (
 )
 
 
-class Space(FloorPlanElement, SpaceSemantics):
+class Space(SpaceSemantics):
     def __init__(
         self, parent, name, shape, location, features, defaults, walls=None, frame=None
     ):
@@ -49,14 +48,15 @@ class Space(FloorPlanElement, SpaceSemantics):
                 self.defaults.wall.thickness,
                 self.defaults.wall.height,
             )
-            for i, (p1, p2) in enumerate(itertools.pairwise(vertices))
+            for i, (p1, p2) in enumerate(edges)
         ]
 
         # TODO: Move to semantics processor?
+        self.compute_outer_wall_edges()
         self.process_shape_semantics()
 
 
-class Wall(FloorPlanElement, WallSemantics):
+class Wall(WallSemantics):
     def __init__(
         self, parent, points, idx, thickness, height, shape=None, frame=None
     ) -> None:
@@ -73,7 +73,7 @@ class Wall(FloorPlanElement, WallSemantics):
         self.process_shape_semantics()
 
 
-class Feature(FloorPlanElement, FeatureSemantics):
+class Feature(FeatureSemantics):
     pass
 
 
@@ -105,7 +105,7 @@ class Divider(Feature):
         self.process_shape_semantics()
 
 
-class Opening(FloorPlanElement, OpeningSemantics):
+class Opening(OpeningSemantics):
     pass
 
 
