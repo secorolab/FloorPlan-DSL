@@ -202,7 +202,7 @@ class WallSemantics:
 
     def get_pose_coord_wrt_parent(self):
         x, y, rotation = self.get_wall_origin_pose_coord_values()
-        rotation = EulerAngles(self, z=self)
+        rotation = EulerAngles(self, z=rotation)
         translation = PointCoordinate(self, x, y)
         return PoseCoordinate(
             self, self.frame, self.parent.frame, translation, rotation

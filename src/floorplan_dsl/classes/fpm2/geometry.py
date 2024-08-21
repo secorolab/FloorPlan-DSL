@@ -75,7 +75,7 @@ def get_angle_between_vectors(v1, v2):
     sign = 1
     if u1[1] < 0:
         sign = -1
-    return sign * np.rad2deg(np.arccos(np.dot(u1, u2)))
+    return sign * np.arccos(np.dot(u1, u2))
 
 
 class PositionCoordinate:

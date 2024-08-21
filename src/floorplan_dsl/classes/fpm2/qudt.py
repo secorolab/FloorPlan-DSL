@@ -1,5 +1,5 @@
 class Angle:
-    def __init__(self, parent, value=0.0, unit="deg") -> None:
+    def __init__(self, parent, value=0.0, unit="rad") -> None:
         self.parent = parent
         self.value = value
         self.unit = unit
