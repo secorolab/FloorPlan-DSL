@@ -1,3 +1,4 @@
+import itertools
 import math
 
 import numpy as np
@@ -16,6 +17,7 @@ from floorplan_dsl.classes.fpm2.geometry import (
 )
 
 from floorplan_dsl.utils.geometry import get_intersection, get_angle_between_vectors
+from floorplan_dsl.utils.transformations import Transformation
 
 
 def process_location(element):
@@ -151,6 +153,40 @@ class SpaceSemantics(FloorPlanElement):
             pose_coords.append(w.get_pose_coord_wrt_parent())
         return pose_coords
 
+    def _get_outer_wall_points(self):
+        outer_wall_points = list()
+        for i, wall in enumerate(self.walls):
+            prev_wall = self.walls[i - 1]
+            a1, a2 = wall.get_points_in_outer_wall_line_wrt_space_frame()
+            b1, b2 = prev_wall.get_points_in_outer_wall_line_wrt_space_frame()
+
+            # Find intersection between the two lines
+            x, y = get_intersection(a1, a2, b1, b2)
+            outer_wall_points.append((x, y))
+
+        return outer_wall_points
+
+    @staticmethod
+    def get_wall_edges(coordinates):
+        vertices = list()
+        vertices.extend(coordinates)
+        vertices.append(coordinates[0])
+
+        edges = list()
+        for v1, v2 in itertools.pairwise(vertices):
+            edges.append((v1, v2))
+
+        return edges
+
+    def compute_outer_wall_edges(self):
+        outer_wall_points = self._get_outer_wall_points()
+        outer_edges = self.get_wall_edges(outer_wall_points)
+        for edge, wall in zip(outer_edges, self.walls):
+
+            outer_edge_wrt_wall_frame = wall.get_outer_edge_points(edge)
+            wall.compute_2d_shape(outer_edge_wrt_wall_frame)
+            wall.process_shape_semantics()
+
 
 class WallSemantics(FloorPlanElement):
 
@@ -213,16 +249,18 @@ class WallSemantics(FloorPlanElement):
         poly = Polygon(self, list(), None)
 
         x = self.width / 2
+        x1, y1, x2, y2 = outer_edge
+
         coords = [
-            PointCoordinate(poly, -x, self.thickness, 0.0),
-            PointCoordinate(poly, x, self.thickness, 0.0),
+            PointCoordinate(poly, x1, y1, 0.0),
+            PointCoordinate(poly, x2, y2, 0.0),
             PointCoordinate(poly, x, 0.0, 0.0),
             PointCoordinate(poly, -x, 0.0, 0.0),
         ]
 
         poly.coordinates = coords
 
-        return poly
+        self.shape = poly
 
     def _get_point_values(self):
         x1 = self.points[0].x.value

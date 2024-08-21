@@ -1,6 +1,3 @@
-import itertools
-
-
 from floorplan_dsl.classes.fpm2.geometry import (
     Frame,
 )
@@ -37,9 +34,7 @@ class Space(SpaceSemantics):
 
         self.frame = Frame(self, "{}".format(self.name))
 
-        vertices = list()
-        vertices.extend(self.shape.coordinates)
-        vertices.append(self.shape.coordinates[0])
+        edges = self.get_wall_edges(self.shape.coordinates)
         self.walls = [
             Wall(
                 self,
@@ -65,12 +60,11 @@ class Wall(WallSemantics):
         self.points = points
         self.thickness = thickness
         self.height = height
+        self.shape = shape
 
         # Semantics
         self.name = "{}-wall-{}".format(self.parent.name, self.idx)
         self.frame = Frame(self, self.name)
-        self.shape = self.get_2D_shape()
-        self.process_shape_semantics()
 
 
 class Feature(FeatureSemantics):
