@@ -197,11 +197,7 @@ The repository is currently organized as follows:
 ### Refactoring of the textx metamodels
 
 > [!NOTE] 
-> **Status: Work in Progress**
-> 
-> The refactoring is almost finished.
-> Currently working on the implementation of the semantics for the `not aligned` and `spaced` keywords, and the interpretation of the location wrt to the world frame.
-> Unit conversion will be worked on last.
+> **Status: Completed**
 
 The re-design of the grammar considered the requirements in the concrete syntax (what users can specify) separately from the abstract syntax that is needed to instantiate the floorplan (e.g. walls), and incorporated this as static semantics.
 The `v1` version focused mainly on the syntax of the and interpreted the model before the generation of the various artefacts. We decided to include the semantic elements as optional in the syntax rules in `v2` to allow for the full specification the model if desired, while treatng the required syntax as syntactic sugar (i.e., as a short hand to make it easier to specify and read floor plan models).
@@ -308,9 +304,7 @@ Modularization of the grammar is discussed [below](#modularity-and-model-reuse).
 > [!NOTE] 
 > **Status: Work in Progress**
 > 
-> The generation is currently working, however the generated JSON-LD models currently do not match the old versions for two reasons:
->
-> - In the `v1`, the coordinates were transformed to frames of reference different to those that were specified in the concrete syntax. TBD if this is a design decision to be changed or if it should be added as an additional option for the generation in `v2`.
+> Working on: 3D representations
 
 - [x] Using jinja2, we create templates for each (relevant) element type in the JSON-LD metamodels, in an attempt to use them as transformation rules (that call or extend the other more atomic element-level rules).
   - The transformation engine takes the textX model and applies the pre-defined Jinja2 templates. These templates take advantage of the Jinja facilities discussed in [Jinja](#jinja). We defined templates for each concept in the JSON-LD metamodels. The structure and inheritance of the json-ld templates is shown below:  
@@ -341,14 +335,17 @@ Modularization of the grammar is discussed [below](#modularity-and-model-reuse).
     ```
   - `__name_____seed__.fpm2.jinja` is used by the variation generator and was rewritten for `v2`. `__seed__` is replaced by the random seed used for the sampling.
 - [ ] Add 3D representations to the JSON-LD generation.
-- [ ] Add options in generation to convert units (e.g. from cm->m or deg->rad).
+- [x] Add options in generation to convert units 
+  - [x] rad->deg
+  - [x] m->cm
+- [ ] Modularize the JSON-LD models to maximize their reusability
 
 ### Validation
 
 > [!NOTE] 
 > **Status: Paused**
 > 
-> Only the last two constraints still need to be implemented, but they require the implementation of the semantics for the `not aligned` and `spaced` keywords, and the interpretation of the location wrt to the world frame.
+> Only the two constraints still need to be implemented, but they require the interpretation of the location wrt to the world frame.
 
 - [x] Verify that right-hand side (RHS) variable assignments match the units of the left-hand side (LHS) (validate type matches).
 
@@ -405,7 +402,7 @@ Modularization of the grammar is discussed [below](#modularity-and-model-reuse).
 > [!NOTE] 
 > **Status: Paused**
 > 
-> Initially each floor plan element had its own grammar, but this made the syntax cumbersome (see point below).
+> Initially each floor plan element had its own grammar, but this made the syntax cumbersome (see points below).
 > Most elements were moved back into a single file (`floorplan.tx`) until other parts of the refactoring are finished.
 
 Two options (not necessarily mutually exclusive):
