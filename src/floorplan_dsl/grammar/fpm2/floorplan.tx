@@ -28,7 +28,7 @@ FloorPlanModel:
 
 Space:
     'Space' name=ID ':'
-    'shape:' shape=Polytope
+    'shape:' shape=Polygon
         'location' ':' 
             location=SpaceLocation
         ('walls' ':' defaults=DefaultSpaceValues)?
@@ -52,7 +52,7 @@ Divider|Column
 
 Divider:
     'Divider' name=ID ':'
-    'shape:' shape=Polytope
+    'shape:' shape=Polygon
         'height: ' height=LengthValue
         'location:' location=FeatureLocation
         (frame=Frame)? //Semantics
@@ -60,7 +60,7 @@ Divider:
 
 Column:
     'Column' name=ID ':'
-    'shape:' shape=Polytope
+    'shape:' shape=Polygon
         'height: ' height=LengthValue
         'location:' location=FeatureLocation
         (frame=Frame)? //Semantics
@@ -75,14 +75,14 @@ Entryway|Window
 
 Entryway:
     'Entryway' name=ID ':'
-    'shape:' shape=Polytope 
+    'shape:' shape=Polygon
     'location:' location=WallOpeningLocation
     (frame=Frame)? //Semantics
 ;
 
 Window:
     'Window' name=ID ':'
-    'shape:' shape=Polytope
+    'shape:' shape=Polygon
     'location:'location=WallOpeningLocation
     (frame=Frame)? //Semantics
 ;

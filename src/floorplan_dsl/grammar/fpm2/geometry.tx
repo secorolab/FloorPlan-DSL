@@ -51,7 +51,7 @@ orientation=Orientation?
 /* ------------------------------------------ */
 // Syntax: Polytope
 
-Polytope: Rectangle | Circle | Polygon;
+Polygon: Rectangle | Circle | SimplePolygon;
 
 Rectangle:
     'Rectangle' 'width' '=' width=LengthValue',' ('length' '=' length=LengthValue|'height' '=' height=LengthValue)
@@ -63,7 +63,7 @@ Circle:
 ;
 
 
-Polygon:
+SimplePolygon:
     'Polygon' 'points'':''['
         coordinates*=PointCoordinate[',']
     ']'
