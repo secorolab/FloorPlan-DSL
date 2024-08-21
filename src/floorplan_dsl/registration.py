@@ -98,7 +98,7 @@ def fpv2_metamodel():
             geom.PointCoordinate,
             geom.Rectangle,
             geom.Circle,
-            geom.Polygon,
+            geom.SimplePolygon,
             var.VariableReference,
             qudt.Length,
             qudt.Angle,

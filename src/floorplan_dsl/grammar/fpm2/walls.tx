@@ -10,6 +10,6 @@ Wall:
     ('thickness: ' thickness=LengthValue)?
     ('height: ' height=LengthValue)?
     (frame=Frame)?
-    ('shape:' shape=Polytope)?
+    ('shape:' shape=Polygon)?
     idx=INT?
 ;
