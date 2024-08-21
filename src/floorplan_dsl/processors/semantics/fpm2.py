@@ -73,7 +73,7 @@ class FloorPlanElement:
         self.set_polytope_name()
 
 
-class SpaceSemantics:
+class SpaceSemantics(FloorPlanElement):
     def process_location(self):
         mm = get_metamodel(self)
         m = get_model(self)
@@ -152,8 +152,64 @@ class SpaceSemantics:
         return pose_coords
 
 
-class WallSemantics:
-    def get_2D_shape(self):
+class WallSemantics(FloorPlanElement):
+
+    def process_semantics(self):
+        self.process_shape_semantics()
+
+    def _get_points_in_outer_wall_line(self):
+        x = self.width / 2
+        return -x, self.thickness.value, x, self.thickness.value
+
+    def _get_transformation_matrix_wrt_parent(self):
+        # Get transformation matrix of wall frame wrt space
+        return Transformation.get_transformation_matrix_from_model(
+            self.get_pose_coord_wrt_parent()
+        )
+
+    def get_points_in_outer_wall_line_wrt_space_frame(self):
+        x1, y1, x2, y2 = self._get_points_in_outer_wall_line()
+        points = np.array(
+            [
+                [x1, y1, 0, 1],
+                [x2, y2, 0, 1],
+            ]
+        )
+
+        tm_wall = self._get_transformation_matrix_wrt_parent()
+
+        # Transform points wrt to space frame
+        points_wrt_space = np.einsum("ij,kj->ki", tm_wall, points)
+        x1_space, y1_space = points_wrt_space[0, :2]
+        x2_space, y2_space = points_wrt_space[1, :2]
+        return [x1_space, y1_space], [x2_space, y2_space]
+
+    def get_outer_edge_points(self, edge):
+        # The edge has the outer points wrt to space frame
+        tm_wall = self._get_transformation_matrix_wrt_parent()
+
+        p1, p2 = edge
+        x1, y1 = p1
+        x2, y2 = p2
+        points = np.array(
+            [
+                [x1, y1, 0],
+                [x2, y2, 0],
+            ]
+        )
+
+        # points are defined wrt to the space frame First, translate the points to the wall origin by subtracting the
+        # origin (also defined wrt space frame) Next, rotate values back to the wall frame.
+        # The transpose of the rotation matrix gives us the rotation wrt wall frame
+        points_wrt_wall = np.einsum(
+            "ij, kj->ki", tm_wall[:3, :3].T, points - tm_wall[:3, -1]
+        )
+
+        x1_wall, y1_wall = points_wrt_wall[0, :2]
+        x2_wall, y2_wall = points_wrt_wall[1, :2]
+        return x1_wall, y1_wall, x2_wall, y2_wall
+
+    def compute_2d_shape(self, outer_edge):
         poly = Polygon(self, list(), None)
 
         x = self.width / 2
@@ -210,7 +266,7 @@ class WallSemantics:
         )
 
 
-class FeatureSemantics:
+class FeatureSemantics(FloorPlanElement):
     def process_location(self):
         mm = get_metamodel(self)
 
@@ -236,7 +292,7 @@ class FeatureSemantics:
         )
 
 
-class OpeningSemantics:
+class OpeningSemantics(FloorPlanElement):
     def process_location(self):
         mm = get_metamodel(self)
         if len(self.location.walls) > 2:
