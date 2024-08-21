@@ -82,11 +82,11 @@ class PoseCoordinate:
         return self.orientation
 
 
-class Polytope:
+class Polygon:
     pass
 
 
-class Rectangle(Polytope):
+class Rectangle(Polygon):
     def __init__(
         self, parent, width, length, height, coordinates=None, points=None, center=True
     ) -> None:
@@ -124,14 +124,14 @@ class Rectangle(Polytope):
         return coords
 
 
-class Circle(Polytope):
+class Circle(Polygon):
     def __init__(self, parent, radius) -> None:
         self.parent = parent
         self.radius = radius
         self.coordinates = list()
 
 
-class Polygon(Polytope):
+class SimplePolygon(Polygon):
     def __init__(self, parent, coordinates, points=None) -> None:
         self.parent = parent
         self.coordinates = coordinates

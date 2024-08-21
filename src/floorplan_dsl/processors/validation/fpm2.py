@@ -152,7 +152,7 @@ def validate_element_shape(element):
             )
         validate_size_is_non_zero_positive(element.shape.width)
         validate_size_is_non_zero_positive(element.shape.length)
-    elif textx_isinstance(element.shape, mm["Polygon"]):
+    elif textx_isinstance(element.shape, mm["SimplePolygon"]):
         for point in element.shape.coordinates:
             if transformation_in_direction(point.z):
                 raise TextXSyntaxError(

@@ -13,7 +13,7 @@ from floorplan_dsl.classes.fpm2.geometry import (
     PoseCoordinate,
     Point,
     Frame,
-    Polygon,
+    SimplePolygon,
 )
 
 from floorplan_dsl.utils.geometry import get_intersection, get_angle_between_vectors
@@ -246,7 +246,7 @@ class WallSemantics(FloorPlanElement):
         return x1_wall, y1_wall, x2_wall, y2_wall
 
     def compute_2d_shape(self, outer_edge):
-        poly = Polygon(self, list(), None)
+        poly = SimplePolygon(self, list(), None)
 
         x = self.width / 2
         x1, y1, x2, y2 = outer_edge
