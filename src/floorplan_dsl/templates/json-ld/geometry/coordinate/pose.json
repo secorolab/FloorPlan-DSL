@@ -29,10 +29,10 @@ coord-{{ pose.name }}
 {% block coords %}
 {% if pose.orientation %}
     {% if pose.orientation.z %}
-            "alpha": {{ pose.orientation.z.value }},
+            "alpha": {{ pose.orientation.z.to_deg() }},
     {%- endif +%}
     {% if pose.orientation.y %}
-            "beta": {{ pose.orientation.y.value }},
+            "beta": {{ pose.orientation.y.to_deg() }},
             {%- endif +%}
 {% endif %}
 {% if pose.translation %}

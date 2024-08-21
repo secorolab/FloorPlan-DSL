@@ -1,6 +1,9 @@
 import os
 
+from textx import get_children_of_type
 from textxjinja import textx_jinja_generator
+
+from floorplan_dsl.utils.qudt import convert_angle_units
 
 
 def jsonld_floorplan_generator(
@@ -14,6 +17,12 @@ def jsonld_floorplan_generator(
 
     if not os.path.exists(output_path):
         os.makedirs(output_path)
+
+    angle_unit = custom_args.get("angle-unit", "rad")
+    for a in get_children_of_type("Angle", model):
+        convert_angle_units(a, angle_unit)
+    for a in get_children_of_type("AngleVariable", model):
+        convert_angle_units(a, angle_unit)
 
     # Prepare context dictionary
     context = dict(trim_blocks=True, lstrip_blocks=True)
