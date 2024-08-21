@@ -197,7 +197,7 @@ class WallSemantics(FloorPlanElement):
         x = self.width / 2
         return -x, self.thickness.value, x, self.thickness.value
 
-    def _get_transformation_matrix_wrt_parent(self):
+    def get_transformation_matrix_wrt_parent(self):
         # Get transformation matrix of wall frame wrt space
         return Transformation.get_transformation_matrix_from_model(
             self.get_pose_coord_wrt_parent()
@@ -212,7 +212,7 @@ class WallSemantics(FloorPlanElement):
             ]
         )
 
-        tm_wall = self._get_transformation_matrix_wrt_parent()
+        tm_wall = self.get_transformation_matrix_wrt_parent()
 
         # Transform points wrt to space frame
         points_wrt_space = np.einsum("ij,kj->ki", tm_wall, points)
@@ -222,7 +222,7 @@ class WallSemantics(FloorPlanElement):
 
     def get_outer_edge_points(self, edge):
         # The edge has the outer points wrt to space frame
-        tm_wall = self._get_transformation_matrix_wrt_parent()
+        tm_wall = self.get_transformation_matrix_wrt_parent()
 
         p1, p2 = edge
         x1, y1 = p1
