@@ -138,7 +138,7 @@ class SpaceSemantics(FloorPlanElement):
 
             # The aligned flag adds a rotation of 180 deg to align the walls or spaces
             # See https://github.com/secorolab/FloorPlan-DSL/blob/c2d5db45302a1506d17afe62140398d79abcf21d/src/exsce_floorplan/floor_plan/classes/space.py#L188
-            if self.location.aligned:
+            if not self.location.aligned:
                 rot_z = rot_z + np.deg2rad(180)
 
         rotation = EulerAngles(self, z=rot_z)
