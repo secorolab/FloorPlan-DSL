@@ -13,9 +13,10 @@ DSL for specifying the floorplans of indoor environments
 
 FloorPlanModel:
     'Floor plan' ':' name = ID
-        (defaults = DefaultValues?
+        defaults = DefaultValues?
         variables *= Variable?
-        spaces += Space 
+        (
+        spaces += Space
         features *= Feature?
         wall_openings *= WallOpening?
         frame=[Frame]?

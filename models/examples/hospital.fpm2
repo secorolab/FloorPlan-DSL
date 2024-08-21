@@ -1,5 +1,9 @@
 // This is a comment
 Floor plan: hospital
+    Defaults:
+        walls: 
+            thickness: 0.23 m
+            height: 2.5 m 
 
     // variables
     var doorway_width = 2.0 m
@@ -152,8 +156,3 @@ Floor plan: hospital
         location:
             in: hallway.walls[1]
             translation: x: -1.0 m, z: 0.8 m
-        
-    Defaults:
-        walls: 
-            thickness: 0.23 m
-            height: 2.5 m 
