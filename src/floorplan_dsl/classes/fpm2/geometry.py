@@ -77,6 +77,10 @@ class PoseCoordinate:
         self.orientation = orientation
         self.name = "pose-{}-wrt-{}".format(of.name, wrt.name)
 
+    @property
+    def rotation(self):
+        return self.orientation
+
 
 class Polytope:
     pass
