@@ -1,5 +1,7 @@
 import os
 
+import numpy as np
+
 from textx import get_children_of_type
 from textxjinja import textx_jinja_generator
 
@@ -23,6 +25,19 @@ def jsonld_floorplan_generator(
         convert_angle_units(a, angle_unit)
     for a in get_children_of_type("AngleVariable", model):
         convert_angle_units(a, angle_unit)
+
+    # Change the frame of reference of wall's shape points to compare against v1 models
+    # TODO Remove this once v1 is deprecated
+    wall_point_reference = custom_args.get("change-wall-point-reference", False)
+    if wall_point_reference:
+        for s in get_children_of_type("Space", model):
+            for w in s.walls:
+                tm = w.get_transformation_matrix_wrt_parent()
+                for p in w.shape.coordinates:
+                    point = np.array([p.x.value, p.y.value, p.z.value, 1])
+                    point_wrt_space = np.einsum("ij,j->i", tm, point)
+                    p.x.value = round(point_wrt_space[0], 2)
+                    p.y.value = round(point_wrt_space[1], 2)
 
     # Prepare context dictionary
     context = dict(trim_blocks=True, lstrip_blocks=True)
