@@ -1,5 +1,3 @@
-import numpy as np
-
 from textx import textx_isinstance, get_metamodel
 
 from floorplan_dsl.classes.fpm2.qudt import Length, Angle
@@ -59,23 +57,6 @@ class Frame:
             self.origin = Point(self, "{}-origin".format(name))
         else:
             self.origin = origin
-
-
-# TODO Utils to determine frame poses wrt one another. Move to apropriate module
-def _get_unit_vector(vector):
-    # Inputs need to be transformed to unit vectors so we can use np.arccos
-    return vector / np.linalg.norm(vector)
-
-
-def get_angle_between_vectors(v1, v2):
-    # Adapted from https://stackoverflow.com/a/13849249
-    u1 = _get_unit_vector(v1)
-    u2 = _get_unit_vector(v2)
-
-    sign = 1
-    if u1[1] < 0:
-        sign = -1
-    return sign * np.arccos(np.dot(u1, u2))
 
 
 class PositionCoordinate:
