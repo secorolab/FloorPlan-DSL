@@ -93,6 +93,7 @@ def fpv2_metamodel():
             fpm.Divider,
             fpm.Window,
             fpm.Entryway,
+            geom.Point,
             geom.Frame,
             geom.PointCoordinate,
             geom.Rectangle,
@@ -101,6 +102,9 @@ def fpv2_metamodel():
             var.VariableReference,
             qudt.Length,
             qudt.Angle,
+            geom.PoseCoordinate,
+            geom.PositionCoordinate,
+            geom.EulerAngles,
         ],
     )
     floorplan_mm.register_obj_processors(
