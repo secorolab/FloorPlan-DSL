@@ -12,3 +12,19 @@ def get_intersection(a1, a2, b1, b2):
     if z == 0:  # lines are parallel
         return float("inf"), float("inf")
     return x / z, y / z
+
+
+def get_angle_between_vectors(v1, v2):
+    # Adapted from https://stackoverflow.com/a/13849249
+    u1 = _get_unit_vector(v1)
+    u2 = _get_unit_vector(v2)
+
+    sign = 1
+    if u1[1] < 0:
+        sign = -1
+    return sign * np.arccos(np.dot(u1, u2))
+
+
+def _get_unit_vector(vector):
+    # Inputs need to be transformed to unit vectors so we can use np.arccos
+    return vector / np.linalg.norm(vector)

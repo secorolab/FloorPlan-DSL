@@ -13,8 +13,9 @@ from floorplan_dsl.classes.fpm2.geometry import (
     Point,
     Frame,
     Polygon,
-    get_angle_between_vectors,
 )
+
+from floorplan_dsl.utils.geometry import get_intersection, get_angle_between_vectors
 
 
 def process_location(element):
