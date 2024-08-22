@@ -299,12 +299,18 @@ The differences in syntax between `v1` and `v2` can be observed by comparing [ho
 
 Modularization of the grammar is discussed [below](#modularity-and-model-reuse).
 
+## Adding concepts for the 3D-representation
+
+- [x] Add new concepts to grammar
+- [x] Expand semantics to generate faces for walls, features and openings
+
+
 ### Model-to-text transformation
 
 > [!NOTE] 
-> **Status: Work in Progress**
+> **Status: Paused**
 > 
-> Working on: 3D representations
+> The only remaining point is a last-minute addition to modularize the json-ld representations
 
 - [x] Using jinja2, we create templates for each (relevant) element type in the JSON-LD metamodels, in an attempt to use them as transformation rules (that call or extend the other more atomic element-level rules).
   - The transformation engine takes the textX model and applies the pre-defined Jinja2 templates. These templates take advantage of the Jinja facilities discussed in [Jinja](#jinja). We defined templates for each concept in the JSON-LD metamodels. The structure and inheritance of the json-ld templates is shown below:  
@@ -334,7 +340,9 @@ Modularization of the grammar is discussed [below](#modularity-and-model-reuse).
     textx generate models/examples/hospital.floorplan --target floorplan-v2
     ```
   - `__name_____seed__.fpm2.jinja` is used by the variation generator and was rewritten for `v2`. `__seed__` is replaced by the random seed used for the sampling.
-- [ ] Add 3D representations to the JSON-LD generation.
+- [x] Add 3D representations to the JSON-LD generation.
+  - [x] Update JSON-LD templates with new points, CoordinatePositions. 
+  - [x] Add new concept: Polyhedron
 - [x] Add options in generation to convert units 
   - [x] rad->deg
   - [x] m->cm
