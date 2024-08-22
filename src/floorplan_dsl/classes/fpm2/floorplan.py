@@ -49,11 +49,20 @@ class Space(SpaceSemantics):
         # TODO: Move to semantics processor?
         self.compute_outer_wall_edges()
         self.process_shape_semantics()
+        self.compute_3d_shape()
 
 
 class Wall(WallSemantics):
     def __init__(
-        self, parent, points, idx, thickness, height, shape=None, frame=None
+        self,
+        parent,
+        points,
+        idx,
+        thickness,
+        height,
+        shape=None,
+        frame=None,
+        shape_3d=None,
     ) -> None:
         self.parent = parent
         self.idx = idx
@@ -61,6 +70,7 @@ class Wall(WallSemantics):
         self.thickness = thickness
         self.height = height
         self.shape = shape
+        self.shape_3d = shape_3d
 
         # Semantics
         self.name = "{}-wall-{}".format(self.parent.name, self.idx)
@@ -72,31 +82,39 @@ class Feature(FeatureSemantics):
 
 
 class Column(Feature):
-    def __init__(self, parent, name, shape, height, location, frame=None) -> None:
+    def __init__(
+        self, parent, name, shape, height, location, frame=None, shape_3d=None
+    ) -> None:
         self.parent = parent
         self.name = name
         self.shape = shape
         self.height = height
         self.location = location
+        self.shape_3d = shape_3d
 
         if frame is None:
             self.frame = Frame(self, "column-{}".format(self.name))
 
         self.process_shape_semantics()
+        self.compute_3d_shape()
 
 
 class Divider(Feature):
-    def __init__(self, parent, name, shape, height, location, frame=None) -> None:
+    def __init__(
+        self, parent, name, shape, height, location, frame=None, shape_3d=None
+    ) -> None:
         self.parent = parent
         self.name = name
         self.shape = shape
         self.height = height
         self.location = location
+        self.shape_3d = shape_3d
 
         if frame is None:
             self.frame = Frame(self, "divider-{}".format(self.name))
 
         self.process_shape_semantics()
+        self.compute_3d_shape()
 
 
 class Opening(OpeningSemantics):
@@ -104,11 +122,14 @@ class Opening(OpeningSemantics):
 
 
 class Entryway(Opening):
-    def __init__(self, parent, name, shape, location, frame=None) -> None:
+    def __init__(
+        self, parent, name, shape, location, frame=None, shape_3d=None
+    ) -> None:
         self.parent = parent
         self.name = name
         self.shape = shape
         self.location = location
+        self.shape_3d = shape_3d
 
         if frame is None:
             self.frame = Frame(self, "entryway-{}".format(self.name))
@@ -117,11 +138,14 @@ class Entryway(Opening):
 
 
 class Window(Opening):
-    def __init__(self, parent, name, shape, location, frame=None) -> None:
+    def __init__(
+        self, parent, name, shape, location, frame=None, shape_3d=None
+    ) -> None:
         self.parent = parent
         self.name = name
         self.shape = shape
         self.location = location
+        self.shape_3d = shape_3d
 
         if frame is None:
             self.frame = Frame(self, "window-{}".format(self.name))

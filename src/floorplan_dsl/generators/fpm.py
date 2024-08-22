@@ -69,6 +69,11 @@ def jsonld_floorplan_generator(
     )
     textx_jinja_generator(template_folder, output_path, context, overwrite=True)
 
+    template_folder = os.path.join(
+        this_folder, "../templates/json-ld/polyhedron.json.jinja"
+    )
+    textx_jinja_generator(template_folder, output_path, context, overwrite=True)
+
 
 def v1_to_v2_converter(metamodel, model, output_path, overwrite, debug, **kwargs):
     if not os.path.exists(output_path):

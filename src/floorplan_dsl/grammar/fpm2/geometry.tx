@@ -70,3 +70,18 @@ SimplePolygon:
     points*=Point? //Semantics
 ;
 
+Polytope: Polygon|Polyhedron;
+
+Polyhedron:
+base=Polygon
+(height=LengthValue|thickness=LengthValue)
+coordinates*=PointCoordinate?
+faces*=Face?
+points*=Point?
+;
+
+Face:
+coord_idx+=INT
+coordinates*=PointCoordinate?
+points*=Point?
+;
