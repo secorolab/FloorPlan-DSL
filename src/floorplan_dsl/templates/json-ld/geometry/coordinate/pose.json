@@ -21,8 +21,8 @@ coord-{{ pose.name }}
 
 {% block units %}
 [
-                "M", 
-                "degrees"
+                "M",
+                "{{ angle_unit | upper }}"
             ],
 {% endblock %}
 

@@ -42,6 +42,7 @@ def jsonld_floorplan_generator(
     # Prepare context dictionary
     context = dict(trim_blocks=True, lstrip_blocks=True)
     context["model"] = model
+    context["angle_unit"] = angle_unit
 
     this_folder = os.path.dirname(__file__)
     # If given a directory instead of a single template, textX-Jinja copies the entire file/folder tree to the output folder
