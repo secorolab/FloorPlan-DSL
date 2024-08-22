@@ -56,6 +56,7 @@ Divider:
         'height: ' height=LengthValue
         'location:' location=FeatureLocation
         (frame=Frame)? //Semantics
+        shape_3d=Polyhedron?
 ;
 
 Column:
@@ -64,6 +65,7 @@ Column:
         'height: ' height=LengthValue
         'location:' location=FeatureLocation
         (frame=Frame)? //Semantics
+        shape_3d=Polyhedron?
 ;
 
 /* ------------------------------------------ */
@@ -78,6 +80,7 @@ Entryway:
     'shape:' shape=Polygon
     'location:' location=WallOpeningLocation
     (frame=Frame)? //Semantics
+    shape_3d=Polyhedron?
 ;
 
 Window:
@@ -85,6 +88,7 @@ Window:
     'shape:' shape=Polygon
     'location:'location=WallOpeningLocation
     (frame=Frame)? //Semantics
+    shape_3d=Polyhedron?
 ;
 /* ------------------------------------------ */
 // Syntax: Locations

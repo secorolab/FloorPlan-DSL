@@ -11,5 +11,6 @@ Wall:
     ('height: ' height=LengthValue)?
     (frame=Frame)?
     ('shape:' shape=Polygon)?
+    shape_3d=Polyhedron?
     idx=INT?
 ;

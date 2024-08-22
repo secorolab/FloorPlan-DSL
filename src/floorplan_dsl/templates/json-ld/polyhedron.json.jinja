@@ -1,0 +1,29 @@
+{% extends "./floorplan/floorplan.json" %}
+
+
+{% block context %}
+    {
+      "floorplan": "https://secorolab.github.io/floorplans/"
+    },
+    "https://secorolab.github.io/metamodels/geometry/polytope.json"
+{% endblock%}
+
+{% block wall %}
+{% set outer_loop = loop %}
+{% set shape = w.shape_3d %}
+{% include "./geometry/polyhedron.json" with context %}{% if not outer_loop.last %},
+{% endif %}
+{% endblock%}
+
+{% block feature %}
+{% set outer_loop = loop %}
+{% set shape = f.shape_3d %}
+{% include "./geometry/polyhedron.json" with context %}{% if not outer_loop.last %},
+{% endif %}
+{% endblock %}
+
+{% block opening %}
+{% set outer_loop = loop %}
+{% set shape = o.shape_3d %}
+{% include "./geometry/polyhedron.json" with context %}
+{% endblock %}
