@@ -11,14 +11,14 @@
 {% block space %}
 {% set shape = space.shape %}
 {% set points = space.shape.points %}
-{% include "./geometry/polytope.json" with context %},
+{% include "./geometry/polygon.json" with context %},
 {% endblock %}
 
 {% block wall %}
 {% set outer_loop = loop %}
 {% set shape = w.shape %}
 {% set points = w.shape.points %}
-{% include "./geometry/polytope.json" with context %}{% if not outer_loop.last %},
+{% include "./geometry/polygon.json" with context %}{% if not outer_loop.last %},
 {% endif %}
 {% endblock%}
 
@@ -26,7 +26,7 @@
 {% set outer_loop = loop %}
 {% set points = f.shape.points %}
 {% set shape = f.shape %}
-{% include "./geometry/polytope.json" with context %}{% if not outer_loop.last %},
+{% include "./geometry/polygon.json" with context %}{% if not outer_loop.last %},
 {% endif %}
 {% endblock %}
 
@@ -34,5 +34,5 @@
 {% set outer_loop = loop %}
 {% set points = o.shape.points %}
 {% set shape = o.shape %}
-{% include "./geometry/polytope.json" with context %}
+{% include "./geometry/polygon.json" with context %}
 {% endblock %}
