@@ -22,7 +22,7 @@
 {% set frame = w.frame %}
 {% include "./floorplan/structural-entities/origin.json" with context %},
 {% include "./geometry/structural-entities/frame.json" with context %},
-{% for point in w.shape.points %}
+{% for point in w.shape_3d.points %}
 {% include "./geometry/structural-entities/point.json" with context %}
 {%- if not loop.last %},
 {% endif %}
@@ -36,7 +36,7 @@
 {% set frame = f.frame %}
 {% include "./floorplan/structural-entities/origin.json" with context %},
 {% include "./geometry/structural-entities/frame.json" with context %},
-{% for point in f.shape.points %}
+{% for point in f.shape_3d.points %}
 {% include "./geometry/structural-entities/point.json" with context %}
 {%- if not loop.last %},
 {% endif %}
@@ -50,10 +50,10 @@
 {% set frame = o.frame %}
 {% include "./floorplan/structural-entities/origin.json" with context %},
 {% include "./geometry/structural-entities/frame.json" with context %}
-{%- if not loop.last or o.shape.points %},
+{%- if not loop.last or o.shape_3d.points %},
 {% endif %}
-{% if o.shape.points %}
-{% for point in o.shape.points %}
+{% if o.shape_3d.points %}
+{% for point in o.shape_3d.points %}
 {% include "./geometry/structural-entities/point.json" with context %}
 {%- if not loop.last %},
 {% endif %}

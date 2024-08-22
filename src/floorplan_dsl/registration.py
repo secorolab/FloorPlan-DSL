@@ -105,6 +105,8 @@ def fpv2_metamodel():
             geom.PoseCoordinate,
             geom.PositionCoordinate,
             geom.EulerAngles,
+            geom.Polyhedron,
+            geom.Face,
         ],
     )
     floorplan_mm.register_obj_processors(

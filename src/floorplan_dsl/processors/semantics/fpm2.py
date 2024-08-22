@@ -14,6 +14,7 @@ from floorplan_dsl.classes.fpm2.geometry import (
     Point,
     Frame,
     SimplePolygon,
+    Polyhedron,
 )
 
 from floorplan_dsl.utils.geometry import get_intersection, get_angle_between_vectors
@@ -50,21 +51,23 @@ def process_angle_units(v):
 
 
 class FloorPlanElement:
-    def set_shape_points(self):
+    def set_shape_points(self, start=0):
 
         points = list()
-        for i, c in enumerate(self.shape.coordinates):
+        for i, c in enumerate(self.shape.coordinates, start=start):
             p = Point(self, "{}-corner-{}".format(self.name, i))
-            points.append((p))
+            points.append(p)
 
         return points
 
     def set_polytope_name(self):
         self.shape.name = "{}-polygon".format(self.name)
 
-    def get_shape_point_positions(self):
+    def get_shape_point_positions(self, shape=None):
+        if shape is None:
+            shape = self.shape
         position_coords = list()
-        for c, p in zip(self.shape.coordinates, self.shape.points):
+        for c, p in zip(shape.coordinates, shape.points):
             coord = PositionCoordinate(self, c, p, self.frame)
             position_coords.append(coord)
         return position_coords
@@ -187,6 +190,10 @@ class SpaceSemantics(FloorPlanElement):
             wall.compute_2d_shape(outer_edge_wrt_wall_frame)
             wall.process_shape_semantics()
 
+    def compute_3d_shape(self):
+        for w in self.walls:
+            w.compute_3d_shape()
+
 
 class WallSemantics(FloorPlanElement):
 
@@ -303,6 +310,10 @@ class WallSemantics(FloorPlanElement):
             self, self.frame, self.parent.frame, translation, rotation
         )
 
+    def compute_3d_shape(self):
+        self.shape_3d = Polyhedron(self, self.shape, self.height)
+        self.shape_position_coords = self.get_shape_point_positions(self.shape_3d)
+
 
 class FeatureSemantics(FloorPlanElement):
     def process_location(self):
@@ -328,6 +339,10 @@ class FeatureSemantics(FloorPlanElement):
         return PoseCoordinate(
             self, self.frame, self.location.wrt, translation, rotation
         )
+
+    def compute_3d_shape(self):
+        self.shape_3d = Polyhedron(self, self.shape, self.height)
+        self.shape_position_coords = self.get_shape_point_positions(self.shape_3d)
 
 
 class OpeningSemantics(FloorPlanElement):
@@ -359,3 +374,10 @@ class OpeningSemantics(FloorPlanElement):
         return PoseCoordinate(
             self, self.frame, self.location.walls[0], translation, rotation
         )
+
+    def compute_3d_shape(self):
+        thickness = self.location.walls[0].thickness.value
+        if len(self.location.walls) == 2:
+            thickness = thickness + self.location.walls[1].thickness.value
+        self.shape_3d = Polyhedron(self, self.shape, thickness=thickness)
+        self.shape_position_coords = self.get_shape_point_positions(self.shape_3d)
