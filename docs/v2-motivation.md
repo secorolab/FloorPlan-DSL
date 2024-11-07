@@ -318,6 +318,7 @@ Modularization of the grammar is discussed [below](#modularity-and-model-reuse).
     - **Base templates:** The `base.json` file has the empty structure of a JSON-LD document. The `floorplan.json` defines the loops and reusable blocks for transforming the floorplan model AST.
     - **Templates used by jinja:** These are the templates that are loaded by the generator. The jinja generator keeps the file name and changes the extension to `.fpm2`. Each template `includes` the relevant templates for the concepts for each of the five JSON-LD models (see [composable model representation](#composable-model-representation)).
     - **Base JSON-LD representations:** Each concept has a template (that other templates can extend to minimize repetition). For example, a frame template matches what we specified in the grammar rule that we discussed the in [refactoring](#refactoring-of-the-textx-metamodels):
+
       ```jinja
       {
           "@id": "floorplan:{% block frame_id %}{{ frame.name }}{% endblock %}",
@@ -333,6 +334,7 @@ Modularization of the grammar is discussed [below](#modularity-and-model-reuse).
       {% include "./floorplan/structural-entities/origin.json" with context %},
       {% include "./geometry/structural-entities/frame.json" with context %},
       ```
+
 - [x] Model-to-model transformation from `v1` to `v2` was also implemented with jinja2. How the jinja templates are organized is shown below:  
       ![](images/jinja-templates-fpm2.png)
 
