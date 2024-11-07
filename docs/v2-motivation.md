@@ -325,7 +325,9 @@ Modularization of the grammar is discussed [below](#modularity-and-model-reuse).
           "origin": "floorplan:{% block origin %}{{ frame.origin.name }}{% endblock %}"
       }
       ```
+
       In `skeleton.fpm2.jinja`, we just define the frame of the element we're currently converting, e.g. to define the origin point and the frame of a space:
+
       ```jinja
       {% set frame = space.frame %}
       {% include "./floorplan/structural-entities/origin.json" with context %},
