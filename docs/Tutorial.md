@@ -237,15 +237,3 @@ Two entryways and one window are modelled, each with a unique name. In the case 
 ```
 
 At the very end of the model the default values for all the spaces must be specified.
-
-## How to generate 3D files and occupancy grid maps
-
-Once all requirements are installed, as specified [here](https://github.com/sesame-project/FloorPlan-DSL), you can get artefacts generated.
-To interpret the model and get artefacts, you only need to run one command:
-
-```sh
-blender --python src/floorplan_dsl/generators/floorplan.py --background
---python-use-system-env -- <path to model>
-```
-
-The `--` after the variable paths are important to distinguish the blender parameters and the parameters for the tooling. You will obtain an occupancy grid map and a `.stl` file with the 3D mesh of the environment.
