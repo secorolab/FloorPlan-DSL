@@ -71,6 +71,3 @@ where = ["src"]  # list of folders that contain the packages (["."] by default)
 
 [tool.setuptools.package-data]
 "*" = ["*.tx", "*.jinja", "*.json"]
-
-[tool.black]
-required-version = "24.4.2"
