@@ -319,7 +319,7 @@ Modularization of the grammar is discussed [below](#modularity-and-model-reuse).
     - **Templates used by jinja:** These are the templates that are loaded by the generator. The jinja generator keeps the file name and changes the extension to `.fpm2`. Each template `includes` the relevant templates for the concepts for each of the five JSON-LD models (see [composable model representation](#composable-model-representation)).
     - **Base JSON-LD representations:** Each concept has a template (that other templates can extend to minimize repetition). For example, a frame template matches what we specified in the grammar rule that we discussed the in [refactoring](#refactoring-of-the-textx-metamodels):
 
-      ```jinja
+      ```
       {
           "@id": "floorplan:{% block frame_id %}{{ frame.name }}{% endblock %}",
           "@type": "Frame",
@@ -329,7 +329,7 @@ Modularization of the grammar is discussed [below](#modularity-and-model-reuse).
 
       In `skeleton.fpm2.jinja`, we just define the frame of the element we're currently converting, e.g. to define the origin point and the frame of a space:
 
-      ```jinja
+      ```
       {% set frame = space.frame %}
       {% include "./floorplan/structural-entities/origin.json" with context %},
       {% include "./geometry/structural-entities/frame.json" with context %},
