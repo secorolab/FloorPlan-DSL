@@ -1,9 +1,9 @@
         {
-          "@id": "floorplan:{% block poly_id scoped %}{{ shape.name }}{% endblock %}",
+          "@id": "{% block poly_id scoped %}{{ shape.name }}{% endblock %}",
           "@type": "Polyhedron",
           "points": [
             {% for p in shape.points %}
-            "floorplan:{% block point_id scoped %}{{ p.name }}{% endblock %}"
+            "{% block point_id scoped %}{{ p.name }}{% endblock %}"
             {%- if not loop.last %},
             {% endif %}
             {% endfor +%}
@@ -12,7 +12,7 @@
             {% for face in shape.faces %}
             [
             {% for p in face.points %}
-            "floorplan:{% block face_point_id scoped %}{{ p.name }}{% endblock %}"
+            "{% block face_point_id scoped %}{{ p.name }}{% endblock %}"
             {%- if not loop.last %},
             {% endif %}
             {% endfor +%}

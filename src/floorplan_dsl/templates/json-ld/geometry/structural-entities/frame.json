@@ -1,5 +1,5 @@
         {
-            "@id": "floorplan:{% block frame_id %}{{ frame.name }}{% endblock %}",
+            "@id": "{% block frame_id %}{{ frame.name }}{% endblock %}",
             "@type": "Frame",
-            "origin": "floorplan:{% block origin %}{{ frame.origin.name }}{% endblock %}"
+            "origin": "{% block origin %}{{ frame.origin.name }}{% endblock %}"
         }

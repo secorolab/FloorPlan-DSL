@@ -1,5 +1,5 @@
         {
-            "@id": "floorplan:{{ element.name }}",
+            "@id": "{{ element.name }}",
             "@type": "{{ element.__class__.__name__ }}",
-            "shape": "floorplan:{{ element.shape.name }}"
+            "shape": "{{ element.shape.name }}"
         }
