@@ -19,7 +19,9 @@
 {% endfor %}
 {# Pose of the wall frames with regards to the space frame #}
 {% for pose in space.wall_pose_coords %}
-{% include "./geometry/spatial-relations/pose.json" with context %},
+{% include "./geometry/spatial-relations/pose.json" with context %}
+{%- if not loop.last %},
+{% endif %}
 {% endfor %}
 {% endblock %}
 
@@ -31,8 +33,6 @@
 {%- if not loop.last %},
 {% endif %}
 {% endfor %}
-{%- if not outer_loop.last %},
-{% endif %}
 {% endblock %}
 
 {% block feature %}

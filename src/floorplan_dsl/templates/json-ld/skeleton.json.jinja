@@ -50,8 +50,6 @@
 {% set frame = o.frame %}
 {% include "./floorplan/structural-entities/origin.json" with context %},
 {% include "./geometry/structural-entities/frame.json" with context %}
-{%- if not loop.last or o.shape_3d.points %},
-{% endif %}
 {% if o.shape_3d.points %}
 {% for point in o.shape_3d.points %}
 {% include "./geometry/structural-entities/point.json" with context %}
