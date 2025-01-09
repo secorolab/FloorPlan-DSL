@@ -15,3 +15,7 @@ Position
 {% block wrt -%}
 {{ position.wrt.origin.name }}
 {%- endblock %}
+
+{% block qty -%}
+"Length"
+{%- endblock %}

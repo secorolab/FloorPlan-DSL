@@ -2,5 +2,6 @@
             "@id": "{% block rel_id %}{% endblock %}",
             "@type": "{% block type %}{% endblock %}",
             "of": "{% block of %}{% endblock %}",
-            "with-respect-to": "{% block wrt %}{% endblock %}"
+            "with-respect-to": "{% block wrt %}{% endblock %}",
+            "quantity-kind": {% block qty %}{% endblock %}
         }

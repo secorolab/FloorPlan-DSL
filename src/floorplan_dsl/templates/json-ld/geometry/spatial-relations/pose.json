@@ -15,3 +15,7 @@ Pose
 {% block wrt -%}
 {{ pose.wrt.name }}
 {%- endblock %}
+
+{% block qty -%}
+["Angle", "Length"]
+{%- endblock %}
