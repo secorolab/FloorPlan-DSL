@@ -155,7 +155,11 @@ class Polyhedron:
         self.parent = parent
         self.base = base
         self.height = height
-        self.thickness = thickness
+
+        if isinstance(thickness, float):
+            self.thickness = Length(self, thickness)
+        else:
+            self.thickness = thickness
 
         self.name = "{}-polyhedron".format(self.parent.name)
 
@@ -167,7 +171,7 @@ class Polyhedron:
                 coord = PointCoordinate(self, p.x.value, p.y.value, self.height.value)
             else:
                 # For windows and entryways use thickness
-                coord = PointCoordinate(self, p.x.value, self.thickness, p.z.value)
+                coord = PointCoordinate(self, p.x.value, self.thickness.value, p.z.value)
 
             self.coordinates.append(coord)
 

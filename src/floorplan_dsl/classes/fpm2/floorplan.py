@@ -135,6 +135,7 @@ class Entryway(Opening):
             self.frame = Frame(self, "entryway-{}".format(self.name))
 
         self.process_shape_semantics()
+        self.compute_3d_shape()
 
 
 class Window(Opening):
@@ -151,3 +152,4 @@ class Window(Opening):
             self.frame = Frame(self, "window-{}".format(self.name))
 
         self.process_shape_semantics()
+        self.compute_3d_shape()
