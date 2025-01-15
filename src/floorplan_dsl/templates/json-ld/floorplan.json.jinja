@@ -22,7 +22,8 @@
 
 {% block opening %}
 {% set element = o %}
-{% include "./floorplan/elements/element.json" with context %}
+{#{% include "./floorplan/elements/element.json" with context %}#}
+{% include "./floorplan/elements/opening.json" with context %}
 {% endblock %}
 
 {%- block space -%}
