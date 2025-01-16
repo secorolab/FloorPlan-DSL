@@ -2,6 +2,8 @@
   "@id": "{{ element.name }}",
   "@type": "{{ element.__class__.__name__ }}",
   "shape": "{{ element.shape.name }}",
+  "3d-shape": "{{ element.shape_3d.name }}",
+  "thickness": {{ element.shape_3d.thickness.value }},
   "voids": [
     {% for container in element.location.walls %}
       "{{ container.name }}"{%- if not loop.last %},

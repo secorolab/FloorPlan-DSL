@@ -10,7 +10,7 @@
 
 {% block wall %}
 {% set element = w %}
-{% include "./floorplan/elements/element.json" with context %}{% if not loop.last %},
+{% include "./floorplan/elements/wall.json" with context %}{% if not loop.last %},
 {% endif %}
 {% endblock %}
 
