@@ -44,7 +44,7 @@ Floor plan: hospital
                     rotation: z: 35.0 deg
 
             Divider divider_central:
-                shape: Rectangle width=doorway_width, length=0.2 m
+                shape: Rectangle width=5.0 m, length=0.2 m
                 height: 1.0 m
                 location:
                     wrt: this
@@ -131,13 +131,13 @@ Floor plan: hospital
         shape: Rectangle width=1.2 m, height=2.0 m
         location:
             in: room_A.walls[1] and hallway.walls[3]
-            translation: x: 1.0 m
+            translation: x: -1.0 m
 
     Entryway hallway_roomB: 
         shape: Rectangle width=1.0 m, height=1.8 m
         location:
             in: room_B.walls[0] and hallway.walls[3]
-            translation: x: -1.0 m
+            translation: x: 1.0 m
     
     Window hallway_window_1:
         shape: Rectangle width=3.0 m, height=1.5 m
@@ -152,7 +152,7 @@ Floor plan: hospital
             translation: x: -1.0 m, z: 0.8 m
 
     Window hallway_window_3:
-        shape: Circle radius=1.0 m
+        shape: Rectangle width=1.0 m, height=1.5 m
         location:
             in: hallway.walls[1]
-            translation: x: -1.0 m, z: 0.8 m
+            translation: x: 1.0 m, z: 0.8 m
