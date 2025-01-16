@@ -381,7 +381,9 @@ class OpeningSemantics(FloorPlanElement):
             wall = self.location.walls[0].space.walls[self.location.walls[0].wall_idx]
             thickness = wall.thickness.value
             if len(self.location.walls) == 2:
-                wall_2 = self.location.walls[1].space.walls[self.location.walls[1].wall_idx]
+                wall_2 = self.location.walls[1].space.walls[
+                    self.location.walls[1].wall_idx
+                ]
                 thickness = thickness + wall_2.thickness.value
             self.shape_3d = Polyhedron(self, self.shape, thickness=thickness)
             self.shape_position_coords = self.get_shape_point_positions(self.shape_3d)

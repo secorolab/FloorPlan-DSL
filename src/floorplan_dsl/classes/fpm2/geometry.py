@@ -171,7 +171,9 @@ class Polyhedron:
                 coord = PointCoordinate(self, p.x.value, p.y.value, self.height.value)
             else:
                 # For windows and entryways use thickness
-                coord = PointCoordinate(self, p.x.value, self.thickness.value, p.z.value)
+                coord = PointCoordinate(
+                    self, p.x.value, self.thickness.value, p.z.value
+                )
 
             self.coordinates.append(coord)
 
