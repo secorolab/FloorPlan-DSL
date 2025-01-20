@@ -5,8 +5,8 @@
   "3d-shape": "{{ element.shape_3d.name }}",
   "thickness": {{ element.shape_3d.thickness.value }},
   "voids": [
-    {% for container in element.location.walls %}
-      "{{ container.name }}"{%- if not loop.last %},
+    {% for container in element.wall_ids %}
+      "{{ container }}"{%- if not loop.last %},
             {% endif %}
     {% endfor +%}
   ]

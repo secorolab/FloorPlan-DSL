@@ -352,10 +352,12 @@ class OpeningSemantics(FloorPlanElement):
             raise TextXSemanticError("Wrong number of walls")
 
         frames = list()
+        self.wall_ids = list()
 
         for w in self.location.walls:
             if textx_isinstance(w, mm["WallFrame"]):
                 frames.append(w.space.walls[w.wall_idx].frame)
+                self.wall_ids.append(w.space.walls[w.wall_idx].name)
             else:
                 raise TextXSemanticError("Opening location is not a wall frame")
 
