@@ -3,22 +3,20 @@
 FROM ubuntu:24.04
 WORKDIR /usr/src/app
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 ENV VIRTUAL_ENV=/opt/venv
 
 ARG PYTHON_VER_MAJ=3.7
 ARG PYTHON_VER=3.7.17
-ARG BLENDER_VERSION=3.0
+#ARG BLENDER_VERSION=3.0
 
-RUN apt-get update
-RUN apt-get install blender python3-pip python3-venv -y
-RUN python3 -m venv $VIRTUAL_ENV
+RUN apt-get update && apt-get install python3-pip python3-venv -y && python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 COPY . .
 
 # Set python path for project src
-ENV PYTHONPATH /usr/src/app/src
+ENV PYTHONPATH=/usr/src/app/src
 
 # Install languages
 RUN pip3 install .
