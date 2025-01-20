@@ -1,9 +1,6 @@
 #!/bin/bash
 
-# Commented out until migration to scenery_builder is complete
-#python3 /usr/src/app/src/exsce_floorplan/exsce_floorplan.py -- models/hospital.floorplan
-
-mkdir -p gen/dot/fpm1/metamodels && mkdir -p gen/dot/fpm2/metamodels && mkdir -p gen/dot/fpm1/models && mkdir -p gen/dot/fpm2/models 
+mkdir -p gen/dot/fpm1/metamodels && mkdir -p gen/dot/fpm2/metamodels && mkdir -p gen/dot/fpm1/models && mkdir -p gen/dot/fpm2/models
 mkdir -p gen/dot/variation/metamodels && mkdir -p gen/dot/variation/models
 mkdir -p gen/variations
 mkdir -p gen/json-ld/v2
