@@ -121,24 +121,26 @@ Floor plan: hospital
         shape: Rectangle width=2.5 m, height=2.0 m
         location:
             in: reception.walls[3]
+            translation: x: 0.0 m, z: 1.0 m
 
     Entryway reception_hallway: 
         shape: Rectangle width=4.0 m, height=2.0 m
         location:
             in: hallway.walls[2] and reception.walls[0]
+            translation: x: 0.0 m, z: 1.0 m
 
     Entryway hallway_roomA: 
         shape: Rectangle width=1.2 m, height=2.0 m
         location:
             in: room_A.walls[1] and hallway.walls[3]
-            translation: x: -1.0 m
+            translation: x: 1.0 m, z: 1.0 m
 
     Entryway hallway_roomB: 
         shape: Rectangle width=1.0 m, height=1.8 m
         location:
             in: room_B.walls[0] and hallway.walls[3]
-            translation: x: 1.0 m
-    
+            translation: x: -1.0 m, z: 0.9 m
+
     Window hallway_window_1:
         shape: Rectangle width=3.0 m, height=1.5 m
         location:
@@ -150,9 +152,3 @@ Floor plan: hospital
         location:
             in: hallway.walls[1]
             translation: x: -1.0 m, z: 0.8 m
-
-    Window hallway_window_3:
-        shape: Rectangle width=1.0 m, height=1.5 m
-        location:
-            in: hallway.walls[1]
-            translation: x: 1.0 m, z: 0.8 m
