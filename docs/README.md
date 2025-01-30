@@ -111,14 +111,14 @@ If you use our tooling and approach please cite our paper as follows:
 
 This work has been partly supported by the European Union's Horizon 2020 projects SESAME (Grant No. 101017258) and SOPRANO (Grant No. 101120990).
 
-<div class="row">
+<div class="row" style="display:flex; justify-content: center">
  <div class="column" style="float:left; padding: 15px">
-    <img src="images/EU.jpg" alt="drawing" height="80"/>
+    <img src="images/EU.jpg" alt="drawing" height="75"/>
  </div>
  <div class="column" style="float:left; padding: 15px">
-    <img src="images/SESAME.png" alt="drawing" height="80"/>
+    <img src="images/SESAME.png" alt="drawing" height="75"/>
  </div>
  <div class="column" style="float:left; padding: 15px">
-    <img src="images/SOPRANO.png" alt="drawing" height="80"/>
+    <img src="images/SOPRANO.png" alt="drawing" height="75"/>
  </div>
 </div>
