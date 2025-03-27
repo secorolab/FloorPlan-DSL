@@ -2,5 +2,6 @@
             "@id": "{{ element.name }}",
             "@type": "{{ element.__class__.__name__ }}",
             "shape": "{{ element.shape.name }}",
-            "3d-shape": "{{ element.shape_3d.name }}"
+            "3d-shape": "{{ element.shape_3d.name }}",
+            "height": {{ element.height.value }}
         }
