@@ -7,7 +7,7 @@ coord-{{ pose.name }}
 {% block type %}
                 "PoseReference", 
                 "PoseCoordinate", 
-                "VectorXY"
+                "VectorXYZ"
 {% endblock %}
 
 {% block as_seen_by -%}
