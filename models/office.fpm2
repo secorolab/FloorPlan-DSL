@@ -1,0 +1,173 @@
+// Converted to v2 from /Users/argen/100 Projects/floorplan/dsl/models/examples/office.floorplan
+Floor plan: office
+
+    Defaults:
+        walls: 
+            thickness: 0.23 m
+            height: 2.5 m
+
+    // variables
+    
+    Space junction1:
+        shape: Polygon points:[
+                (0.0 m, 0.0 m),
+                (1.25 m, 1.77 m),
+                (2.5 m, 0.0 m)
+        ]
+        location:
+            translation: x: 0.0 m, y: 0.0 m
+            rotation: z: 0.0 deg
+            wrt: world
+            of: this
+         
+        walls:
+            thickness: 0.2 m
+            height: 3.0 m
+
+    Space corridor1:
+        shape: Rectangle width=24.0 m, length=2.5 m
+        location:
+            translation: x: 0.0 m, y: 0.0 m
+            rotation: z: 0.0 deg
+            wrt: junction1.walls[0]
+            of: this.walls[1]
+        spaced 
+        walls:
+            thickness: 0.1 m
+            height: 3.0 m
+
+    Space corridor2:
+        shape: Rectangle width=24.0 m, length=2.5 m
+        location:
+            translation: x: 0.0 m, y: 0.0 m
+            rotation: z: 0.0 deg
+            wrt: junction1.walls[1]
+            of: this.walls[1]
+        spaced 
+        walls:
+            thickness: 0.1 m
+            height: 3.0 m
+
+    Space corridor3:
+        shape: Rectangle width=24.0 m, length=2.5 m
+        location:
+            translation: x: 0.0 m, y: 0.0 m
+            rotation: z: 0.0 deg
+            wrt: junction1.walls[2]
+            of: this.walls[1]
+        spaced 
+        walls:
+            thickness: 0.1 m
+            height: 3.0 m
+
+    Space room1:
+        shape: Rectangle width=8.0 m, length=8.0 m
+        location:
+            translation: x: -8.0 m, y: 0.0 m
+            rotation: z: 0.0 deg
+            wrt: corridor1.walls[0]
+            of: this.walls[2]
+        spaced 
+        walls:
+            thickness: 0.1 m
+            height: 3.0 m
+
+    Space room2:
+        shape: Rectangle width=8.0 m, length=8.0 m
+        location:
+            translation: x: 8.0 m, y: 0.0 m
+            rotation: z: 0.0 deg
+            wrt: corridor1.walls[2]
+            of: this.walls[0]
+        spaced 
+        walls:
+            thickness: 0.1 m
+            height: 3.0 m
+
+    Space lab1:
+        shape: Rectangle width=16.0 m, length=8.0 m
+        location:
+            translation: x: 4.0 m, y: 0.0 m
+            rotation: z: 0.0 deg
+            wrt: corridor1.walls[0]
+            of: this.walls[2]
+        spaced 
+        walls:
+            thickness: 0.1 m
+            height: 3.0 m
+
+    Space lab2:
+        shape: Rectangle width=16.0 m, length=8.0 m
+        location:
+            translation: x: -4.0 m, y: 0.0 m
+            rotation: z: 0.0 deg
+            wrt: corridor1.walls[2]
+            of: this.walls[0]
+        spaced 
+        walls:
+            thickness: 0.1 m
+            height: 3.0 m
+
+    Entryway room1_door:
+        shape: Rectangle width=1.0 m, height=2.5 m
+        location:
+            in: room1.walls[2] and corridor1.walls[0]
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: y: 0.0 deg
+
+    Entryway room2_door:
+        shape: Rectangle width=1.0 m, height=2.5 m
+        location:
+            in: room2.walls[0] and corridor1.walls[2]
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: y: 0.0 deg
+
+    Entryway lab1_door1:
+        shape: Rectangle width=2.0 m, height=2.5 m
+        location:
+            in: lab1.walls[2] and corridor1.walls[0]
+            translation: x: -4.0 m, y: 0.0 m, z: 0.0 m
+            rotation: y: 0.0 deg
+
+    Entryway lab1_door2:
+        shape: Rectangle width=1.0 m, height=2.5 m
+        location:
+            in: lab1.walls[2] and corridor1.walls[0]
+            translation: x: 4.0 m, y: 0.0 m, z: 0.0 m
+            rotation: y: 0.0 deg
+
+    Entryway lab2_door1:
+        shape: Rectangle width=2.0 m, height=2.5 m
+        location:
+            in: lab2.walls[0] and corridor1.walls[2]
+            translation: x: -4.0 m, y: 0.0 m, z: 0.0 m
+            rotation: y: 0.0 deg
+
+    Entryway lab2_door2:
+        shape: Rectangle width=1.0 m, height=2.5 m
+        location:
+            in: lab2.walls[0] and corridor1.walls[2]
+            translation: x: 4.0 m, y: 0.0 m, z: 0.0 m
+            rotation: y: 0.0 deg
+
+    Entryway corridor1_mainopening:
+        shape: Rectangle width=2.49 m, height=2.99 m
+        location:
+            in: corridor1.walls[1] and junction1.walls[0]
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: y: 0.0 deg
+
+    Entryway corridor2_mainopening:
+        shape: Rectangle width=2.49 m, height=2.99 m
+        location:
+            in: corridor2.walls[1] and junction1.walls[1]
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: y: 0.0 deg
+
+    Entryway corridor3_mainopening:
+        shape: Rectangle width=2.49 m, height=2.99 m
+        location:
+            in: corridor3.walls[1] and junction1.walls[2]
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: y: 0.0 deg
+

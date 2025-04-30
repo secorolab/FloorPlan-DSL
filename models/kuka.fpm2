@@ -1,0 +1,47 @@
+Floor plan: kuka_testbed
+
+    Defaults:
+        walls:
+            thickness: 0.1 m
+            height: 3.01 m
+
+    // Spaces are closed areas
+    Space room_1:
+        shape: Rectangle: width=5.01m, length=5.97
+        location:
+            of: this
+            wrt: world
+
+    Entryway door_1:
+        shape: Rectangle width=1.0m, height=2.0m
+        location:
+            in: room_1.walls[0]
+            translation: x: -1.135m, z: 1.0m
+
+    // Model only walls
+    Divider wall_left:
+        shape: Rectangle width=2.0m, length=0.1m
+        height= 3.01m
+        location:
+            of: this
+            wrt: world
+
+    Divider wall_center:
+        shape: Rectangle width=5.97m, length=0.1m
+        height: 3.01m
+        location:
+            of: this
+            wrt: wall_a //Can I use divider frames as reference?
+
+    Divider wall_right:
+        shape: Rectangle width=5.01, length=0.1m
+        height: 3.01m
+        location:
+            of: this
+            wrt: wall_a
+
+    Entryway door_1:
+        shape: Rectangle width=1.0m, height=2.0m
+        location:
+            in: wall_center // Can I put an entryway in a Divider?
+            translation: x: -1.135m, z: 1.0m
