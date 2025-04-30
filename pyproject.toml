@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "floorplan-dsl"
 description = "Python realization of metamodels for indoor environment"
 # dynamic = ["version"]
-version = "1.1.0"
+version = "1.2.0"
 license = {file="LICENSE"}
 dependencies = [
     "matplotlib>=3.7.2",
@@ -54,14 +54,12 @@ test =[
 ]
 
 [project.entry-points.textx_languages]
-floorplan-v1 = "floorplan_dsl.registration:floorplan_lang"
 floorplan-v2 = "floorplan_dsl.registration:fpv2_lang"
 floorplan-variation = "floorplan_dsl.registration:variation_lang"
 
 [project.entry-points.textx_generators]
 variation-to-floorplan = "floorplan_dsl.registration:variation_floorplan_gen"
 floorplan-to-jsonld = "floorplan_dsl.registration:json_ld_floorplan_gen"
-floorplan-v1-to-floorplan-v2 = "floorplan_dsl.registration:floorplan_v1_to_v2_gen"
 
 [tool.setuptools.packages.find]
 where = ["src"]  # list of folders that contain the packages (["."] by default)
