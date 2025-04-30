@@ -1,4 +1,4 @@
-import "hbrs.fpm2"
+import "hbrs.fpm"
 
 column_height : uniform([0.5, 0.7, 2.4])
 
