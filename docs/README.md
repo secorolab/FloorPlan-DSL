@@ -77,7 +77,7 @@ fpm-variation -> fpm          floorplan-dsl[2.2.0]          Generate variations 
 To generate the JSON-LD representation of the FloorPlan model, simply use textX's language generators:
 
 ```
-textx generate <floorplan-v2 model> --target json-ld -o <output path>
+textx generate <fpm model> --target json-ld -o <output path>
 ```
 
 For example: 
