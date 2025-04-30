@@ -5,7 +5,7 @@ The objective of this tutorial is to demonstrate how to specify variations of Fl
 The variations of an environment are specified with the Variation DSL in a separate model. We create a new file and give it a name with the appropiate format: `<file_name>.variation`. The first line of the model imports the concrete environment where we will introduce the variations. The variation model is available [here](../models/examples/hospital.variation).
 
 ```floorplan
-import "hospital.fpm2"
+import "hospital.fpm"
 ```
 
 We can then declare the spacial attributes we wish to associate to one of the three probability distributions: normal, discrete, and uniform:
@@ -23,7 +23,7 @@ We can then declare the spacial attributes we wish to associate to one of the th
 
 ```
 
-We can refer to attributes through refences to the corresponding spaces or features. We need to provide the FQN of the attribute inside of the scope of the refence.
+We can refer to attributes through references to the corresponding spaces or features. We need to provide the FQN of the attribute inside of the scope of the reference.
 
 ```floorplan
 hallway: {
@@ -51,7 +51,7 @@ reception.divider_central: {
 After we have specified all the probability distributions, we can generate as many variations as we desired:
 
 ```sh
-textx generate <variation model> --target floorplan-v2 --variations <number of variations> -o <output folder>
+textx generate <variation model> --target fpm-v2 --variations <number of variations> -o <output folder>
 ```
 
-Each resulting concrete environment will follow the format `<name of floorplan model>_<seed number>.fpm2` and can be found at the specified output folder. These models are ready to be transformed into 3D models and other artefacts as shown in the previous tutorial. At the moment the generator does not check for the soundness of the resulting floor plan, nor for uniqueness.
+Each resulting concrete environment will follow the format `<name of floorplan model>_<seed number>.fpm` and can be found at the specified output folder. These models are ready to be transformed into 3D models and other artefacts as shown in the previous tutorial. At the moment the generator does not check for the soundness of the resulting floor plan, nor for uniqueness.
