@@ -102,28 +102,28 @@ def variation_metamodel():
 
 
 fpv2_lang = LanguageDesc(
-    "floorplan-v2",
-    pattern="*.fpm2",
+    "fpm",
+    pattern="*.fpm",
     description="A language to model floor plans (v2)",
     metamodel=fpv2_metamodel,
 )
 
 variation_lang = LanguageDesc(
-    "floorplan-variation",
+    "fpm-variation",
     pattern="*.variation",
-    description="A language to variate models from ExSce",
+    description="A language to describe variations of floorplan models",
     metamodel=variation_metamodel,
 )
 
 variation_floorplan_gen = GeneratorDesc(
-    language="floorplan-variation",
-    target="floorplan-v2",
-    description="Generate variations of indoor environments from .floorplan models",
+    language="fpm-variation",
+    target="fpm",
+    description="Generate variations of indoor environments from .fpm models",
     generator=variation_floorplan_generator,
 )
 
 json_ld_floorplan_gen = GeneratorDesc(
-    language="floorplan-v2",
+    language="fpm",
     target="json-ld",
     description="Generate composable models in json-ld",
     generator=jsonld_floorplan_generator,
