@@ -142,7 +142,7 @@ Whenever an entryway or window is located in a wall shared by two spaces, you mu
 
 ## Modelling the example
 
-Now that we have reviewed all of the important concepts, we can put them together in a model. The finished model for this tutorial is available [here](../models/examples/hospital.floorplan). In this section we will go over the model section by section with some explanations when needed.
+Now that we have reviewed all of the important concepts, we can put them together in a model. The finished model for this tutorial is available [here](../models/hospital.fpm). In this section we will go over the model section by section with some explanations when needed.
 
 ```floorplan
 Floor plan: hospital

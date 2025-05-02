@@ -1,4 +1,4 @@
-reference floorplan-v2 as f
+reference fpm as f
 import distributions
 
 Model:

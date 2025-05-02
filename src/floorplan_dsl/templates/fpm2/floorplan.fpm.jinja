@@ -18,14 +18,14 @@ Floor plan: {{ model.name }}
     
     {% for space in model.spaces %}
     {% block space scoped %}
-    {% include "./space.fpm2.jinja" with context %}
+    {% include "./space.fpm.jinja" with context %}
     {% endblock %}
     {% block features scoped %}
         {% if space.features|length > 0 %}
         features:
             {% for feature in space.features %}
             {% block feature scoped %}
-            {% include "./feature.fpm2.jinja" with context +%}
+            {% include "./feature.fpm.jinja" with context +%}
             {% endblock %}
             {% endfor %}
         {% endif %}
@@ -33,6 +33,6 @@ Floor plan: {{ model.name }}
     {% endfor %}
     {% for wall_opening in model.wall_openings %}
     {% block wall_opening scoped %}
-    {% include "./wall_opening.fpm2.jinja" with context +%}
+    {% include "./wall_opening.fpm.jinja" with context +%}
     {% endblock %}
     {% endfor %}

@@ -1,4 +1,4 @@
-import "kitchen.fpm2"
+import "kitchen.fpm"
 
 room_a_to_corridor_1: {
     location.translation.x : normal(mean=3.5, std=2.0)

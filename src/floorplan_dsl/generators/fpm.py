@@ -74,19 +74,3 @@ def jsonld_floorplan_generator(
         this_folder, "../templates/json-ld/polyhedron.json.jinja"
     )
     textx_jinja_generator(template_folder, output_path, context, overwrite=True)
-
-
-def v1_to_v2_converter(metamodel, model, output_path, overwrite, debug, **kwargs):
-    if not os.path.exists(output_path):
-        os.makedirs(output_path)
-
-    # Prepare context dictionary
-    context = dict(trim_blocks=True, lstrip_blocks=True)
-    context["model"] = model
-    context["name"] = model.name
-
-    this_folder = os.path.dirname(__file__)
-    template_folder = os.path.join(this_folder, "../templates/fpm2/__name__.fpm2.jinja")
-
-    # Run Jinja generator
-    textx_jinja_generator(template_folder, output_path, context, overwrite=overwrite)

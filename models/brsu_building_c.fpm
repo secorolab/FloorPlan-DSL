@@ -1,0 +1,291 @@
+// Converted to v2 from /Users/argen/100 Projects/floorplan/dsl/models/examples/brsu-building-c.floorplan
+Floor plan: brsu_building_c
+
+    Defaults:
+        walls: 
+            thickness: 0.23 m
+            height: 2.5 m
+
+    // variables
+    
+    Space stairway_room_center:
+        shape: Rectangle width=17.7 m, length=10.7 m
+        location:
+            translation: x: 0.0 m, y: 0.0 m
+            rotation: z: 0.0 deg
+            wrt: world
+            of: this
+         
+
+    Space stairway_room_left:
+        shape: Rectangle width=10.0 m, length=4.3 m
+        location:
+            translation: x: 0.0 m, y: 0.0 m
+            rotation: z: 0.0 deg
+            wrt: stairway_room_center.walls[2]
+            of: this.walls[0]
+        spaced 
+
+    Space stairway_room_exit:
+        shape: Rectangle width=3.3 m, length=4.3 m
+        location:
+            translation: x: -7.0 m, y: 0.0 m
+            rotation: z: 0.0 deg
+            wrt: stairway_room_center.walls[2]
+            of: this.walls[0]
+        spaced 
+
+    Space left_short_connector:
+        shape: Rectangle width=4.76 m, length=17.38 m
+        location:
+            translation: x: -0.65 m, y: 0.0 m
+            rotation: z: 0.0 deg
+            wrt: stairway_room_center.walls[3]
+            of: this.walls[2]
+        spaced 
+
+    Space study_nook_left:
+        shape: Rectangle width=2.0 m, length=7.0 m
+        location:
+            translation: x: -0.69 m, y: 0.0 m
+            rotation: z: 0.0 deg
+            wrt: left_short_connector.walls[3]
+            of: this.walls[0]
+        spaced 
+
+    Space left_long_corridor:
+        shape: Rectangle width=2.25 m, length=60.0 m
+        location:
+            translation: x: 0.69 m, y: 0.0 m
+            rotation: z: 0.0 deg
+            wrt: left_short_connector.walls[1]
+            of: this.walls[2]
+        spaced 
+
+    Space right_short_connector:
+        shape: Rectangle width=4.76 m, length=17.38 m
+        location:
+            translation: x: 0.65 m, y: 0.0 m
+            rotation: z: 0.0 deg
+            wrt: stairway_room_center.walls[1]
+            of: this.walls[0]
+        spaced 
+
+    Space right_long_corridor:
+        shape: Rectangle width=2.25 m, length=60.0 m
+        location:
+            translation: x: 0.69 m, y: 0.0 m
+            rotation: z: 0.0 deg
+            wrt: right_short_connector.walls[1]
+            of: this.walls[2]
+        spaced 
+
+    Space diagonal_corridor_left:
+        shape: Polygon points:[
+                (0.0 m, 0.0 m),
+                (0.0 m, 2.6 m),
+                (8.6 m, 2.6 m),
+                (7.8 m, 0.0 m)
+        ]
+        location:
+            translation: x: 9.0 m, y: 0.0 m
+            rotation: z: 0.0 deg
+            wrt: left_long_corridor.walls[3]
+            of: this.walls[2]
+        spaced 
+
+    Space diagonal_corridor_center_right:
+        shape: Polygon points:[
+                (0.0 m, 0.0 m),
+                (0.8 m, 2.6 m),
+                (7.4 m, 2.6 m),
+                (7.4 m, 0.0 m)
+        ]
+        location:
+            translation: x: -9.8 m, y: 0.0 m
+            rotation: z: 0.0 deg
+            wrt: left_long_corridor.walls[1]
+            of: this.walls[0]
+        spaced 
+
+    Space diagonal_corridor_center:
+        shape: Rectangle width=2.6 m, length=18.25 m
+        location:
+            translation: x: 0.0 m, y: 0.0 m
+            rotation: z: 0.0 deg
+            wrt: diagonal_corridor_center_right.walls[2]
+            of: this.walls[0]
+        spaced 
+
+    Space diagonal_corridor_center_left:
+        shape: Polygon points:[
+                (0.0 m, 0.0 m),
+                (0.0 m, 2.6 m),
+                (8.6 m, 2.6 m),
+                (7.8 m, 0.0 m)
+        ]
+        location:
+            translation: x: 19.9 m, y: 0.0 m
+            rotation: z: 0.0 deg
+            wrt: right_long_corridor.walls[3]
+            of: this.walls[2]
+        spaced 
+
+    Space diagonal_corridor_right:
+        shape: Polygon points:[
+                (0.0 m, 0.0 m),
+                (0.8 m, 2.6 m),
+                (7.4 m, 2.6 m),
+                (7.4 m, 0.0 m)
+        ]
+        location:
+            translation: x: -20.7 m, y: 0.0 m
+            rotation: z: 0.0 deg
+            wrt: right_long_corridor.walls[1]
+            of: this.walls[0]
+        spaced 
+
+    Space study_nook_c069:
+        shape: Polygon points:[
+                (0.0 m, 0.0 m),
+                (3.6 m, 0.0 m),
+                (3.6 m, -4.0 m),
+                (0.0 m, -5.1 m)
+        ]
+        location:
+            translation: x: 12.7 m, y: 0.0 m
+            rotation: z: 0.0 deg
+            wrt: left_long_corridor.walls[3]
+            of: this.walls[1]
+        spaced 
+        walls:
+            thickness: 0.15 m
+            
+
+    Space left_corridor_extra_end:
+        shape: Rectangle width=1.8 m, length=15.0 m
+        location:
+            translation: x: 22.5 m, y: 0.0 m
+            rotation: z: 0.0 deg
+            wrt: left_long_corridor.walls[3]
+            of: this.walls[1]
+        spaced 
+        walls:
+            thickness: 0.15 m
+            
+
+    Space right_corridor_extra_space:
+        shape: Polygon points:[
+                (0.0 m, 0.0 m),
+                (1.15 m, 0.0 m),
+                (1.15 m, -9.7 m),
+                (0.0 m, -10.3 m)
+        ]
+        location:
+            translation: x: -26.5 m, y: 0.0 m
+            rotation: z: 0.0 deg
+            wrt: right_long_corridor.walls[1]
+            of: this.walls[3]
+        spaced 
+        walls:
+            thickness: 0.15 m
+            
+
+    Entryway stairway_center_left_opening:
+        shape: Rectangle width=9.9 m, height=2.4 m
+        location:
+            in: stairway_room_left.walls[0] and stairway_room_center.walls[2]
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: y: 0.0 deg
+
+    Entryway stairway_room_exit_opening:
+        shape: Rectangle width=3.2 m, height=2.4 m
+        location:
+            in: stairway_room_exit.walls[0] and stairway_room_center.walls[2]
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: y: 0.0 deg
+
+    Entryway left_short_connector_doorway:
+        shape: Rectangle width=3.73 m, height=2.0 m
+        location:
+            in: left_short_connector.walls[2] and stairway_room_center.walls[3]
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: y: 0.0 deg
+
+    Entryway study_nook_left_opening:
+        shape: Rectangle width=1.9 m, height=2.4 m
+        location:
+            in: study_nook_left.walls[0] and left_short_connector.walls[3]
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: y: 0.0 deg
+
+    Entryway left_long_corridor_opening:
+        shape: Rectangle width=2.2 m, height=2.4 m
+        location:
+            in: left_long_corridor.walls[2] and left_short_connector.walls[1]
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: y: 0.0 deg
+
+    Entryway right_short_connector_doorway:
+        shape: Rectangle width=3.73 m, height=2.0 m
+        location:
+            in: right_short_connector.walls[0] and stairway_room_center.walls[1]
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: y: 0.0 deg
+
+    Entryway right_long_corridor_opening:
+        shape: Rectangle width=2.2 m, height=2.4 m
+        location:
+            in: right_long_corridor.walls[2] and right_short_connector.walls[1]
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: y: 0.0 deg
+
+    Entryway diagonal_corridor_wing_left_opening:
+        shape: Rectangle width=2.6 m, height=2.4 m
+        location:
+            in: diagonal_corridor_left.walls[2] and left_long_corridor.walls[3]
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: y: 0.0 deg
+
+    Entryway diagonal_corridor_center_left_opening:
+        shape: Rectangle width=2.6 m, height=2.4 m
+        location:
+            in: diagonal_corridor_center_right.walls[0] and left_long_corridor.walls[1]
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: y: 0.0 deg
+
+    Entryway diagonal_corridor_wing_right_opening:
+        shape: Rectangle width=2.6 m, height=2.4 m
+        location:
+            in: diagonal_corridor_right.walls[0] and right_long_corridor.walls[1]
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: y: 0.0 deg
+
+    Entryway diagonal_corridor_center_right_opening:
+        shape: Rectangle width=2.6 m, height=2.4 m
+        location:
+            in: diagonal_corridor_center_left.walls[2] and right_long_corridor.walls[3]
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: y: 0.0 deg
+
+    Entryway diagonal_corridor_left_opening:
+        shape: Rectangle width=2.0 m, height=2.4 m
+        location:
+            in: diagonal_corridor_center.walls[0] and diagonal_corridor_center_right.walls[2]
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: y: 0.0 deg
+
+    Entryway diagonal_corridor_right_opening:
+        shape: Rectangle width=2.0 m, height=2.4 m
+        location:
+            in: diagonal_corridor_center.walls[2] and diagonal_corridor_center_left.walls[0]
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: y: 0.0 deg
+
+    Entryway left_corridor_extra_space_wall_removal:
+        shape: Rectangle width=15.0 m, height=2.4 m
+        location:
+            in: left_corridor_extra_end.walls[1] and left_long_corridor.walls[3]
+            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            rotation: y: 0.0 deg
+

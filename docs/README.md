@@ -61,15 +61,13 @@ This will install the languages and generators. To confirm that the languages ha
 ```shell
 > textx list-languages
 ...
-floorplan-v1 (*.floorplan)    floorplan-dsl[1.1.0]                    A language to model indoor environments
-floorplan-v2 (*.fpm2)         floorplan-dsl[1.1.0]                    A language to model floor plans (v2)
-floorplan-variation (*.variation)floorplan-dsl[1.1.0]                    A language to variate models from ExSce
+fpm (*.fpm)                   floorplan-dsl[2.2.0]                    A language to model floor plans (v2)
+fpm-variation (*.variation)   floorplan-dsl[2.2.0]                    A language to describe variations of floorplan models
 
 > textx list-generators
 ...
-floorplan-v2 -> json-ld       floorplan-dsl[1.1.0]          Generate composable models in json-ld
-floorplan-v1 -> floorplan-v2  floorplan-dsl[1.1.0]          Convert from floorplan models from v1 to v2
-floorplan-variation -> floorplan-v2floorplan-dsl[1.1.0]          Generate variations of indoor environments from .floorplan models
+fpm -> json-ld                floorplan-dsl[2.2.0]          Generate composable models in json-ld
+fpm-variation -> fpm          floorplan-dsl[2.2.0]          Generate variations of indoor environments from .fpm models
 ```
 
 ## Getting started
@@ -79,13 +77,13 @@ floorplan-variation -> floorplan-v2floorplan-dsl[1.1.0]          Generate variat
 To generate the JSON-LD representation of the FloorPlan model, simply use textX's language generators:
 
 ```
-textx generate <floorplan-v2 model> --target json-ld -o <output path>
+textx generate <fpm model> --target json-ld -o <output path>
 ```
 
 For example: 
 
 ```
-textx generate models/examples/brsu_building_c_with_doorways.fpm2 --target json-ld -o .
+textx generate models/brsu_building_c_with_doorways.fpm --target json-ld -o .
 ```
 
 The JSON-LD models will be generated using radians, the default internal unit for angles in the floor plan model. To generate the JSON-LD models using degrees, add `--angle-unit deg` to your command.
@@ -101,7 +99,7 @@ If you use our tooling and approach please cite our paper as follows:
 ```
 @inproceedings{parra2023iros,
     author = {Parra, Samuel and Ortega, Argentina and Schneider, Sven and Hochgeschwender, Nico},
-    title = {{A Thousand Worlds: Scenery Specification and Generation for Simulation-Based Testing of Mobile Robot Navigation Stacks}},
+    title = {A Thousand Worlds: Scenery Specification and Generation for Simulation-Based Testing of Mobile Robot Navigation Stacks},
     booktitle = {Proceedings of the IEEE International Conference on Intelligent Systems and Robots (IROS)},
     year = {2023}
 }

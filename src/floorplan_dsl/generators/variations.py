@@ -53,7 +53,7 @@ def variation_floorplan_generator(
     model_folder_path = os.path.dirname(var_model._tx_parser.file_name)
     fp_model_path = var_model.import_uri.importURI
 
-    fp_mm = metamodel_for_language("floorplan-v2")
+    fp_mm = metamodel_for_language("fpm")
 
     # Remove the object processors to have references to location.wrt and location.of
     fp_mm._obj_processors = fp_mm._default_obj_processors
@@ -62,7 +62,7 @@ def variation_floorplan_generator(
 
     this_folder = os.path.dirname(__file__)
     template_folder = os.path.join(
-        this_folder, "../templates/fpm2/__name_____seed__.fpm2.jinja"
+        this_folder, "../templates/fpm2/__name_____seed__.fpm.jinja"
     )
 
     variations = custom_args["variations"]

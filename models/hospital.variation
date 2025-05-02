@@ -1,4 +1,4 @@
-import "hospital.fpm2"
+import "hospital.fpm"
 
 hallway: {
     location.translation.x : normal(mean=0.0, std=5.0) // TODO this doesn't match the format in fpm (location.translation)

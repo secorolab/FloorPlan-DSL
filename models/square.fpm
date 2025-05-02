@@ -1,0 +1,18 @@
+Floor plan: room
+
+    Defaults:
+        walls:
+            thickness: 0.2 m
+            height: 2.5 m
+
+    // variables
+
+    Space my_room:
+        shape: Rectangle width=2.0 m, length=2.0 m
+        location:
+            translation: x: 0.0 m, y: 0.0 m
+            rotation: z: 0.0 deg
+            wrt: world
+            of: this
+
+
