@@ -1,6 +1,6 @@
 {% macro value_assignment(v) -%}
 {% if v.variable %}
-{% if v.neg %}-{% endif %}{{ v.variable.name }}
+{% if v.var_neg %}-{% endif %}{{ v.variable.name }}
 {%- else %}
 {{ v.value }} {{ v.unit }}
 {%- endif %}
