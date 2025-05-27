@@ -24,9 +24,6 @@ def new_sample(fp_model, var_model):
 
     # For each variation set
     for var in var_model.variations:
-        print("---")
-        print(var.ref.name)
-
         # If it's a variable, sample a new value for it
         if var.__class__.__name__ == "VariableRef":
             var_obj = get_unique_named_object(fp_model, var.ref.name)
@@ -37,7 +34,6 @@ def new_sample(fp_model, var_model):
         attributes = get_children_of_type("Attribute", var)
 
         for att in attributes:
-            print("\t", att.fqn)
             fp_obj = get_unique_named_object(fp_model, var.ref.name)
             var_obj = get_variable_from_fqn(fp_obj, att.fqn)
             if var_obj.__class__.__name__ in ["LengthValue", "AngleValue"]:
