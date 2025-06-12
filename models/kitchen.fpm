@@ -51,20 +51,20 @@ Floor plan: kitchen
         shape: Rectangle width=1.2 m, height=2.0 m
         location:
             in: room_a.walls[0] and corridor.walls[3]
-            translation: x: 2.5 m, y: 0.0 m, z: 0.0 m
+            translation: x: 2.5 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway room_a_to_corridor_2:
         shape: Rectangle width=1.2 m, height=2.0 m
         location:
             in: room_a.walls[0] and corridor.walls[3]
-            translation: x: -2.5 m, y: 0.0 m, z: 0.0 m
+            translation: x: -2.5 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway room_b_to_corridor:
         shape: Rectangle width=1.2 m, height=2.0 m
         location:
             in: room_b.walls[0] and corridor.walls[1]
-            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: 0.0 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 

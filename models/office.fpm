@@ -112,62 +112,62 @@ Floor plan: office
         shape: Rectangle width=1.0 m, height=2.5 m
         location:
             in: room1.walls[2] and corridor1.walls[0]
-            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: 0.0 m, y: 0.0 m, z: 1.25 m
             rotation: y: 0.0 deg
 
     Entryway room2_door:
         shape: Rectangle width=1.0 m, height=2.5 m
         location:
             in: room2.walls[0] and corridor1.walls[2]
-            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: 0.0 m, y: 0.0 m, z: 1.25 m
             rotation: y: 0.0 deg
 
     Entryway lab1_door1:
         shape: Rectangle width=2.0 m, height=2.5 m
         location:
             in: lab1.walls[2] and corridor1.walls[0]
-            translation: x: -4.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: -4.0 m, y: 0.0 m, z: 1.25 m
             rotation: y: 0.0 deg
 
     Entryway lab1_door2:
         shape: Rectangle width=1.0 m, height=2.5 m
         location:
             in: lab1.walls[2] and corridor1.walls[0]
-            translation: x: 4.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: 4.0 m, y: 0.0 m, z: 1.25 m
             rotation: y: 0.0 deg
 
     Entryway lab2_door1:
         shape: Rectangle width=2.0 m, height=2.5 m
         location:
             in: lab2.walls[0] and corridor1.walls[2]
-            translation: x: -4.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: -4.0 m, y: 0.0 m, z: 1.25 m
             rotation: y: 0.0 deg
 
     Entryway lab2_door2:
         shape: Rectangle width=1.0 m, height=2.5 m
         location:
             in: lab2.walls[0] and corridor1.walls[2]
-            translation: x: 4.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: 4.0 m, y: 0.0 m, z: 1.25 m
             rotation: y: 0.0 deg
 
     Entryway corridor1_mainopening:
         shape: Rectangle width=2.49 m, height=2.99 m
         location:
             in: corridor1.walls[1] and junction1.walls[0]
-            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: 0.0 m, y: 0.0 m, z: 1.495 m
             rotation: y: 0.0 deg
 
     Entryway corridor2_mainopening:
         shape: Rectangle width=2.49 m, height=2.99 m
         location:
             in: corridor2.walls[1] and junction1.walls[1]
-            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: 0.0 m, y: 0.0 m, z: 1.495 m
             rotation: y: 0.0 deg
 
     Entryway corridor3_mainopening:
         shape: Rectangle width=2.49 m, height=2.99 m
         location:
             in: corridor3.walls[1] and junction1.walls[2]
-            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: 0.0 m, y: 0.0 m, z: 1.495 m
             rotation: y: 0.0 deg
 

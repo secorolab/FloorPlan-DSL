@@ -9,6 +9,7 @@ Floor plan: brsu_building_c_with_doorways
     // variables
     var left_corridor_x_pose = 0.69 m
     var doorway_width = 1.0 m
+    var doorway_z_translation = 1.2 m
     
     Space stairway_room_center:
         shape: Rectangle width=17.7 m, length=10.7 m
@@ -601,363 +602,363 @@ Floor plan: brsu_building_c_with_doorways
         shape: Rectangle width=9.9 m, height=2.4 m
         location:
             in: stairway_room_left.walls[0] and stairway_room_center.walls[2]
-            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: 0.0 m, y: 0.0 m, z: doorway_z_translation
             rotation: y: 0.0 deg
 
     Entryway stairway_room_exit_opening:
         shape: Rectangle width=3.2 m, height=2.4 m
         location:
             in: stairway_room_exit.walls[0] and stairway_room_center.walls[2]
-            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: 0.0 m, y: 0.0 m, z: doorway_z_translation
             rotation: y: 0.0 deg
 
     Entryway left_short_connector_doorway:
         shape: Rectangle width=3.73 m, height=2.0 m
         location:
             in: left_short_connector.walls[2] and stairway_room_center.walls[3]
-            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: 0.0 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway study_nook_left_opening:
         shape: Rectangle width=1.9 m, height=2.4 m
         location:
             in: study_nook_left.walls[0] and left_short_connector.walls[3]
-            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: 0.0 m, y: 0.0 m, z: doorway_z_translation
             rotation: y: 0.0 deg
 
     Entryway left_long_corridor_opening:
         shape: Rectangle width=2.2 m, height=2.4 m
         location:
             in: left_long_corridor.walls[2] and left_short_connector.walls[1]
-            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: 0.0 m, y: 0.0 m, z: doorway_z_translation
             rotation: y: 0.0 deg
 
     Entryway right_short_connector_doorway:
         shape: Rectangle width=3.73 m, height=2.0 m
         location:
             in: right_short_connector.walls[0] and stairway_room_center.walls[1]
-            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: 0.0 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway right_long_corridor_opening:
         shape: Rectangle width=2.2 m, height=2.4 m
         location:
             in: right_long_corridor.walls[2] and right_short_connector.walls[1]
-            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: 0.0 m, y: 0.0 m, z: doorway_z_translation
             rotation: y: 0.0 deg
 
     Entryway diagonal_corridor_wing_left_opening:
         shape: Rectangle width=2.6 m, height=2.4 m
         location:
             in: diagonal_corridor_left.walls[2] and left_long_corridor.walls[3]
-            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: 0.0 m, y: 0.0 m, z: doorway_z_translation
             rotation: y: 0.0 deg
 
     Entryway diagonal_corridor_center_left_opening:
         shape: Rectangle width=2.6 m, height=2.4 m
         location:
             in: diagonal_corridor_center_right.walls[0] and left_long_corridor.walls[1]
-            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: 0.0 m, y: 0.0 m, z: doorway_z_translation
             rotation: y: 0.0 deg
 
     Entryway diagonal_corridor_wing_right_opening:
         shape: Rectangle width=3.0 m, height=2.4 m
         location:
             in: diagonal_corridor_right.walls[0] and right_long_corridor.walls[1]
-            translation: x: 0.4 m, y: 0.0 m, z: 0.0 m
+            translation: x: 0.0 m, y: 0.0 m, z: doorway_z_translation
             rotation: y: 0.0 deg
 
     Entryway diagonal_corridor_center_right_opening:
         shape: Rectangle width=2.6 m, height=2.4 m
         location:
             in: diagonal_corridor_center_left.walls[2] and right_long_corridor.walls[3]
-            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: 0.0 m, y: 0.0 m, z: doorway_z_translation
             rotation: y: 0.0 deg
 
     Entryway diagonal_corridor_left_opening:
         shape: Rectangle width=2.0 m, height=2.4 m
         location:
             in: diagonal_corridor_center.walls[0] and diagonal_corridor_center_right.walls[2]
-            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: 0.0 m, y: 0.0 m, z: doorway_z_translation
             rotation: y: 0.0 deg
 
     Entryway diagonal_corridor_right_opening:
         shape: Rectangle width=2.0 m, height=2.4 m
         location:
             in: diagonal_corridor_center.walls[2] and diagonal_corridor_center_left.walls[0]
-            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: 0.0 m, y: 0.0 m, z: doorway_z_translation
             rotation: y: 0.0 deg
 
     Entryway left_corridor_extra_space_wall_removal:
         shape: Rectangle width=15.0 m, height=2.4 m
         location:
             in: left_corridor_extra_end.walls[1] and left_long_corridor.walls[3]
-            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: 0.0 m, y: 0.0 m, z: doorway_z_translation
             rotation: y: 0.0 deg
 
     Entryway right_corridor_extra_space_wall_removal:
         shape: Rectangle width=10.0 m, height=2.4 m
         location:
             in: right_corridor_extra_space.walls[3] and right_long_corridor.walls[1]
-            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: 0.0 m, y: 0.0 m, z: doorway_z_translation
             rotation: y: 0.0 deg
 
     Entryway right_corridor_extra_space_wall_removal_3:
         shape: Rectangle width=1.6 m, height=2.4 m
         location:
             in: right_corridor_extra_space.walls[2] and diagonal_corridor_right.walls[1]
-            translation: x: 0.4 m, y: 0.0 m, z: 0.0 m
+            translation: x: 0.0 m, y: 0.0 m, z: doorway_z_translation
             rotation: y: 0.0 deg
 
     Entryway classroom_c022_door_1:
         shape: Rectangle width=doorway_width, height=2.0 m
         location:
             in: classroom_c022.walls[0] and right_long_corridor.walls[3]
-            translation: x: 0.57 m, y: 0.0 m, z: 0.0 m
+            translation: x: 0.57 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway classroom_c022_door_2:
         shape: Rectangle width=doorway_width, height=2.0 m
         location:
             in: classroom_c022.walls[0] and right_long_corridor.walls[3]
-            translation: x: -0.57 m, y: 0.0 m, z: 0.0 m
+            translation: x: -0.57 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway classroom_c025_door_1:
         shape: Rectangle width=doorway_width, height=2.0 m
         location:
             in: classroom_c025.walls[0] and right_corridor_extra_space.walls[1]
-            translation: x: -0.57 m, y: 0.0 m, z: 0.0 m
+            translation: x: -0.57 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway classroom_c025_door_2:
         shape: Rectangle width=doorway_width, height=2.0 m
         location:
             in: classroom_c025.walls[0] and right_corridor_extra_space.walls[1]
-            translation: x: 0.57 m, y: 0.0 m, z: 0.0 m
+            translation: x: 0.57 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway classroom_c069_door_1:
         shape: Rectangle width=doorway_width, height=2.0 m
         location:
             in: classroom_c069.walls[1] and left_corridor_extra_end.walls[3]
-            translation: x: -4.82 m, y: 0.0 m, z: 0.0 m
+            translation: x: -4.82 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway classroom_c069_door_2:
         shape: Rectangle width=doorway_width, height=2.0 m
         location:
             in: classroom_c069.walls[1] and left_corridor_extra_end.walls[3]
-            translation: x: 5.9 m, y: 0.0 m, z: 0.0 m
+            translation: x: 5.9 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway left_corridor_doorway_1:
         shape: Rectangle width=doorway_width, height=2.0 m
         location:
             in: left_long_corridor.walls[3]
-            translation: x: -21.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: -21.0 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway left_corridor_doorway_2:
         shape: Rectangle width=doorway_width, height=2.0 m
         location:
             in: left_long_corridor.walls[3]
-            translation: x: -15.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: -15.0 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway left_corridor_doorway_3:
         shape: Rectangle width=doorway_width, height=2.0 m
         location:
             in: left_long_corridor.walls[3]
-            translation: x: -9.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: -9.0 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway left_corridor_doorway_4:
         shape: Rectangle width=doorway_width, height=2.0 m
         location:
             in: left_long_corridor.walls[3]
-            translation: x: -3.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: -3.0 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway left_corridor_doorway_5:
         shape: Rectangle width=doorway_width, height=2.0 m
         location:
             in: left_long_corridor.walls[3]
-            translation: x: 3.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: 3.0 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway left_corridor_doorway_11:
         shape: Rectangle width=doorway_width, height=2.0 m
         location:
             in: left_long_corridor.walls[1]
-            translation: x: 21.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: 21.0 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway left_corridor_doorway_12:
         shape: Rectangle width=doorway_width, height=2.0 m
         location:
             in: left_long_corridor.walls[1]
-            translation: x: 15.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: 15.0 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway left_corridor_doorway_14:
         shape: Rectangle width=doorway_width, height=2.0 m
         location:
             in: left_long_corridor.walls[1]
-            translation: x: 4.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: 4.0 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway left_corridor_doorway_15:
         shape: Rectangle width=doorway_width, height=2.0 m
         location:
             in: left_long_corridor.walls[1]
-            translation: x: -3.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: -3.0 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway left_corridor_doorway_16:
         shape: Rectangle width=doorway_width, height=2.0 m
         location:
             in: left_long_corridor.walls[1]
-            translation: x: -21.2 m, y: 0.0 m, z: 0.0 m
+            translation: x: -21.2 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway left_corridor_doorway_17:
         shape: Rectangle width=doorway_width, height=2.0 m
         location:
             in: left_long_corridor.walls[1]
-            translation: x: -27.2 m, y: 0.0 m, z: 0.0 m
+            translation: x: -27.2 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway right_corridor_doorway_01:
         shape: Rectangle width=doorway_width, height=2.0 m
         location:
             in: right_long_corridor.walls[3]
-            translation: x: -21.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: -21.0 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway right_corridor_doorway_02:
         shape: Rectangle width=doorway_width, height=2.0 m
         location:
             in: right_long_corridor.walls[3]
-            translation: x: -15.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: -15.0 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway right_corridor_doorway_03:
         shape: Rectangle width=doorway_width, height=2.0 m
         location:
             in: right_long_corridor.walls[3]
-            translation: x: -8.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: -8.0 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway right_corridor_doorway_04:
         shape: Rectangle width=doorway_width, height=2.0 m
         location:
             in: right_long_corridor.walls[3]
-            translation: x: 3.5 m, y: 0.0 m, z: 0.0 m
+            translation: x: 3.5 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway right_corridor_doorway_05:
         shape: Rectangle width=doorway_width, height=2.0 m
         location:
             in: right_long_corridor.walls[3]
-            translation: x: 9.6 m, y: 0.0 m, z: 0.0 m
+            translation: x: 9.6 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway right_corridor_doorway_06:
         shape: Rectangle width=doorway_width, height=2.0 m
         location:
             in: right_long_corridor.walls[3]
-            translation: x: 15.7 m, y: 0.0 m, z: 0.0 m
+            translation: x: 15.7 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway right_corridor_doorway_07:
         shape: Rectangle width=doorway_width, height=2.0 m
         location:
             in: right_long_corridor.walls[1]
-            translation: x: 22.2 m, y: 0.0 m, z: 0.0 m
+            translation: x: 22.2 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway right_corridor_doorway_08:
         shape: Rectangle width=doorway_width, height=2.0 m
         location:
             in: right_long_corridor.walls[1]
-            translation: x: 15.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: 15.0 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway right_corridor_doorway_09:
         shape: Rectangle width=doorway_width, height=2.0 m
         location:
             in: right_long_corridor.walls[1]
-            translation: x: 8.7 m, y: 0.0 m, z: 0.0 m
+            translation: x: 8.7 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway right_corridor_doorway_10:
         shape: Rectangle width=doorway_width, height=2.0 m
         location:
             in: right_long_corridor.walls[1]
-            translation: x: 2.65 m, y: 0.0 m, z: 0.0 m
+            translation: x: 2.65 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway right_corridor_doorway_11:
         shape: Rectangle width=doorway_width, height=2.0 m
         location:
             in: right_long_corridor.walls[1] and classroom_c018.walls[0]
-            translation: x: -9.7 m, y: 0.0 m, z: 0.0 m
+            translation: x: -9.7 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway right_corridor_doorway_12:
         shape: Rectangle width=doorway_width, height=2.0 m
         location:
             in: right_long_corridor.walls[1] and classroom_c018.walls[0]
-            translation: x: -15.7 m, y: 0.0 m, z: 0.0 m
+            translation: x: -15.7 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway left_short_connector_doorway_01:
         shape: Rectangle width=doorway_width, height=2.0 m
         location:
             in: left_short_connector.walls[3]
-            translation: x: 6.32 m, y: 0.0 m, z: 0.0 m
+            translation: x: 6.32 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway left_short_connector_doorway_02:
         shape: Rectangle width=doorway_width, height=2.0 m
         location:
             in: left_short_connector.walls[3]
-            translation: x: -5.81 m, y: 0.0 m, z: 0.0 m
+            translation: x: -5.81 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway right_short_connector_doorway_01:
         shape: Rectangle width=doorway_width, height=2.0 m
         location:
             in: right_short_connector.walls[3]
-            translation: x: -4.65 m, y: 0.0 m, z: 0.0 m
+            translation: x: -4.65 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway right_short_connector_doorway_02:
         shape: Rectangle width=doorway_width, height=2.0 m
         location:
             in: right_short_connector.walls[3]
-            translation: x: 0.21 m, y: 0.0 m, z: 0.0 m
+            translation: x: 0.21 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway right_short_connector_doorway_03:
         shape: Rectangle width=doorway_width, height=2.0 m
         location:
             in: right_short_connector.walls[3]
-            translation: x: 5.08 m, y: 0.0 m, z: 0.0 m
+            translation: x: 5.08 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway right_short_connector_doorway_04:
         shape: Rectangle width=doorway_width, height=2.0 m
         location:
             in: right_short_connector.walls[1]
-            translation: x: -1.76 m, y: 0.0 m, z: 0.0 m
+            translation: x: -1.76 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 
     Entryway right_short_connector_doorway_05:
         shape: Rectangle width=doorway_width, height=2.0 m
         location:
             in: right_short_connector.walls[1]
-            translation: x: -7.47 m, y: 0.0 m, z: 0.0 m
+            translation: x: -7.47 m, y: 0.0 m, z: 1.0 m
             rotation: y: 0.0 deg
 

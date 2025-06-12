@@ -68,20 +68,20 @@ Floor plan: hbrs
         shape: Rectangle width=my_door_width, height=2.2 m
         location:
             in: room_c022.walls[0] and corridor_1.walls[3]
-            translation: x: 1.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: 1.0 m, y: 0.0 m, z: 1.1 m
             rotation: y: 0.0 deg
 
     Entryway room_c025_door_1:
         shape: Rectangle width=my_door_width, height=2.2 m
         location:
             in: room_c025.walls[0] and corridor_1.walls[1]
-            translation: x: -1.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: -1.0 m, y: 0.0 m, z: 1.1 m
             rotation: y: 0.0 deg
 
     Entryway junction_corridor_1_transition:
         shape: Rectangle width=3.499 m, height=3.0 m
         location:
             in: corridor_1.walls[0]
-            translation: x: 0.0 m, y: 0.0 m, z: 0.0 m
+            translation: x: 0.0 m, y: 0.0 m, z: 1.5 m
             rotation: y: 0.0 deg
 
