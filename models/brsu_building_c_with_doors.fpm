@@ -76,14 +76,14 @@ Floor plan: brsu_building_c_with_doors
             of: this.walls[2]
         spaced 
         features:
-            Column column_1:
+            Column column_5:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[3]
                     translation: x: -2.9 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_2:
+            Column column_6:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
@@ -123,140 +123,140 @@ Floor plan: brsu_building_c_with_doors
             of: this.walls[2]
         spaced 
         features:
-            Column column_1:
+            Column column_7:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[3]
                     translation: x: -23.9 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_2:
+            Column column_8:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[3]
                     translation: x: -17.9 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_3:
+            Column column_9:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[3]
                     translation: x: -11.9 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_4:
+            Column column_10:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[3]
                     translation: x: -5.9 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_5:
+            Column column_11:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[3]
                     translation: x: 0.1 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_6:
+            Column column_12:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[3]
                     translation: x: 6.1 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_7:
+            Column column_13:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[1]
                     translation: x: 23.9 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_8:
+            Column column_14:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[1]
                     translation: x: 17.9 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_9:
+            Column column_15:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[1]
                     translation: x: 11.9 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_10:
+            Column column_16:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[1]
                     translation: x: 5.9 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_11:
+            Column column_17:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[1]
                     translation: x: -0.1 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_12:
+            Column column_18:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[1]
                     translation: x: -6.1 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_13:
+            Column column_19:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[3]
                     translation: x: 12.1 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_14:
+            Column column_20:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[1]
                     translation: x: -12.1 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_15:
+            Column column_21:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[3]
                     translation: x: 18.1 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_16:
+            Column column_22:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[1]
                     translation: x: -18.1 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_17:
+            Column column_23:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[3]
                     translation: x: 24.1 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_18:
+            Column column_24:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[1]
                     translation: x: -24.1 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_19:
+            Column column_25:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[3]
                     translation: x: 30.1 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_20:
+            Column column_26:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
@@ -364,14 +364,14 @@ Floor plan: brsu_building_c_with_doors
             of: this.walls[0]
         spaced 
         features:
-            Column column_01:
+            Column column_27:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[3]
                     translation: x: -2.6 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_02:
+            Column column_28:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
@@ -423,126 +423,126 @@ Floor plan: brsu_building_c_with_doors
             of: this.walls[2]
         spaced 
         features:
-            Column column_1:
+            Column column_29:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[3]
                     translation: x: -23.9 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_2:
+            Column column_30:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[3]
                     translation: x: -17.9 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_3:
+            Column column_31:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[3]
                     translation: x: -11.9 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_4:
+            Column column_32:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[3]
                     translation: x: -5.9 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_5:
+            Column column_33:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[3]
                     translation: x: 0.1 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_6:
+            Column column_34:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[3]
                     translation: x: 6.1 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_7:
+            Column column_35:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[1]
                     translation: x: 23.9 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_8:
+            Column column_36:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[1]
                     translation: x: 17.9 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_9:
+            Column column_37:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[1]
                     translation: x: 11.9 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_10:
+            Column column_38:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[1]
                     translation: x: 5.9 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_11:
+            Column column_39:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[1]
                     translation: x: -0.1 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_12:
+            Column column_40:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[1]
                     translation: x: -6.1 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_13:
+            Column column_41:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[3]
                     translation: x: 12.1 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_14:
+            Column column_42:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[1]
                     translation: x: -12.1 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_17:
+            Column column_43:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[3]
                     translation: x: 24.1 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_18:
+            Column column_44:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[1]
                     translation: x: -24.1 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_19:
+            Column column_45:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
                     wrt: this.walls[3]
                     translation: x: 30.1 m, y: 0.0 m
                     rotation: z: 0.0 deg
-            Column column_20:
+            Column column_46:
                 shape: Rectangle width=0.4 m, length=0.4 m
                 height: 2.5 m
                 location:
@@ -619,14 +619,14 @@ Floor plan: brsu_building_c_with_doors
                     wrt: this.walls[1]
                     translation: x: 2.65 m, y: 0.25 m
                     rotation: z: 90.0 deg
-            Column trashcan_1:
+            Column trashcan_3:
                 shape: Rectangle width=0.9 m, length=0.3 m
                 height: 0.8 m
                 location:
                     wrt: this.walls[3]
                     translation: x: -17.14 m, y: -0.15 m
                     rotation: z: 0.0 deg
-            Column trashcan_2:
+            Column trashcan_4:
                 shape: Rectangle width=0.9 m, length=0.3 m
                 height: 0.8 m
                 location:
@@ -728,7 +728,7 @@ Floor plan: brsu_building_c_with_doors
             thickness: 0.15 m
             
         features:
-            Column trashcan_2:
+            Column trashcan_5:
                 shape: Rectangle width=0.9 m, length=0.3 m
                 height: 0.8 m
                 location:
