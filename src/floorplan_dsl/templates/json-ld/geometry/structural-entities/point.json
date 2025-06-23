@@ -1,4 +1,4 @@
         {
             "@id": "{% block point_id %}{{ point.name }}{% endblock %}",
-            "@type": "Point"
+            "@type": [ "3D", "Euclidean", "Point" ]
         }
