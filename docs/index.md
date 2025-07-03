@@ -10,7 +10,7 @@ permalink: /
 
 The FloorPlan DSL is a model-driven approach to specify indoor environments. The language enables developers to model indoor environments by its components such as spaces, entryways, and other features such as windows and columns; allowing the re-creation of real-world environments, or the creation of new ones. The models can be transformed into 3D meshes and occupancy grid maps, which can be used to simulate robot navigation tasks in most robot simulators. 
 
-![image](/images/office_no_background.png)
+![image](images/office_no_background.png)
 
 ## Features
 
@@ -27,13 +27,13 @@ It is strongly recommended to use Docker to install and use the FloorPlan DSL an
 
 If not installed already, install docker as documented [here](https://docs.docker.com/engine/). From the root directory of this repository, build the docker image:
 
-```
+```shell
 docker build . --tag floorplan:latest
 ```
 
 This will build the container and assign the string `floorplan:latest` as a tag to run the correct container. To run the container execute the following command after replacing the correct paths inside the angle brackets: 
 
-```
+```shell
 docker run -v $<local output folder>:/usr/src/app/output -v $<local input folder>:/usr/src/app/models -it floorplan:latest bash
 ```
 
@@ -98,7 +98,7 @@ The JSON-LD models will be generated using radians, the default internal unit fo
 
 ### Tutorials
 
-Modelling an environment can be straightforward with some background information on how the concepts are specified and related to each other. [This tutorial](Tutorial.md) will explain the concepts of the language and how to position them in the environment. An overview of the concepts and their attributes is available [here](concepts.md). A tutorial on the variation DSL is also available [here](Variation.md).
+Modelling an environment can be straightforward with some background information on how the concepts are specified and related to each other. [This tutorial](tutorials/floorplan.md) will explain the concepts of the language and how to position them in the environment. An overview of the concepts and their attributes is available [here](concepts.md). A tutorial on the variation DSL is also available [here](tutorials/variation.md).
 
 ## Citation
 
