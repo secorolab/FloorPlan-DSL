@@ -1,0 +1,23 @@
+.column {
+    width: 33.3%;
+    padding: 5px;
+}
+
+.column > img {
+  height: 65%;
+  width: auto;
+}
+
+.row {
+  display: flex;
+  height: 90px;
+}
+
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+

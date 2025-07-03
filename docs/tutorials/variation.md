@@ -1,16 +1,32 @@
+---
+title: Generating variations
+layout: default
+parent: Tutorials
+---
+
+<details open markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+1. TOC
+{:toc}
+</details>
+
 # How to introduce variations into the environment
 
-The objective of this tutorial is to demonstrate how to specify variations of FloorPlan DSL models and generate new concrete environments.
+The objective of this tutorial is to demonstrate how to specify variations of FloorPlan DSL models and generate new concrete environments. The variation model discussed in this tutorial is available [here](../models/examples/hospital.variation).
 
-The variations of an environment are specified with the Variation DSL in a separate model. We create a new file and give it a name with the appropiate format: `<file_name>.variation`. The first line of the model imports the concrete environment where we will introduce the variations. The variation model is available [here](../models/examples/hospital.variation).
+The variations of an environment are specified with the Variation DSL in a separate model. We create a new file and give it a name with the appropiate format: `<file_name>.variation`. The first line of the model imports the concrete environment where we will introduce the variations. 
 
-```floorplan
+
+```
 import "hospital.fpm"
 ```
 
 We can then declare the spacial attributes we wish to associate to one of the three probability distributions: normal, discrete, and uniform:
 
-```floorplan
+```
 <attribute>: normal(mean=<mean value, in meters>, std=<standard deviation, in meters>)
 <attribute>: discrete([
         (<weight 1>, <value, in meters>),
@@ -25,7 +41,7 @@ We can then declare the spacial attributes we wish to associate to one of the th
 
 We can refer to attributes through references to the corresponding spaces or features. We need to provide the FQN of the attribute inside of the scope of the reference.
 
-```floorplan
+```
 hallway: {
     location.transformation.translation.x : normal(mean=0.0, std=5.0)
     defaults.wall.thickness : discrete([
@@ -38,7 +54,7 @@ hallway: {
 
 For features such as columns and dividers, we need to provide the FQN that include the space they belong to:
 
-```floorplan
+```
 reception.divider_central: {
     height : normal(mean=1.0, std=0.2)
     location.transformation.rotation.z : discrete([

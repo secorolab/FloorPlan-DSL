@@ -1,4 +1,20 @@
-# Concepts of the FloorPlan DSL (v2)
+---
+title: FloorPlan DSL Concepts
+nav_order: 2
+layout: default
+---
+
+<details open markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+1. TOC
+{:toc}
+</details>
+
+# Concepts of the FloorPlan DSL
+{:.no_toc}
 
 ## Space
 
@@ -32,7 +48,7 @@ Space concepts are the main concepts in a floor plan. They can be used to descri
 
 - `features`: A set of [features](#floor-features)
 
-```floorplan
+```
 Space <name>:
         shape: <shape>
         location:
@@ -69,7 +85,7 @@ The entryway concept is used to model the space for doorways and other openings 
 
   - `rotation`: The rotation w.r.t. the `y` axis
 
-```floorplan
+```
 Entryway <name>:
     shape: <shape>
     location:
@@ -94,7 +110,7 @@ Entryway <name>:
 
   - `rotation`: The rotation w.r.t. the `y` axis
 
-```floorplan
+```
 Window <name>:
     shape: <shape>
     location:
@@ -125,7 +141,7 @@ Features are common in the floor of a floor plan
 
   - `rotation`: The rotation w.r.t. the `z` axis
 
-```floorplan
+```
 Column <name>:
     shape: <shape>
     height: 0.0 m
@@ -151,43 +167,43 @@ Column <name>:
 
   - `translation`: The translation in the `x` and `y` axis
 
-  - `rotation`: The rotation w.r.t. the `z` axis
+  - `rotation`: The rotation w.r.t. the `z` axis. Note that the frame of the divider is at the center of its shape, which means a translation of `0,5 * height` is often required
 
-```floorplan
+```
 Divider <name>:
     shape: <shape>
-    height: 0.0 m
+    height: 2.0 m
     location:
         wrt: <frame>
         translation: x:0.0 m, y:0.0 m
-        rotation: z: 0.0 deg
+        rotation: z: 1.0 deg
 ```
 
 ## Shapes
 
 ### Rectangle
 
-**Rectangle (for Space or Feature)**
+#### Rectangle (for Space or Feature)
 
-#### Attributes
+##### Attributes
 
 - `width`: Float, in metres
 
 - `length`: Float, in metres
 
-```floorplan
+```
 Rectangle width=0.0 m, length=0.0 m
 ```
 
-**Rectangle (for Entryway or Window)**
+#### Rectangle (for Entryway or Window)
 
-#### Attributes
+##### Attributes
 
 - `width`: Float, in metres
 
 - `height`: Float, in metres
 
-```floorplan
+```
 Rectangle width=0.0 m, height=0.0 m
 ```
 
@@ -199,7 +215,7 @@ Rectangle width=0.0 m, height=0.0 m
 
 - `points`: Set of Points, the points are specified w.r.t to the space frame of the polygon, which is aligned with the world frame (no rotation on any axis)
 
-```floorplan
+```
 Polygon points:[
             <points>,
         ]
@@ -213,6 +229,6 @@ Polygon points:[
 
 - `y`: Float, in metres
 
-```floorplan
+```
 (0.0 m, 0.0 m)
 ```

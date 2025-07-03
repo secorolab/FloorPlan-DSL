@@ -1,3 +1,9 @@
+---
+title: Refactoring for v2.0
+layout: default
+parent: Design
+---
+
 ## Background
 
 ### FloorPlan DSL
