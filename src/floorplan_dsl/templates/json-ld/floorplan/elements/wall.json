@@ -4,5 +4,6 @@
             "shape": "{{ element.shape.name }}",
             "3d-shape": "{{ element.shape_3d.name }}",
             "thickness": {{ element.thickness.value }},
-            "height": {{ element.height.value }}
+            "height": {{ element.height.value }},
+            "unit": "M"
         }
