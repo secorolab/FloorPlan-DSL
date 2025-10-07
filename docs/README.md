@@ -90,7 +90,7 @@ The JSON-LD models will be generated using radians, the default internal unit fo
 
 ### Tutorials
 
-Modelling an environment can be straightforward with some background information on how the concepts are specified and related to each other. [This tutorial](Tutorial.md) will explain the concepts of the language and how to position them in the environment. An overview of the concepts and their attributes is available [here](concepts.md). A tutorial on the variation DSL is also available [here](Variation.md).
+Modelling an environment can be straightforward with some background information on how the concepts are specified and related to each other. [This tutorial](Tutorial.md) will explain the concepts of the language and how to position them in the environment. An overview of the concepts and their attributes is available [here](concepts.md). A tutorial on the variation DSL is also available [here](tutorials/variation.md).
 
 ## Citation
 
