@@ -62,10 +62,11 @@ def variation_floorplan_generator(
     )
 
     variations = custom_args["variations"]
+    if "seed" in custom_args and custom_args["seed"] is not None:
+        random.seed(int(custom_args["seed"]))
 
     for i in range(int(variations)):
         seed = random.randint(1000, 9999)
-        random.seed(seed)
         fp_model.seed = seed
         new_sample(fp_model, var_model)
         context = dict(trim_blocks=True, lstrip_blocks=True)
