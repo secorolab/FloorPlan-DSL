@@ -52,6 +52,7 @@ def variation_floorplan_generator(
     fp_mm = metamodel_for_language("fpm")
 
     # Remove the object processors to have references to location.wrt and location.of
+    old_obj_processors = fp_mm._obj_processors
     fp_mm._obj_processors = fp_mm._default_obj_processors
 
     fp_model = fp_mm.model_from_file(os.path.join(model_folder_path, fp_model_path))
@@ -75,3 +76,5 @@ def variation_floorplan_generator(
         textx_jinja_generator(
             template_folder, output_path, context, overwrite=overwrite
         )
+
+    fp_mm._obj_processors = old_obj_processors
