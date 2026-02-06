@@ -45,32 +45,61 @@ def jsonld_floorplan_generator(
     context["angle_unit"] = angle_unit
 
     this_folder = os.path.dirname(__file__)
+    gen_files = []
     # If given a directory instead of a single template, textX-Jinja copies the entire file/folder tree to the output folder
     # For now we invoke the generator for each template we are interested in
     # TODO Find more optimal way to handle templates
     template_folder = os.path.join(
         this_folder, "../templates/json-ld/skeleton.json.jinja"
     )
-
     # Run Jinja generator
     textx_jinja_generator(template_folder, output_path, context, overwrite=True)
+    f = os.path.join(
+        output_path, os.path.split(template_folder)[-1].replace(".jinja", "")
+    )
+    gen_files.append(f)
 
     template_folder = os.path.join(this_folder, "../templates/json-ld/shape.json.jinja")
     textx_jinja_generator(template_folder, output_path, context, overwrite=True)
+    f = os.path.join(
+        output_path, os.path.split(template_folder)[-1].replace(".jinja", "")
+    )
+    gen_files.append(f)
+
     template_folder = os.path.join(
         this_folder, "../templates/json-ld/spatial_relations.json.jinja"
     )
     textx_jinja_generator(template_folder, output_path, context, overwrite=True)
+    f = os.path.join(
+        output_path, os.path.split(template_folder)[-1].replace(".jinja", "")
+    )
+    gen_files.append(f)
+
     template_folder = os.path.join(
         this_folder, "../templates/json-ld/floorplan.json.jinja"
     )
     textx_jinja_generator(template_folder, output_path, context, overwrite=True)
+    f = os.path.join(
+        output_path, os.path.split(template_folder)[-1].replace(".jinja", "")
+    )
+    gen_files.append(f)
+
     template_folder = os.path.join(
         this_folder, "../templates/json-ld/coordinate.json.jinja"
     )
     textx_jinja_generator(template_folder, output_path, context, overwrite=True)
+    f = os.path.join(
+        output_path, os.path.split(template_folder)[-1].replace(".jinja", "")
+    )
+    gen_files.append(f)
 
     template_folder = os.path.join(
         this_folder, "../templates/json-ld/polyhedron.json.jinja"
     )
     textx_jinja_generator(template_folder, output_path, context, overwrite=True)
+    f = os.path.join(
+        output_path, os.path.split(template_folder)[-1].replace(".jinja", "")
+    )
+    gen_files.append(f)
+
+    return gen_files

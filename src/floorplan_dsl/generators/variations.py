@@ -64,6 +64,7 @@ def variation_floorplan_generator(
 
     variations = custom_args["variations"]
 
+    files = []
     for i in range(int(variations)):
         seed = random.randint(1000, 9999)
         random.seed(seed)
@@ -74,7 +75,15 @@ def variation_floorplan_generator(
         context["seed"] = seed
         context["name"] = fp_model.name
         textx_jinja_generator(
-            template_folder, output_path, context, overwrite=overwrite
+            template_folder,
+            output_path,
+            context,
+            overwrite=overwrite,
         )
+        v = os.path.join(output_path, f"{fp_model.name}_{fp_model.seed}.fpm")
+        files.append(v)
 
     fp_mm._obj_processors = old_obj_processors
+
+    f = os.path.join(model_folder_path, fp_model_path)
+    return f, files
