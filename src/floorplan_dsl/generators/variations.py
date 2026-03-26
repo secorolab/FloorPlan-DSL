@@ -63,10 +63,11 @@ def variation_floorplan_generator(
     )
 
     variations = custom_args["variations"]
+    starting_seed = custom_args.get("seed", random.randint(1000, 9999))
 
     files = []
+    seed = int(starting_seed)
     for i in range(int(variations)):
-        seed = random.randint(1000, 9999)
         random.seed(seed)
         fp_model.seed = seed
         new_sample(fp_model, var_model)
@@ -82,6 +83,7 @@ def variation_floorplan_generator(
         )
         v = os.path.join(output_path, f"{fp_model.name}_{fp_model.seed}.fpm")
         files.append(v)
+        seed = seed + 1
 
     fp_mm._obj_processors = old_obj_processors
 
