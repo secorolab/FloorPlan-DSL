@@ -11,6 +11,8 @@ from floorplan_dsl.utils.qudt import convert_angle_units
 def jsonld_floorplan_generator(
     metamodel, model, output_path, overwrite=True, debug=False, **custom_args
 ):
+    if not os.path.exists(output_path):
+        os.makedirs(output_path)
 
     if "{{model_name}}" in output_path:
         output_path = output_path.replace("{{model_name}}", model.name)

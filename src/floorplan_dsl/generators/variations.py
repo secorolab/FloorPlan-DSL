@@ -46,6 +46,9 @@ def variation_floorplan_generator(
     metamodel, var_model, output_path, overwrite, debug, **custom_args
 ):
 
+    if not os.path.exists(output_path):
+        os.makedirs(output_path)
+
     model_folder_path = os.path.dirname(var_model._tx_parser.file_name)
     fp_model_path = var_model.import_uri.importURI
 
