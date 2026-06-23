@@ -19,7 +19,7 @@ parent: Tutorials
 
 The ExSce-FloorPlan DSL is a domain-specific language and tooling for specifying and generating indoor environments. In this tutorial we are going to go over the most important concepts to model a concrete floor plan.
 
-![Environment generated with the tooling with concepts annotated](../../images/floorplan_concepts.png)
+![Environment generated with the tooling with concepts annotated](../images/floorplan_concepts.png)
 
 The goal of this tutorial is to create the environment above. We will go over concepts such as Spaces, Entryways, and other features in order to specify a specific environment.
 
