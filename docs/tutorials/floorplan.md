@@ -19,7 +19,7 @@ parent: Tutorials
 
 The ExSce-FloorPlan DSL is a domain-specific language and tooling for specifying and generating indoor environments. In this tutorial we are going to go over the most important concepts to model a concrete floor plan.
 
-![Environment generated with the tooling with concepts annotated](../../images/floorplan_concepts.png)
+![Environment generated with the tooling with concepts annotated](../images/floorplan_concepts.png)
 
 The goal of this tutorial is to create the environment above. We will go over concepts such as Spaces, Entryways, and other features in order to specify a specific environment.
 
@@ -59,6 +59,11 @@ Now that we have reviewed all of the important concepts, we can put them togethe
 ```
 Floor plan: hospital
 
+    Defaults:
+        walls:
+            thickness: 0.23 m
+            height: 2.5 m
+
     Space reception:
         shape: Polygon points:[
             (-7.0 m, 6.0 m),
@@ -74,6 +79,8 @@ Floor plan: hospital
             translation: x:0.0 m, y:-5.0 m
             rotation: z: 45.0 deg
 ```
+
+If there are any default values for the spaces, they must be specified at the beginning.
 
 Each floor plan has a name, which gets used to identify all the artefacts that get generated. The `reception` space has a custom polygon as shape, so we specify all the points to bound it. Every pair of points is a wall, with the last point and the first point being the final wall to close the polygon (i.e. no need to repeat the first point at the very end). From the world frame, this space is translated -5 metres in the y axis and rotated 45 degrees w.r.t. the z axis.
 
@@ -140,12 +147,3 @@ The hallway is located using two wall frames, and the flag `spaced` is present s
 ```
 
 Two entryways and one window are modelled, each with a unique name. In the case of the second entryway, since it connects two spaces we must specify the two walls where the entryway is located. Notice that for windows we have to specify a translation in the z axis.
-
-```
-    Default values:
-        walls:
-            thickness: 0.23 m
-            height: 2.5 m
-```
-
-At the very end of the model the default values for all the spaces must be specified.
